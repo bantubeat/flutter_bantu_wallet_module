@@ -1,0 +1,30 @@
+{
+    "appBarTitle": "Porte-Feuille",
+    "home_page": {
+        "title": "Ma Balance",
+        "wallet": "Porte Feuille",
+        "withdrawal": "Retrait",
+        "beatzcoins": "Beatzcoins",
+        "transactions_history": "Historiques des transactions"
+    },
+    "wallets_page": {
+        "title": "Porte-Feuille",
+        "description": "Dans votre porte-feuille, vous disposez d'un compte financier qui affiche en valeur monétaire le solde de votre compte et un compte de beatzcoin qui affiche le solde de vos beatzcoins. Tous les paiements effectués sur featlink se font par vos jetons beatzcoin. Pour effectuer un achat sur featlink vous devez au préalable approvisionner votre compte financier.\nSi le solde de votre compte Beatzcoin ne couvre pas la totalité du montant des renouvellements, Votre accès Featlink sera annulé. En savoir plus sur la",
+        "description2": "politique et condition de paiement Bantubeat",
+        "financier_account": {
+            "title": "Compte Financier",
+            "description": "Votre compte financier vous permet d'acheter les jetons et enregistre également le montant de revente de vos jetons gagnés sur l'ensemble des plateformes bantubeat.",
+            "requestPayment": "Demander un paiement",
+            "addFunds": "Ajouter des Fonds"
+        },
+        "beatzocoin_account": {
+            "title": "Compte Beatzocoin",
+            "description1": "Votre compte Beatzcoin vous permet d'effectuer des achats sur l'ensemble des plateformes bantubeat.",
+            "description2": "Vous pouvez échanger vos jetons, le montant équivalent sera déposé sur votre compte financier.",
+            "description3": "Attention, lorsque vous échangez vos jetons beatzcoin, les frais et taxes sont déduits. Voir la",
+            "description4": "Politique et conditions de paiement Bantubeat.",
+            "minimum_bzc": "minimum 500 BZC",
+            "exchange": "Echanger"
+        }
+    }
+}

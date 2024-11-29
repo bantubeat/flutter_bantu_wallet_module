@@ -3,6 +3,7 @@
 abstract class  LocaleKeys {
   static const appBarTitle = 'appBarTitle';
   static const home_page_title = 'home_page.title';
+  static const home_page_deposit = 'home_page.deposit';
   static const home_page_wallet = 'home_page.wallet';
   static const home_page_withdrawal = 'home_page.withdrawal';
   static const home_page_beatzcoins = 'home_page.beatzcoins';
@@ -21,5 +22,48 @@ abstract class  LocaleKeys {
   static const wallets_page_beatzocoin_account_description4 = 'wallets_page.beatzocoin_account.description4';
   static const wallets_page_beatzocoin_account_minimum_bzc = 'wallets_page.beatzocoin_account.minimum_bzc';
   static const wallets_page_beatzocoin_account_exchange = 'wallets_page.beatzocoin_account.exchange';
+  static const deposit_page_title = 'deposit_page.title';
+  static const deposit_page_payment_zone_africa = 'deposit_page.payment_zone_africa';
+  static const deposit_page_payment_zone_other = 'deposit_page.payment_zone_other';
+  static const deposit_page_choose_currency = 'deposit_page.choose_currency';
+  static const deposit_page_credit_or_visa_card = 'deposit_page.credit_or_visa_card';
+  static const deposit_page_amount = 'deposit_page.amount';
+  static const deposit_page_price = 'deposit_page.price';
+  static const deposit_page_fees = 'deposit_page.fees';
+  static const deposit_page_total = 'deposit_page.total';
+  static const deposit_page_continue_payment = 'deposit_page.continue_payment';
+  static const withdrawal_page_title = 'withdrawal_page.title';
+  static const withdrawal_page_description = 'withdrawal_page.description';
+  static const withdrawal_page_financial_account_balance = 'withdrawal_page.financial_account_balance';
+  static const withdrawal_page_see_details = 'withdrawal_page.see_details';
+  static const withdrawal_page_Your_registered_payment_account = 'withdrawal_page.Your_registered_payment_account';
+  static const withdrawal_page_request_payment = 'withdrawal_page.request_payment';
+  static const beatzcoins_page_title = 'beatzcoins_page.title';
+  static const beatzcoins_page_description = 'beatzcoins_page.description';
+  static const beatzcoins_page_description2 = 'beatzcoins_page.description2';
+  static const beatzcoins_page_description3 = 'beatzcoins_page.description3';
+  static const beatzcoins_page_bzc_account_balance = 'beatzcoins_page.bzc_account_balance';
+  static const beatzcoins_page_see_details = 'beatzcoins_page.see_details';
+  static const beatzcoins_page_buy_bzc = 'beatzcoins_page.buy_bzc';
+  static const buy_beatzcoins_page_my_balance = 'buy_beatzcoins_page.my_balance';
+  static const buy_beatzcoins_page_custom_load = 'buy_beatzcoins_page.custom_load';
+  static const buy_beatzcoins_page_ttc_amount_in = 'buy_beatzcoins_page.ttc_amount_in';
+  static const buy_beatzcoins_page_load = 'buy_beatzcoins_page.load';
+  static const buy_beatzcoins_page_modal_title = 'buy_beatzcoins_page.modal.title';
+  static const buy_beatzcoins_page_modal_amount_of_your_load = 'buy_beatzcoins_page.modal.amount_of_your_load';
+  static const buy_beatzcoins_page_modal_ttc_price = 'buy_beatzcoins_page.modal.ttc_price';
+  static const buy_beatzcoins_page_modal_buy_with = 'buy_beatzcoins_page.modal.buy_with';
+  static const buy_beatzcoins_page_modal_bantubeat_balance = 'buy_beatzcoins_page.modal.bantubeat_balance';
+  static const buy_beatzcoins_page_modal_warning1 = 'buy_beatzcoins_page.modal.warning1';
+  static const buy_beatzcoins_page_modal_warning2a = 'buy_beatzcoins_page.modal.warning2a';
+  static const buy_beatzcoins_page_modal_warning2b = 'buy_beatzcoins_page.modal.warning2b';
+  static const transaction_history_page_title = 'transaction_history_page.title';
+  static const transaction_history_page_financial_account = 'transaction_history_page.financial_account';
+  static const transaction_history_page_beatzocoin_account = 'transaction_history_page.beatzocoin_account';
+  static const transaction_history_page_account = 'transaction_history_page.account';
+  static const transaction_history_page_table_transaction_id = 'transaction_history_page.table.transaction_id';
+  static const transaction_history_page_table_date = 'transaction_history_page.table.date';
+  static const transaction_history_page_table_amount = 'transaction_history_page.table.amount';
+  static const transaction_history_page_table_bzc_quantity = 'transaction_history_page.table.bzc_quantity';
 
 }

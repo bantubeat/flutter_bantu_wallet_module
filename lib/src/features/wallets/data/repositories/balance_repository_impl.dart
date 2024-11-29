@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../../domain/entities/user_balance.dart';
 import '../../domain/repositories/balance_repository.dart';
-import '../data_sources/balance_remote_data_source.dart';
+import '../data_sources/bantubeat_api_data_source.dart';
 
 class BalanceRepositoryImpl implements BalanceRepository {
-  final BalanceRemoteDataSourceImpl remoteDataSource;
+  final BantubeatApiDataSource _bantubeatApiDataSource;
 
-  BalanceRepositoryImpl(this.remoteDataSource);
+  BalanceRepositoryImpl(this._bantubeatApiDataSource);
 
   @override
   Future<UserBalance> getUserBalance() async {
     try {
-      final userModel = await remoteDataSource.getUserBalance();
+      final userModel = await _bantubeatApiDataSource.get$balance();
       return userModel; // since UserBalanceModel extends UserBalance
     } catch (e, s) {
       debugPrintStack(label: e.toString(), stackTrace: s);

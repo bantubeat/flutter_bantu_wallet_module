@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class RegisteredPaymentMethod extends StatelessWidget {
@@ -16,41 +15,41 @@ class RegisteredPaymentMethod extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFFF9F9F9),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey.shade200),
       ),
       child: Row(
         children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Icon(Icons.phone_android),
-          ),
-          const SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 type,
                 style: const TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 10),
               Text(
                 number,
                 style: TextStyle(
                   color: Colors.grey[600],
-                  fontSize: 12,
+                  fontSize: 14,
                 ),
               ),
             ],
           ),
           const Spacer(),
-          const Icon(Icons.edit, size: 20),
+          const CircleAvatar(
+            backgroundColor: Colors.white,
+            child: Icon(
+              Icons.edit_square,
+              size: 20,
+              color: Colors.black,
+            ),
+          ),
         ],
       ),
     );

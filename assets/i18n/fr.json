@@ -60,12 +60,13 @@
     "buy_beatzcoins_page": {
         "my_balance": "Mon solde",
         "custom_load": "Recharge personnalisée",
+        "enter_quantity": "Entrez la Quantité",
         "ttc_amount_in": "Montant TTC en {}",
         "load": "Recharger",
         "modal": {
             "title": "Achat de pièces",
             "amount_of_your_load": "Montant de ta recharge",
-            "ttc_price": "Prix TTC",
+            "ttc_price": "Prix TTC {}",
             "buy_with": "Payer avec",
             "bantubeat_balance": "Solde bantubeat",
             "warning1": "*Le prix sur Google play store et Apple store peuvent varier en raison de la commission de Google et Apple",
@@ -79,10 +80,12 @@
         "beatzocoin_account": "Compte Beatzcoin",
         "account": "Compte",
         "table": {
+            "caption": "Transaction Details",
             "transaction_id": "ID Transaction",
             "date": "Date",
             "amount": "Montant",
-            "bzc_quantity": "Quantité BZC"
+            "bzc_quantity": "Quantité BZC",
+            "status": "Statut"
         }
     }
 }

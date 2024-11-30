@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../core/generated/locale_keys.g.dart';
+import '../../../widgets/google_icon_svg_image.dart';
 
 class EUPaymentOptions extends StatelessWidget {
   final VoidCallback onGooglePay;
@@ -43,13 +43,14 @@ class EUPaymentOptions extends StatelessWidget {
             SizedBox(width: 16),
             Expanded(
               child: _buildButton(
-                icon: Text(
+                /*icon: Text(
                   'G',
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
-                ),
+                ), */
+                icon: GoogleIconSvgImage(),
                 title: 'Pay',
                 onTap: onGooglePay,
               ),

@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/generated/locale_keys.g.dart';
 
 import '../../widgets/action_button.dart';
+import '../buy_beatzcoins/buy_beatzcoins_page.dart';
 
 class BeatzcoinsPage extends StatelessWidget {
   const BeatzcoinsPage({super.key});
@@ -138,7 +140,7 @@ class BeatzcoinsPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    NumberFormat.currency(symbol: '€').format(25488),
+                    NumberFormat.currency(symbol: 'BZC').format(25488),
                     style: TextStyle(
                       fontSize: 20,
                       color: colorScheme.onPrimary,
@@ -177,9 +179,11 @@ class BeatzcoinsPage extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             ActionButton(
-              text: LocaleKeys.beatzcoins_page_buy_bzc.tr(),
-              onPressed: () {},
+              onPressed: () {
+                Modular.to.pushNamed(BuyBeatzcoinsPage.pageRoute);
+              },
               fullWidth: true,
+              text: LocaleKeys.beatzcoins_page_buy_bzc.tr(),
             ),
           ],
         ),

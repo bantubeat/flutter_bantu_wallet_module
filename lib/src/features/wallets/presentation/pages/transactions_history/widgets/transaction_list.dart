@@ -1,6 +1,7 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import 'transaction_detail_bottom_sheet_modal.dart';
 
 class TransactionList extends StatelessWidget {
   final bool isFinancial;
@@ -15,14 +16,21 @@ class TransactionList extends StatelessWidget {
     return ListView.builder(
       itemCount: 10,
       padding: const EdgeInsets.all(16),
-      itemBuilder: (context, index) {
-        return _TransactionItem(
-          id: '#15267',
-          date: DateTime.now().subtract(Duration(days: index)),
-          amount: isFinancial ? '100 €' : '100 BZC',
-          status: 'Complete',
-        );
-      },
+      itemBuilder: (context, index) => _TransactionItem(
+        id: '#15267',
+        date: DateTime.now().subtract(Duration(days: index)),
+        amount: isFinancial ? '100 €' : '100 BZC',
+        status: 'Complete',
+        onTap: () => TransactionDetailBottomSheetModal.show(
+          context,
+          transaction: {
+            'id': '#15263',
+            'date': 'Nov. 26, 2024',
+            'amount': '100 €',
+            'status': 'Complete',
+          },
+        ),
+      ),
     );
   }
 }
@@ -32,12 +40,14 @@ class _TransactionItem extends StatelessWidget {
   final DateTime date;
   final String amount;
   final String status;
+  final VoidCallback onTap;
 
   const _TransactionItem({
     required this.id,
     required this.date,
     required this.amount,
     required this.status,
+    required this.onTap,
   });
 
   @override
@@ -50,59 +60,57 @@ class _TransactionItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey.shade200),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: InkWell(
+        onTap: onTap,
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    id,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    DateFormat('MMM d, yyyy').format(date),
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  id,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  amount,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  DateFormat('MMM d, yyyy').format(date),
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 12,
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color:
+                        Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    status,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                amount,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 2,
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  status,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

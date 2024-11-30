@@ -10,6 +10,7 @@ import 'domain/repositories/public_repository.dart';
 import 'domain/use_cases/get_all_currencies_use_case.dart';
 import 'domain/use_cases/get_user_balance_use_case.dart';
 import 'presentation/cubit/user_balance_cubit.dart';
+import 'presentation/pages/buy_beatzcoins/buy_beatzcoins_page.dart';
 import 'presentation/pages/deposit/deposit_page.dart';
 import 'presentation/pages/home/home_page.dart';
 import 'presentation/pages/transactions_history/transactions_history_page.dart';
@@ -80,6 +81,7 @@ class WalletModule extends Module {
     r.child(DepositPage.pageRoute, child: (_) => DepositPage());
     r.child(WithdrawalPage.pageRoute, child: (_) => WithdrawalPage());
     r.child(BeatzcoinsPage.pageRoute, child: (_) => BeatzcoinsPage());
+    r.child(BuyBeatzcoinsPage.pageRoute, child: (_) => BuyBeatzcoinsPage());
     r.child(
       TransactionsHistoryPage.pageRoute,
       child: (_) => TransactionsHistoryPage(),

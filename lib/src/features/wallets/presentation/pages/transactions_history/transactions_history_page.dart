@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import '../../../../../core/generated/locale_keys.g.dart';
 import 'widgets/transaction_filter.dart';
 import 'widgets/transaction_list.dart';
 
@@ -12,12 +14,19 @@ class TransactionsHistoryPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Colors.grey.shade100,
         appBar: AppBar(
-          title: const Text('Historique portefeuille'),
-          bottom: const TabBar(
+          title: Text(LocaleKeys.transaction_history_page_title.tr()),
+          bottom: TabBar(
             tabs: [
-              Tab(text: 'Compte Financier'),
-              Tab(text: 'Compte Beatzcoin'),
+              Tab(
+                text:
+                    LocaleKeys.transaction_history_page_financial_account.tr(),
+              ),
+              Tab(
+                text:
+                    LocaleKeys.transaction_history_page_beatzocoin_account.tr(),
+              ),
             ],
           ),
         ),
@@ -34,6 +43,19 @@ class TransactionsHistoryPage extends StatelessWidget {
   Widget _buildTransactionTab({required bool isFinancial}) {
     return Column(
       children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16, top: 8),
+          child: Row(
+            children: [
+              Text(
+                LocaleKeys.transaction_history_page_account.tr(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(width: 10),
+              Flexible(child: FittedBox(child: Text('(ID: 248152526526525)'))),
+            ],
+          ),
+        ),
         const TransactionFilter(),
         Expanded(
           child: TransactionList(

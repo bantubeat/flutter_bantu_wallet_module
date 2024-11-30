@@ -47,6 +47,7 @@ abstract class  LocaleKeys {
   static const beatzcoins_page_buy_bzc = 'beatzcoins_page.buy_bzc';
   static const buy_beatzcoins_page_my_balance = 'buy_beatzcoins_page.my_balance';
   static const buy_beatzcoins_page_custom_load = 'buy_beatzcoins_page.custom_load';
+  static const buy_beatzcoins_page_enter_quantity = 'buy_beatzcoins_page.enter_quantity';
   static const buy_beatzcoins_page_ttc_amount_in = 'buy_beatzcoins_page.ttc_amount_in';
   static const buy_beatzcoins_page_load = 'buy_beatzcoins_page.load';
   static const buy_beatzcoins_page_modal_title = 'buy_beatzcoins_page.modal.title';
@@ -61,9 +62,11 @@ abstract class  LocaleKeys {
   static const transaction_history_page_financial_account = 'transaction_history_page.financial_account';
   static const transaction_history_page_beatzocoin_account = 'transaction_history_page.beatzocoin_account';
   static const transaction_history_page_account = 'transaction_history_page.account';
+  static const transaction_history_page_table_caption = 'transaction_history_page.table.caption';
   static const transaction_history_page_table_transaction_id = 'transaction_history_page.table.transaction_id';
   static const transaction_history_page_table_date = 'transaction_history_page.table.date';
   static const transaction_history_page_table_amount = 'transaction_history_page.table.amount';
   static const transaction_history_page_table_bzc_quantity = 'transaction_history_page.table.bzc_quantity';
+  static const transaction_history_page_table_status = 'transaction_history_page.table.status';
 
 }

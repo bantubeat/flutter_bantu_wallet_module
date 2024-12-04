@@ -1,3 +1,3 @@
 library;
 
-export 'src/features/wallets/wallet_module.dart';
+export 'src/wallet_module.dart';

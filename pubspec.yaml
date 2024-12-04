@@ -30,13 +30,13 @@ dependencies:
   pay: ^2.0.0
   select_form_field: ^2.2.0
   skeletonizer: ^1.4.2
-  swagger_parser: ^1.19.2
   url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  build_runner: ^2.4.13
 
 flutter:
   uses-material-design: true

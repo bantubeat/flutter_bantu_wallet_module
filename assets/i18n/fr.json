@@ -1,5 +1,9 @@
 {
     "appBarTitle": "Porte-Feuille",
+    "common": {
+        "initializing": "Initialisation...",
+        "an_error_occur": "An error occur: {}"
+    },
     "home_page": {
         "title": "Ma Balance",
         "deposit": "Dépôt",
@@ -18,14 +22,15 @@
             "request_payment": "Demander un paiement",
             "add_funds": "Ajouter des Fonds"
         },
-        "beatzocoin_account": {
+        "beatzcoin_account": {
             "title": "Compte Beatzocoin",
             "description1": "Votre compte Beatzcoin vous permet d'effectuer des achats sur l'ensemble des plateformes bantubeat.",
             "description2": "Vous pouvez échanger vos jetons, le montant équivalent sera déposé sur votre compte financier.",
             "description3": "Attention, lorsque vous échangez vos jetons beatzcoin, les frais et taxes sont déduits. Voir la ",
             "description4": "Politique et conditions de paiement Bantubeat.",
             "minimum_bzc": "minimum {} BZC",
-            "exchange": "Echanger"
+            "exchange": "Echanger",
+            "exchange_successful": "Beatzcoin échangés avec succès !"
         }
     },
     "deposit_page": {

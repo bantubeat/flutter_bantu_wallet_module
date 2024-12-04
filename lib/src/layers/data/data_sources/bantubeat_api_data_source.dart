@@ -1,11 +1,13 @@
 import '../../../core/network/my_http/my_http.dart';
 import '../../domain/entities/e_withdrawal_eligibility.dart';
 import '../models/currency_item_model.dart';
+import '../models/currency_rates_model.dart';
 import '../models/transaction_history_item_model.dart';
 import '../models/user_balance_model.dart';
 import '../models/exchange_bzc_pack_model.dart';
 import '../models/payment_preference_model.dart';
 import '../models/exchange_transaction_model.dart';
+import '../models/user_model.dart';
 
 ///
 /// This is a Bantubeat API Data Source, all methods are named regarding to the
@@ -22,6 +24,10 @@ final class BantubeatApiDataSource {
   })  : _client = client,
         _cachedClient = cachedClient;
 
+  Future<UserModel> get$authUser() {
+    return _client.get('/auth/user').then((r) => UserModel.fromJson(r.data));
+  }
+
   Future<UserBalanceModel> get$balance() {
     return _client
         .get('/balance')
@@ -34,6 +40,13 @@ final class BantubeatApiDataSource {
         .then((r) => r.data as List)
         .then((list) => list.map((e) => e as Map<String, dynamic>))
         .then((jsonList) => jsonList.map(CurrencyItemModel.fromJson).toList());
+  }
+
+  /// Get currencies rates
+  Future<CurrencyRatesModel> get$publicCurrencies() {
+    return _cachedClient
+        .get('/public/currencies')
+        .then((r) => CurrencyRatesModel.fromJson(r.data));
   }
 
   /// Exchange BZC to Fiat

@@ -1,6 +1,6 @@
-import '../../domain/entities/user_balance.dart';
+import '../../domain/entities/user_balance_entity.dart';
 
-class UserBalanceModel extends UserBalance {
+class UserBalanceModel extends UserBalanceEntity {
   const UserBalanceModel({
     required super.bzc,
     required super.eur,

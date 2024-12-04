@@ -3,11 +3,11 @@ import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 import '../entities/transaction_history_item_entity.dart';
 import '../repositories/balance_repository.dart';
 
-class GetTransactionsUseCase
+class GetTransactionsHistoryUseCase
     implements UseCase<List<TransactionHistoryItemEntity>, _Parms> {
   final BalanceRepository _repository;
 
-  const GetTransactionsUseCase(this._repository);
+  const GetTransactionsHistoryUseCase(this._repository);
 
   @override
   Future<List<TransactionHistoryItemEntity>> call(params) async {

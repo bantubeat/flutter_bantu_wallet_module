@@ -2,6 +2,8 @@
 
 abstract class  LocaleKeys {
   static const appBarTitle = 'appBarTitle';
+  static const common_initializing = 'common.initializing';
+  static const common_an_error_occur = 'common.an_error_occur';
   static const home_page_title = 'home_page.title';
   static const home_page_deposit = 'home_page.deposit';
   static const home_page_wallet = 'home_page.wallet';
@@ -15,13 +17,14 @@ abstract class  LocaleKeys {
   static const wallets_page_financier_account_description = 'wallets_page.financier_account.description';
   static const wallets_page_financier_account_request_payment = 'wallets_page.financier_account.request_payment';
   static const wallets_page_financier_account_add_funds = 'wallets_page.financier_account.add_funds';
-  static const wallets_page_beatzocoin_account_title = 'wallets_page.beatzocoin_account.title';
-  static const wallets_page_beatzocoin_account_description1 = 'wallets_page.beatzocoin_account.description1';
-  static const wallets_page_beatzocoin_account_description2 = 'wallets_page.beatzocoin_account.description2';
-  static const wallets_page_beatzocoin_account_description3 = 'wallets_page.beatzocoin_account.description3';
-  static const wallets_page_beatzocoin_account_description4 = 'wallets_page.beatzocoin_account.description4';
-  static const wallets_page_beatzocoin_account_minimum_bzc = 'wallets_page.beatzocoin_account.minimum_bzc';
-  static const wallets_page_beatzocoin_account_exchange = 'wallets_page.beatzocoin_account.exchange';
+  static const wallets_page_beatzcoin_account_title = 'wallets_page.beatzcoin_account.title';
+  static const wallets_page_beatzcoin_account_description1 = 'wallets_page.beatzcoin_account.description1';
+  static const wallets_page_beatzcoin_account_description2 = 'wallets_page.beatzcoin_account.description2';
+  static const wallets_page_beatzcoin_account_description3 = 'wallets_page.beatzcoin_account.description3';
+  static const wallets_page_beatzcoin_account_description4 = 'wallets_page.beatzcoin_account.description4';
+  static const wallets_page_beatzcoin_account_minimum_bzc = 'wallets_page.beatzcoin_account.minimum_bzc';
+  static const wallets_page_beatzcoin_account_exchange = 'wallets_page.beatzcoin_account.exchange';
+  static const wallets_page_beatzcoin_account_exchange_successful = 'wallets_page.beatzcoin_account.exchange_successful';
   static const deposit_page_title = 'deposit_page.title';
   static const deposit_page_payment_zone_africa = 'deposit_page.payment_zone_africa';
   static const deposit_page_payment_zone_other = 'deposit_page.payment_zone_other';

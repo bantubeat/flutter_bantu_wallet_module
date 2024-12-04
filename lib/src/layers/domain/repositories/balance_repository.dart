@@ -2,10 +2,10 @@ import '../entities/e_withdrawal_eligibility.dart';
 import '../entities/exchange_bzc_pack_entity.dart';
 import '../entities/payment_preference_entity.dart';
 import '../entities/transaction_history_item_entity.dart';
-import '../entities/user_balance.dart';
+import '../entities/user_balance_entity.dart';
 
 abstract class BalanceRepository {
-  Future<UserBalance> getUserBalance();
+  Future<UserBalanceEntity> getUserBalance();
 
   Future<List<ExchangeBzcPackEntity>> getExchangeBzcPacks();
 

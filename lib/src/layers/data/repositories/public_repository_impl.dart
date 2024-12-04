@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/currency_rates_entity.dart';
 
 import '../../domain/entities/currency_item_entity.dart';
 import '../../domain/repositories/public_repository.dart';
@@ -18,5 +19,10 @@ class PublicRepositoryImpl implements PublicRepository {
       debugPrintStack(label: e.toString(), stackTrace: s);
       rethrow;
     }
+  }
+
+  @override
+  Future<CurrencyRatesEntity> getBzcCurrencyRates() {
+    return _bantubeatApiDataSource.get$publicCurrencies();
   }
 }

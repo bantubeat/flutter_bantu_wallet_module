@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
-class UserBalance extends Equatable {
+class UserBalanceEntity extends Equatable {
   final double bzc;
   final double eur;
   final double xaf;
 
-  const UserBalance({
+  const UserBalanceEntity({
     required this.bzc,
     required this.eur,
     required this.xaf,

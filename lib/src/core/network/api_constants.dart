@@ -9,4 +9,8 @@ class ApiConstants {
       : 'https://api.dev.bantubeat.com';
 
   static const baseUrl = '$serverAddr/api';
+
+  static const websiteUrl = _useProductionMode
+      ? 'https://open.bantubeat.com'
+      : 'https://test.dev.bantubeat.com';
 }

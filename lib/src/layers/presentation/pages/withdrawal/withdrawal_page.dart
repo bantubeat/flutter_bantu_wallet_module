@@ -1,7 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/user_entity.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/get_payment_preferences_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/current_user_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
+import '../../../../core/network/api_constants.dart';
+import '../../../domain/entities/user_balance_entity.dart';
+import '../../cubits/user_balance_cubit.dart';
 import '../../widgets/action_button.dart';
 import '../../widgets/my_header_bar.dart';
 import 'widgets/registered_payment_method.dart';
@@ -10,6 +20,15 @@ class WithdrawalPage extends StatelessWidget {
   const WithdrawalPage({super.key});
 
   static const pageRoute = '/withdrawal';
+
+  void onViewDetails() => onRequestWithdrawal();
+
+  void onRequestWithdrawal() {
+    launchUrlString(
+      '${ApiConstants.websiteUrl}/balance/withdraw',
+      mode: LaunchMode.externalApplication,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +49,7 @@ class WithdrawalPage extends StatelessWidget {
               color: Color(0xFFFFCCCC).withOpacity(0.5),
               child: Text(
                 LocaleKeys.withdrawal_page_description.tr(),
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: colorScheme.onSurface,
-                ),
+                style: TextStyle(fontSize: 14.0, color: colorScheme.onSurface),
               ),
             ),
             /*
@@ -84,7 +100,7 @@ class WithdrawalPage extends StatelessWidget {
                       Flexible(
                         child: FittedBox(
                           child: Text(
-                            '(ID: ${'1AEH1525N524N525I'.toString()})',
+                            '', // TODO: '(ID: ${'1AEH1525N524N525I'.toString()})',
                             style: TextStyle(
                               fontSize: 12,
                               color: colorScheme.onPrimary,
@@ -95,12 +111,28 @@ class WithdrawalPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    NumberFormat.currency(symbol: '€').format(25488),
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: colorScheme.onPrimary,
-                      fontWeight: FontWeight.bold,
+                  BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>,
+                      bool>(
+                    selector: (snap) => snap.data?.isAfrican ?? false,
+                    builder: (context, isAfrican) => BlocBuilder<
+                        UserBalanceCubit, AsyncSnapshot<UserBalanceEntity>>(
+                      bloc: Modular.get<UserBalanceCubit>(),
+                      builder: (context, balanceSnap) => Text(
+                        balanceSnap.hasData
+                            ? NumberFormat.currency(
+                                symbol: isAfrican ? 'CFA' : '€',
+                              ).format(
+                                isAfrican
+                                    ? balanceSnap.data?.xaf
+                                    : balanceSnap.data?.eur,
+                              )
+                            : '...',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 14),
@@ -117,7 +149,7 @@ class WithdrawalPage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: onViewDetails,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFFBAB9B9),
                 minimumSize: Size.fromHeight(45),
@@ -142,14 +174,28 @@ class WithdrawalPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const RegisteredPaymentMethod(
-              type: 'Mobile Money',
-              number: '********250527',
+            FutureBuilder(
+              future: Modular.get<GetPaymentPreferencesUseCase>().call(
+                NoParms(),
+              ),
+              builder: (context, snap) => Visibility(
+                visible: snap.data?.isNotEmpty ?? false,
+                replacement: const SizedBox.shrink(),
+                child: Column(
+                  children: [
+                    ...(snap.data ?? []).map(
+                      (paymentPreference) => RegisteredPaymentMethod(
+                        paymentPreference: paymentPreference,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(height: 20),
             ActionButton(
               text: LocaleKeys.withdrawal_page_request_payment.tr(),
-              onPressed: () {},
+              onPressed: onRequestWithdrawal,
               fullWidth: true,
             ),
           ],

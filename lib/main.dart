@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'flutter_bantu_wallet_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+// TODO: Remove
+const _accessToken =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLmRldi5iYW50dWJlYXQuY29tL2FwaS9hdXRoL3JlZnJlc2giLCJpYXQiOjE3MzE1NjQzNjksImV4cCI6MTczNTQwNjEzNywibmJmIjoxNzMyOTg2OTM3LCJqdGkiOiJOZndmQzFPNnc0T2RMeldOIiwic3ViIjoiMGVjZjk1ZjQtMmNlMy00ZGUwLTg4Y2YtMGY4MmU1YTkxMmZkIn0.P5Kog5gq2ZcM_wNoQCYJrc9eLluq6TOap_7ejTB3hCw';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -11,7 +15,7 @@ void main() async {
     ModularApp(
       module: WalletModule(
         floatingMenuBuilder: MyBottomNavigationBar.new,
-        getAccessToken: () => Future.sync(() => null),
+        getAccessToken: () => Future.sync(() => _accessToken),
       ),
       child: AppWidget(),
     ),

@@ -9,7 +9,9 @@ class CurrentUserCubit extends Cubit<AsyncSnapshot<UserEntity>> {
   final GetCurrentUserUseCase _getCurrentUserUseCase;
 
   CurrentUserCubit(this._getCurrentUserUseCase)
-      : super(AsyncSnapshot.nothing());
+      : super(AsyncSnapshot.nothing()) {
+    fetchCurrentUser();
+  }
 
   void fetchCurrentUser() async {
     emit(state.inState(ConnectionState.waiting));

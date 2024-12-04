@@ -1,10 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/user_entity.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/get_exchange_bzc_packs_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/current_user_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
+import '../../../domain/entities/user_balance_entity.dart';
+import '../../../domain/use_cases/get_bzc_currency_converter_use_case.dart';
+import '../../cubits/user_balance_cubit.dart';
 import '../../widgets/action_button.dart';
 import 'widgets/beatzcoin_package_card.dart';
 import 'widgets/load_bottom_sheet_modal.dart';
+
+part 'widgets/custom_amount_bzc_load_form.dart';
 
 class BuyBeatzcoinsPage extends StatelessWidget {
   const BuyBeatzcoinsPage({super.key});
@@ -26,170 +38,143 @@ class BuyBeatzcoinsPage extends StatelessWidget {
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 40,
-              width: double.maxFinite,
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: colorScheme.onSurface,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Text(
-                'Beatzcoin',
-                style: TextStyle(
-                  color: colorScheme.onPrimary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+      body: BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, bool>(
+        bloc: Modular.get<CurrentUserCubit>(),
+        selector: (snap) => snap.data?.isAfrican ?? false,
+        builder: (context, isAfrican) => SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 40,
+                width: double.maxFinite,
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: colorScheme.onSurface,
+                  borderRadius: BorderRadius.circular(5),
                 ),
-              ),
-            ),
-            const SizedBox(height: 2),
-            Container(
-              padding: const EdgeInsets.all(5),
-              color: Color(0xFFFFCCCC).withOpacity(0.5),
-              child: RichText(
-                text: TextSpan(
-                  text: LocaleKeys.beatzcoins_page_description.tr(),
+                child: Text(
+                  'Beatzcoin',
                   style: TextStyle(
-                    fontSize: 14.0,
-                    color: colorScheme.onSurface,
+                    color: colorScheme.onPrimary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
-                  children: [
-                    TextSpan(
-                      text: LocaleKeys.beatzcoins_page_description2.tr(),
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextSpan(
-                      text: LocaleKeys.beatzcoins_page_description3.tr(),
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
                 ),
               ),
-            ),
-            const SizedBox(height: 24),
-            Container(
-              padding: const EdgeInsets.all(10),
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                color: colorScheme.primary,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.grey.shade200),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    LocaleKeys.buy_beatzcoins_page_my_balance.tr(),
+              const SizedBox(height: 2),
+              Container(
+                padding: const EdgeInsets.all(5),
+                color: Color(0xFFFFCCCC).withOpacity(0.5),
+                child: RichText(
+                  text: TextSpan(
+                    text: LocaleKeys.beatzcoins_page_description.tr(),
                     style: TextStyle(
-                      color: colorScheme.onPrimary,
-                      fontSize: 16,
+                      fontSize: 14.0,
+                      color: colorScheme.onSurface,
                     ),
+                    children: [
+                      TextSpan(
+                        text: LocaleKeys.beatzcoins_page_description2.tr(),
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: LocaleKeys.beatzcoins_page_description3.tr(),
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    NumberFormat.currency(symbol: 'BZC').format(25488),
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: colorScheme.onPrimary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-            const SizedBox(height: 15),
-            Wrap(
-              spacing: 15,
-              runSpacing: 20,
-              children: [
-                BeatzcoinPackageCard(amount: 50, price: 0.25),
-                BeatzcoinPackageCard(amount: 510, price: 2.50),
-                BeatzcoinPackageCard(amount: 1550, price: 7.50),
-                BeatzcoinPackageCard(amount: 2550, price: 12.50),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Container(
-              margin: const EdgeInsets.only(top: 20, bottom: 20),
-              decoration: BoxDecoration(
-                color: colorScheme.onPrimary,
-                borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                border: Border.all(width: 1, color: Colors.grey.shade300),
-                boxShadow: kElevationToShadow[1],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
+              const SizedBox(height: 24),
+              Container(
+                padding: const EdgeInsets.all(10),
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  color: colorScheme.primary,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey.shade200),
+                ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      LocaleKeys.buy_beatzcoins_page_custom_load.tr(),
-                      style: TextStyle(fontSize: 24.0),
-                    ),
-                    SizedBox(height: 8.0),
-                    TextField(
+                      LocaleKeys.buy_beatzcoins_page_my_balance.tr(),
                       style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                      ),
-                      decoration: InputDecoration(
-                        hintText:
-                            LocaleKeys.buy_beatzcoins_page_enter_quantity.tr(),
-                        filled: true,
-                        fillColor: Color(0xFFEBEBEB),
-                        hintStyle: TextStyle(
-                          fontSize: 20,
-                          color: Color(0xFFA5A5A5),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15,
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
+                        color: colorScheme.onPrimary,
+                        fontSize: 16,
                       ),
                     ),
-                    SizedBox(height: 12.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          LocaleKeys.buy_beatzcoins_page_ttc_amount_in
-                              .tr(args: ['€']),
-                          style: TextStyle(fontSize: 16),
+                    const SizedBox(height: 8),
+                    BlocSelector<UserBalanceCubit,
+                        AsyncSnapshot<UserBalanceEntity>, double?>(
+                      bloc: Modular.get<UserBalanceCubit>(),
+                      selector: (snap) => snap.data?.bzc,
+                      builder: (context, bzcBalance) => Text(
+                        bzcBalance == null
+                            ? '...'
+                            : NumberFormat.currency(symbol: 'BZC').format(
+                                bzcBalance,
+                              ),
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Text(
-                          '0.00',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16.0),
-                    ActionButton(
-                      onPressed: () => LoadBottomSheetModal.show(context),
-                      fullWidth: true,
-                      text: LocaleKeys.buy_beatzcoins_page_load.tr(),
+                      ),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 15),
+              FutureBuilder(
+                future:
+                    Modular.get<GetExchangeBzcPacksUseCase>().call(NoParms()),
+                builder: (context, snap) {
+                  if (snap.connectionState == ConnectionState.waiting) {
+                    return SizedBox(
+                      height: 10,
+                      width: double.maxFinite,
+                      child: LinearProgressIndicator(minHeight: 2),
+                    );
+                  }
+
+                  final exchangeBzcPacks = snap.data;
+                  if (exchangeBzcPacks == null) return const SizedBox.shrink();
+
+                  return Wrap(
+                    spacing: 15,
+                    runSpacing: 20,
+                    children: [
+                      ...exchangeBzcPacks.map(
+                        (bzcExchangePack) => BeatzcoinPackageCard(
+                          amount: bzcExchangePack.bzcAmount,
+                          price: bzcExchangePack.fiatAmount,
+                          isAfrican: isAfrican,
+                          onTap: () => LoadBottomSheetModal.show(
+                            bzcQuantity: bzcExchangePack.bzcAmount,
+                            bzcExchangePack: bzcExchangePack,
+                            isAfrican: isAfrican,
+                            context,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              const SizedBox(height: 10),
+              _CustomAmountBzcLoadForm(isAfrican: isAfrican),
+            ],
+          ),
         ),
       ),
     );

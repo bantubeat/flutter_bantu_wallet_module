@@ -6,13 +6,14 @@ import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/user_entity.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/exchange_bzc_to_fiat_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/get_bzc_currency_converter_use_case.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubit/current_user_cubit.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/current_user_cubit.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/withdrawal/withdrawal_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
 import '../../../domain/entities/user_balance_entity.dart';
-import '../../cubit/user_balance_cubit.dart';
+import '../../cubits/user_balance_cubit.dart';
 import '../../helpers/ui_alert_helpers.dart';
 import '../../widgets/my_header_bar.dart';
 import '../../widgets/my_small_button.dart';

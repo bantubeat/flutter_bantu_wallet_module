@@ -9,7 +9,9 @@ class UserBalanceCubit extends Cubit<AsyncSnapshot<UserBalanceEntity>> {
   final GetUserBalanceUseCase _getUserBalanceUseCase;
 
   UserBalanceCubit(this._getUserBalanceUseCase)
-      : super(AsyncSnapshot.nothing());
+      : super(AsyncSnapshot.nothing()) {
+    fetchUserBalance();
+  }
 
   void fetchUserBalance() async {
     emit(state.inState(ConnectionState.waiting));

@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/user_balance_entity.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/user_balance_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
@@ -11,6 +14,12 @@ class BeatzcoinsPage extends StatelessWidget {
   const BeatzcoinsPage({super.key});
 
   static const pageRoute = '/beatzcoins';
+
+  void onViewDetails() => onBuyBzc();
+
+  void onBuyBzc() {
+    Modular.to.pushNamed(BuyBeatzcoinsPage.pageRoute);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +137,7 @@ class BeatzcoinsPage extends StatelessWidget {
                       Flexible(
                         child: FittedBox(
                           child: Text(
-                            '(ID: ${'1AEH1525N524N525I'.toString()})',
+                            '', // TODO: '(ID: ${'1AEH1525N524N525I'.toString()})',
                             style: TextStyle(
                               fontSize: 12,
                               color: colorScheme.onPrimary,
@@ -139,12 +148,21 @@ class BeatzcoinsPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    NumberFormat.currency(symbol: 'BZC').format(25488),
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: colorScheme.onPrimary,
-                      fontWeight: FontWeight.bold,
+                  BlocSelector<UserBalanceCubit,
+                      AsyncSnapshot<UserBalanceEntity>, double?>(
+                    bloc: Modular.get<UserBalanceCubit>(),
+                    selector: (snap) => snap.data?.bzc,
+                    builder: (context, bzcBalance) => Text(
+                      bzcBalance == null
+                          ? '...'
+                          : NumberFormat.currency(symbol: 'BZC').format(
+                              bzcBalance,
+                            ),
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: colorScheme.onPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 14),
@@ -161,7 +179,7 @@ class BeatzcoinsPage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: onViewDetails,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFFBAB9B9),
                 minimumSize: Size.fromHeight(45),
@@ -179,9 +197,7 @@ class BeatzcoinsPage extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             ActionButton(
-              onPressed: () {
-                Modular.to.pushNamed(BuyBeatzcoinsPage.pageRoute);
-              },
+              onPressed: onBuyBzc,
               fullWidth: true,
               text: LocaleKeys.beatzcoins_page_buy_bzc.tr(),
             ),

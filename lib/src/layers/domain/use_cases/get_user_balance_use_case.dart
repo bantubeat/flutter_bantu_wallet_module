@@ -12,5 +12,3 @@ class GetUserBalanceUseCase extends UseCase<UserBalanceEntity, NoParms> {
     return _repository.getUserBalance();
   }
 }
-
-typedef _Param = ({bool skipCache});

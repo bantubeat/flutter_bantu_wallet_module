@@ -57,11 +57,7 @@ class TransactionsHistoryPage extends StatelessWidget {
           ),
         ),
         const TransactionFilter(),
-        Expanded(
-          child: TransactionList(
-            isFinancial: isFinancial,
-          ),
-        ),
+        Expanded(child: TransactionList(isFinancial: isFinancial)),
       ],
     );
   }

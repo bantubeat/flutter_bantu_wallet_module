@@ -25,8 +25,8 @@ import 'layers/domain/use_cases/exchange_fiat_to_bzc_use_case.dart';
 import 'layers/domain/use_cases/get_all_currencies_use_case.dart';
 import 'layers/domain/use_cases/get_user_balance_use_case.dart';
 
-import 'layers/presentation/cubit/current_user_cubit.dart';
-import 'layers/presentation/cubit/user_balance_cubit.dart';
+import 'layers/presentation/cubits/current_user_cubit.dart';
+import 'layers/presentation/cubits/user_balance_cubit.dart';
 import 'layers/presentation/pages/buy_beatzcoins/buy_beatzcoins_page.dart';
 import 'layers/presentation/pages/deposit/deposit_page.dart';
 import 'layers/presentation/pages/home/home_page.dart';

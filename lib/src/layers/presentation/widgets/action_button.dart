@@ -7,6 +7,7 @@ class ActionButton extends StatelessWidget {
   final Widget? prefixIcon;
   final Color? backgroundColor;
   final Color? textColor;
+  final bool enabled;
 
   const ActionButton({
     required this.text,
@@ -15,6 +16,7 @@ class ActionButton extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     this.prefixIcon,
+    this.enabled = true,
     super.key,
   });
 
@@ -24,7 +26,7 @@ class ActionButton extends StatelessWidget {
     return SizedBox(
       width: fullWidth ? double.infinity : null,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: enabled ? onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor ?? colorScheme.primary,
           foregroundColor: Colors.white,

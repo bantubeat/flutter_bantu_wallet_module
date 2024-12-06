@@ -1,0 +1,86 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:flutterwave_standard_smart/flutterwave.dart' as flutterwave;
+
+import '../../../../../../core/generated/locale_keys.g.dart';
+import '../../../../../../core/network/api_constants.dart';
+import '../../../../../../core/utils/function_helpers.dart';
+import '../../../../../../core/utils/my_api_keys.dart';
+import '../../../../../../core/utils/my_app_env.dart';
+import '../../../../../domain/entities/user_entity.dart';
+import '../../../../cubits/user_balance_cubit.dart';
+import '../../../../helpers/ui_alert_helpers.dart';
+import '../../deposit_page.dart';
+
+mixin PayWithFlutterwave {
+  void payWithFlutterwave(
+    BuildContext context,
+    UserEntity user,
+    String currency,
+    double amount,
+  ) async {
+    context.loaderOverlay.show();
+    final customer = flutterwave.Customer(
+      name: user.noms,
+      phoneNumber: user.telephone,
+      email: user.email,
+    );
+    final paymentRef = generateUniquePaymentId(user.id.toString());
+    final flutterwaveInstance = flutterwave.Flutterwave(
+      context: context,
+      publicKey: MyApiKeys.flutterwavePublicKey,
+      currency: currency,
+      redirectUrl:
+          '${ApiConstants.serverAddr}/deposit-payment/return_url/Flutterwave',
+      txRef: paymentRef,
+      amount: amount.toString(),
+      customer: customer,
+      isTestMode: !MyAppEnv.isProduction,
+      meta: {
+        'user_id': user.id,
+        'payment_ref': paymentRef,
+      },
+      customization: flutterwave.Customization(
+        title: 'Dépôt sur Bantubeat',
+        description: 'Dépôt sur Bantubeat',
+        logo: 'https://open.bantubeat.com/logo.png',
+      ),
+      paymentOptions:
+          'ussd, mpesa, mobilemoneyghana, mobilemoneyfranco, mobilemoneyuganda, mobilemoneyrwanda, mobilemoneyzambia, barter',
+    );
+
+    try {
+      final chargeResponse = await flutterwaveInstance.charge();
+
+      final doneMessage =
+          LocaleKeys.deposit_page_payment_done_check_account.tr();
+
+      if (chargeResponse.success == true) {
+        UiAlertHelpers.showSuccessToast(doneMessage);
+      } else if (chargeResponse.success == false) {
+        UiAlertHelpers.showErrorToast(doneMessage);
+      } else if (context.mounted) {
+        UiAlertHelpers.showInfoSnackBar(context, doneMessage);
+      }
+    } catch (err, stackTrace) {
+      debugPrintStack(label: err.toString(), stackTrace: stackTrace);
+      UiAlertHelpers.showErrorToast(LocaleKeys.common_an_error_occur.tr());
+    } finally {
+      Modular.get<UserBalanceCubit>().fetchUserBalance();
+
+      if (context.mounted) context.loaderOverlay.hide();
+
+      if (Modular.to.canPop()) {
+        Modular.to.pop();
+        Modular.to.pushNamed(DepositPage.pageRoute);
+      } else {
+        Modular.to.navigate(
+          '${DepositPage.pageRoute}?paymentRef=$paymentRef',
+        );
+      }
+    }
+  }
+}

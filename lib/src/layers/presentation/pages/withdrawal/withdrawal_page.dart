@@ -97,6 +97,7 @@ class WithdrawalPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 10),
+                      /*
                       Flexible(
                         child: FittedBox(
                           child: Text(
@@ -107,12 +108,13 @@ class WithdrawalPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ),
+                      ), */
                     ],
                   ),
                   const SizedBox(height: 8),
                   BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>,
                       bool>(
+                    bloc: Modular.get<CurrentUserCubit>(),
                     selector: (snap) => snap.data?.isAfrican ?? false,
                     builder: (context, isAfrican) => BlocBuilder<
                         UserBalanceCubit, AsyncSnapshot<UserBalanceEntity>>(

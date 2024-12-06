@@ -13,8 +13,8 @@ class PublicRepositoryImpl implements PublicRepository {
   @override
   Future<List<CurrencyItemEntity>> getAllCurrencies() async {
     try {
-      // since CurrencyItemModel extends CurrencyItem
-      return await _bantubeatApiDataSource.get$publicAllCurrencies();
+      final result = await _bantubeatApiDataSource.get$publicAllCurrencies();
+      return result.map((e) => e as CurrencyItemEntity).toList();
     } catch (e, s) {
       debugPrintStack(label: e.toString(), stackTrace: s);
       rethrow;

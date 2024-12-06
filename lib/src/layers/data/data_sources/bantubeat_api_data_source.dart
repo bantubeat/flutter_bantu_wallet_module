@@ -2,6 +2,7 @@ import '../../../core/network/my_http/my_http.dart';
 import '../../domain/entities/e_withdrawal_eligibility.dart';
 import '../models/currency_item_model.dart';
 import '../models/currency_rates_model.dart';
+import '../models/deposit_payment_link_model.dart';
 import '../models/transaction_history_item_model.dart';
 import '../models/user_balance_model.dart';
 import '../models/exchange_bzc_pack_model.dart';
@@ -125,5 +126,20 @@ final class BantubeatApiDataSource {
         .then((list) => list.map((e) => e as Map<String, dynamic>))
         .then((jsonList) => jsonList.map(TransactionHistoryItemModel.fromJson))
         .then((iterable) => iterable.toList());
+  }
+
+  Future<DepositPaymentLinkModel> post$depositPaymentRequestPaymentLink({
+    required String paymentMethod,
+    required double amount,
+    String? currency,
+  }) {
+    return _client.post(
+      '/deposit-payment/request-payment-link',
+      body: {
+        'amount': amount,
+        'payment_method': paymentMethod,
+        if (currency != null) 'currency': currency,
+      },
+    ).then((r) => DepositPaymentLinkModel.fromJson(r.data));
   }
 }

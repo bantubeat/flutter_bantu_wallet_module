@@ -1,0 +1,105 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bantu_wallet_module/src/core/utils/function_helpers.dart';
+import 'package:flutter_bantu_wallet_module/src/core/utils/my_api_keys.dart';
+import 'package:flutter_bantu_wallet_module/src/core/utils/my_app_env.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_paypal_native/flutter_paypal_native.dart';
+import 'package:flutter_paypal_native/models/custom/currency_code.dart';
+import 'package:flutter_paypal_native/models/custom/environment.dart';
+import 'package:flutter_paypal_native/models/custom/purchase_unit.dart';
+import 'package:flutter_paypal_native/models/custom/user_action.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+
+import '../../../../../../core/generated/locale_keys.g.dart';
+import '../../../../../../core/network/api_constants.dart';
+import '../../../../../domain/entities/user_entity.dart';
+import '../../../../cubits/user_balance_cubit.dart';
+import '../../../../helpers/ui_alert_helpers.dart';
+import '../../deposit_page.dart';
+
+mixin PayWithPaypal {
+  FlutterPaypalNative? _flutterPaypalPlugin;
+
+  Future<void> _initPayPal() async {
+    if (_flutterPaypalPlugin != null) return;
+    //set debugMode for error logging
+    FlutterPaypalNative.isDebugMode = !MyAppEnv.isProduction;
+
+    _flutterPaypalPlugin = FlutterPaypalNative.instance;
+
+    final returnUrlSuffix = '?is_cancel=0';
+
+    //initiate payPal plugin
+    await _flutterPaypalPlugin?.init(
+      //your app id !!! No Underscore!!! see readme.md for help
+      returnUrl:
+          '${ApiConstants.serverAddr}/deposit-payment/return_url/Paypal$returnUrlSuffix',
+      //client id from developer dashboard
+      clientID: MyAppEnv.isProduction
+          ? MyApiKeys.paypalLiveClientID
+          : MyApiKeys.paypalSandboxClientID,
+      //sandbox, staging, live etc
+      payPalEnvironment: MyAppEnv.isProduction
+          ? FPayPalEnvironment.live
+          : FPayPalEnvironment.sandbox,
+      //what currency do you plan to use? default is US dollars
+      currencyCode: FPayPalCurrencyCode.eur,
+      //action paynow?
+      action: FPayPalUserAction.payNow,
+    );
+  }
+
+  void payWithPaypal(
+    BuildContext context,
+    UserEntity? user,
+    String currency,
+    double amount,
+  ) async {
+    final paymentRef = generateUniquePaymentId(user?.id.toString() ?? '');
+
+    try {
+      if (_flutterPaypalPlugin == null) {
+        await _initPayPal();
+      }
+      final paypalPlugin = _flutterPaypalPlugin!;
+
+      paypalPlugin.removeAllPurchaseItems();
+
+      paypalPlugin.addPurchaseUnit(
+        FPayPalPurchaseUnit(
+          amount: amount,
+          referenceId: paymentRef,
+          currencyCode: currency.toUpperCase() == 'USD'
+              ? FPayPalCurrencyCode.usd
+              : FPayPalCurrencyCode.eur,
+        ),
+      );
+
+      await paypalPlugin.makeOrder(action: FPayPalUserAction.payNow);
+
+      if (context.mounted) {
+        UiAlertHelpers.showInfoSnackBar(
+          context,
+          LocaleKeys.deposit_page_payment_done_check_account.tr(),
+        );
+      }
+    } catch (err, stackTrace) {
+      debugPrintStack(label: err.toString(), stackTrace: stackTrace);
+      UiAlertHelpers.showErrorToast(LocaleKeys.common_an_error_occur.tr());
+    } finally {
+      Modular.get<UserBalanceCubit>().fetchUserBalance();
+
+      if (context.mounted) context.loaderOverlay.hide();
+
+      if (Modular.to.canPop()) {
+        Modular.to.pop();
+        Modular.to.pushNamed(DepositPage.pageRoute);
+      } else {
+        Modular.to.navigate(
+          '${DepositPage.pageRoute}?paymentRef=$paymentRef',
+        );
+      }
+    }
+  }
+}

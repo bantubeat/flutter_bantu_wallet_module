@@ -9,17 +9,17 @@ class UserBalanceModel extends UserBalanceEntity {
 
   factory UserBalanceModel.fromJson(Map<String, dynamic> json) {
     return UserBalanceModel(
-      bzc: json['bzc'],
-      eur: json['eur'],
-      xaf: json['xaf'],
+      bzc: json['BZC'],
+      eur: json['EUR'],
+      xaf: json['XAF'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'bzc': bzc,
-      'eur': eur,
-      'xaf': xaf,
+      'BZC': bzc,
+      'EUR': eur,
+      'XAF': xaf,
     };
   }
 }

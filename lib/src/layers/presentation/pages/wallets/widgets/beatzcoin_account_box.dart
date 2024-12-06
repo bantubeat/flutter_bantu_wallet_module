@@ -119,6 +119,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                       ),
                     ),
                     SizedBox(width: 4),
+                    /*
                     Expanded(
                       child: FittedBox(
                         child: Text(
@@ -129,7 +130,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                           ),
                         ),
                       ),
-                    ),
+                    ), */
                   ],
                 ),
               ),
@@ -254,30 +255,29 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
           SizedBox(height: 10),
           Visibility(
             visible: converterInitialized,
-            child: InkWell(
-              onTap: _onExchange,
-              child: Container(
-                width: double.maxFinite,
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                padding: const EdgeInsets.symmetric(vertical: 7.5),
-                decoration: BoxDecoration(
-                  color: colorScheme.primary,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: Visibility(
-                    visible: !isExchanging,
-                    replacement: CircularProgressIndicator.adaptive(),
-                    child: Text(
-                      converterInitialized
-                          ? LocaleKeys.wallets_page_beatzcoin_account_exchange
-                              .tr()
-                          : LocaleKeys.common_initializing.tr(),
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: colorScheme.onPrimary,
-                        fontWeight: FontWeight.w800,
-                      ),
+            child: Visibility(
+              visible: !isExchanging,
+              replacement: Center(child: CircularProgressIndicator.adaptive()),
+              child: InkWell(
+                onTap: _onExchange,
+                child: Container(
+                  width: double.maxFinite,
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 7.5),
+                  decoration: BoxDecoration(
+                    color: colorScheme.primary,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    converterInitialized
+                        ? LocaleKeys.wallets_page_beatzcoin_account_exchange
+                            .tr()
+                        : LocaleKeys.common_initializing.tr(),
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: colorScheme.onPrimary,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../core/utils/african_country_list.dart';
+import '../../../core/utils/countries.dart';
 
 class UserEntity extends Equatable {
   final int id;
@@ -41,7 +41,9 @@ class UserEntity extends Equatable {
     this.whatsapp,
   });
 
-  bool get isAfrican => africanCountriesIso2.contains(pays.toUpperCase());
+  bool get isAfrican => africanCountryCurrencyList
+      .map((e) => e.iso2)
+      .contains(pays.toUpperCase());
 
   @override
   List<Object?> get props => [

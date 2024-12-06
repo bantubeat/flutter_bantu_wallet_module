@@ -43,7 +43,9 @@
         "price": "Prix:",
         "fees": "Frais ({}% frais opérateur + services):",
         "total": "Total due:",
-        "continue_payment": "Continuer le paiement"
+        "continue_payment": "Continuer le paiement",
+        "amount_and_currency_required": "Le montant et/ou la devise sont obligatoires",
+        "payment_done_check_account": "Paiement terminée, vérifier votre solde"
     },
     "withdrawal_page": {
         "title": "Retrait",

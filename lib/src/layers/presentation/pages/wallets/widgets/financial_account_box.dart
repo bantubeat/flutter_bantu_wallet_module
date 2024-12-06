@@ -15,65 +15,65 @@ class _FinancialAccountBox extends StatelessWidget {
     final userBalanceCubit = Modular.get<UserBalanceCubit>();
     return Container(
       padding: const EdgeInsets.all(5),
+      width: MediaQuery.of(context).size.width,
       color: Color(0xFFEBEBEB),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    Text(
-                      LocaleKeys.wallets_page_financier_account_title.tr(),
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: colorScheme.onSurface,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(width: 4),
-                    Expanded(
-                      child: FittedBox(
-                        child: Text(
-                          '', // TODO: Add 'ID: 2481525265265525',
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize: 12.0,
-                          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      Text(
+                        LocaleKeys.wallets_page_financier_account_title.tr(),
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: colorScheme.onSurface,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(width: 4),
+                      /*
+                      Expanded(
+                        child: FittedBox(
+                          child: Text(
+                            ' ', // TODO: Add 'ID: 2481525265265525',
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 12.0),
+                          ),
+                        ),
+                      ), */
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(width: 8.0),
-              BlocSelector<UserBalanceCubit, AsyncSnapshot<UserBalanceEntity>,
-                  double?>(
-                bloc: userBalanceCubit,
-                selector: (state) => state.data?.eur,
-                builder: (context, eurBalance) => MySmallButton(
-                  backgroundColor: colorScheme.primary,
-                  textColor: colorScheme.onPrimary,
-                  useFittedBox: true,
-                  text: eurBalance == null
-                      ? '...'
-                      : NumberFormat.currency(
-                          symbol: isAfrican ? 'FCFA' : '€',
-                        ).format(eurBalance),
-                  onTap: userBalanceCubit.fetchUserBalance,
+                SizedBox(width: 8.0),
+                BlocSelector<UserBalanceCubit, AsyncSnapshot<UserBalanceEntity>,
+                    double?>(
+                  bloc: userBalanceCubit,
+                  selector: (state) => state.data?.eur,
+                  builder: (context, eurBalance) => MySmallButton(
+                    backgroundColor: colorScheme.primary,
+                    textColor: colorScheme.onPrimary,
+                    useFittedBox: true,
+                    text: eurBalance == null
+                        ? '...'
+                        : NumberFormat.currency(
+                            symbol: isAfrican ? 'FCFA' : '€',
+                          ).format(eurBalance),
+                    onTap: userBalanceCubit.fetchUserBalance,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(height: 10),
           Text(
             LocaleKeys.wallets_page_financier_account_description.tr(),
-            style: TextStyle(
-              fontSize: 14,
-              color: colorScheme.onSurface,
-            ),
+            style: TextStyle(fontSize: 14, color: colorScheme.onSurface),
           ),
           SizedBox(height: 8),
           Row(

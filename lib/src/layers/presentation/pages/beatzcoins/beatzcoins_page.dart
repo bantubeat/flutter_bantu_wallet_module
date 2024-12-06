@@ -134,6 +134,7 @@ class BeatzcoinsPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 10),
+                      /*
                       Flexible(
                         child: FittedBox(
                           child: Text(
@@ -144,7 +145,7 @@ class BeatzcoinsPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ),
+                      ), */
                     ],
                   ),
                   const SizedBox(height: 8),

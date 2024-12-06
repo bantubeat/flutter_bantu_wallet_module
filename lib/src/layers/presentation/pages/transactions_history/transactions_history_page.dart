@@ -52,7 +52,9 @@ class TransactionsHistoryPage extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(width: 10),
+              /*
               Flexible(child: FittedBox(child: Text('(ID: 248152526526525)'))),
+							*/
             ],
           ),
         ),

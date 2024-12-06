@@ -35,6 +35,8 @@ abstract class  LocaleKeys {
   static const deposit_page_fees = 'deposit_page.fees';
   static const deposit_page_total = 'deposit_page.total';
   static const deposit_page_continue_payment = 'deposit_page.continue_payment';
+  static const deposit_page_amount_and_currency_required = 'deposit_page.amount_and_currency_required';
+  static const deposit_page_payment_done_check_account = 'deposit_page.payment_done_check_account';
   static const withdrawal_page_title = 'withdrawal_page.title';
   static const withdrawal_page_description = 'withdrawal_page.description';
   static const withdrawal_page_financial_account_balance = 'withdrawal_page.financial_account_balance';

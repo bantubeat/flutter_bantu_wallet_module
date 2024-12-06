@@ -17,6 +17,7 @@ import 'layers/domain/repositories/user_repository.dart';
 import 'layers/domain/use_cases/check_withdrawal_eligibility_use_case.dart';
 import 'layers/domain/use_cases/convert_fiat_currency_use_case.dart';
 import 'layers/domain/use_cases/exchange_bzc_to_fiat_use_case.dart';
+import 'layers/domain/use_cases/get_bzc_currency_converter_use_case.dart';
 import 'layers/domain/use_cases/get_current_user_use_case.dart';
 import 'layers/domain/use_cases/get_exchange_bzc_packs_use_case.dart';
 import 'layers/domain/use_cases/get_payment_preferences_use_case.dart';
@@ -25,6 +26,7 @@ import 'layers/domain/use_cases/exchange_fiat_to_bzc_use_case.dart';
 import 'layers/domain/use_cases/get_all_currencies_use_case.dart';
 import 'layers/domain/use_cases/get_user_balance_use_case.dart';
 
+import 'layers/domain/use_cases/request_deposit_payment_link_use_case.dart';
 import 'layers/presentation/cubits/current_user_cubit.dart';
 import 'layers/presentation/cubits/user_balance_cubit.dart';
 import 'layers/presentation/pages/buy_beatzcoins/buy_beatzcoins_page.dart';
@@ -88,9 +90,11 @@ class WalletModule extends Module {
     // -- Domain Use Cases
     i.addSingleton(CheckWithdrawalEligibilityUseCase.new);
     i.addSingleton(ConvertFiatCurrencyUseCase.new);
+    i.addSingleton(RequestDepositPaymentLinkUseCase.new);
     i.addSingleton(ExchangeBzcToFiatUseCase.new);
     i.addSingleton(ExchangeFiatToBzcUseCase.new);
     i.addSingleton(GetAllCurrenciesUseCase.new);
+    i.addSingleton(GetBzcCurrencyConverterUseCase.new);
     i.addSingleton(GetCurrentUserUseCase.new);
     i.addSingleton(GetExchangeBzcPacksUseCase.new);
     i.addSingleton(GetPaymentPreferencesUseCase.new);

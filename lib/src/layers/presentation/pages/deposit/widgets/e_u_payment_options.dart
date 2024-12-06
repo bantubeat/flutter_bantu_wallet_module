@@ -43,13 +43,6 @@ class EUPaymentOptions extends StatelessWidget {
             SizedBox(width: 16),
             Expanded(
               child: _buildButton(
-                /*icon: Text(
-                  'G',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ), */
                 icon: GoogleIconSvgImage(),
                 title: 'Pay',
                 onTap: onGooglePay,

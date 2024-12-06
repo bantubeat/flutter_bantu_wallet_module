@@ -202,9 +202,11 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                             child: Text(
                               LocaleKeys.buy_beatzcoins_page_modal_ttc_price.tr(
                                 args: [
-                                  NumberFormat.currency(
-                                    symbol: fiatCurrencySymbol,
-                                  ).format(fiatAmount),
+                                  fiatAmount == null
+                                      ? '...'
+                                      : NumberFormat.currency(
+                                          symbol: fiatCurrencySymbol,
+                                        ).format(fiatAmount ?? 0),
                                 ],
                               ),
                               style: TextStyle(
@@ -263,6 +265,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                               ),
                             ),
                             const SizedBox(width: 10),
+                            /*
                             Flexible(
                               child: FittedBox(
                                 child: Text(
@@ -273,7 +276,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                                   ),
                                 ),
                               ),
-                            ),
+                            ), */
                           ],
                         ),
                         const SizedBox(height: 8),

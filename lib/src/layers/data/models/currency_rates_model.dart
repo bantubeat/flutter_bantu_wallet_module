@@ -8,8 +8,8 @@ class CurrencyRatesModel extends CurrencyRatesEntity {
 
   factory CurrencyRatesModel.fromJson(Map<String, dynamic> json) {
     return CurrencyRatesModel(
-      oneEurInBzc: json['one_eur_in_bzc'],
-      oneEurInXaf: json['one_eur_in_xaf'],
+      oneEurInBzc: double.parse(json['one_eur_in_bzc'].toString()),
+      oneEurInXaf: double.parse(json['one_eur_in_xaf'].toString()),
     );
   }
 

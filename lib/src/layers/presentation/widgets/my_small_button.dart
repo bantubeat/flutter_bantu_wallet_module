@@ -26,10 +26,7 @@ class MySmallButton extends StatelessWidget {
       ),
     );
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 5,
-        horizontal: 7.5,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 7.5),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(5),

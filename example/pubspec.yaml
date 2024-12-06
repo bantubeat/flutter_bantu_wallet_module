@@ -7,11 +7,14 @@ environment:
   sdk: ^3.5.4
 
 dependencies:
+  easy_localization: ^3.0.7
   flutter:
     sdk: flutter
   flutter_bantu_wallet_module:
     path: ..
   flutter_modular: ^6.3.4
+  hive: ^2.2.3
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
@@ -20,3 +23,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - packages/flutter_bantu_wallet_module/assets/i18n/

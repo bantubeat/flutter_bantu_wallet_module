@@ -28,13 +28,11 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       _NavIcon(
         label: '',
         icon: Icons.add,
-        type: 'customer',
         onClick: () {},
       ),
       _NavIcon(
         label: 'Bantubeat',
         icon: Icons.abc,
-        type: 'image',
         onClick: () {},
       ),
       _NavIcon(
@@ -56,7 +54,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       _NavIcon(
         label: 'featlink',
         icon: Icons.abc,
-        type: 'image',
         onClick: () {},
       ),
       _NavIcon(
@@ -199,7 +196,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
 class _NavIcon {
   final String label;
-  final dynamic icon;
+  final IconData icon;
   final String type;
   final bool isBlur;
   final VoidCallback onClick;

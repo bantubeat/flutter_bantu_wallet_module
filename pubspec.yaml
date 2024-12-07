@@ -42,6 +42,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/i18n/
-    - assets/images/
+  #assets:
+  #  - assets/i18n/
+  #  - assets/images/

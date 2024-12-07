@@ -98,12 +98,14 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
       userBalanceCubit.fetchUserBalance();
 
       UiAlertHelpers.showSuccessToast(
-        LocaleKeys.wallets_page_beatzcoin_account_exchange_successful.tr(),
+        LocaleKeys
+            .wallet_module_wallets_page_beatzcoin_account_exchange_successful
+            .tr(),
       );
       if (mounted) Navigator.of(context).pop();
     } catch (e) {
       UiAlertHelpers.showErrorToast(
-        LocaleKeys.common_an_error_occur.tr(
+        LocaleKeys.wallet_module_common_an_error_occur.tr(
           args: [((e is MyHttpException) ? e.message : null) ?? e.toString()],
         ),
       );
@@ -138,7 +140,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
             ),
             SizedBox(height: 20),
             Text(
-              LocaleKeys.buy_beatzcoins_page_modal_title.tr(),
+              LocaleKeys.wallet_module_buy_beatzcoins_page_modal_title.tr(),
               style: const TextStyle(
                 fontSize: 20,
                 color: Color(0xFF151515),
@@ -156,7 +158,8 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    LocaleKeys.buy_beatzcoins_page_modal_amount_of_your_load
+                    LocaleKeys
+                        .wallet_module_buy_beatzcoins_page_modal_amount_of_your_load
                         .tr(),
                     style: TextStyle(fontSize: 16),
                   ),
@@ -200,7 +203,9 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                           alignment: Alignment.center,
                           child: FittedBox(
                             child: Text(
-                              LocaleKeys.buy_beatzcoins_page_modal_ttc_price.tr(
+                              LocaleKeys
+                                  .wallet_module_buy_beatzcoins_page_modal_ttc_price
+                                  .tr(
                                 args: [
                                   fiatAmount == null
                                       ? '...'
@@ -225,7 +230,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
             ),
             SizedBox(height: 20),
             Text(
-              LocaleKeys.buy_beatzcoins_page_modal_buy_with.tr(),
+              LocaleKeys.wallet_module_buy_beatzcoins_page_modal_buy_with.tr(),
               style: const TextStyle(
                 fontSize: 20,
                 color: Color(0xFF151515),
@@ -257,7 +262,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                           children: [
                             Text(
                               LocaleKeys
-                                  .buy_beatzcoins_page_modal_bantubeat_balance
+                                  .wallet_module_buy_beatzcoins_page_modal_bantubeat_balance
                                   .tr(),
                               style: TextStyle(
                                 color: colorScheme.onPrimary,
@@ -324,17 +329,21 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
             ),
             SizedBox(height: 20),
             Text(
-              LocaleKeys.buy_beatzcoins_page_modal_warning1.tr(),
+              LocaleKeys.wallet_module_buy_beatzcoins_page_modal_warning1.tr(),
               style: TextStyle(fontSize: 12, color: Color(0xFF181818)),
             ),
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: LocaleKeys.buy_beatzcoins_page_modal_warning2a.tr(),
+                text: LocaleKeys
+                    .wallet_module_buy_beatzcoins_page_modal_warning2a
+                    .tr(),
                 style: TextStyle(fontSize: 12, color: Color(0xFF181818)),
                 children: [
                   TextSpan(
-                    text: LocaleKeys.buy_beatzcoins_page_modal_warning2b.tr(),
+                    text: LocaleKeys
+                        .wallet_module_buy_beatzcoins_page_modal_warning2b
+                        .tr(),
                     style: TextStyle(fontSize: 12, color: colorScheme.primary),
                   ),
                 ],

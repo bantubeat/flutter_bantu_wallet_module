@@ -39,21 +39,21 @@ class WalletsPage extends StatelessWidget {
           builder: (context, isAfrican) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MyHeaderBar(title: LocaleKeys.wallets_page_title.tr()),
+              MyHeaderBar(title: LocaleKeys.wallet_module_wallets_page_title.tr()),
               const SizedBox(height: 7.5),
               Container(
                 padding: const EdgeInsets.all(5),
                 color: Color(0xFFFFCCCC).withOpacity(0.5),
                 child: RichText(
                   text: TextSpan(
-                    text: LocaleKeys.wallets_page_description.tr(),
+                    text: LocaleKeys.wallet_module_wallets_page_description.tr(),
                     style: TextStyle(
                       fontSize: 14.0,
                       color: colorScheme.onSurface,
                     ),
                     children: [
                       TextSpan(
-                        text: LocaleKeys.wallets_page_description2.tr(),
+                        text: LocaleKeys.wallet_module_wallets_page_description2.tr(),
                         style: TextStyle(
                           fontSize: 14.0,
                           color: colorScheme.primary,

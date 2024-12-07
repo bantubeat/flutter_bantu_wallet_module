@@ -75,7 +75,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              LocaleKeys.buy_beatzcoins_page_custom_load.tr(),
+              LocaleKeys.wallet_module_buy_beatzcoins_page_custom_load.tr(),
               style: TextStyle(fontSize: 24.0),
             ),
             SizedBox(height: 8.0),
@@ -84,7 +84,9 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
               style: TextStyle(fontSize: 20, color: Colors.black),
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: InputDecoration(
-                hintText: LocaleKeys.buy_beatzcoins_page_enter_quantity.tr(),
+                hintText: LocaleKeys
+                    .wallet_module_buy_beatzcoins_page_enter_quantity
+                    .tr(),
                 filled: true,
                 fillColor: Color(0xFFEBEBEB),
                 hintStyle: TextStyle(
@@ -106,7 +108,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  LocaleKeys.buy_beatzcoins_page_ttc_amount_in
+                  LocaleKeys.wallet_module_buy_beatzcoins_page_ttc_amount_in
                       .tr(args: [widget.isAfrican ? 'CFA' : '€']),
                   style: TextStyle(fontSize: 16),
                 ),
@@ -126,7 +128,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
               onPressed: onExchange,
               fullWidth: true,
               enabled: fiatAmount != null,
-              text: LocaleKeys.buy_beatzcoins_page_load.tr(),
+              text: LocaleKeys.wallet_module_buy_beatzcoins_page_load.tr(),
             ),
           ],
         ),

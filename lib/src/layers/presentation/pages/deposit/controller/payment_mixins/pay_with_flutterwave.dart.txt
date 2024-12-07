@@ -56,7 +56,7 @@ mixin PayWithFlutterwave {
       final chargeResponse = await flutterwaveInstance.charge();
 
       final doneMessage =
-          LocaleKeys.deposit_page_payment_done_check_account.tr();
+          LocaleKeys.wallet_module_deposit_page_payment_done_check_account.tr();
 
       if (chargeResponse.success == true) {
         UiAlertHelpers.showSuccessToast(doneMessage);
@@ -67,7 +67,7 @@ mixin PayWithFlutterwave {
       }
     } catch (err, stackTrace) {
       debugPrintStack(label: err.toString(), stackTrace: stackTrace);
-      UiAlertHelpers.showErrorToast(LocaleKeys.common_an_error_occur.tr());
+      UiAlertHelpers.showErrorToast(LocaleKeys.wallet_module_common_an_error_occur.tr());
     } finally {
       Modular.get<UserBalanceCubit>().fetchUserBalance();
 

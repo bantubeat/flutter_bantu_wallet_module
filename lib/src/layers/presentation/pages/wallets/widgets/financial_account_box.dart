@@ -29,7 +29,9 @@ class _FinancialAccountBox extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        LocaleKeys.wallets_page_financier_account_title.tr(),
+                        LocaleKeys
+                            .wallet_module_wallets_page_financier_account_title
+                            .tr(),
                         style: TextStyle(
                           fontSize: 14.0,
                           color: colorScheme.onSurface,
@@ -72,7 +74,8 @@ class _FinancialAccountBox extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            LocaleKeys.wallets_page_financier_account_description.tr(),
+            LocaleKeys.wallet_module_wallets_page_financier_account_description
+                .tr(),
             style: TextStyle(fontSize: 14, color: colorScheme.onSurface),
           ),
           SizedBox(height: 8),
@@ -83,7 +86,8 @@ class _FinancialAccountBox extends StatelessWidget {
                 backgroundColor: colorScheme.onSurface,
                 textColor: colorScheme.onPrimary,
                 useFittedBox: true,
-                text: LocaleKeys.wallets_page_financier_account_request_payment
+                text: LocaleKeys
+                    .wallet_module_wallets_page_financier_account_request_payment
                     .tr(),
                 onTap: requestWithdrawal,
               ),
@@ -91,7 +95,9 @@ class _FinancialAccountBox extends StatelessWidget {
                 backgroundColor: colorScheme.onSurface.withAlpha(200),
                 textColor: colorScheme.onPrimary,
                 useFittedBox: true,
-                text: LocaleKeys.wallets_page_financier_account_add_funds.tr(),
+                text: LocaleKeys
+                    .wallet_module_wallets_page_financier_account_add_funds
+                    .tr(),
                 onTap: addFund,
               ),
             ],

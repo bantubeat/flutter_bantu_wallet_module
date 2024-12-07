@@ -41,14 +41,14 @@ class WithdrawalPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MyHeaderBar(
-              title: LocaleKeys.withdrawal_page_title.tr(),
+              title: LocaleKeys.wallet_module_withdrawal_page_title.tr(),
             ),
             const SizedBox(height: 7.5),
             Container(
               padding: const EdgeInsets.all(5),
               color: Color(0xFFFFCCCC).withOpacity(0.5),
               child: Text(
-                LocaleKeys.withdrawal_page_description.tr(),
+                LocaleKeys.wallet_module_withdrawal_page_description.tr(),
                 style: TextStyle(fontSize: 14.0, color: colorScheme.onSurface),
               ),
             ),
@@ -89,7 +89,7 @@ class WithdrawalPage extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        LocaleKeys.withdrawal_page_financial_account_balance
+                        LocaleKeys.wallet_module_withdrawal_page_financial_account_balance
                             .tr(),
                         style: TextStyle(
                           color: colorScheme.onPrimary,
@@ -160,7 +160,7 @@ class WithdrawalPage extends StatelessWidget {
                 ),
               ),
               child: Text(
-                LocaleKeys.withdrawal_page_see_details.tr(),
+                LocaleKeys.wallet_module_withdrawal_page_see_details.tr(),
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14,
@@ -169,7 +169,7 @@ class WithdrawalPage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Text(
-              LocaleKeys.withdrawal_page_Your_registered_payment_account.tr(),
+              LocaleKeys.wallet_module_withdrawal_page_Your_registered_payment_account.tr(),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -196,7 +196,7 @@ class WithdrawalPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ActionButton(
-              text: LocaleKeys.withdrawal_page_request_payment.tr(),
+              text: LocaleKeys.wallet_module_withdrawal_page_request_payment.tr(),
               onPressed: onRequestWithdrawal,
               fullWidth: true,
             ),

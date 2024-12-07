@@ -157,7 +157,7 @@ class DepositController extends ScreenController with PayWithBantubeat {
     if (currency == null || amount == null) {
       return UiAlertHelpers.showErrorSnackBar(
         context,
-        LocaleKeys.deposit_page_amount_and_currency_required.tr(),
+        LocaleKeys.wallet_module_deposit_page_amount_and_currency_required.tr(),
       );
     }
   }
@@ -168,7 +168,7 @@ class DepositController extends ScreenController with PayWithBantubeat {
     if (currency == null || amount == null) {
       return UiAlertHelpers.showErrorSnackBar(
         context,
-        LocaleKeys.deposit_page_amount_and_currency_required.tr(),
+        LocaleKeys.wallet_module_deposit_page_amount_and_currency_required.tr(),
       );
     }
   }
@@ -178,7 +178,7 @@ class DepositController extends ScreenController with PayWithBantubeat {
     if (amount == null) {
       return UiAlertHelpers.showErrorSnackBar(
         context,
-        LocaleKeys.deposit_page_amount_and_currency_required.tr(),
+        LocaleKeys.wallet_module_deposit_page_amount_and_currency_required.tr(),
       );
     }
 
@@ -190,7 +190,7 @@ class DepositController extends ScreenController with PayWithBantubeat {
     if (amount == null) {
       return UiAlertHelpers.showErrorSnackBar(
         context,
-        LocaleKeys.deposit_page_amount_and_currency_required.tr(),
+        LocaleKeys.wallet_module_deposit_page_amount_and_currency_required.tr(),
       );
     }
 
@@ -206,7 +206,8 @@ class DepositController extends ScreenController with PayWithBantubeat {
       if (user == null || currency == null || amount == null) {
         return UiAlertHelpers.showErrorSnackBar(
           context,
-          LocaleKeys.deposit_page_amount_and_currency_required.tr(),
+          LocaleKeys.wallet_module_deposit_page_amount_and_currency_required
+              .tr(),
         );
       }
 

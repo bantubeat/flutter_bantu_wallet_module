@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  LocaleKeys.home_page_title.tr(),
+                  LocaleKeys.wallet_module_home_page_title.tr(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 24,
@@ -39,31 +39,31 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 20),
               MenuItem(
                 icon: Icons.account_balance_wallet,
-                title: LocaleKeys.home_page_wallet.tr(),
+                title: LocaleKeys.wallet_module_home_page_wallet.tr(),
                 onTap: () => Modular.to.pushNamed(WalletsPage.pageRoute),
               ),
               const SizedBox(height: 20),
               MenuItem(
                 icon: Icons.account_balance_wallet,
-                title: LocaleKeys.home_page_deposit.tr(),
+                title: LocaleKeys.wallet_module_home_page_deposit.tr(),
                 onTap: () => Modular.to.pushNamed(DepositPage.pageRoute),
               ),
               const SizedBox(height: 10),
               MenuItem(
                 icon: Icons.money,
-                title: LocaleKeys.home_page_withdrawal.tr(),
+                title: LocaleKeys.wallet_module_home_page_withdrawal.tr(),
                 onTap: () => Modular.to.pushNamed(WithdrawalPage.pageRoute),
               ),
               const SizedBox(height: 10),
               MenuItem(
                 icon: Icons.currency_bitcoin,
-                title: LocaleKeys.home_page_beatzcoins.tr(),
+                title: LocaleKeys.wallet_module_home_page_beatzcoins.tr(),
                 onTap: () => Modular.to.pushNamed(BeatzcoinsPage.pageRoute),
               ),
               const SizedBox(height: 10),
               MenuItem(
                 icon: Icons.history,
-                title: LocaleKeys.home_page_transactions_history.tr(),
+                title: LocaleKeys.wallet_module_home_page_transactions_history.tr(),
                 onTap: () =>
                     Modular.to.pushNamed(TransactionsHistoryPage.pageRoute),
               ),

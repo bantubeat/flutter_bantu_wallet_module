@@ -29,7 +29,7 @@ class BeatzcoinsPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: colorScheme.onPrimary,
         title: Text(
-          LocaleKeys.beatzcoins_page_title.tr(),
+          LocaleKeys.wallet_module_beatzcoins_page_title.tr(),
           softWrap: true,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
@@ -64,14 +64,17 @@ class BeatzcoinsPage extends StatelessWidget {
               color: Color(0xFFFFCCCC).withOpacity(0.5),
               child: RichText(
                 text: TextSpan(
-                  text: LocaleKeys.beatzcoins_page_description.tr(),
+                  text:
+                      LocaleKeys.wallet_module_beatzcoins_page_description.tr(),
                   style: TextStyle(
                     fontSize: 14.0,
                     color: colorScheme.onSurface,
                   ),
                   children: [
                     TextSpan(
-                      text: LocaleKeys.beatzcoins_page_description2.tr(),
+                      text: LocaleKeys
+                          .wallet_module_beatzcoins_page_description2
+                          .tr(),
                       style: TextStyle(
                         fontSize: 14.0,
                         color: Colors.grey,
@@ -79,7 +82,9 @@ class BeatzcoinsPage extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: LocaleKeys.beatzcoins_page_description3.tr(),
+                      text: LocaleKeys
+                          .wallet_module_beatzcoins_page_description3
+                          .tr(),
                       style: TextStyle(
                         fontSize: 14.0,
                         color: colorScheme.primary,
@@ -127,7 +132,9 @@ class BeatzcoinsPage extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        LocaleKeys.beatzcoins_page_bzc_account_balance.tr(),
+                        LocaleKeys
+                            .wallet_module_beatzcoins_page_bzc_account_balance
+                            .tr(),
                         style: TextStyle(
                           color: colorScheme.onPrimary,
                           fontSize: 16,
@@ -189,7 +196,7 @@ class BeatzcoinsPage extends StatelessWidget {
                 ),
               ),
               child: Text(
-                LocaleKeys.beatzcoins_page_see_details.tr(),
+                LocaleKeys.wallet_module_beatzcoins_page_see_details.tr(),
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14,
@@ -200,7 +207,7 @@ class BeatzcoinsPage extends StatelessWidget {
             ActionButton(
               onPressed: onBuyBzc,
               fullWidth: true,
-              text: LocaleKeys.beatzcoins_page_buy_bzc.tr(),
+              text: LocaleKeys.wallet_module_beatzcoins_page_buy_bzc.tr(),
             ),
           ],
         ),

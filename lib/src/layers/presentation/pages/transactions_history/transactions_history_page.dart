@@ -16,16 +16,19 @@ class TransactionsHistoryPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.grey.shade100,
         appBar: AppBar(
-          title: Text(LocaleKeys.transaction_history_page_title.tr()),
+          title: Text(
+              LocaleKeys.wallet_module_transaction_history_page_title.tr()),
           bottom: TabBar(
             tabs: [
               Tab(
-                text:
-                    LocaleKeys.transaction_history_page_financial_account.tr(),
+                text: LocaleKeys
+                    .wallet_module_transaction_history_page_financial_account
+                    .tr(),
               ),
               Tab(
-                text:
-                    LocaleKeys.transaction_history_page_beatzocoin_account.tr(),
+                text: LocaleKeys
+                    .wallet_module_transaction_history_page_beatzocoin_account
+                    .tr(),
               ),
             ],
           ),
@@ -48,7 +51,7 @@ class TransactionsHistoryPage extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                LocaleKeys.transaction_history_page_account.tr(),
+                LocaleKeys.wallet_module_transaction_history_page_account.tr(),
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(width: 10),

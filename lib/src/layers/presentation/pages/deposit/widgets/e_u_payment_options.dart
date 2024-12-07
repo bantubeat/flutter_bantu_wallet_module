@@ -26,7 +26,7 @@ class EUPaymentOptions extends StatelessWidget {
         // Card Option
         _buildButton(
           icon: Icon(Icons.credit_card),
-          title: LocaleKeys.deposit_page_credit_or_visa_card.tr(),
+          title: LocaleKeys.wallet_module_deposit_page_credit_or_visa_card.tr(),
           onTap: onCreditOrVisaCard,
         ),
         SizedBox(height: 16),

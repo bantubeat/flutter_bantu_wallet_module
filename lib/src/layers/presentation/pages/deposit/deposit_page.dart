@@ -31,7 +31,8 @@ class DepositPage extends StatelessWidget {
         backgroundColor: colorScheme.onPrimary,
         appBar: AppBar(
           backgroundColor: colorScheme.onPrimary,
-          title: FittedBox(child: Text(LocaleKeys.deposit_page_title.tr())),
+          title: FittedBox(
+              child: Text(LocaleKeys.wallet_module_deposit_page_title.tr())),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -51,7 +52,8 @@ class DepositPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Text(
-                      LocaleKeys.deposit_page_choose_currency.tr(),
+                      LocaleKeys.wallet_module_deposit_page_choose_currency
+                          .tr(),
                       style: TextStyle(fontSize: 18, color: Color(0xFF5D5D5D)),
                     ),
                   ),
@@ -102,7 +104,7 @@ class DepositPage extends StatelessWidget {
                       FilteringTextInputFormatter.digitsOnly,
                     ],
                     decoration: InputDecoration(
-                      hintText: LocaleKeys.deposit_page_amount.tr(
+                      hintText: LocaleKeys.wallet_module_deposit_page_amount.tr(
                         args: [ctrl.currency],
                       ),
                       fillColor: Color(0xFFD9D9D9), // D1D1D1
@@ -124,7 +126,7 @@ class DepositPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        LocaleKeys.deposit_page_price.tr(),
+                        LocaleKeys.wallet_module_deposit_page_price.tr(),
                         style: summaryItemTextStyle,
                       ),
                       Text(
@@ -142,7 +144,7 @@ class DepositPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          LocaleKeys.deposit_page_fees.tr(
+                          LocaleKeys.wallet_module_deposit_page_fees.tr(
                             args: [
                               DepositController.feesPercent.toString(),
                             ],
@@ -162,7 +164,7 @@ class DepositPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        LocaleKeys.deposit_page_total.tr(),
+                        LocaleKeys.wallet_module_deposit_page_total.tr(),
                         style: summaryTotalTextStyle,
                       ),
                       Text(
@@ -178,7 +180,8 @@ class DepositPage extends StatelessWidget {
                 // Continue Payment Button
                 if (ctrl.isAfricanZone)
                   ActionButton(
-                    text: LocaleKeys.deposit_page_continue_payment.tr(),
+                    text: LocaleKeys.wallet_module_deposit_page_continue_payment
+                        .tr(),
                     onPressed: ctrl.onContinue,
                   ),
                 /*
@@ -192,7 +195,7 @@ class DepositPage extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  LocaleKeys.deposit_page_continue_payment.tr(),
+                  LocaleKeys.wallet_module_deposit_page_continue_payment.tr(),
                   style: TextStyle(
                     color: colorScheme.onPrimary,
                     fontSize: 24,

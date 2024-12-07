@@ -61,7 +61,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
     final bzcQuantity = num.tryParse(bzcTextCtrl.text)?.toDouble();
     if (bzcQuantity == null || bzcQuantity < minimumBzc) {
       UiAlertHelpers.showErrorToast(
-        LocaleKeys.wallets_page_beatzcoin_account_minimum_bzc.tr(
+        LocaleKeys.wallet_module_wallets_page_beatzcoin_account_minimum_bzc.tr(
           args: [minimumBzc.toString()],
         ),
       );
@@ -77,7 +77,9 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
       if (!mounted) return;
       UiAlertHelpers.showSuccessSnackBar(
         context,
-        LocaleKeys.wallets_page_beatzcoin_account_exchange_successful.tr(),
+        LocaleKeys
+            .wallet_module_wallets_page_beatzcoin_account_exchange_successful
+            .tr(),
       );
       bzcTextCtrl.clear();
       fiatTextCtrl.clear();
@@ -86,7 +88,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
       if (!mounted) return;
       UiAlertHelpers.showErrorSnackBar(
         context,
-        LocaleKeys.common_an_error_occur.tr(
+        LocaleKeys.wallet_module_common_an_error_occur.tr(
           args: [((e is MyHttpException) ? e.message : null) ?? e.toString()],
         ),
       );
@@ -111,7 +113,9 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                 child: Row(
                   children: [
                     Text(
-                      LocaleKeys.wallets_page_beatzcoin_account_title.tr(),
+                      LocaleKeys
+                          .wallet_module_wallets_page_beatzcoin_account_title
+                          .tr(),
                       style: TextStyle(
                         fontSize: 14.0,
                         color: colorScheme.onSurface,
@@ -155,7 +159,8 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
           ),
           SizedBox(height: 10),
           Text(
-            LocaleKeys.wallets_page_beatzcoin_account_description1.tr(),
+            LocaleKeys.wallet_module_wallets_page_beatzcoin_account_description1
+                .tr(),
             style: TextStyle(
               fontSize: 14,
               color: colorScheme.onSurface,
@@ -163,7 +168,8 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
           ),
           SizedBox(height: 10),
           Text(
-            LocaleKeys.wallets_page_beatzcoin_account_description2.tr(),
+            LocaleKeys.wallet_module_wallets_page_beatzcoin_account_description2
+                .tr(),
             style: TextStyle(
               fontSize: 14,
               color: colorScheme.onSurface,
@@ -172,14 +178,17 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
           SizedBox(height: 10),
           Text.rich(
             TextSpan(
-              text: LocaleKeys.wallets_page_beatzcoin_account_description3.tr(),
+              text: LocaleKeys
+                  .wallet_module_wallets_page_beatzcoin_account_description3
+                  .tr(),
               style: TextStyle(
                 fontSize: 14,
                 color: colorScheme.onSurface,
               ),
               children: [
                 TextSpan(
-                  text: LocaleKeys.wallets_page_beatzcoin_account_description4
+                  text: LocaleKeys
+                      .wallet_module_wallets_page_beatzcoin_account_description4
                       .tr(),
                   style: TextStyle(
                     fontSize: 14,
@@ -209,12 +218,10 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                       decoration: InputDecoration(
                         hintText: converterInitialized
                             ? 'BZC'
-                            : LocaleKeys.common_initializing.tr(),
+                            : LocaleKeys.wallet_module_common_initializing.tr(),
                         errorText: LocaleKeys
-                            .wallets_page_beatzcoin_account_minimum_bzc
-                            .tr(
-                          args: [minimumBzc.toString()],
-                        ),
+                            .wallet_module_wallets_page_beatzcoin_account_minimum_bzc
+                            .tr(args: [minimumBzc.toString()]),
                         fillColor: Color(0xFFD9D9D9),
                         filled: true,
                         contentPadding: EdgeInsets.all(5),
@@ -237,7 +244,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                       decoration: InputDecoration(
                         hintText: converterInitialized
                             ? fiatCurrencySymbol
-                            : LocaleKeys.common_initializing.tr(),
+                            : LocaleKeys.wallet_module_common_initializing.tr(),
                         errorText: '',
                         fillColor: Color(0xFFD9D9D9),
                         filled: true,
@@ -271,9 +278,10 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                   alignment: Alignment.center,
                   child: Text(
                     converterInitialized
-                        ? LocaleKeys.wallets_page_beatzcoin_account_exchange
+                        ? LocaleKeys
+                            .wallet_module_wallets_page_beatzcoin_account_exchange
                             .tr()
-                        : LocaleKeys.common_initializing.tr(),
+                        : LocaleKeys.wallet_module_common_initializing.tr(),
                     style: TextStyle(
                       fontSize: 14.0,
                       color: colorScheme.onPrimary,

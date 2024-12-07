@@ -36,7 +36,8 @@ class PaymentZoneSwitch extends StatelessWidget {
         children: [
           Expanded(
             child: _buildPaymentTab(
-              label: LocaleKeys.deposit_page_payment_zone_africa.tr(),
+              label: LocaleKeys.wallet_module_deposit_page_payment_zone_africa
+                  .tr(),
               icon: Icons.phone_android,
               isSelected: isAfricanZone,
               onTap: onAfricanZoneTap,
@@ -44,7 +45,8 @@ class PaymentZoneSwitch extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           _buildPaymentTab(
-            label: LocaleKeys.deposit_page_payment_zone_other.tr(),
+            label:
+                LocaleKeys.wallet_module_deposit_page_payment_zone_other.tr(),
             icon: Icons.account_balance,
             isSelected: !isAfricanZone,
             onTap: onOtherZoneTap,

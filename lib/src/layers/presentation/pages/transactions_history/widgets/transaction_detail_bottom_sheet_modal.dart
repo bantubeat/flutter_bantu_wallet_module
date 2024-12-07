@@ -42,28 +42,32 @@ class TransactionDetailBottomSheetModal extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Text(
-            LocaleKeys.transaction_history_page_table_caption.tr(),
+            LocaleKeys.wallet_module_transaction_history_page_table_caption
+                .tr(),
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 20),
           _buildDetailRow(
-            LocaleKeys.transaction_history_page_table_transaction_id.tr(),
+            LocaleKeys
+                .wallet_module_transaction_history_page_table_transaction_id
+                .tr(),
             transaction['id'] ?? '',
           ),
           _buildDetailRow(
-            LocaleKeys.transaction_history_page_table_date.tr(),
+            LocaleKeys.wallet_module_transaction_history_page_table_date.tr(),
             transaction['date'] ?? '',
           ),
           _buildDetailRow(
-            LocaleKeys.transaction_history_page_table_amount.tr(),
+            LocaleKeys.wallet_module_transaction_history_page_table_amount.tr(),
             transaction['amount'] ?? '',
           ),
           _buildDetailRow(
-            LocaleKeys.transaction_history_page_table_bzc_quantity.tr(),
+            LocaleKeys.wallet_module_transaction_history_page_table_bzc_quantity
+                .tr(),
             transaction['amount'] ?? '',
           ),
           _buildDetailRow(
-            LocaleKeys.transaction_history_page_table_status.tr(),
+            LocaleKeys.wallet_module_transaction_history_page_table_status.tr(),
             transaction['status'] ?? '',
           ),
         ],

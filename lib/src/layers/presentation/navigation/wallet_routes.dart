@@ -3,7 +3,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
 final class WalletRoutes {
-  final String _prefix_;
+  final String prefix_;
   final String _home;
   final String _wallets;
   final String _deposit;
@@ -13,7 +13,7 @@ final class WalletRoutes {
   final String _transactionsHistory;
 
   const WalletRoutes(
-    this._prefix_, {
+    this.prefix_, {
     String home = 'home',
     String wallets = 'wallets',
     String deposit = 'deposit',
@@ -29,14 +29,14 @@ final class WalletRoutes {
         _buyBeatzcoins = buyBeatzcoins,
         _transactionsHistory = transactionsHistory;
 
-  _RouteItem get home => _RouteItem(_prefix_, _home);
-  _RouteItem get wallets => _RouteItem(_prefix_, _wallets);
-  _RouteItem get deposit => _RouteItem(_prefix_, _deposit);
-  _RouteItem get withdrawal => _RouteItem(_prefix_, _withdrawal);
-  _RouteItem get beatzcoins => _RouteItem(_prefix_, _beatzcoins);
-  _RouteItem get buyBeatzcoins => _RouteItem(_prefix_, _buyBeatzcoins);
+  _RouteItem get home => _RouteItem(prefix_, _home);
+  _RouteItem get wallets => _RouteItem(prefix_, _wallets);
+  _RouteItem get deposit => _RouteItem(prefix_, _deposit);
+  _RouteItem get withdrawal => _RouteItem(prefix_, _withdrawal);
+  _RouteItem get beatzcoins => _RouteItem(prefix_, _beatzcoins);
+  _RouteItem get buyBeatzcoins => _RouteItem(prefix_, _buyBeatzcoins);
   _RouteItem get transactionsHistory =>
-      _RouteItem(_prefix_, _transactionsHistory);
+      _RouteItem(prefix_, _transactionsHistory);
 }
 
 final class _RouteItem<T> {

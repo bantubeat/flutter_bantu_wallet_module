@@ -19,8 +19,6 @@ import 'widgets/registered_payment_method.dart';
 class WithdrawalPage extends StatelessWidget {
   const WithdrawalPage({super.key});
 
-  static const pageRoute = '/withdrawal';
-
   void onViewDetails() => onRequestWithdrawal();
 
   void onRequestWithdrawal() {

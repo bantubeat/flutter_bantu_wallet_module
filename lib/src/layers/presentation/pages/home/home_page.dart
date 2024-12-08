@@ -4,17 +4,11 @@ import '../../../../core/generated/locale_keys.g.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../wallet_module.dart';
-import '../beatzcoins/beatzcoins_page.dart';
-import '../deposit/deposit_page.dart';
-import '../transactions_history/transactions_history_page.dart';
-import '../wallets/wallets_page.dart';
-import '../withdrawal/withdrawal_page.dart';
+import '../../navigation/wallet_routes.dart';
 import 'widgets/menu_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  static const pageRoute = '/';
 
   @override
   Widget build(BuildContext context) {
@@ -40,32 +34,32 @@ class HomePage extends StatelessWidget {
               MenuItem(
                 icon: Icons.account_balance_wallet,
                 title: LocaleKeys.wallet_module_home_page_wallet.tr(),
-                onTap: () => Modular.to.pushNamed(WalletsPage.pageRoute),
+                onTap: Modular.get<WalletRoutes>().wallets.push,
               ),
               const SizedBox(height: 20),
               MenuItem(
                 icon: Icons.account_balance_wallet,
                 title: LocaleKeys.wallet_module_home_page_deposit.tr(),
-                onTap: () => Modular.to.pushNamed(DepositPage.pageRoute),
+                onTap: Modular.get<WalletRoutes>().deposit.push,
               ),
               const SizedBox(height: 10),
               MenuItem(
                 icon: Icons.money,
                 title: LocaleKeys.wallet_module_home_page_withdrawal.tr(),
-                onTap: () => Modular.to.pushNamed(WithdrawalPage.pageRoute),
+                onTap: Modular.get<WalletRoutes>().withdrawal.push,
               ),
               const SizedBox(height: 10),
               MenuItem(
                 icon: Icons.currency_bitcoin,
                 title: LocaleKeys.wallet_module_home_page_beatzcoins.tr(),
-                onTap: () => Modular.to.pushNamed(BeatzcoinsPage.pageRoute),
+                onTap: Modular.get<WalletRoutes>().beatzcoins.push,
               ),
               const SizedBox(height: 10),
               MenuItem(
                 icon: Icons.history,
-                title: LocaleKeys.wallet_module_home_page_transactions_history.tr(),
-                onTap: () =>
-                    Modular.to.pushNamed(TransactionsHistoryPage.pageRoute),
+                title: LocaleKeys.wallet_module_home_page_transactions_history
+                    .tr(),
+                onTap: Modular.get<WalletRoutes>().transactionsHistory.push,
               ),
               const SizedBox(height: 10),
             ],

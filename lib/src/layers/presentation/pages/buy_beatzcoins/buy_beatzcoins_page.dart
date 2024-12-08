@@ -21,8 +21,6 @@ part 'widgets/custom_amount_bzc_load_form.dart';
 class BuyBeatzcoinsPage extends StatelessWidget {
   const BuyBeatzcoinsPage({super.key});
 
-  static const pageRoute = '/buy_beatzcoins';
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;

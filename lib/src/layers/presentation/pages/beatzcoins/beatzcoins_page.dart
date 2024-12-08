@@ -2,23 +2,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/user_balance_entity.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/user_balance_cubit.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/navigation/wallet_routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
 
 import '../../widgets/action_button.dart';
-import '../buy_beatzcoins/buy_beatzcoins_page.dart';
 
 class BeatzcoinsPage extends StatelessWidget {
   const BeatzcoinsPage({super.key});
 
-  static const pageRoute = '/beatzcoins';
-
   void onViewDetails() => onBuyBzc();
 
   void onBuyBzc() {
-    Modular.to.pushNamed(BuyBeatzcoinsPage.pageRoute);
+    Modular.get<WalletRoutes>().buyBeatzcoins.push();
   }
 
   @override

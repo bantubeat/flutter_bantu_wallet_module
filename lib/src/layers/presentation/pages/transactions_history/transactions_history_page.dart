@@ -7,8 +7,6 @@ import 'widgets/transaction_list.dart';
 class TransactionsHistoryPage extends StatelessWidget {
   const TransactionsHistoryPage({super.key});
 
-  static const pageRoute = '/transactions-history';
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

@@ -36,16 +36,19 @@ import 'layers/presentation/pages/transactions_history/transactions_history_page
 import 'layers/presentation/pages/wallets/wallets_page.dart';
 import 'layers/presentation/pages/withdrawal/withdrawal_page.dart';
 import 'layers/presentation/pages/beatzcoins/beatzcoins_page.dart';
+import 'layers/presentation/navigation/wallet_routes.dart';
 
 class WalletModule extends Module {
   static const floatingMenuBuilderKey = 'floatingMenuBuilder';
 
   final Widget Function() floatingMenuBuilder;
   final Future<String?> Function() getAccessToken;
+  final WalletRoutes walletRoutes;
 
   WalletModule({
     required this.floatingMenuBuilder,
     required this.getAccessToken,
+    required this.walletRoutes,
   });
 
   MyHttpClient Function() _initMyHttpClient({required bool withCache}) {
@@ -105,18 +108,19 @@ class WalletModule extends Module {
     i.addSingleton(CurrentUserCubit.new);
     i.addSingleton(UserBalanceCubit.new);
     i.addSingleton(floatingMenuBuilder, key: floatingMenuBuilderKey);
+    i.addInstance<WalletRoutes>(walletRoutes);
   }
 
   @override
   void routes(r) {
-    r.child('/', child: (_) => HomePage());
-    r.child(WalletsPage.pageRoute, child: (_) => WalletsPage());
-    r.child(DepositPage.pageRoute, child: (_) => DepositPage());
-    r.child(WithdrawalPage.pageRoute, child: (_) => WithdrawalPage());
-    r.child(BeatzcoinsPage.pageRoute, child: (_) => BeatzcoinsPage());
-    r.child(BuyBeatzcoinsPage.pageRoute, child: (_) => BuyBeatzcoinsPage());
+    r.child(walletRoutes.home.wp, child: (_) => HomePage());
+    r.child(walletRoutes.wallets.wp, child: (_) => WalletsPage());
+    r.child(walletRoutes.deposit.wp, child: (_) => DepositPage());
+    r.child(walletRoutes.withdrawal.wp, child: (_) => WithdrawalPage());
+    r.child(walletRoutes.beatzcoins.wp, child: (_) => BeatzcoinsPage());
+    r.child(walletRoutes.buyBeatzcoins.wp, child: (_) => BuyBeatzcoinsPage());
     r.child(
-      TransactionsHistoryPage.pageRoute,
+      walletRoutes.transactionsHistory.wp,
       child: (_) => TransactionsHistoryPage(),
     );
   }

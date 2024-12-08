@@ -26,8 +26,8 @@ void main() async {
       module: WalletModule(
         floatingMenuBuilder: MyBottomNavigationBar.new,
         getAccessToken: () => Future.sync(() => _accessToken),
+        walletRoutes: const WalletRoutes('/'),
       ),
-      //
       child: AppWidget(),
     ),
   );
@@ -41,7 +41,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     const supportedLocales = [Locale('fr')];
     return EasyLocalization(
-      path: 'packages/flutter_bantu_wallet_module/assets/i18n',
+      path: kIsWeb ? 'i18n' : 'assets/i18n',
       saveLocale: false,
       useOnlyLangCode: true,
       useFallbackTranslations: kReleaseMode,

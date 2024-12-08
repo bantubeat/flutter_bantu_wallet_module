@@ -13,8 +13,6 @@ import 'widgets/e_u_payment_options.dart';
 import 'widgets/payment_zone_switch.dart';
 
 class DepositPage extends StatelessWidget {
-  static const pageRoute = '/deposit';
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;

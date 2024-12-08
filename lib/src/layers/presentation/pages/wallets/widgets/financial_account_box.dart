@@ -5,9 +5,9 @@ class _FinancialAccountBox extends StatelessWidget {
 
   const _FinancialAccountBox({required this.isAfrican});
 
-  void addFund() => Modular.to.pushNamed(WithdrawalPage.pageRoute);
+  void addFund() => Modular.get<WalletRoutes>().deposit.push();
 
-  void requestWithdrawal() => Modular.to.pushNamed(WithdrawalPage.pageRoute);
+  void requestWithdrawal() => Modular.get<WalletRoutes>().withdrawal.push();
 
   @override
   Widget build(BuildContext context) {

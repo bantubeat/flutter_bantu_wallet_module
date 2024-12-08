@@ -43,13 +43,13 @@ class WalletModule extends Module {
 
   final Widget Function() floatingMenuBuilder;
   final Future<String?> Function() getAccessToken;
-  final WalletRoutes walletRoutes;
+  final WalletRoutes _routes;
 
   WalletModule({
     required this.floatingMenuBuilder,
     required this.getAccessToken,
-    required this.walletRoutes,
-  });
+    required WalletRoutes routes,
+  }) : _routes = routes;
 
   MyHttpClient Function() _initMyHttpClient({required bool withCache}) {
     return () {
@@ -108,19 +108,19 @@ class WalletModule extends Module {
     i.addSingleton(CurrentUserCubit.new);
     i.addSingleton(UserBalanceCubit.new);
     i.addSingleton(floatingMenuBuilder, key: floatingMenuBuilderKey);
-    i.addInstance<WalletRoutes>(walletRoutes);
+    i.addInstance<WalletRoutes>(_routes);
   }
 
   @override
   void routes(r) {
-    r.child(walletRoutes.home.wp, child: (_) => HomePage());
-    r.child(walletRoutes.wallets.wp, child: (_) => WalletsPage());
-    r.child(walletRoutes.deposit.wp, child: (_) => DepositPage());
-    r.child(walletRoutes.withdrawal.wp, child: (_) => WithdrawalPage());
-    r.child(walletRoutes.beatzcoins.wp, child: (_) => BeatzcoinsPage());
-    r.child(walletRoutes.buyBeatzcoins.wp, child: (_) => BuyBeatzcoinsPage());
+    r.child(_routes.home.wp, child: (_) => HomePage());
+    r.child(_routes.wallets.wp, child: (_) => WalletsPage());
+    r.child(_routes.deposit.wp, child: (_) => DepositPage());
+    r.child(_routes.withdrawal.wp, child: (_) => WithdrawalPage());
+    r.child(_routes.beatzcoins.wp, child: (_) => BeatzcoinsPage());
+    r.child(_routes.buyBeatzcoins.wp, child: (_) => BuyBeatzcoinsPage());
     r.child(
-      walletRoutes.transactionsHistory.wp,
+      _routes.transactionsHistory.wp,
       child: (_) => TransactionsHistoryPage(),
     );
   }

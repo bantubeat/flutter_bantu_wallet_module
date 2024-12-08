@@ -26,7 +26,7 @@ void main() async {
       module: WalletModule(
         floatingMenuBuilder: MyBottomNavigationBar.new,
         getAccessToken: () => Future.sync(() => _accessToken),
-        walletRoutes: const WalletRoutes('/'),
+        routes: const WalletRoutes('/'),
       ),
       child: AppWidget(),
     ),

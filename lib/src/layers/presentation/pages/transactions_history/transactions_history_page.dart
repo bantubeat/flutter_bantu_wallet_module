@@ -15,7 +15,8 @@ class TransactionsHistoryPage extends StatelessWidget {
         backgroundColor: Colors.grey.shade100,
         appBar: AppBar(
           title: Text(
-              LocaleKeys.wallet_module_transaction_history_page_title.tr()),
+            LocaleKeys.wallet_module_transaction_history_page_title.tr(),
+          ),
           bottom: TabBar(
             tabs: [
               Tab(

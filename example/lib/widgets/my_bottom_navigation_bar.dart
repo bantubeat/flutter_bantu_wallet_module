@@ -197,7 +197,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 class _NavIcon {
   final String label;
   final IconData icon;
-  final String type;
   final bool isBlur;
   final VoidCallback onClick;
 
@@ -205,7 +204,6 @@ class _NavIcon {
     required this.label,
     required this.icon,
     required this.onClick,
-    this.type = 'icon',
     this.isBlur = false,
   });
 }

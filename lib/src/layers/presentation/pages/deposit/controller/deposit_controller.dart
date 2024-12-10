@@ -14,8 +14,10 @@ import '../../../../domain/use_cases/get_all_currencies_use_case.dart';
 import '../../../../domain/use_cases/get_current_user_use_case.dart';
 
 import 'payment_mixins/pay_with_bantubeat.dart';
+import 'payment_mixins/pay_with_google.dart';
 
-class DepositController extends ScreenController with PayWithBantubeat {
+class DepositController extends ScreenController
+    with PayWithBantubeat, PayWithGoogle {
   DepositController(super.state);
 
   static const feesPercent = 5.0;
@@ -154,12 +156,15 @@ class DepositController extends ScreenController with PayWithBantubeat {
   void onGooglePay() async {
     final currency = _selectedCurrency?.code.toUpperCase();
     final amount = num.tryParse(amountCtrl.text)?.toDouble();
-    if (currency == null || amount == null) {
+    final countryIso2 = currentUser?.pays.toUpperCase();
+    if (countryIso2 == null || currency == null || amount == null) {
       return UiAlertHelpers.showErrorSnackBar(
         context,
         LocaleKeys.wallet_module_deposit_page_amount_and_currency_required.tr(),
       );
     }
+
+    payWithGoogle(amount: amount, countryIso2: countryIso2, currency: currency);
   }
 
   void onApplePay() async {

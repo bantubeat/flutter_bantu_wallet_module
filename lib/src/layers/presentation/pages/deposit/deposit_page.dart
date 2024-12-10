@@ -30,7 +30,8 @@ class DepositPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: colorScheme.onPrimary,
           title: FittedBox(
-              child: Text(LocaleKeys.wallet_module_deposit_page_title.tr())),
+            child: Text(LocaleKeys.wallet_module_deposit_page_title.tr()),
+          ),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),

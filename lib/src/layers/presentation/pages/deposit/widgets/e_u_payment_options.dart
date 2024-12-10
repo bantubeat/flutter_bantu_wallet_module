@@ -33,6 +33,7 @@ class EUPaymentOptions extends StatelessWidget {
         // Apple Pay and Google Pay options
         Row(
           children: [
+            /*
             Expanded(
               child: _buildButton(
                 icon: Icon(Icons.apple),
@@ -40,7 +41,8 @@ class EUPaymentOptions extends StatelessWidget {
                 onTap: onApplePay,
               ),
             ),
-            SizedBox(width: 16),
+            SizedBox(width: 16), 
+						*/
             Expanded(
               child: _buildButton(
                 icon: GoogleIconSvgImage(),

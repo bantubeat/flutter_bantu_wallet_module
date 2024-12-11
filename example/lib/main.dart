@@ -15,7 +15,7 @@ const _accessToken =
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-
+  print('RESTARTED --');
   if (!kIsWeb) {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     Hive.init(appDocumentDirectory.path);
@@ -26,7 +26,7 @@ void main() async {
       module: WalletModule(
         getAccessToken: () => Future.sync(() => _accessToken),
         floatingMenuBuilder: MyBottomNavigationBar.new,
-        routes: const WalletRoutes('/'),
+        routes: WalletRoutes('/wallets'.toLowerCase()),
       ),
       child: AppWidget(),
     ),

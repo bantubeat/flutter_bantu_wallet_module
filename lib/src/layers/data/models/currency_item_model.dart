@@ -10,7 +10,7 @@ class CurrencyItemModel extends CurrencyItemEntity {
   factory CurrencyItemModel.fromJson(Map<String, dynamic> json) {
     return CurrencyItemModel(
       code: json['code'],
-      oneEurValue: json['one_eur_value'],
+      oneEurValue: double.parse(json['one_eur_value'].toString()),
       description: json['description'],
     );
   }

@@ -86,7 +86,7 @@ const String defaultGooglePay = '''{
           "parameters": {
 						"gateway": "stripe",
   					"stripe:version": "2018-10-31",
-						"stripe:publishableKey": "${MyApiKeys.stripePublishableKey}",
+						"stripe:publishableKey": "${MyApiKeys.stripePublishableKey}"
           }
         },
         "parameters": {

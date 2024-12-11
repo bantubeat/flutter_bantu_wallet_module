@@ -39,6 +39,10 @@ android {
     }
 }
 
+dependencies {
+    implementation 'com.stripe:stripe-android:21.2.1'
+}
+
 flutter {
     source = "../.."
 }

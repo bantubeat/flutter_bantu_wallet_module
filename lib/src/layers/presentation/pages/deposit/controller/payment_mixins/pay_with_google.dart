@@ -1,3 +1,8 @@
+import 'dart:convert' show jsonDecode;
+
+import 'package:flutter/foundation.dart' show debugPrint;
+import 'package:flutter/services.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 import 'package:pay/pay.dart';
 
 import '../../../../../../core/utils/payment_configurations.dart';
@@ -17,26 +22,54 @@ mixin PayWithGoogle {
             )
             .replaceAll(
               '"currencyCode": "USD"',
-              '""currencyCode": "$currency"',
+              '"currencyCode": "$currency"',
             ),
       ),
     });
 
-    final result = await payClient.showPaymentSelector(
-      PayProvider.google_pay,
-      [
-        PaymentItem(
-          label: 'Total',
-          amount: amount.toStringAsFixed(2),
-          type: PaymentItemType.total,
-          status: PaymentItemStatus.final_price,
-        ),
-      ],
-    );
+    Map<String, dynamic>? result;
+    try {
+      result = await payClient.showPaymentSelector(
+        PayProvider.google_pay,
+        [
+          PaymentItem(
+            label: 'Total',
+            amount: amount.toStringAsFixed(2),
+            type: PaymentItemType.total,
+            status: PaymentItemStatus.final_price,
+          ),
+        ],
+      );
+    } on PlatformException catch (e) {
+      UiAlertHelpers.showErrorToast('${e.code}: ${e.message}');
+      return;
+    }
 
-    print(result);
+    debugPrint('result => $result');
 
-    final stripeToken = result['tokenizationData']['token'];
+    Map<String, dynamic>? paymentMethodData = result['paymentMethodData'];
+    debugPrint('paymentMethodData => $paymentMethodData');
+    if (paymentMethodData == null) return;
+
+    Map<String, dynamic>? tokenizationData =
+        paymentMethodData['tokenizationData'];
+    debugPrint('tokenizationData => $tokenizationData');
+    if (tokenizationData == null) return;
+
+    final token = tokenizationData['token'];
+    debugPrint('token => $token');
+    if (token == null) return;
+
+    late String stripeToken;
+
+    try {
+      final tokenMap = jsonDecode(token.toString());
+      stripeToken = tokenMap['id'];
+    } catch (_) {
+      stripeToken = token;
+    }
+
+    debugPrint('stripeToken => $stripeToken');
 
     // TODO: Backend API call
   }

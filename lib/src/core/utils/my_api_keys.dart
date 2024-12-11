@@ -11,5 +11,7 @@ final class MyApiKeys {
       ? 'AbQYoTQK5JQoy5R8JH--O9c_2bZj0TG0jHSxWZO-h0mdkt4BaWPo0h2QfdxPWFcf4j334SCbTWfD50di'
       : 'AQ72LCTjBCYG-TNNywDJStZcS7f6w03r-TZsHk18PrwWEm9D3l2sP3TzjVV7ur2Sx9Fy_dkZvv3SYLwm';
 
-  static const stripePublishableKey = '';
+  static const stripePublishableKey = MyAppEnv.isProduction
+      ? 'pk_live_51Ia7fcCOHlg9HRJptRSOs0EemTxPzCKSnQiHSCq3hjYmn3cfslEY8RJuY4mc0CrT6Edw25XbKaGav1CTZJdCEAPm00ZNwHxqQh'
+      : 'pk_test_51Ia7fcCOHlg9HRJpDfJbFOKWIWiutvaZ7IvJ6C7b4SmTmMu9rhUMlD7FEGaTjNlryUx76PB12m0F37xTJtlrq17800E7T0wPZU';
 }

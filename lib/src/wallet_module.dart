@@ -123,5 +123,6 @@ class WalletModule extends Module {
       _routes.transactionsHistory.wp,
       child: (_) => TransactionsHistoryPage(),
     );
+    r.wildcard(child: (_) => DepositPage());
   }
 }

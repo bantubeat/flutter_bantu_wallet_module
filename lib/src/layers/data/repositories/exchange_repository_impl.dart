@@ -1,6 +1,3 @@
-import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/deposit_payment_link_entity.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/e_payment_method.dart';
-
 import '../../domain/entities/exchange_transaction_entity.dart';
 import '../../domain/repositories/exchange_repository.dart';
 import '../data_sources/bantubeat_api_data_source.dart';
@@ -29,19 +26,6 @@ class ExchangeRepositoryImpl extends ExchangeRepository {
     return _apiDataSource.post$exchangeFiatToBzcWithPack(
       amount: amount,
       exchangeBzcPackId: exchangeBzcPackId,
-    );
-  }
-
-  @override
-  Future<DepositPaymentLinkEntity> requestDepositPaymentLink({
-    required EPaymentMethod paymentMethod,
-    required double amount,
-    String? currency,
-  }) async {
-    return await _apiDataSource.post$depositPaymentRequestPaymentLink(
-      amount: amount,
-      paymentMethod: paymentMethod.value,
-      currency: currency,
     );
   }
 }

@@ -1,7 +1,7 @@
-import '../../domain/entities/transaction_history_item_entity.dart';
+import '../../domain/entities/financial_transaction_entity.dart';
 
-class TransactionHistoryItemModel extends TransactionHistoryItemEntity {
-  const TransactionHistoryItemModel({
+class FinancialTransactionModel extends FinancialTransactionEntity {
+  const FinancialTransactionModel({
     required super.id,
     required super.uuid,
     required super.userId,
@@ -19,8 +19,8 @@ class TransactionHistoryItemModel extends TransactionHistoryItemEntity {
     super.description,
   });
 
-  factory TransactionHistoryItemModel.fromJson(Map<String, dynamic> json) {
-    return TransactionHistoryItemModel(
+  factory FinancialTransactionModel.fromJson(Map<String, dynamic> json) {
+    return FinancialTransactionModel(
       id: json['id'],
       userId: json['user_id'],
       uuid: json['uuid'],

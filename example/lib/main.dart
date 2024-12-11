@@ -15,7 +15,7 @@ const _accessToken =
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  print('RESTARTED --');
+
   if (!kIsWeb) {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     Hive.init(appDocumentDirectory.path);

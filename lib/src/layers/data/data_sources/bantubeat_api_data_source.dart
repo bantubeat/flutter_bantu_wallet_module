@@ -3,7 +3,7 @@ import '../../domain/entities/e_withdrawal_eligibility.dart';
 import '../models/currency_item_model.dart';
 import '../models/currency_rates_model.dart';
 import '../models/deposit_payment_link_model.dart';
-import '../models/transaction_history_item_model.dart';
+import '../models/financial_transaction_model.dart';
 import '../models/user_balance_model.dart';
 import '../models/exchange_bzc_pack_model.dart';
 import '../models/payment_preference_model.dart';
@@ -116,7 +116,7 @@ final class BantubeatApiDataSource {
   }
 
   /// Get transactions with pagination
-  Future<List<TransactionHistoryItemModel>> get$transactions({
+  Future<List<FinancialTransactionModel>> get$transactions({
     required int limit,
     int page = 1,
   }) {
@@ -124,7 +124,7 @@ final class BantubeatApiDataSource {
         .get('/balance/transactions?page=$page&limit=$limit')
         .then((r) => r.data['data'] as List)
         .then((list) => list.map((e) => e as Map<String, dynamic>))
-        .then((jsonList) => jsonList.map(TransactionHistoryItemModel.fromJson))
+        .then((jsonList) => jsonList.map(FinancialTransactionModel.fromJson))
         .then((iterable) => iterable.toList());
   }
 
@@ -136,10 +136,29 @@ final class BantubeatApiDataSource {
     return _client.post(
       '/deposit-payment/request-payment-link',
       body: {
-        'amount': amount,
+        'amount': amount.toString(),
         'payment_method': paymentMethod,
         if (currency != null) 'currency': currency,
       },
     ).then((r) => DepositPaymentLinkModel.fromJson(r.data));
+  }
+
+  Future<FinancialTransactionModel> post$depositPaymentMakeDirectPayment({
+    required String paymentMethod,
+    required double amount,
+    String? currency,
+    String? stripeToken,
+  }) {
+    return _client.post(
+      '/deposit-payment/make-direct-payment',
+      body: {
+        'amount': amount.toString(),
+        'payment_method': paymentMethod,
+        if (currency != null) 'currency': currency,
+        'meta': {
+          if (stripeToken != null) 'stripe_token': stripeToken,
+        },
+      },
+    ).then((r) => FinancialTransactionModel.fromJson(r.data));
   }
 }

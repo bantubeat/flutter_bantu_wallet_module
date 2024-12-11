@@ -1,4 +1,4 @@
-abstract class TransactionHistoryItemEntity {
+abstract class FinancialTransactionEntity {
   final int id;
   final int userId;
   final EFinancialTxType type;
@@ -15,7 +15,7 @@ abstract class TransactionHistoryItemEntity {
   final DateTime updatedAt;
   final String uuid;
 
-  const TransactionHistoryItemEntity({
+  const FinancialTransactionEntity({
     required this.id,
     required this.userId,
     required this.type,

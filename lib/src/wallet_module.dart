@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show Widget;
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'core/network/api_constants.dart';
@@ -6,12 +6,14 @@ import 'core/network/my_http/my_http.dart';
 
 import 'layers/data/data_sources/bantubeat_api_data_source.dart';
 import 'layers/data/repositories/exchange_repository_impl.dart';
+import 'layers/data/repositories/payment_repository_impl.dart';
 import 'layers/data/repositories/user_repository_impl.dart';
 import 'layers/data/repositories/balance_repository_impl.dart';
 import 'layers/data/repositories/public_repository_impl.dart';
 
 import 'layers/domain/repositories/exchange_repository.dart';
 import 'layers/domain/repositories/balance_repository.dart';
+import 'layers/domain/repositories/payment_repository.dart';
 import 'layers/domain/repositories/public_repository.dart';
 import 'layers/domain/repositories/user_repository.dart';
 import 'layers/domain/use_cases/check_withdrawal_eligibility_use_case.dart';
@@ -26,6 +28,7 @@ import 'layers/domain/use_cases/exchange_fiat_to_bzc_use_case.dart';
 import 'layers/domain/use_cases/get_all_currencies_use_case.dart';
 import 'layers/domain/use_cases/get_user_balance_use_case.dart';
 
+import 'layers/domain/use_cases/make_deposit_direct_payment_use_case.dart';
 import 'layers/domain/use_cases/request_deposit_payment_link_use_case.dart';
 import 'layers/presentation/cubits/current_user_cubit.dart';
 import 'layers/presentation/cubits/user_balance_cubit.dart';
@@ -89,11 +92,11 @@ class WalletModule extends Module {
     i.addSingleton<PublicRepository>(PublicRepositoryImpl.new);
     i.addSingleton<ExchangeRepository>(ExchangeRepositoryImpl.new);
     i.addSingleton<UserRepository>(UserRepositoryImpl.new);
+    i.addSingleton<PaymentRepository>(PaymentRepositoryImpl.new);
 
     // -- Domain Use Cases
     i.addSingleton(CheckWithdrawalEligibilityUseCase.new);
     i.addSingleton(ConvertFiatCurrencyUseCase.new);
-    i.addSingleton(RequestDepositPaymentLinkUseCase.new);
     i.addSingleton(ExchangeBzcToFiatUseCase.new);
     i.addSingleton(ExchangeFiatToBzcUseCase.new);
     i.addSingleton(GetAllCurrenciesUseCase.new);
@@ -103,6 +106,8 @@ class WalletModule extends Module {
     i.addSingleton(GetPaymentPreferencesUseCase.new);
     i.addSingleton(GetTransactionsHistoryUseCase.new);
     i.addSingleton(GetUserBalanceUseCase.new);
+    i.addSingleton(MakeDepositDirectPaymentUseCase.new);
+    i.addSingleton(RequestDepositPaymentLinkUseCase.new);
 
     // Presentation layer dependencies
     i.addSingleton(CurrentUserCubit.new);

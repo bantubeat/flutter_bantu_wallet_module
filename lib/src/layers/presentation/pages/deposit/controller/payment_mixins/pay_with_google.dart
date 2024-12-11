@@ -2,13 +2,18 @@ import 'dart:convert' show jsonDecode;
 
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter/services.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/e_payment_method.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/financial_transaction_entity.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/navigation/wallet_routes.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pay/pay.dart';
 
 import '../../../../../../core/utils/payment_configurations.dart';
+import '../../../../../domain/use_cases/make_deposit_direct_payment_use_case.dart';
 
 mixin PayWithGoogle {
-  void payWithGoogle({
+  Future<void> payWithGoogle({
     required double amount,
     required String countryIso2,
     required String currency,
@@ -72,5 +77,17 @@ mixin PayWithGoogle {
     debugPrint('stripeToken => $stripeToken');
 
     // TODO: Backend API call
+    final tx = await Modular.get<MakeDepositDirectPaymentUseCase>().call(
+      (
+        paymentMethod: EPaymentMethod.stripe,
+        amount: amount,
+        currency: currency,
+        stripeToken: stripeToken,
+      ),
+    );
+
+    if (tx.status == EFinancialTxStatus.success) {
+      Modular.get<WalletRoutes>().transactionsHistory.navigate();
+    }
   }
 }

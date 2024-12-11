@@ -1,7 +1,7 @@
 import '../entities/e_withdrawal_eligibility.dart';
 import '../entities/exchange_bzc_pack_entity.dart';
 import '../entities/payment_preference_entity.dart';
-import '../entities/transaction_history_item_entity.dart';
+import '../entities/financial_transaction_entity.dart';
 import '../entities/user_balance_entity.dart';
 
 abstract class BalanceRepository {
@@ -11,7 +11,7 @@ abstract class BalanceRepository {
 
   Future<List<PaymentPreferenceEntity>> getPaymentPreferences();
 
-  Future<List<TransactionHistoryItemEntity>> getTransactions({
+  Future<List<FinancialTransactionEntity>> getTransactions({
     required int limit,
     int page = 1,
   });

@@ -26,6 +26,8 @@ library;
 import 'package:flutter_bantu_wallet_module/src/core/utils/my_api_keys.dart';
 import 'package:pay/pay.dart';
 
+import 'my_app_env.dart';
+
 /// Sample [PaymentConfiguration] for Apple Pay
 final defaultApplePayConfig =
     PaymentConfiguration.fromJsonString(defaultApplePay);
@@ -75,7 +77,7 @@ final defaultGooglePayConfig =
 const String defaultGooglePay = '''{
   "provider": "google_pay",
   "data": {
-    "environment": "TEST",
+    ${MyAppEnv.isProduction ? '' : '"environment": "TEST",'}
     "apiVersion": 2,
     "apiVersionMinor": 0,
     "allowedPaymentMethods": [

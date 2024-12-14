@@ -14,7 +14,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
   double? fiatAmount;
   BzcCurrencyConverter? _bzcCurrencyConverter;
 
-  String get fiatCurrencySymbol => widget.isAfrican ? 'CFA' : '€';
+  String get fiatCurrencySymbol => widget.isAfrican ? 'F CFA' : '€';
 
   bool get converterInitialized => _bzcCurrencyConverter != null;
 
@@ -109,7 +109,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
               children: [
                 Text(
                   LocaleKeys.wallet_module_buy_beatzcoins_page_ttc_amount_in
-                      .tr(args: [widget.isAfrican ? 'CFA' : '€']),
+                      .tr(args: [widget.isAfrican ? 'F CFA' : '€']),
                   style: TextStyle(fontSize: 16),
                 ),
                 Text(

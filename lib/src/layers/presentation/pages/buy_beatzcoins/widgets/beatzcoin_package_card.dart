@@ -63,7 +63,7 @@ class BeatzcoinPackageCard extends StatelessWidget {
               ),
               alignment: Alignment.center,
               child: Text(
-                NumberFormat.currency(symbol: isAfrican ? 'CFA' : '€').format(
+                NumberFormat.currency(symbol: isAfrican ? 'F CFA' : '€').format(
                   price,
                 ),
                 style: TextStyle(

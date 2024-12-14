@@ -56,7 +56,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
 
   bool isProcessing = false;
 
-  String get fiatCurrencySymbol => widget.isAfrican ? 'CFA' : '€';
+  String get fiatCurrencySymbol => widget.isAfrican ? 'F CFA' : '€';
 
   bool get initialized =>
       widget.bzcExchangePack != null || _bzcCurrencyConverter != null;

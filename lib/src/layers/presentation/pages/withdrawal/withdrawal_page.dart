@@ -133,7 +133,7 @@ class WithdrawalPage extends StatelessWidget {
                         builder: (context, balanceSnap) => Text(
                           balanceSnap.hasData
                               ? NumberFormat.currency(
-                                  symbol: isAfrican ? 'CFA' : '€',
+                                  symbol: isAfrican ? 'F CFA' : '€',
                                 ).format(
                                   isAfrican
                                       ? balanceSnap.data?.xaf

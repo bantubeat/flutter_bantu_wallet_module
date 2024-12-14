@@ -19,7 +19,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
 
   bool isExchanging = false;
 
-  String get fiatCurrencySymbol => widget.isAfrican ? 'CFA' : '€';
+  String get fiatCurrencySymbol => widget.isAfrican ? 'F CFA' : '€';
 
   bool get converterInitialized => _bzcCurrencyConverter != null;
 

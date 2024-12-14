@@ -54,18 +54,21 @@ class _FinancialAccountBox extends StatelessWidget {
                 ),
                 SizedBox(width: 8.0),
                 BlocSelector<UserBalanceCubit, AsyncSnapshot<UserBalanceEntity>,
-                    double?>(
+                    String>(
                   bloc: userBalanceCubit,
-                  selector: (state) => state.data?.eur,
-                  builder: (context, eurBalance) => MySmallButton(
+                  selector: (state) {
+                    if (state.data == null) return '...';
+                    return NumberFormat.currency(
+                      locale: isAfrican ? 'fr_CM' : 'fr_FR',
+                      name: isAfrican ? 'XAF' : 'EUR',
+                      symbol: isAfrican ? 'FCFA' : '€',
+                    ).format(isAfrican ? state.data?.xaf : state.data?.eur);
+                  },
+                  builder: (context, formattedBalance) => MySmallButton(
                     backgroundColor: colorScheme.primary,
                     textColor: colorScheme.onPrimary,
                     useFittedBox: true,
-                    text: eurBalance == null
-                        ? '...'
-                        : NumberFormat.currency(
-                            symbol: isAfrican ? 'FCFA' : '€',
-                          ).format(eurBalance),
+                    text: formattedBalance,
                     onTap: userBalanceCubit.fetchUserBalance,
                   ),
                 ),

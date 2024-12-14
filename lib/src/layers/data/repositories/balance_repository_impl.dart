@@ -43,7 +43,16 @@ class BalanceRepositoryImpl implements BalanceRepository {
   Future<List<FinancialTransactionEntity>> getTransactions({
     required int limit,
     int page = 1,
+    List<EFinancialTxStatus>? statusList,
+    List<EFinancialTxType>? typesList,
+    bool? isBzcAccount,
   }) {
-    return _apiDataSource.get$transactions(limit: limit, page: page);
+    return _apiDataSource.get$transactions(
+      limit: limit,
+      page: page,
+      statusList: statusList,
+      typesList: typesList,
+      isBzcAccount: isBzcAccount,
+    );
   }
 }

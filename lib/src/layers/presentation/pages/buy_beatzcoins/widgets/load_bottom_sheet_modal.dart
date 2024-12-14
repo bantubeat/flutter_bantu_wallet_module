@@ -12,8 +12,6 @@ import '../../../../domain/entities/exchange_bzc_pack_entity.dart';
 import '../../../../../core/generated/locale_keys.g.dart';
 import '../../../cubits/user_balance_cubit.dart';
 import '../../../helpers/ui_alert_helpers.dart';
-import '../../../widgets/action_button.dart';
-import '../../../widgets/google_icon_svg_image.dart';
 import '../../../widgets/squared_bzc_svg_image.dart';
 
 class LoadBottomSheetModal extends StatefulWidget {
@@ -76,12 +74,15 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
   }
 
   double? get fiatAmount {
-    if (widget.bzcExchangePack != null) {
-      return widget.bzcExchangePack?.fiatAmount;
+    final bzcExchangePack = widget.bzcExchangePack;
+    if (bzcExchangePack != null) {
+      return widget.isAfrican
+          ? _bzcCurrencyConverter?.eurToXaf(bzcExchangePack.fiatAmount)
+          : bzcExchangePack.fiatAmount;
     }
 
     return widget.isAfrican
-        ? _bzcCurrencyConverter?.bzcToEur(widget.bzcQuantity)
+        ? _bzcCurrencyConverter?.bzcToXaf(widget.bzcQuantity)
         : _bzcCurrencyConverter?.bzcToEur(widget.bzcQuantity);
   }
 
@@ -104,9 +105,16 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
       );
       if (mounted) Navigator.of(context).pop();
     } catch (e) {
+      final statusCode = (e is MyHttpException) ? e.statusCode : 0;
+      var message = (e is MyHttpException) ? e.message : null;
+
+      if (statusCode == 406) {
+        message = LocaleKeys.wallet_module_common_insufficient_funds.tr();
+      }
+
       UiAlertHelpers.showErrorToast(
         LocaleKeys.wallet_module_common_an_error_occur.tr(
-          args: [((e is MyHttpException) ? e.message : null) ?? e.toString()],
+          args: [message ?? e.toString()],
         ),
       );
     } finally {
@@ -307,6 +315,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                 ),
               ),
             ),
+            /*
             SizedBox(height: 20),
             ActionButton(
               enabled: !isProcessing,
@@ -316,7 +325,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
               text: 'Pay',
               backgroundColor: Colors.white,
               textColor: Colors.black,
-            ),
+            ), 
             SizedBox(height: 20),
             ActionButton(
               enabled: !isProcessing,
@@ -326,7 +335,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
               text: ' Pay',
               backgroundColor: Colors.white,
               textColor: Colors.black,
-            ),
+            ), */
             SizedBox(height: 20),
             Text(
               LocaleKeys.wallet_module_buy_beatzcoins_page_modal_warning1.tr(),

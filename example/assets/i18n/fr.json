@@ -3,7 +3,9 @@
         "appBarTitle": "Porte-Feuille",
         "common": {
             "initializing": "Initialisation...",
-            "an_error_occur": "An error occur: {}"
+            "an_error_occur": "An error occur: {}",
+            "insufficient_funds": "Solde insuffisant",
+            "all": "Tout"
         },
         "home_page": {
             "title": "Ma Balance",
@@ -90,10 +92,30 @@
             "table": {
                 "caption": "Transaction Details",
                 "transaction_id": "ID Transaction",
+                "transaction_ref": "Référence",
                 "date": "Date",
+                "old_balance": "Solde avant",
+                "new_balance": "Solde après",
                 "amount": "Montant",
+                "input_amount": "Montant entré",
                 "bzc_quantity": "Quantité BZC",
-                "status": "Statut"
+                "status": "Statut",
+                "type": "Type",
+                "description": "Description",
+                "payment_method": "Opérateur"
+            },
+            "status": {
+                "FAILED": "Echec",
+                "SUCCESS": "Succès",
+                "PENDING": "En attente"
+            },
+            "type": {
+                "DEPOSIT": "Dépôt",
+                "WITHDRAWAL": "Retrait",
+                "INTERNAL_IN": "Dépense",
+                "INTERNAL_OUT": "Achat",
+                "INTERNAL_IN_bzc": "Achat BZC",
+                "INTERNAL_OUT_bzc": "Vente BZC"
             }
         }
     }

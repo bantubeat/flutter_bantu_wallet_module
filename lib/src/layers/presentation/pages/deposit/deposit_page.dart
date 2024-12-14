@@ -63,7 +63,7 @@ class DepositPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: SelectFormField(
-                        enableSearch: true,
+                        enableSearch: false,
                         type: SelectFormFieldType.dialog,
                         initialValue: ctrl.selectedCurrencyCode,
                         items: <Map<String, dynamic>>[
@@ -86,14 +86,7 @@ class DepositPage extends StatelessWidget {
                     ),
                   ),
 
-                if (!ctrl.isAfricanZone)
-                  EUPaymentOptions(
-                    onGooglePay: ctrl.onGooglePay,
-                    onApplePay: ctrl.onApplePay,
-                    onPayPal: ctrl.onPayPal,
-                    onCreditOrVisaCard: ctrl.onCreditOrVisaCard,
-                  ),
-                // Amount Input (Optional if necessary)
+                // Amount Input
                 Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 20),
                   child: TextField(
@@ -179,29 +172,18 @@ class DepositPage extends StatelessWidget {
                 // Continue Payment Button
                 if (ctrl.isAfricanZone)
                   ActionButton(
+                    onPressed: ctrl.onContinue,
                     text: LocaleKeys.wallet_module_deposit_page_continue_payment
                         .tr(),
-                    onPressed: ctrl.onContinue,
                   ),
-                /*
-              ElevatedButton(
-                onPressed: ctrl.onContinue,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: colorScheme.primary,
-                  minimumSize: Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+
+                if (!ctrl.isAfricanZone)
+                  EUPaymentOptions(
+                    onGooglePay: ctrl.onGooglePay,
+                    onApplePay: ctrl.onApplePay,
+                    onPayPal: ctrl.onPayPal,
+                    onCreditOrVisaCard: ctrl.onCreditOrVisaCard,
                   ),
-                ),
-                child: Text(
-                  LocaleKeys.wallet_module_deposit_page_continue_payment.tr(),
-                  style: TextStyle(
-                    color: colorScheme.onPrimary,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ), */
               ],
             ),
           ),

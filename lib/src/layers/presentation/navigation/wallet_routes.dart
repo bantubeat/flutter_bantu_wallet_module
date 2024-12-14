@@ -10,7 +10,7 @@ final class WalletRoutes {
   final String _withdrawal;
   final String _beatzcoins;
   final String _buyBeatzcoins;
-  final String _transactionsHistory;
+  final String _transactions;
 
   const WalletRoutes(
     this.prefix_, {
@@ -20,14 +20,14 @@ final class WalletRoutes {
     String withdrawal = 'withdrawal',
     String beatzcoins = 'beatzcoins',
     String buyBeatzcoins = 'buy-beatzcoins',
-    String transactionsHistory = 'transactions-history',
+    String transactions = 'transactions-history',
   })  : _home = home,
         _wallets = wallets,
         _deposit = deposit,
         _withdrawal = withdrawal,
         _beatzcoins = beatzcoins,
         _buyBeatzcoins = buyBeatzcoins,
-        _transactionsHistory = transactionsHistory;
+        _transactions = transactions;
 
   _RouteItem get home => _RouteItem(prefix_, _home);
   _RouteItem get wallets => _RouteItem(prefix_, _wallets);
@@ -35,8 +35,7 @@ final class WalletRoutes {
   _RouteItem get withdrawal => _RouteItem(prefix_, _withdrawal);
   _RouteItem get beatzcoins => _RouteItem(prefix_, _beatzcoins);
   _RouteItem get buyBeatzcoins => _RouteItem(prefix_, _buyBeatzcoins);
-  _RouteItem get transactionsHistory =>
-      _RouteItem(prefix_, _transactionsHistory);
+  _RouteItem get transactions => _RouteItem(prefix_, _transactions);
 }
 
 final class _RouteItem<T> {

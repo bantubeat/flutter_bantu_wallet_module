@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import '../../../../core/generated/locale_keys.g.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -50,7 +51,7 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               MenuItem(
-                icon: Icons.currency_bitcoin,
+                icon: Feather.database,
                 title: LocaleKeys.wallet_module_home_page_beatzcoins.tr(),
                 onTap: Modular.get<WalletRoutes>().beatzcoins.push,
               ),
@@ -59,7 +60,7 @@ class HomePage extends StatelessWidget {
                 icon: Icons.history,
                 title: LocaleKeys.wallet_module_home_page_transactions_history
                     .tr(),
-                onTap: Modular.get<WalletRoutes>().transactionsHistory.push,
+                onTap: Modular.get<WalletRoutes>().transactions.push,
               ),
               const SizedBox(height: 10),
             ],

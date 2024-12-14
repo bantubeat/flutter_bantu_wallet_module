@@ -14,6 +14,9 @@ abstract class BalanceRepository {
   Future<List<FinancialTransactionEntity>> getTransactions({
     required int limit,
     int page = 1,
+    List<EFinancialTxStatus>? statusList,
+    List<EFinancialTxType>? typesList,
+    bool? isBzcAccount,
   });
 
   Future<EWithdrawalEligibility> checkWithdrawalEligibility();

@@ -64,42 +64,8 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       ),
     ];
 
-    Widget buildIcon(BuildContext context, dynamic item) {
-      switch (item.type) {
-        case 'image':
-          if (item.isBlur) {
-            return Opacity(
-              opacity: 0.2,
-              child: Image.asset(
-                item.icon,
-                width: 36,
-                height: 36,
-              ),
-            );
-          } else {
-            return Image.asset(
-              item.icon,
-              width: 36,
-              height: 36,
-            );
-          }
-        case 'customer':
-          return ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(2),
-              backgroundColor: const Color(0xFFF9BF0D),
-            ),
-            child: Icon(
-              item.icon,
-              size: 20,
-              color: Colors.white,
-            ),
-          );
-        default:
-          return Icon(item.icon, color: Colors.white60, size: 36);
-      }
+    Widget buildIcon(BuildContext context, _NavIcon item) {
+      return Icon(item.icon, color: Colors.white60, size: 36);
     }
 
     return Stack(

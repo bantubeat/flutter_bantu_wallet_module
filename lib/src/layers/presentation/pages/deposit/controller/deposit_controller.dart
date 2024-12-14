@@ -64,7 +64,7 @@ class DepositController extends ScreenController
 
   List<CurrencyItemEntity> get africanCurrencies {
     final africans = africanCountryCurrencyList.map((e) => e.currency);
-    return _allCurrencies.takeWhile((c) => africans.contains(c.code)).toList();
+    return _allCurrencies.where((c) => africans.contains(c.code)).toList();
   }
 
   String? get selectedCurrencyCode => _selectedCurrency?.code;
@@ -90,12 +90,24 @@ class DepositController extends ScreenController
           symbol: r'$',
         );
       case 'EUR':
-        return NumberFormat.currency(locale: 'fr_FR', name: 'EUR', symbol: '€');
+        return NumberFormat.currency(
+          locale: 'fr_FR',
+          name: 'EUR',
+          symbol: '€',
+        );
       case 'XAF':
       case 'XOF':
-        return NumberFormat.currency(symbol: 'F.CFA');
+        return NumberFormat.currency(
+          locale: 'fr_CM',
+          name: currCode,
+          symbol: 'F.CFA',
+        );
       case 'NGN':
-        return NumberFormat.currency(symbol: '₦');
+        return NumberFormat.currency(
+          locale: 'en_NG',
+          name: currCode,
+          symbol: '₦',
+        );
 
       default:
         return NumberFormat.currency(name: currCode);
@@ -130,7 +142,7 @@ class DepositController extends ScreenController
 
   void switchZone() {
     _isAfricanZone = !_isAfricanZone;
-
+    amountCtrl.clear();
     if (_selectedCurrency != null) {
       if (_isAfricanZone && !africanCurrencies.contains(_selectedCurrency)) {
         _selectDefaultUserCountryCurrencyIfAvailable();

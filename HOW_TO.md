@@ -3,18 +3,22 @@ Implementing **Clean Architecture** in Flutter involves structuring your app to 
 ---
 
 ### **1. Understand the Layers of Clean Architecture**
-Clean Architecture typically consists of three main layers:
-1. **Presentation Layer**  
-   - Contains UI (widgets) and state management.
-   - Implements the `View` and `Controller` concepts from MVC but specific to Flutter.  
 
-2. **Domain Layer**  
-   - Pure business logic, independent of frameworks or external packages.  
+Clean Architecture typically consists of three main layers:
+
+1. **Presentation Layer**
+
+   - Contains UI (widgets) and state management.
+   - Implements the `View` and `Controller` concepts from MVC but specific to Flutter.
+
+2. **Domain Layer**
+
+   - Pure business logic, independent of frameworks or external packages.
    - Contains:
      - **Entities**: Core business models.
      - **Use Cases**: Business rules or application-specific operations.
 
-3. **Data Layer**  
+3. **Data Layer**
    - Handles data retrieval from external sources (APIs, databases, etc.).
    - Implements:
      - **Repositories**: Abstract interfaces.
@@ -23,6 +27,7 @@ Clean Architecture typically consists of three main layers:
 ---
 
 ### **2. Project Structure**
+
 A typical folder structure for a Clean Architecture Flutter project could look like this:
 
 ```
@@ -61,7 +66,9 @@ lib/
 ### **3. Define Each Layer in Detail**
 
 #### **Domain Layer**
-- **Entities**: Represent the core business objects (e.g., `User`, `Task`).  
+
+- **Entities**: Represent the core business objects (e.g., `User`, `Task`).
+
   ```dart
   class User {
     final String id;
@@ -70,7 +77,9 @@ lib/
     User({required this.id, required this.name});
   }
   ```
-- **Use Cases**: Define application-specific business logic.  
+
+- **Use Cases**: Define application-specific business logic.
+
   ```dart
   abstract class UseCase<Type, Params> {
     Future<Type> call(Params params);
@@ -87,7 +96,8 @@ lib/
     }
   }
   ```
-- **Repositories**: Abstract contracts for data operations.  
+
+- **Repositories**: Abstract contracts for data operations.
   ```dart
   abstract class UserRepository {
     Future<User> getUserById(String id);
@@ -97,7 +107,9 @@ lib/
 ---
 
 #### **Data Layer**
-- **Models**: Maps between data structures and domain entities.  
+
+- **Models**: Maps between data structures and domain entities.
+
   ```dart
   class UserModel extends User {
     UserModel({required String id, required String name}) : super(id: id, name: name);
@@ -111,7 +123,9 @@ lib/
     }
   }
   ```
-- **Data Sources**: Handles APIs or local data storage.  
+
+- **Data Sources**: Handles APIs or local data storage.
+
   ```dart
   abstract class UserRemoteDataSource {
     Future<UserModel> getUserById(String id);
@@ -134,7 +148,8 @@ lib/
   }
   ```
 
-- **Repository Implementation**: Combines data sources and maps to entities.  
+- **Repository Implementation**: Combines data sources and maps to entities.
+
   ```dart
   class UserRepositoryImpl implements UserRepository {
     final UserRemoteDataSource remoteDataSource;
@@ -151,7 +166,9 @@ lib/
 ---
 
 #### **Presentation Layer**
+
 - **Pages/Widgets**: UI logic using Flutter widgets.
+
   ```dart
   class UserPage extends StatelessWidget {
     final GetUserUseCase getUserUseCase;
@@ -179,12 +196,15 @@ lib/
     }
   }
   ```
+
 - **State Management**: Use providers, bloc, or any state management solution (e.g., `Riverpod`, `GetX`).
 
 ---
 
 ### **4. Add Dependency Injection (DI)**
+
 Use a DI framework like `get_it` for managing dependencies:
+
 ```dart
 final sl = GetIt.instance;
 
@@ -204,6 +224,7 @@ void init() {
 ---
 
 ### **5. Key Practices for Clean Architecture in Flutter**
+
 - **Use Immutable Classes**: Prefer `final` fields for entities and models.
 - **Follow Dependency Rule**: High-level modules (e.g., domain) should not depend on low-level modules (e.g., data).
 - **Unit Tests**: Test use cases, repositories, and data sources independently.
@@ -213,6 +234,7 @@ void init() {
 ---
 
 ### **6. Example Repository**
+
 If you're looking for a practical implementation, check out this GitHub repository:  
 [ResoCoder Clean Architecture Flutter](https://github.com/ResoCoder/flutter-tdd-clean-architecture-course)  
 This repository provides a detailed guide with TDD (Test-Driven Development).

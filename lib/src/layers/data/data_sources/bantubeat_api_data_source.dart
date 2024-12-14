@@ -1,5 +1,6 @@
 import '../../../core/network/my_http/my_http.dart';
 import '../../domain/entities/e_withdrawal_eligibility.dart';
+import '../../domain/entities/financial_transaction_entity.dart';
 import '../models/currency_item_model.dart';
 import '../models/currency_rates_model.dart';
 import '../models/deposit_payment_link_model.dart';
@@ -24,6 +25,12 @@ final class BantubeatApiDataSource {
     required MyHttpClient cachedClient,
   })  : _client = client,
         _cachedClient = cachedClient;
+
+  String _mapToQueryParams(Map<String, dynamic> params) {
+    return params.entries.map((e) {
+      return '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value.toString())}';
+    }).join('&');
+  }
 
   Future<UserModel> get$authUser() {
     return _client.get('/auth/user').then((r) => UserModel.fromJson(r.data));
@@ -119,9 +126,23 @@ final class BantubeatApiDataSource {
   Future<List<FinancialTransactionModel>> get$transactions({
     required int limit,
     int page = 1,
+    List<EFinancialTxStatus>? statusList,
+    List<EFinancialTxType>? typesList,
+    bool? isBzcAccount,
+    String? keyword,
   }) {
+    String queryString = _mapToQueryParams({
+      'limit': limit,
+      'page': page,
+      if (isBzcAccount != null) 'account_type': isBzcAccount ? 'bzc' : 'fiat',
+      if (keyword != null) 'keyword': keyword,
+      if (statusList != null)
+        for (final status in statusList) 'financial_tx_status[]': status.value,
+      if (typesList != null)
+        for (final type in typesList) 'financial_tx_type[]': type.value,
+    });
     return _client
-        .get('/balance/transactions?page=$page&limit=$limit')
+        .get('/balance/transactions?$queryString')
         .then((r) => r.data['data'] as List)
         .then((list) => list.map((e) => e as Map<String, dynamic>))
         .then((jsonList) => jsonList.map(FinancialTransactionModel.fromJson))

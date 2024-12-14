@@ -35,7 +35,7 @@ import 'layers/presentation/cubits/user_balance_cubit.dart';
 import 'layers/presentation/pages/buy_beatzcoins/buy_beatzcoins_page.dart';
 import 'layers/presentation/pages/deposit/deposit_page.dart';
 import 'layers/presentation/pages/home/home_page.dart';
-import 'layers/presentation/pages/transactions_history/transactions_history_page.dart';
+import 'layers/presentation/pages/transactions/transactions_page.dart';
 import 'layers/presentation/pages/wallets/wallets_page.dart';
 import 'layers/presentation/pages/withdrawal/withdrawal_page.dart';
 import 'layers/presentation/pages/beatzcoins/beatzcoins_page.dart';
@@ -104,7 +104,7 @@ class WalletModule extends Module {
     i.addSingleton(GetCurrentUserUseCase.new);
     i.addSingleton(GetExchangeBzcPacksUseCase.new);
     i.addSingleton(GetPaymentPreferencesUseCase.new);
-    i.addSingleton(GetTransactionsHistoryUseCase.new);
+    i.addSingleton(GetTransactionsUseCase.new);
     i.addSingleton(GetUserBalanceUseCase.new);
     i.addSingleton(MakeDepositDirectPaymentUseCase.new);
     i.addSingleton(RequestDepositPaymentLinkUseCase.new);
@@ -124,10 +124,7 @@ class WalletModule extends Module {
     r.child(_routes.withdrawal.wp, child: (_) => WithdrawalPage());
     r.child(_routes.beatzcoins.wp, child: (_) => BeatzcoinsPage());
     r.child(_routes.buyBeatzcoins.wp, child: (_) => BuyBeatzcoinsPage());
-    r.child(
-      _routes.transactionsHistory.wp,
-      child: (_) => TransactionsHistoryPage(),
-    );
-    r.wildcard(child: (_) => DepositPage());
+    r.child(_routes.transactions.wp, child: (_) => TransactionsPage());
+    r.wildcard(child: (_) => HomePage());
   }
 }

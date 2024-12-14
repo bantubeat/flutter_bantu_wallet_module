@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
@@ -7,8 +8,10 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/get_exch
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/current_user_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
+import '../../../domain/entities/exchange_bzc_pack_entity.dart';
 import '../../../domain/entities/user_balance_entity.dart';
 import '../../../domain/use_cases/get_bzc_currency_converter_use_case.dart';
 import '../../cubits/user_balance_cubit.dart';
@@ -24,160 +27,185 @@ class BuyBeatzcoinsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Scaffold(
-      backgroundColor: colorScheme.onPrimary,
-      appBar: AppBar(
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: colorScheme.onPrimary,
-        title: Text(
-          LocaleKeys.wallet_module_beatzcoins_page_title.tr(),
-          softWrap: true,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        appBar: AppBar(
+          backgroundColor: colorScheme.onPrimary,
+          title: Text(
+            LocaleKeys.wallet_module_beatzcoins_page_title.tr(),
+            softWrap: true,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-      body: BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, bool>(
-        bloc: Modular.get<CurrentUserCubit>(),
-        selector: (snap) => snap.data?.isAfrican ?? false,
-        builder: (context, isAfrican) => SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 40,
-                width: double.maxFinite,
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: colorScheme.onSurface,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Text(
-                  'Beatzcoin',
-                  style: TextStyle(
-                    color: colorScheme.onPrimary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+        body: BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, bool>(
+          bloc: Modular.get<CurrentUserCubit>(),
+          selector: (snap) => snap.data?.isAfrican ?? false,
+          builder: (context, isAfrican) => SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 40,
+                  width: double.maxFinite,
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: colorScheme.onSurface,
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                ),
-              ),
-              const SizedBox(height: 2),
-              Container(
-                padding: const EdgeInsets.all(5),
-                color: Color(0xFFFFCCCC).withOpacity(0.5),
-                child: RichText(
-                  text: TextSpan(
-                    text: LocaleKeys.wallet_module_beatzcoins_page_description
-                        .tr(),
+                  child: Text(
+                    'Beatzcoin',
                     style: TextStyle(
-                      fontSize: 14.0,
-                      color: colorScheme.onSurface,
+                      color: colorScheme.onPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    children: [
-                      TextSpan(
-                        text: LocaleKeys
-                            .wallet_module_beatzcoins_page_description2
-                            .tr(),
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextSpan(
-                        text: LocaleKeys
-                            .wallet_module_beatzcoins_page_description3
-                            .tr(),
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          color: colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
                   ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              Container(
-                padding: const EdgeInsets.all(10),
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  color: colorScheme.primary,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.grey.shade200),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      LocaleKeys.wallet_module_buy_beatzcoins_page_my_balance
+                const SizedBox(height: 2),
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  color: Color(0xFFFFCCCC).withOpacity(0.5),
+                  alignment: Alignment.center,
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      text: LocaleKeys.wallet_module_beatzcoins_page_description
                           .tr(),
                       style: TextStyle(
-                        color: colorScheme.onPrimary,
-                        fontSize: 16,
+                        fontSize: 14.0,
+                        color: colorScheme.onSurface,
                       ),
+                      children: [
+                        TextSpan(
+                          text: LocaleKeys
+                              .wallet_module_beatzcoins_page_description2
+                              .tr(),
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: LocaleKeys
+                              .wallet_module_beatzcoins_page_description3
+                              .tr(),
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: colorScheme.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launchUrlString(
+                                'https://legal.bantubeat.com/bantubeat/help-center?index=12',
+                              );
+                            },
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 8),
-                    BlocSelector<UserBalanceCubit,
-                        AsyncSnapshot<UserBalanceEntity>, double?>(
-                      bloc: Modular.get<UserBalanceCubit>(),
-                      selector: (snap) => snap.data?.bzc,
-                      builder: (context, bzcBalance) => Text(
-                        bzcBalance == null
-                            ? '...'
-                            : NumberFormat.currency(symbol: 'BZC').format(
-                                bzcBalance,
-                              ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    color: colorScheme.primary,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey.shade200),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        LocaleKeys.wallet_module_buy_beatzcoins_page_my_balance
+                            .tr(),
                         style: TextStyle(
-                          fontSize: 24,
                           color: colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 15),
-              FutureBuilder(
-                future:
-                    Modular.get<GetExchangeBzcPacksUseCase>().call(NoParms()),
-                builder: (context, snap) {
-                  if (snap.connectionState == ConnectionState.waiting) {
-                    return SizedBox(
-                      height: 10,
-                      width: double.maxFinite,
-                      child: LinearProgressIndicator(minHeight: 2),
-                    );
-                  }
-
-                  final exchangeBzcPacks = snap.data;
-                  if (exchangeBzcPacks == null) return const SizedBox.shrink();
-
-                  return Wrap(
-                    spacing: 15,
-                    runSpacing: 20,
-                    children: [
-                      ...exchangeBzcPacks.map(
-                        (bzcExchangePack) => BeatzcoinPackageCard(
-                          amount: bzcExchangePack.bzcAmount,
-                          price: bzcExchangePack.fiatAmount,
-                          isAfrican: isAfrican,
-                          onTap: () => LoadBottomSheetModal.show(
-                            bzcQuantity: bzcExchangePack.bzcAmount,
-                            bzcExchangePack: bzcExchangePack,
-                            isAfrican: isAfrican,
-                            context,
+                      const SizedBox(height: 8),
+                      BlocSelector<UserBalanceCubit,
+                          AsyncSnapshot<UserBalanceEntity>, double?>(
+                        bloc: Modular.get<UserBalanceCubit>(),
+                        selector: (snap) => snap.data?.bzc,
+                        builder: (context, bzcBalance) => Text(
+                          bzcBalance == null
+                              ? '...'
+                              : NumberFormat.currency(symbol: 'BZC').format(
+                                  bzcBalance,
+                                ),
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ],
-                  );
-                },
-              ),
-              const SizedBox(height: 10),
-              _CustomAmountBzcLoadForm(isAfrican: isAfrican),
-            ],
+                  ),
+                ),
+                const SizedBox(height: 15),
+                FutureBuilder(
+                  future: Future.wait(
+                    [
+                      Modular.get<GetExchangeBzcPacksUseCase>().call(NoParms()),
+                      Modular.get<GetBzcCurrencyConverterUseCase>().call(
+                        NoParms(),
+                      ),
+                    ],
+                    eagerError: true,
+                  ),
+                  builder: (context, snap) {
+                    if (snap.connectionState == ConnectionState.waiting) {
+                      return SizedBox(
+                        height: 10,
+                        width: double.maxFinite,
+                        child: LinearProgressIndicator(minHeight: 2),
+                      );
+                    }
+
+                    if (snap.data == null) {
+                      return const SizedBox.shrink();
+                    }
+
+                    final exchangeBzcPacks =
+                        snap.requireData.first as List<ExchangeBzcPackEntity>;
+                    final converter =
+                        snap.requireData.last as BzcCurrencyConverter;
+
+                    return Wrap(
+                      spacing: 15,
+                      runSpacing: 20,
+                      children: [
+                        ...exchangeBzcPacks.map(
+                          (bzcExchangePack) => BeatzcoinPackageCard(
+                            amount: bzcExchangePack.bzcAmount,
+                            price: isAfrican
+                                ? converter.eurToXaf(bzcExchangePack.fiatAmount)
+                                : bzcExchangePack.fiatAmount,
+                            isAfrican: isAfrican,
+                            onTap: () => LoadBottomSheetModal.show(
+                              bzcQuantity: bzcExchangePack.bzcAmount,
+                              bzcExchangePack: bzcExchangePack,
+                              isAfrican: isAfrican,
+                              context,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
+                _CustomAmountBzcLoadForm(isAfrican: isAfrican),
+              ],
+            ),
           ),
         ),
       ),

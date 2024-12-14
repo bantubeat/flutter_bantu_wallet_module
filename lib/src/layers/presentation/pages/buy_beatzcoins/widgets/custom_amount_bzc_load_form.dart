@@ -34,7 +34,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
     if (converter != null && amountInBzc != null && amountInBzc > 0) {
       setState(() {
         fiatAmount = widget.isAfrican
-            ? converter.bzcToEur(amountInBzc)
+            ? converter.bzcToXaf(amountInBzc)
             : converter.bzcToEur(amountInBzc);
       });
     } else {
@@ -115,10 +115,9 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
                 Text(
                   fiatAmount == null
                       ? '...'
-                      : NumberFormat.currency(symbol: fiatCurrencySymbol)
-                          .format(
-                          fiatAmount,
-                        ),
+                      : NumberFormat.currency(
+                          symbol: fiatCurrencySymbol,
+                        ).format(fiatAmount),
                   style: TextStyle(fontSize: 16),
                 ),
               ],

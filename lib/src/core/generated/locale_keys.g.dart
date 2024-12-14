@@ -4,6 +4,8 @@ abstract class  LocaleKeys {
   static const wallet_module_appBarTitle = 'wallet_module.appBarTitle';
   static const wallet_module_common_initializing = 'wallet_module.common.initializing';
   static const wallet_module_common_an_error_occur = 'wallet_module.common.an_error_occur';
+  static const wallet_module_common_insufficient_funds = 'wallet_module.common.insufficient_funds';
+  static const wallet_module_common_all = 'wallet_module.common.all';
   static const wallet_module_home_page_title = 'wallet_module.home_page.title';
   static const wallet_module_home_page_deposit = 'wallet_module.home_page.deposit';
   static const wallet_module_home_page_wallet = 'wallet_module.home_page.wallet';
@@ -69,9 +71,25 @@ abstract class  LocaleKeys {
   static const wallet_module_transaction_history_page_account = 'wallet_module.transaction_history_page.account';
   static const wallet_module_transaction_history_page_table_caption = 'wallet_module.transaction_history_page.table.caption';
   static const wallet_module_transaction_history_page_table_transaction_id = 'wallet_module.transaction_history_page.table.transaction_id';
+  static const wallet_module_transaction_history_page_table_transaction_ref = 'wallet_module.transaction_history_page.table.transaction_ref';
   static const wallet_module_transaction_history_page_table_date = 'wallet_module.transaction_history_page.table.date';
+  static const wallet_module_transaction_history_page_table_old_balance = 'wallet_module.transaction_history_page.table.old_balance';
+  static const wallet_module_transaction_history_page_table_new_balance = 'wallet_module.transaction_history_page.table.new_balance';
   static const wallet_module_transaction_history_page_table_amount = 'wallet_module.transaction_history_page.table.amount';
+  static const wallet_module_transaction_history_page_table_input_amount = 'wallet_module.transaction_history_page.table.input_amount';
   static const wallet_module_transaction_history_page_table_bzc_quantity = 'wallet_module.transaction_history_page.table.bzc_quantity';
   static const wallet_module_transaction_history_page_table_status = 'wallet_module.transaction_history_page.table.status';
+  static const wallet_module_transaction_history_page_table_type = 'wallet_module.transaction_history_page.table.type';
+  static const wallet_module_transaction_history_page_table_description = 'wallet_module.transaction_history_page.table.description';
+  static const wallet_module_transaction_history_page_table_payment_method = 'wallet_module.transaction_history_page.table.payment_method';
+  static const wallet_module_transaction_history_page_status_FAILED = 'wallet_module.transaction_history_page.status.FAILED';
+  static const wallet_module_transaction_history_page_status_SUCCESS = 'wallet_module.transaction_history_page.status.SUCCESS';
+  static const wallet_module_transaction_history_page_status_PENDING = 'wallet_module.transaction_history_page.status.PENDING';
+  static const wallet_module_transaction_history_page_type_DEPOSIT = 'wallet_module.transaction_history_page.type.DEPOSIT';
+  static const wallet_module_transaction_history_page_type_WITHDRAWAL = 'wallet_module.transaction_history_page.type.WITHDRAWAL';
+  static const wallet_module_transaction_history_page_type_INTERNAL_IN = 'wallet_module.transaction_history_page.type.INTERNAL_IN';
+  static const wallet_module_transaction_history_page_type_INTERNAL_OUT = 'wallet_module.transaction_history_page.type.INTERNAL_OUT';
+  static const wallet_module_transaction_history_page_type_INTERNAL_IN_bzc = 'wallet_module.transaction_history_page.type.INTERNAL_IN_bzc';
+  static const wallet_module_transaction_history_page_type_INTERNAL_OUT_bzc = 'wallet_module.transaction_history_page.type.INTERNAL_OUT_bzc';
 
 }

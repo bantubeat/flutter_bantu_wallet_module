@@ -31,7 +31,15 @@ final class BzcCurrencyConverter {
 
   double eurToBzc(double amountInEur) => amountInEur * _rates.oneEurInBzc;
 
-  double bzcToEur(double amountInBzc) => amountInBzc / _rates.oneEurInBzc;
+  /// Use same formula as the backend ie:
+  /// ```php
+  /// $bzcQuantity = $request->quantity;
+  ///	$oneEurInBzc = Setting::getValueByKey(Setting::ONE_EUR_IN_BZC);
+  ///	$fiatAmount = ((($bzcQuantity / $oneEurInBzc) * 0.7) / 1.21) * 0.98;
+  ///```
+  double bzcToEur(double amountInBzc) {
+    return (((amountInBzc / _rates.oneEurInBzc) * 0.7) / 1.21) * 0.98;
+  }
 
   double bzcToXaf(double amountInBzc) {
     final amountInEur = bzcToEur(amountInBzc);

@@ -87,7 +87,7 @@ mixin PayWithGoogle {
     );
 
     if (tx.status == EFinancialTxStatus.success) {
-      Modular.get<WalletRoutes>().transactionsHistory.navigate();
+      Modular.get<WalletRoutes>().transactions.navigate();
     }
   }
 }

@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/network/my_http/my_http.dart';
 import '../../../../core/generated/locale_keys.g.dart';
@@ -29,51 +31,61 @@ class WalletsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Scaffold(
-      backgroundColor: colorScheme.onPrimary,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, bool>(
-          bloc: Modular.get<CurrentUserCubit>(),
-          selector: (snap) => snap.data?.isAfrican ?? false,
-          builder: (context, isAfrican) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              MyHeaderBar(
-                title: LocaleKeys.wallet_module_wallets_page_title.tr(),
-              ),
-              const SizedBox(height: 7.5),
-              Container(
-                padding: const EdgeInsets.all(5),
-                color: Color(0xFFFFCCCC).withOpacity(0.5),
-                child: RichText(
-                  text: TextSpan(
-                    text:
-                        LocaleKeys.wallet_module_wallets_page_description.tr(),
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: colorScheme.onSurface,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: LocaleKeys.wallet_module_wallets_page_description2
-                            .tr(),
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          color: colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: colorScheme.onPrimary,
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child:
+              BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, bool>(
+            bloc: Modular.get<CurrentUserCubit>(),
+            selector: (snap) => snap.data?.isAfrican ?? false,
+            builder: (context, isAfrican) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MyHeaderBar(
+                  title: LocaleKeys.wallet_module_wallets_page_title.tr(),
+                ),
+                const SizedBox(height: 7.5),
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  color: Color(0xFFFFCCCC).withOpacity(0.5),
+                  child: RichText(
+                    text: TextSpan(
+                      text: LocaleKeys.wallet_module_wallets_page_description
+                          .tr(),
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: colorScheme.onSurface,
                       ),
-                    ],
+                      children: [
+                        TextSpan(
+                          text: LocaleKeys
+                              .wallet_module_wallets_page_description2
+                              .tr(),
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: colorScheme.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launchUrlString(
+                                'https://legal.bantubeat.com/bantubeat/help-center?index=7',
+                              );
+                            },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 30.0),
-              _FinancialAccountBox(isAfrican: isAfrican),
-              SizedBox(height: 16.0),
-              _BeatzacoinAccountBox(isAfrican: isAfrican),
-              SizedBox(height: 16.0),
-            ],
+                SizedBox(height: 30.0),
+                _FinancialAccountBox(isAfrican: isAfrican),
+                SizedBox(height: 16.0),
+                _BeatzacoinAccountBox(isAfrican: isAfrican),
+                SizedBox(height: 16.0),
+              ],
+            ),
           ),
         ),
       ),

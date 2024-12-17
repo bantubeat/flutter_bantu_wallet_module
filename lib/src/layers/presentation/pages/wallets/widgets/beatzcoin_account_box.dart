@@ -42,8 +42,8 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
     if (amountInBzc == null || amountInBzc < minimumBzc) return;
 
     final fiatAmount = widget.isAfrican
-        ? converter.bzcToXaf(amountInBzc)
-        : converter.bzcToEur(amountInBzc);
+        ? converter.bzcToXaf(amountInBzc, applyFees: true)
+        : converter.bzcToEur(amountInBzc, applyFees: true);
 
     fiatTextCtrl.text = NumberFormat.currency(
       symbol: fiatCurrencySymbol,

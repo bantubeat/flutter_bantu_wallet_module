@@ -37,12 +37,17 @@ final class BzcCurrencyConverter {
   ///	$oneEurInBzc = Setting::getValueByKey(Setting::ONE_EUR_IN_BZC);
   ///	$fiatAmount = ((($bzcQuantity / $oneEurInBzc) * 0.7) / 1.21) * 0.98;
   ///```
-  double bzcToEur(double amountInBzc) {
-    return (((amountInBzc / _rates.oneEurInBzc) * 0.7) / 1.21) * 0.98;
+  double bzcToEur(double amountInBzc, {required bool applyFees}) {
+    if (!applyFees) return amountInBzc / _rates.oneEurInBzc;
+    // Multiply 0.7 our percentage
+    // Divide by 1.12 we remove TVA // TODO: remove
+    // Multiply 0.98 transaction fees
+    //ODL: return (((amountInBzc / _rates.oneEurInBzc) * 0.7) / 1.21) * 0.98;
+    return ((amountInBzc / _rates.oneEurInBzc) * 0.7) * 0.98;
   }
 
-  double bzcToXaf(double amountInBzc) {
-    final amountInEur = bzcToEur(amountInBzc);
+  double bzcToXaf(double amountInBzc, {required bool applyFees}) {
+    final amountInEur = bzcToEur(amountInBzc, applyFees: applyFees);
     return eurToXaf(amountInEur);
   }
 

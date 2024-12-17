@@ -34,8 +34,8 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
     if (converter != null && amountInBzc != null && amountInBzc > 0) {
       setState(() {
         fiatAmount = widget.isAfrican
-            ? converter.bzcToXaf(amountInBzc)
-            : converter.bzcToEur(amountInBzc);
+            ? converter.bzcToXaf(amountInBzc, applyFees: false)
+            : converter.bzcToEur(amountInBzc, applyFees: false);
       });
     } else {
       setState(() => fiatAmount = null);

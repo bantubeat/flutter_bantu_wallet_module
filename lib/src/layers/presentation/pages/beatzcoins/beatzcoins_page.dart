@@ -33,10 +33,11 @@ class BeatzcoinsPage extends StatelessWidget {
           backgroundColor: colorScheme.onPrimary,
           title: Text(
             LocaleKeys.wallet_module_beatzcoins_page_title.tr(),
+            textAlign: TextAlign.center,
             softWrap: true,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
         ),
         body: SingleChildScrollView(
@@ -67,7 +68,7 @@ class BeatzcoinsPage extends StatelessWidget {
                 color: Color(0xFFFFCCCC).withOpacity(0.5),
                 alignment: Alignment.center,
                 child: RichText(
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.justify,
                   text: TextSpan(
                     text: LocaleKeys.wallet_module_beatzcoins_page_description
                         .tr(),

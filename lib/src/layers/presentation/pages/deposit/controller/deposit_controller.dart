@@ -123,10 +123,20 @@ class DepositController extends ScreenController
   void _selectDefaultUserCountryCurrencyIfAvailable() {
     if (currentUser?.pays == null || _allCurrencies.isEmpty) return;
 
+    if (!_isAfricanZone) {
+      if (['US', 'CA'].contains(currentUser?.pays ?? '')) {
+        selectedCurrencyTextCtrl.text = 'USD';
+      } else {
+        selectedCurrencyTextCtrl.text = 'EUR';
+      }
+      return;
+    }
+
     final currency = africanCountryCurrencyList
-        .where((e) => e.iso2 == currentUser?.pays)
-        .firstOrNull
-        ?.currency;
+            .where((e) => e.iso2 == currentUser?.pays)
+            .firstOrNull
+            ?.currency ??
+        'XAF';
     selectedCurrencyTextCtrl.text = _allCurrencies
         .singleWhere(
           (c) => c.code == currency,

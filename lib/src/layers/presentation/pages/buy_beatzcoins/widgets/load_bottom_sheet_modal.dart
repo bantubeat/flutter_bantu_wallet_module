@@ -82,8 +82,8 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
     }
 
     return widget.isAfrican
-        ? _bzcCurrencyConverter?.bzcToXaf(widget.bzcQuantity)
-        : _bzcCurrencyConverter?.bzcToEur(widget.bzcQuantity);
+        ? _bzcCurrencyConverter?.bzcToXaf(widget.bzcQuantity, applyFees: false)
+        : _bzcCurrencyConverter?.bzcToEur(widget.bzcQuantity, applyFees: false);
   }
 
   void onPayWithBantubeat() async {
@@ -129,7 +129,17 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-
+    final fiatAmount = this.fiatAmount;
+    double? balance;
+    if (userBalanceCubit.state.data != null) {
+      balance = widget.isAfrican
+          ? userBalanceCubit.state.data?.xaf
+          : userBalanceCubit.state.data?.eur;
+    }
+    bool? isFundsInsufficient;
+    if (fiatAmount != null && balance != null) {
+      isFundsInsufficient = balance < fiatAmount;
+    }
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
@@ -219,7 +229,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                                       ? '...'
                                       : NumberFormat.currency(
                                           symbol: fiatCurrencySymbol,
-                                        ).format(fiatAmount ?? 0),
+                                        ).format(fiatAmount),
                                 ],
                               ),
                               style: TextStyle(
@@ -247,8 +257,10 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
             ),
             SizedBox(height: 10),
             InkWell(
-              onTap: isProcessing ? null : onPayWithBantubeat,
-              enableFeedback: !isProcessing,
+              onTap: isProcessing || isFundsInsufficient == true
+                  ? null
+                  : onPayWithBantubeat,
+              enableFeedback: !isProcessing && isFundsInsufficient == false,
               child: Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
@@ -293,21 +305,32 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                           ],
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          balanceSnap.hasData
-                              ? NumberFormat.currency(
-                                  symbol: fiatCurrencySymbol,
-                                ).format(
-                                  widget.isAfrican
-                                      ? balanceSnap.data?.xaf
-                                      : balanceSnap.data?.eur,
-                                )
-                              : '...',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: colorScheme.onPrimary,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Builder(
+                          builder: (context) {
+                            var text = balanceSnap.hasData
+                                ? NumberFormat.currency(
+                                    symbol: fiatCurrencySymbol,
+                                  ).format(
+                                    widget.isAfrican
+                                        ? balanceSnap.data?.xaf
+                                        : balanceSnap.data?.eur,
+                                  )
+                                : '...';
+
+                            if (isFundsInsufficient == true) {
+                              text = LocaleKeys
+                                  .wallet_module_common_insufficient_funds
+                                  .tr();
+                            }
+                            return Text(
+                              text,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: colorScheme.onPrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -335,12 +358,12 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
               text: ' Pay',
               backgroundColor: Colors.white,
               textColor: Colors.black,
-            ), */
+            ),
             SizedBox(height: 20),
             Text(
               LocaleKeys.wallet_module_buy_beatzcoins_page_modal_warning1.tr(),
               style: TextStyle(fontSize: 12, color: Color(0xFF181818)),
-            ),
+            ),  */
             SizedBox(height: 10),
             Text.rich(
               TextSpan(

@@ -34,10 +34,11 @@ class BuyBeatzcoinsPage extends StatelessWidget {
           backgroundColor: colorScheme.onPrimary,
           title: Text(
             LocaleKeys.wallet_module_beatzcoins_page_title.tr(),
+            textAlign: TextAlign.center,
             softWrap: true,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
         ),
         body: BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, bool>(

@@ -47,7 +47,7 @@ class TransactionsPage extends StatelessWidget {
               bloc: Modular.get(),
               selector: (snap) => snap.data?.photoUrl,
               builder: (context, photoUrl) => Skeletonizer(
-                enabled: photoUrl != null,
+                enabled: photoUrl == null,
                 child: CircleAvatar(
                   radius: 16,
                   backgroundImage: NetworkImage(photoUrl ?? ''),

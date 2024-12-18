@@ -1,9 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/network/my_http/my_http.dart';
@@ -25,8 +26,8 @@ import '../../widgets/my_small_button.dart';
 part 'widgets/financial_account_box.dart';
 part 'widgets/beatzcoin_account_box.dart';
 
-class WalletsPage extends StatelessWidget {
-  const WalletsPage({super.key});
+class BalancePage extends StatelessWidget {
+  const BalancePage({super.key});
 
   @override
   Widget build(BuildContext context) {

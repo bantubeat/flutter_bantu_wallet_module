@@ -20,6 +20,7 @@ const _accessToken =
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await BantuWalletLocalization.ensureInitialized();
 
   if (!kIsWeb) {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
@@ -64,7 +65,10 @@ class AppWidget extends StatelessWidget {
           ),
           routerConfig: Modular.routerConfig,
           debugShowCheckedModeBanner: false,
-          localizationsDelegates: context.localizationDelegates,
+          localizationsDelegates: [
+            ...context.localizationDelegates,
+            // BantuWalletLocalization.delegate,
+          ],
           supportedLocales: context.supportedLocales,
           locale: context.locale,
         ),

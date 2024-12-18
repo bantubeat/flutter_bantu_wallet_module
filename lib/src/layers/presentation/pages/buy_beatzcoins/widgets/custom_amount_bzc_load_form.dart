@@ -108,8 +108,9 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  LocaleKeys.wallet_module_buy_beatzcoins_page_ttc_amount_in
-                      .tr(args: [widget.isAfrican ? 'F CFA' : '€']),
+                  LocaleKeys.wallet_module_buy_beatzcoins_page_ttc_amount_in.tr(
+                    namedArgs: {'amount': widget.isAfrican ? 'F CFA' : '€'},
+                  ),
                   style: TextStyle(fontSize: 16),
                 ),
                 Text(

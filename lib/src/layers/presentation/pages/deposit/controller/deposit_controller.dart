@@ -1,10 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/e_payment_method.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';
+import 'package:intl/intl.dart';
 import '../../../../../core/use_cases/use_case.dart';
 
 import '../../../../../core/utils/countries.dart';

@@ -1,10 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/user_balance_entity.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/exchange_fiat_to_bzc_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/get_bzc_currency_converter_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../core/network/my_http/my_http.dart';
 import '../../../../../core/use_cases/use_case.dart';
@@ -114,7 +115,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
 
       UiAlertHelpers.showErrorToast(
         LocaleKeys.wallet_module_common_an_error_occur.tr(
-          args: [message ?? e.toString()],
+          namedArgs: {'message': message ?? e.toString()},
         ),
       );
     } finally {
@@ -224,13 +225,13 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                               LocaleKeys
                                   .wallet_module_buy_beatzcoins_page_modal_ttc_price
                                   .tr(
-                                args: [
-                                  fiatAmount == null
+                                namedArgs: {
+                                  'price': fiatAmount == null
                                       ? '...'
                                       : NumberFormat.currency(
                                           symbol: fiatCurrencySymbol,
                                         ).format(fiatAmount),
-                                ],
+                                },
                               ),
                               style: TextStyle(
                                 color: colorScheme.onPrimary,

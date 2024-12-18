@@ -1,7 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/financial_transaction_entity.dart';
+import 'package:intl/intl.dart';
 
+import '../../../../domain/entities/financial_transaction_entity.dart';
 import '../../../../../core/generated/locale_keys.g.dart';
 import 'transaction_detail_bottom_sheet_modal.dart';
 

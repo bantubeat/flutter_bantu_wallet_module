@@ -36,7 +36,7 @@ import 'layers/presentation/pages/buy_beatzcoins/buy_beatzcoins_page.dart';
 import 'layers/presentation/pages/deposit/deposit_page.dart';
 import 'layers/presentation/pages/home/home_page.dart';
 import 'layers/presentation/pages/transactions/transactions_page.dart';
-import 'layers/presentation/pages/wallets/wallets_page.dart';
+import 'layers/presentation/pages/balance/balance_page.dart';
 import 'layers/presentation/pages/withdrawal/withdrawal_page.dart';
 import 'layers/presentation/pages/beatzcoins/beatzcoins_page.dart';
 import 'layers/presentation/navigation/wallet_routes.dart';
@@ -119,7 +119,7 @@ class WalletModule extends Module {
   @override
   void routes(r) {
     r.child(_routes.home.wp, child: (_) => HomePage());
-    r.child(_routes.wallets.wp, child: (_) => WalletsPage());
+    r.child(_routes.balance.wp, child: (_) => BalancePage());
     r.child(_routes.deposit.wp, child: (_) => DepositPage());
     r.child(_routes.withdrawal.wp, child: (_) => WithdrawalPage());
     r.child(_routes.beatzcoins.wp, child: (_) => BeatzcoinsPage());

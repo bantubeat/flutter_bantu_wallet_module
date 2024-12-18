@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';
@@ -97,7 +97,7 @@ class DepositPage extends StatelessWidget {
                     ],
                     decoration: InputDecoration(
                       hintText: LocaleKeys.wallet_module_deposit_page_amount.tr(
-                        args: [ctrl.currency],
+                        namedArgs: {'amount': ctrl.currency},
                       ),
                       fillColor: Color(0xFFD9D9D9), // D1D1D1
                       filled: true,
@@ -137,9 +137,10 @@ class DepositPage extends StatelessWidget {
                       children: [
                         Text(
                           LocaleKeys.wallet_module_deposit_page_fees.tr(
-                            args: [
-                              DepositController.feesPercent.toString(),
-                            ],
+                            namedArgs: {
+                              'percent':
+                                  DepositController.feesPercent.toString(),
+                            },
                           ),
                           style: summaryItemTextStyle,
                         ),

@@ -5,7 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 final class WalletRoutes {
   final String prefix_;
   final String _home;
-  final String _wallets;
+  final String _balance;
   final String _deposit;
   final String _withdrawal;
   final String _beatzcoins;
@@ -15,14 +15,14 @@ final class WalletRoutes {
   const WalletRoutes(
     this.prefix_, {
     String home = 'home',
-    String wallets = 'wallets',
+    String balance = 'balance',
     String deposit = 'deposit',
     String withdrawal = 'withdrawal',
     String beatzcoins = 'beatzcoins',
     String buyBeatzcoins = 'buy-beatzcoins',
     String transactions = 'transactions-history',
   })  : _home = home,
-        _wallets = wallets,
+        _balance = balance,
         _deposit = deposit,
         _withdrawal = withdrawal,
         _beatzcoins = beatzcoins,
@@ -30,7 +30,7 @@ final class WalletRoutes {
         _transactions = transactions;
 
   _RouteItem get home => _RouteItem(prefix_, _home);
-  _RouteItem get wallets => _RouteItem(prefix_, _wallets);
+  _RouteItem get balance => _RouteItem(prefix_, _balance);
   _RouteItem get deposit => _RouteItem(prefix_, _deposit);
   _RouteItem get withdrawal => _RouteItem(prefix_, _withdrawal);
   _RouteItem get beatzcoins => _RouteItem(prefix_, _beatzcoins);

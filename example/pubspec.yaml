@@ -25,4 +25,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/i18n/
-    #- packages/flutter_bantu_wallet_module/assets/i18n/
+    - packages/flutter_bantu_wallet_module/assets/i18n/

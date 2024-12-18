@@ -67,7 +67,7 @@ class AppWidget extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           localizationsDelegates: [
             ...context.localizationDelegates,
-            // BantuWalletLocalization.delegate,
+            BantuWalletLocalization.delegate,
           ],
           supportedLocales: context.supportedLocales,
           locale: context.locale,

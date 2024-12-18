@@ -10,8 +10,9 @@ class BantuWalletLocalization {
     if (_delegate != null) return;
     const supportedLocales = ['fr' /*, 'en' */];
     _delegate = await LocalizationDelegate.create(
-      // kIsWeb ? 'i18n' : 'assets/i18n',
-      basePath: 'packages/flutter_bantu_wallet_module/i18n',
+      // kIsWeb ? 'i18n' : 'assets/i18n',lib/assets/i18n/
+      // basePath: 'packages/flutter_bantu_wallet_module/assets/i18n',
+      basePath: 'assets/packages/flutter_bantu_wallet_module/assets/i18n',
       fallbackLocale: supportedLocales.first,
       supportedLocales: supportedLocales,
       // preferences: ITranslatePreferences

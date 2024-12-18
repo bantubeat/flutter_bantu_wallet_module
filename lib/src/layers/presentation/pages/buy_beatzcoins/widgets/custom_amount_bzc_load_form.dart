@@ -118,6 +118,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
                       ? '...'
                       : NumberFormat.currency(
                           symbol: fiatCurrencySymbol,
+                          decimalDigits: 4,
                         ).format(fiatAmount),
                   style: TextStyle(fontSize: 16),
                 ),

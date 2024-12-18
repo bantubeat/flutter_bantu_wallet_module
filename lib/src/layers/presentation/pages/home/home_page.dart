@@ -4,7 +4,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import '../../../../core/generated/locale_keys.g.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../../wallet_module.dart';
+import '../../wallet_module.dart';
 import '../../navigation/wallet_routes.dart';
 import 'widgets/menu_item.dart';
 

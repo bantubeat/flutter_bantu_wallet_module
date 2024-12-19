@@ -54,7 +54,7 @@ class AppWidget extends StatelessWidget {
       fallbackLocale: supportedLocales.first,
       child: Builder(
         builder: (context) => MaterialApp.router(
-          title: 'flutter_bantu_wallet_module example App',
+          onGenerateTitle: (context) => tr('example', context: context),
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
               seedColor: const Color(0xFFFF9999),
@@ -64,9 +64,16 @@ class AppWidget extends StatelessWidget {
           ),
           routerConfig: Modular.routerConfig,
           debugShowCheckedModeBanner: false,
-          localizationsDelegates: context.localizationDelegates,
+          localizationsDelegates: [
+            ...context.localizationDelegates,
+            BantuWalletLocalization.getDelegate(
+              context.locale,
+              context.supportedLocales,
+            ),
+          ],
           supportedLocales: context.supportedLocales,
           locale: context.locale,
+          builder: BantuWalletLocalization.init,
         ),
       ),
     );

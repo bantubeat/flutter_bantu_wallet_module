@@ -1,4 +1,4 @@
-part of '../wallets_page.dart';
+part of '../balance_page.dart';
 
 class _BeatzacoinAccountBox extends StatefulWidget {
   final bool isAfrican;
@@ -62,7 +62,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
     if (bzcQuantity == null || bzcQuantity < minimumBzc) {
       UiAlertHelpers.showErrorToast(
         LocaleKeys.wallet_module_wallets_page_beatzcoin_account_minimum_bzc.tr(
-          args: [minimumBzc.toString()],
+          namedArgs: {'min_quantity': minimumBzc.toString()},
         ),
       );
       return;
@@ -89,7 +89,10 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
       UiAlertHelpers.showErrorSnackBar(
         context,
         LocaleKeys.wallet_module_common_an_error_occur.tr(
-          args: [((e is MyHttpException) ? e.message : null) ?? e.toString()],
+          namedArgs: {
+            'message':
+                ((e is MyHttpException) ? e.message : null) ?? e.toString(),
+          },
         ),
       );
     } finally {
@@ -221,7 +224,9 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                             : LocaleKeys.wallet_module_common_initializing.tr(),
                         errorText: LocaleKeys
                             .wallet_module_wallets_page_beatzcoin_account_minimum_bzc
-                            .tr(args: [minimumBzc.toString()]),
+                            .tr(
+                          namedArgs: {'min_quantity': minimumBzc.toString()},
+                        ),
                         fillColor: Color(0xFFD9D9D9),
                         filled: true,
                         contentPadding: EdgeInsets.all(5),

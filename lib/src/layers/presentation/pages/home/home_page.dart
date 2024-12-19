@@ -1,11 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import '../../../../core/generated/locale_keys.g.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../wallet_module.dart';
+import '../../../../core/generated/locale_keys.g.dart';
+
 import '../../navigation/wallet_routes.dart';
+import '../../wallet_module.dart';
 import 'widgets/menu_item.dart';
 
 class HomePage extends StatelessWidget {
@@ -35,7 +36,7 @@ class HomePage extends StatelessWidget {
               MenuItem(
                 icon: Icons.account_balance_wallet,
                 title: LocaleKeys.wallet_module_home_page_wallet.tr(),
-                onTap: Modular.get<WalletRoutes>().wallets.push,
+                onTap: Modular.get<WalletRoutes>().balance.push,
               ),
               const SizedBox(height: 20),
               MenuItem(

@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/current_user_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

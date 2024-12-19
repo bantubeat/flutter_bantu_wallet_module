@@ -49,6 +49,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
   }
 
   void onExchange() {
+    if ((fiatAmount ?? 0) < 30) return;
     final bzcQuantity = num.tryParse(bzcTextCtrl.text)?.toDouble();
     if (bzcQuantity == null || bzcQuantity <= 0) return;
     LoadBottomSheetModal.show(
@@ -61,6 +62,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final bzcQuantity = num.tryParse(bzcTextCtrl.text)?.toDouble();
     return Container(
       margin: const EdgeInsets.only(top: 20, bottom: 20),
       decoration: BoxDecoration(
@@ -101,6 +103,11 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.circular(6),
                 ),
+                errorText: (bzcQuantity ?? 0) > 0 && (bzcQuantity ?? 0) < 30
+                    ? LocaleKeys
+                        .wallet_module_buy_beatzcoins_page_min_fiat_amount
+                        .tr(namedArgs: {'amount': 30.toString()})
+                    : '',
               ),
             ),
             SizedBox(height: 12.0),
@@ -108,8 +115,9 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  LocaleKeys.wallet_module_buy_beatzcoins_page_ttc_amount_in
-                      .tr(args: [widget.isAfrican ? 'F CFA' : '€']),
+                  LocaleKeys.wallet_module_buy_beatzcoins_page_ttc_amount_in.tr(
+                    namedArgs: {'amount': widget.isAfrican ? 'F CFA' : '€'},
+                  ),
                   style: TextStyle(fontSize: 16),
                 ),
                 Text(
@@ -117,6 +125,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
                       ? '...'
                       : NumberFormat.currency(
                           symbol: fiatCurrencySymbol,
+                          decimalDigits: 4,
                         ).format(fiatAmount),
                   style: TextStyle(fontSize: 16),
                 ),
@@ -124,9 +133,9 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
             ),
             SizedBox(height: 16.0),
             ActionButton(
-              onPressed: onExchange,
               fullWidth: true,
-              enabled: fiatAmount != null,
+              onPressed: onExchange,
+              enabled: (bzcQuantity ?? 0) >= 30,
               text: LocaleKeys.wallet_module_buy_beatzcoins_page_load.tr(),
             ),
           ],

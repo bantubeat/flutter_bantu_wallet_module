@@ -1,4 +1,4 @@
-part of '../wallets_page.dart';
+part of '../balance_page.dart';
 
 class _FinancialAccountBox extends StatelessWidget {
   final bool isAfrican;

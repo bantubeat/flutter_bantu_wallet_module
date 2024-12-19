@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +8,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/get_exch
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/current_user_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
@@ -32,11 +33,12 @@ class BuyBeatzcoinsPage extends StatelessWidget {
         backgroundColor: colorScheme.onPrimary,
         appBar: AppBar(
           backgroundColor: colorScheme.onPrimary,
+          centerTitle: true,
           title: Text(
             LocaleKeys.wallet_module_beatzcoins_page_title.tr(),
             textAlign: TextAlign.center,
             softWrap: true,
-            maxLines: 2,
+            maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),

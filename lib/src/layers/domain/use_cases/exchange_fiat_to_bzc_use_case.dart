@@ -12,13 +12,13 @@ class ExchangeFiatToBzcUseCase
   @override
   Future<ExchangeTransactionEntity> call(params) async {
     return _repository.exchangeFiatToBzc(
-      amount: params.bzcQuantity,
+      fiatAmount: params.fiatAmount,
       exchangeBzcPackId: params.exchangeBzcPackId,
     );
   }
 }
 
 typedef _Param = ({
-  double bzcQuantity,
+  double fiatAmount,
   int? exchangeBzcPackId,
 });

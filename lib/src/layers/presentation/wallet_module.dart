@@ -4,42 +4,42 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../core/network/api_constants.dart';
 import '../../core/network/my_http/my_http.dart';
 
-import '../data/data_sources/bantubeat_api_data_source.dart';
-import '../data/repositories/exchange_repository_impl.dart';
-import '../data/repositories/payment_repository_impl.dart';
-import '../data/repositories/user_repository_impl.dart';
-import '../data/repositories/balance_repository_impl.dart';
-import '../data/repositories/public_repository_impl.dart';
+import '../../layers/data/data_sources/bantubeat_api_data_source.dart';
+import '../../layers/data/repositories/exchange_repository_impl.dart';
+import '../../layers/data/repositories/payment_repository_impl.dart';
+import '../../layers/data/repositories/user_repository_impl.dart';
+import '../../layers/data/repositories/balance_repository_impl.dart';
+import '../../layers/data/repositories/public_repository_impl.dart';
 
-import '../domain/repositories/exchange_repository.dart';
-import '../domain/repositories/balance_repository.dart';
-import '../domain/repositories/payment_repository.dart';
-import '../domain/repositories/public_repository.dart';
-import '../domain/repositories/user_repository.dart';
-import '../domain/use_cases/check_withdrawal_eligibility_use_case.dart';
-import '../domain/use_cases/convert_fiat_currency_use_case.dart';
-import '../domain/use_cases/exchange_bzc_to_fiat_use_case.dart';
-import '../domain/use_cases/get_bzc_currency_converter_use_case.dart';
-import '../domain/use_cases/get_current_user_use_case.dart';
-import '../domain/use_cases/get_exchange_bzc_packs_use_case.dart';
-import '../domain/use_cases/get_payment_preferences_use_case.dart';
-import '../domain/use_cases/get_transactions_history_use_case.dart';
-import '../domain/use_cases/exchange_fiat_to_bzc_use_case.dart';
-import '../domain/use_cases/get_all_currencies_use_case.dart';
-import '../domain/use_cases/get_user_balance_use_case.dart';
+import '../../layers/domain/repositories/exchange_repository.dart';
+import '../../layers/domain/repositories/balance_repository.dart';
+import '../../layers/domain/repositories/payment_repository.dart';
+import '../../layers/domain/repositories/public_repository.dart';
+import '../../layers/domain/repositories/user_repository.dart';
+import '../../layers/domain/use_cases/check_withdrawal_eligibility_use_case.dart';
+import '../../layers/domain/use_cases/convert_fiat_currency_use_case.dart';
+import '../../layers/domain/use_cases/exchange_bzc_to_fiat_use_case.dart';
+import '../../layers/domain/use_cases/get_bzc_currency_converter_use_case.dart';
+import '../../layers/domain/use_cases/get_current_user_use_case.dart';
+import '../../layers/domain/use_cases/get_exchange_bzc_packs_use_case.dart';
+import '../../layers/domain/use_cases/get_payment_preferences_use_case.dart';
+import '../../layers/domain/use_cases/get_transactions_history_use_case.dart';
+import '../../layers/domain/use_cases/exchange_fiat_to_bzc_use_case.dart';
+import '../../layers/domain/use_cases/get_all_currencies_use_case.dart';
+import '../../layers/domain/use_cases/get_user_balance_use_case.dart';
 
-import '../domain/use_cases/make_deposit_direct_payment_use_case.dart';
-import '../domain/use_cases/request_deposit_payment_link_use_case.dart';
-import 'cubits/current_user_cubit.dart';
-import 'cubits/user_balance_cubit.dart';
-import 'pages/buy_beatzcoins/buy_beatzcoins_page.dart';
-import 'pages/deposit/deposit_page.dart';
-import 'pages/home/home_page.dart';
-import 'pages/transactions/transactions_page.dart';
-import 'pages/wallets/wallets_page.dart';
-import 'pages/withdrawal/withdrawal_page.dart';
-import 'pages/beatzcoins/beatzcoins_page.dart';
-import 'navigation/wallet_routes.dart';
+import '../../layers/domain/use_cases/make_deposit_direct_payment_use_case.dart';
+import '../../layers/domain/use_cases/request_deposit_payment_link_use_case.dart';
+import '../../layers/presentation/cubits/current_user_cubit.dart';
+import '../../layers/presentation/cubits/user_balance_cubit.dart';
+import '../../layers/presentation/pages/buy_beatzcoins/buy_beatzcoins_page.dart';
+import '../../layers/presentation/pages/deposit/deposit_page.dart';
+import '../../layers/presentation/pages/home/home_page.dart';
+import '../../layers/presentation/pages/transactions/transactions_page.dart';
+import '../../layers/presentation/pages/balance/balance_page.dart';
+import '../../layers/presentation/pages/withdrawal/withdrawal_page.dart';
+import '../../layers/presentation/pages/beatzcoins/beatzcoins_page.dart';
+import '../../layers/presentation/navigation/wallet_routes.dart';
 
 class WalletModule extends Module {
   static const floatingMenuBuilderKey = 'floatingMenuBuilder';
@@ -119,7 +119,7 @@ class WalletModule extends Module {
   @override
   void routes(r) {
     r.child(_routes.home.wp, child: (_) => HomePage());
-    r.child(_routes.wallets.wp, child: (_) => WalletsPage());
+    r.child(_routes.balance.wp, child: (_) => BalancePage());
     r.child(_routes.deposit.wp, child: (_) => DepositPage());
     r.child(_routes.withdrawal.wp, child: (_) => WithdrawalPage());
     r.child(_routes.beatzcoins.wp, child: (_) => BeatzcoinsPage());

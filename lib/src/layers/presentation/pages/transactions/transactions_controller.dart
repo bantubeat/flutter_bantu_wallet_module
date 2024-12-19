@@ -27,25 +27,15 @@ class _TransactionsController extends ScreenController {
   }
 
   void onStatusTap(EFinancialTxStatus? status) {
-    if (status == null) {
-      if (statuses.isEmpty) return;
-      statuses.clear();
-    } else {
-      statuses.contains(status)
-          ? statuses.remove(status)
-          : statuses.add(status);
-    }
+    statuses.clear();
+    if (status != null) statuses.add(status);
     pagingController.refresh();
     refreshUI();
   }
 
   void onTypeTap(EFinancialTxType? type) {
-    if (type == null) {
-      if (types.isEmpty) return;
-      types.clear();
-    } else {
-      types.contains(type) ? types.remove(type) : types.add(type);
-    }
+    types.clear();
+    if (type != null) types.add(type);
     pagingController.refresh();
     refreshUI();
   }

@@ -11,7 +11,6 @@ dependencies:
   dio: ^5.7.0
   dio_cache_interceptor: ^3.5.0
   dio_cache_interceptor_hive_store: ^3.2.2
-  easy_localization: ^3.0.7
   equatable: ^2.0.7
   flutter:
     sdk: flutter
@@ -25,6 +24,7 @@ dependencies:
   hive: ^2.2.3
   hydrated_bloc: ^9.1.5
   infinite_scroll_pagination: ^4.1.0
+  intl: ^0.19.0
   loader_overlay: ^4.0.3
   moment_dart: ^2.2.1+beta.0
   pay: ^2.0.0
@@ -38,6 +38,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
   build_runner: ^2.4.13
+  easy_localization: ^3.0.7 # Just to generate LocaleKeys
 
 flutter:
   uses-material-design: true

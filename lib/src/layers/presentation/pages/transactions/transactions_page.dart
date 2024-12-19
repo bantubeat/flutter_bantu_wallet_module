@@ -11,6 +11,7 @@ import '../../../../core/generated/locale_keys.g.dart';
 import '../../../domain/entities/financial_transaction_entity.dart';
 import '../../../domain/entities/user_entity.dart';
 import '../../../domain/use_cases/get_transactions_history_use_case.dart';
+import '../../cubits/user_balance_cubit.dart';
 import '../../widgets/bantubeat_image_provider.dart';
 import 'widgets/account_switcher.dart';
 import 'widgets/transaction_filter.dart';
@@ -88,9 +89,11 @@ class TransactionsPage extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(width: 10),
-                    /*
-              Flexible(child: FittedBox(child: Text('(ID: 248152526526525)'))),
-							*/
+                    Flexible(
+                      child: FittedBox(
+                        child: Text('(ID: ${ctrl.walletNumber})'),
+                      ),
+                    ),
                   ],
                 ),
               ),

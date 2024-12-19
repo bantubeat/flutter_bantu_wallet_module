@@ -285,18 +285,17 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        /*
-                            Flexible(
-                              child: FittedBox(
-                                child: Text(
-                                  '', // TODO: '(ID: ${'1AEH1525N524N525I'.toString()})',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: colorScheme.onPrimary,
-                                  ),
-                                ),
+                        Flexible(
+                          child: FittedBox(
+                            child: Text(
+                              '(ID: ${balanceSnap.data?.financialWalletNumber})',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: colorScheme.onPrimary,
                               ),
-                            ), */
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 8),

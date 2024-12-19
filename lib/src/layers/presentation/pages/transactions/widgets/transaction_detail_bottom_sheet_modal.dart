@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../../../core/generated/locale_keys.g.dart';
 
 class TransactionDetailBottomSheetModal extends StatelessWidget {
-  // TODO: use right model here
   final Map<String, String> transactionMap;
 
   const TransactionDetailBottomSheetModal._(this.transactionMap);

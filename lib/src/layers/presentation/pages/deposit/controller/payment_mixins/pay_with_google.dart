@@ -76,7 +76,6 @@ mixin PayWithGoogle {
 
     debugPrint('stripeToken => $stripeToken');
 
-    // TODO: Backend API call
     final tx = await Modular.get<MakeDepositDirectPaymentUseCase>().call(
       (
         paymentMethod: EPaymentMethod.stripe,

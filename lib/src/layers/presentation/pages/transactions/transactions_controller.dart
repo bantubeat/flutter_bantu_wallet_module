@@ -3,6 +3,8 @@ part of 'transactions_page.dart';
 class _TransactionsController extends ScreenController {
   _TransactionsController(super.state);
 
+  final userBalanceCubit = Modular.get<UserBalanceCubit>();
+
   static const _pageSize = 20;
   final List<EFinancialTxStatus> statuses = [];
   final List<EFinancialTxType> types = [];
@@ -24,6 +26,14 @@ class _TransactionsController extends ScreenController {
   @protected
   void onDispose() {
     pagingController.dispose();
+  }
+
+  String get walletNumber {
+    if (userBalanceCubit.state.hasError) return 'E';
+
+    return _isBzcAccount
+        ? (userBalanceCubit.state.data?.beatzcoinWalletNumber ?? '...')
+        : (userBalanceCubit.state.data?.financialWalletNumber ?? '...');
   }
 
   void onStatusTap(EFinancialTxStatus? status) {

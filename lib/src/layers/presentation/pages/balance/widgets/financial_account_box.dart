@@ -39,16 +39,20 @@ class _FinancialAccountBox extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 4),
-                      /*
-                      Expanded(
-                        child: FittedBox(
-                          child: Text(
-                            ' ', // TODO: Add 'ID: 2481525265265525',
-                            maxLines: 1,
-                            style: TextStyle(fontSize: 12.0),
+                      BlocSelector<UserBalanceCubit,
+                          AsyncSnapshot<UserBalanceEntity>, String?>(
+                        bloc: userBalanceCubit,
+                        selector: (state) => state.data?.financialWalletNumber,
+                        builder: (context, financialWalletNumber) => Expanded(
+                          child: FittedBox(
+                            child: Text(
+                              'ID: $financialWalletNumber',
+                              maxLines: 1,
+                              style: TextStyle(fontSize: 12.0),
+                            ),
                           ),
                         ),
-                      ), */
+                      ),
                     ],
                   ),
                 ),

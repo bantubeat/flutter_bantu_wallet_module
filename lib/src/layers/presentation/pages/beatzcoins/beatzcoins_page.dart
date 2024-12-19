@@ -155,18 +155,23 @@ class BeatzcoinsPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        /*
-                      Flexible(
-                        child: FittedBox(
-                          child: Text(
-                            '', // TODO: '(ID: ${'1AEH1525N524N525I'.toString()})',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: colorScheme.onPrimary,
+                        BlocSelector<UserBalanceCubit,
+                            AsyncSnapshot<UserBalanceEntity>, String?>(
+                          bloc: Modular.get<UserBalanceCubit>(),
+                          selector: (state) =>
+                              state.data?.beatzcoinWalletNumber,
+                          builder: (context, beatzcoinWalletNumber) => Flexible(
+                            child: FittedBox(
+                              child: Text(
+                                '(ID: $beatzcoinWalletNumber)',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: colorScheme.onPrimary,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ), */
                       ],
                     ),
                     const SizedBox(height: 8),

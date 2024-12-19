@@ -25,7 +25,6 @@ import 'widgets/registered_payment_method.dart';
 class WithdrawalPage extends StatelessWidget {
   const WithdrawalPage({super.key});
 
-  // TODO: ensure Historique compte financier
   void onViewDetails() => Modular.get<WalletRoutes>().transactions.push();
 
   void onRequestWithdrawal() {
@@ -109,18 +108,23 @@ class WithdrawalPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        /*
-                      Flexible(
-                        child: FittedBox(
-                          child: Text(
-                            '', // TODO: '(ID: ${'1AEH1525N524N525I'.toString()})',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: colorScheme.onPrimary,
+                        BlocSelector<UserBalanceCubit,
+                            AsyncSnapshot<UserBalanceEntity>, String?>(
+                          bloc: Modular.get<UserBalanceCubit>(),
+                          selector: (state) =>
+                              state.data?.financialWalletNumber,
+                          builder: (context, financialWalletNumber) => Flexible(
+                            child: FittedBox(
+                              child: Text(
+                                '(ID: $financialWalletNumber)',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: colorScheme.onPrimary,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ), */
                       ],
                     ),
                     const SizedBox(height: 8),

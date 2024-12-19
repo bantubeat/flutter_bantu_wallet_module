@@ -1,22 +1,28 @@
-import 'package:flutter_translate/flutter_translate.dart';
+import 'package:flutter/material.dart';
+
+import 'my_localization.dart';
+import 'my_localization_delegate.dart';
 
 class BantuWalletLocalization {
-  static LocalizationDelegate? _delegate;
+  static MyLocalization? _localization;
 
   const BantuWalletLocalization();
 
-  // Localization configuration method
-  static Future<void> ensureInitialized() async {
-    if (_delegate != null) return;
-    const supportedLocales = ['fr' /*, 'en' */];
-    _delegate = await LocalizationDelegate.create(
-      // kIsWeb ? 'i18n' : 'assets/i18n',lib/assets/i18n/
-      // basePath: 'packages/flutter_bantu_wallet_module/assets/i18n',
-      basePath: 'assets/packages/flutter_bantu_wallet_module/assets/i18n',
-      fallbackLocale: supportedLocales.first,
-      supportedLocales: supportedLocales,
-      // preferences: ITranslatePreferences
+  static MyLocalizationDelegate getDelegate(
+    Locale currentLocale,
+    List<Locale> locales,
+  ) {
+    return MyLocalizationDelegate(
+      // The first language is your default language.
+      supportedLocales: locales,
+      locale: currentLocale,
     );
+  }
+
+  // Initializes the Overlay with context
+  static Widget init(BuildContext context, Widget? child) {
+    _localization = MyLocalization.of(context);
+    return child!;
   }
 
   // Utility method for translations
@@ -24,7 +30,10 @@ class BantuWalletLocalization {
     String key, {
     Map<String, String>? namedArgs,
   }) {
-    return translate(key, args: namedArgs);
+    final value = _localization?.get(key, namedArgs);
+    return value != null && value != _localization?.notFoundString
+        ? value
+        : key;
   }
 
   static String plural(
@@ -32,33 +41,5 @@ class BantuWalletLocalization {
     num value, {
     Map<String, String>? namedArgs,
   }) =>
-      translatePlural(key, value, args: namedArgs);
-
-  // Get localization delegate for package
-  static LocalizationDelegate get delegate {
-    if (null == _delegate) {
-      throw Exception(
-        'Call BantuWalletLocalization.initialize before use in MaterialApp please',
-      );
-    }
-    return _delegate!;
-  }
+      tr(key, namedArgs: namedArgs);
 }
-
-/*
-class BantuWalletSyncWithEasyLocalization extends ITranslatePreferences {
-  final BuildContext context;
-
-  BantuWalletSyncWithEasyLocalization(this.context);
-
-  @override
-  Future<Locale?> getPreferredLocale() async {
-    return EasyLocalization.of(context)?.currentLocale;
-  }
-
-  @override
-  Future savePreferredLocale(Locale locale) async {
-    await EasyLocalization.of(context)?.setLocale(locale);
-  }
-}
-*/

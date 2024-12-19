@@ -20,7 +20,6 @@ const _accessToken =
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await BantuWalletLocalization.ensureInitialized();
 
   if (!kIsWeb) {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
@@ -55,7 +54,7 @@ class AppWidget extends StatelessWidget {
       fallbackLocale: supportedLocales.first,
       child: Builder(
         builder: (context) => MaterialApp.router(
-          title: 'flutter_bantu_wallet_module example App',
+          onGenerateTitle: (context) => tr('example', context: context),
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
               seedColor: const Color(0xFFFF9999),
@@ -67,10 +66,14 @@ class AppWidget extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           localizationsDelegates: [
             ...context.localizationDelegates,
-            BantuWalletLocalization.delegate,
+            BantuWalletLocalization.getDelegate(
+              context.locale,
+              context.supportedLocales,
+            ),
           ],
           supportedLocales: context.supportedLocales,
           locale: context.locale,
+          builder: BantuWalletLocalization.init,
         ),
       ),
     );

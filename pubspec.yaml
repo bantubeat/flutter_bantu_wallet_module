@@ -18,7 +18,6 @@ dependencies:
   flutter_modular: ^6.3.4
   flutter_screen_controller: ^0.0.5+1
   flutter_svg: ^2.0.15
-  flutter_translate: ^4.1.0
   flutter_vector_icons: ^2.0.0
   fluttertoast: ^8.2.8
   google_fonts: ^6.2.1
@@ -43,5 +42,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - lib/assets/i18n/

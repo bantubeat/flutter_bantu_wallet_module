@@ -1,4 +1,6 @@
-// DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
+// DO NOT EDIT. This is code generated via package:flutter_bantu_wallet_module/generate.dart
+
+// ignore_for_file: constant_identifier_names
 
 abstract class  LocaleKeys {
   static const wallet_module_appBarTitle = 'wallet_module.appBarTitle';
@@ -6,6 +8,8 @@ abstract class  LocaleKeys {
   static const wallet_module_common_an_error_occur = 'wallet_module.common.an_error_occur';
   static const wallet_module_common_insufficient_funds = 'wallet_module.common.insufficient_funds';
   static const wallet_module_common_all = 'wallet_module.common.all';
+  static const wallet_module_common_buy = 'wallet_module.common.buy';
+  static const wallet_module_common_cancel = 'wallet_module.common.cancel';
   static const wallet_module_home_page_title = 'wallet_module.home_page.title';
   static const wallet_module_home_page_deposit = 'wallet_module.home_page.deposit';
   static const wallet_module_home_page_wallet = 'wallet_module.home_page.wallet';
@@ -57,11 +61,14 @@ abstract class  LocaleKeys {
   static const wallet_module_buy_beatzcoins_page_enter_quantity = 'wallet_module.buy_beatzcoins_page.enter_quantity';
   static const wallet_module_buy_beatzcoins_page_ttc_amount_in = 'wallet_module.buy_beatzcoins_page.ttc_amount_in';
   static const wallet_module_buy_beatzcoins_page_load = 'wallet_module.buy_beatzcoins_page.load';
+  static const wallet_module_buy_beatzcoins_page_min_fiat_amount = 'wallet_module.buy_beatzcoins_page.min_fiat_amount';
   static const wallet_module_buy_beatzcoins_page_modal_title = 'wallet_module.buy_beatzcoins_page.modal.title';
   static const wallet_module_buy_beatzcoins_page_modal_amount_of_your_load = 'wallet_module.buy_beatzcoins_page.modal.amount_of_your_load';
   static const wallet_module_buy_beatzcoins_page_modal_ttc_price = 'wallet_module.buy_beatzcoins_page.modal.ttc_price';
   static const wallet_module_buy_beatzcoins_page_modal_buy_with = 'wallet_module.buy_beatzcoins_page.modal.buy_with';
   static const wallet_module_buy_beatzcoins_page_modal_bantubeat_balance = 'wallet_module.buy_beatzcoins_page.modal.bantubeat_balance';
+  static const wallet_module_buy_beatzcoins_page_modal_add_funds = 'wallet_module.buy_beatzcoins_page.modal.add_funds';
+  static const wallet_module_buy_beatzcoins_page_modal_insufficient_funds = 'wallet_module.buy_beatzcoins_page.modal.insufficient_funds';
   static const wallet_module_buy_beatzcoins_page_modal_warning1 = 'wallet_module.buy_beatzcoins_page.modal.warning1';
   static const wallet_module_buy_beatzcoins_page_modal_warning2a = 'wallet_module.buy_beatzcoins_page.modal.warning2a';
   static const wallet_module_buy_beatzcoins_page_modal_warning2b = 'wallet_module.buy_beatzcoins_page.modal.warning2b';

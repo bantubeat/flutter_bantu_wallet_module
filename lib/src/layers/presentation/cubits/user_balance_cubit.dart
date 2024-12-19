@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/user_balance_entity.dart';
@@ -20,7 +21,10 @@ class UserBalanceCubit extends Cubit<AsyncSnapshot<UserBalanceEntity>> {
       final data = await _getUserBalanceUseCase.call(NoParms());
       emit(AsyncSnapshot.withData(ConnectionState.done, data));
     } catch (error, stacktrace) {
+      UiAlertHelpers.showErrorToast(error.toString());
+      debugPrintStack(label: error.toString(), stackTrace: stacktrace);
       emit(AsyncSnapshot.withError(ConnectionState.none, error, stacktrace));
+      rethrow;
     }
   }
 }

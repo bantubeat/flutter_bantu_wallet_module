@@ -6,7 +6,7 @@ abstract class ExchangeRepository {
   });
 
   Future<ExchangeTransactionEntity> exchangeFiatToBzc({
-    required double amount,
+    required double fiatAmount,
     int? exchangeBzcPackId,
   });
 }

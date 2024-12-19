@@ -7,7 +7,9 @@ const Map<String, dynamic> langMap = {
       "initializing": "Initialisation...",
       "an_error_occur": "An error occur: {{message}}",
       "insufficient_funds": "Solde insuffisant",
-      "all": "Tout"
+      "all": "Tout",
+      "buy": "Payer",
+      "cancel": "Annuler"
     },
     "home_page": {
       "title": "Ma Balance",
@@ -62,7 +64,7 @@ const Map<String, dynamic> langMap = {
       "title": "Retrait",
       "description":
           "les demandes de paiement sont éffectuées via votre profil Bantubeat. Connectez vous sur votre Compte Bantubeat puis allez dans votre Balance et dans retrait.\nVous devez obligatoirement enregistrer un moyen de paiement sur lequel vos demandes de paiement seront transférées, vous pourriez modifier vos préférences de paiement à tout moment.\nN.B. Vous ne pouvez effectuer que 1 retrait par mois. Toutes les demandes de paiement doivent se faire entre le 25 et le 30 du mois. comptez en moyenne 15 jours pour la réception des fonds sur votre compte.\nConformément aux lois de l’union européenne, nous devons vérifier votre identité avant tout paiement.",
-      "financial_account_balance": "solde de votre compte Financier",
+      "financial_account_balance": "Solde de votre compte Financier",
       "see_details": "Voir les détails",
       "Your_registered_payment_account": "Votre compte de paiement enregistré:",
       "request_payment": "Demander un paiement"
@@ -74,7 +76,7 @@ const Map<String, dynamic> langMap = {
           "Le Beatzcoin est un jeton que nous mettons sur pied pour permettre à nos utilisateurs de profiter plainement des applications bantubeat. Le beatzcoin est disponible et utilisable uniquement sur bantubeat et ses applications. Chaque utilisateur qui détient un stock de beatzcoin peut les échanger contre un paiement de bantubeat. la somme correspondante, déduction des taxes et frais de service sera créditée sur votre compte financier.",
       "description2": "\nVoir les ",
       "description3": "les conditions d'achat et d'utilisation des Beatzcoins",
-      "bzc_account_balance": "solde de votre compte beatzcoin",
+      "bzc_account_balance": "Solde de votre compte beatzcoin",
       "see_details": "Voir les détails",
       "buy_bzc": "Acheter des BZC"
     },
@@ -84,12 +86,16 @@ const Map<String, dynamic> langMap = {
       "enter_quantity": "Entrez la Quantité",
       "ttc_amount_in": "Montant TTC en {{amount}}",
       "load": "Recharger",
+      "min_fiat_amount": "Minimum {{amount}} BZC",
       "modal": {
         "title": "Achat de pièces",
         "amount_of_your_load": "Montant de ta recharge",
         "ttc_price": "Prix TTC {{price}}",
         "buy_with": "Payer avec",
         "bantubeat_balance": "Solde bantubeat",
+        "add_funds": "Ajouter des Fonds",
+        "insufficient_funds":
+            "Le solde de votre compte est insuffisant pour effectuer cet achat",
         "warning1":
             "*Le prix sur Google play store et Apple store peuvent varier en raison de la commission de Google et Apple",
         "warning2a": "En continuant, tu acceptes ",

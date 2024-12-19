@@ -77,13 +77,12 @@ class TransactionItem extends StatelessWidget {
     final eurAmount = NumberFormat.currency(name: 'EUR', symbol: '€').format(
       transaction.amount,
     );
-    if (['EUR', 'BZC'].contains(transaction.inputCurrency)) return eurAmount;
+    if (['EUR'].contains(transaction.inputCurrency)) return eurAmount;
 
-    final inputAmount = NumberFormat.currency(
+    return NumberFormat.currency(
       name: transaction.inputCurrency,
+      symbol: transaction.inputCurrency.toUpperCase() == 'BZC' ? 'BZC' : null,
     ).format(transaction.inputAmount);
-
-    return '$inputAmount ($eurAmount)';
   }
 
   void _onTap(BuildContext context) {

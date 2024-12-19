@@ -33,11 +33,12 @@ class BuyBeatzcoinsPage extends StatelessWidget {
         backgroundColor: colorScheme.onPrimary,
         appBar: AppBar(
           backgroundColor: colorScheme.onPrimary,
+          centerTitle: true,
           title: Text(
             LocaleKeys.wallet_module_beatzcoins_page_title.tr(),
             textAlign: TextAlign.center,
             softWrap: true,
-            maxLines: 2,
+            maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),

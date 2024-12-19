@@ -1,3 +1,4 @@
+import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/user_balance_entity.dart';
@@ -13,6 +14,7 @@ import '../../../../domain/entities/exchange_bzc_pack_entity.dart';
 import '../../../../../core/generated/locale_keys.g.dart';
 import '../../../cubits/user_balance_cubit.dart';
 import '../../../helpers/ui_alert_helpers.dart';
+import '../../../widgets/action_button.dart';
 import '../../../widgets/squared_bzc_svg_image.dart';
 
 class LoadBottomSheetModal extends StatefulWidget {
@@ -88,13 +90,13 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
   }
 
   void onPayWithBantubeat() async {
+    final amount = fiatAmount;
+    if (amount == null || isProcessing) return;
+
     try {
       setState(() => isProcessing = true);
       await Modular.get<ExchangeFiatToBzcUseCase>().call(
-        (
-          bzcQuantity: bzcQuantity,
-          exchangeBzcPackId: widget.bzcExchangePack?.id
-        ),
+        (fiatAmount: amount, exchangeBzcPackId: widget.bzcExchangePack?.id),
       );
 
       userBalanceCubit.fetchUserBalance();
@@ -257,41 +259,33 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
               ),
             ),
             SizedBox(height: 10),
-            InkWell(
-              onTap: isProcessing || isFundsInsufficient == true
-                  ? null
-                  : onPayWithBantubeat,
-              enableFeedback: !isProcessing && isFundsInsufficient == false,
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: isProcessing ? Colors.grey : colorScheme.primary,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.grey.shade200),
-                ),
-                child: Visibility(
-                  visible: !isProcessing,
-                  replacement: Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
-                  child: BlocBuilder<UserBalanceCubit,
-                      AsyncSnapshot<UserBalanceEntity>>(
-                    bloc: userBalanceCubit,
-                    builder: (context, balanceSnap) => Column(
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: isFundsInsufficient == true
+                    ? Colors.grey
+                    : Color(0xFF42A45D),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.grey.shade200),
+              ),
+              child: BlocBuilder<UserBalanceCubit,
+                  AsyncSnapshot<UserBalanceEntity>>(
+                bloc: userBalanceCubit,
+                builder: (context, balanceSnap) => Column(
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              LocaleKeys
-                                  .wallet_module_buy_beatzcoins_page_modal_bantubeat_balance
-                                  .tr(),
-                              style: TextStyle(
-                                color: colorScheme.onPrimary,
-                                fontSize: 16,
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            /*
+                        Text(
+                          LocaleKeys
+                              .wallet_module_buy_beatzcoins_page_modal_bantubeat_balance
+                              .tr(),
+                          style: TextStyle(
+                            color: colorScheme.onPrimary,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        /*
                             Flexible(
                               child: FittedBox(
                                 child: Text(
@@ -303,42 +297,112 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                                 ),
                               ),
                             ), */
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Builder(
-                          builder: (context) {
-                            var text = balanceSnap.hasData
-                                ? NumberFormat.currency(
-                                    symbol: fiatCurrencySymbol,
-                                  ).format(
-                                    widget.isAfrican
-                                        ? balanceSnap.data?.xaf
-                                        : balanceSnap.data?.eur,
-                                  )
-                                : '...';
-
-                            if (isFundsInsufficient == true) {
-                              text = LocaleKeys
-                                  .wallet_module_common_insufficient_funds
-                                  .tr();
-                            }
-                            return Text(
-                              text,
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: colorScheme.onPrimary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            );
-                          },
-                        ),
                       ],
                     ),
-                  ),
+                    const SizedBox(height: 8),
+                    Builder(
+                      builder: (context) {
+                        var text = balanceSnap.hasData
+                            ? NumberFormat.currency(
+                                symbol: fiatCurrencySymbol,
+                              ).format(
+                                widget.isAfrican
+                                    ? balanceSnap.data?.xaf
+                                    : balanceSnap.data?.eur,
+                              )
+                            : '...';
+
+                        if (isFundsInsufficient == true) {
+                          text = LocaleKeys
+                              .wallet_module_common_insufficient_funds
+                              .tr();
+                        }
+                        return Text(
+                          text,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),
+            /*
+						InkWell(
+              onTap: isProcessing || isFundsInsufficient == true
+                  ? null
+                  : onPayWithBantubeat,
+              enableFeedback: !isProcessing && isFundsInsufficient == false,
+              child: */
+            SizedBox(height: 20),
+            if (isFundsInsufficient == true)
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Color(0xFFBAB9B9),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey.shade200),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      LocaleKeys
+                          .wallet_module_buy_beatzcoins_page_modal_insufficient_funds
+                          .tr(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFFFC0909),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    ActionButton(
+                      onPressed: Modular.get<WalletRoutes>().deposit.navigate,
+                      text: LocaleKeys
+                          .wallet_module_buy_beatzcoins_page_modal_add_funds
+                          .tr(),
+                      backgroundColor: colorScheme.primary,
+                      textColor: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+            if (isFundsInsufficient == false)
+              Row(
+                children: [
+                  Flexible(
+                    child: ActionButton(
+                      enabled: !isProcessing,
+                      onPressed: Navigator.of(context).pop,
+                      text: LocaleKeys.wallet_module_common_cancel.tr(),
+                      backgroundColor: Colors.black,
+                      textColor: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Flexible(
+                    child: Visibility(
+                      visible: !isProcessing,
+                      replacement: Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      ),
+                      child: ActionButton(
+                        enabled: !isProcessing,
+                        onPressed: onPayWithBantubeat,
+                        text: LocaleKeys.wallet_module_common_buy.tr(),
+                        backgroundColor: colorScheme.primary,
+                        textColor: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             /*
             SizedBox(height: 20),
             ActionButton(
@@ -366,20 +430,24 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
               style: TextStyle(fontSize: 12, color: Color(0xFF181818)),
             ),  */
             SizedBox(height: 10),
-            Text.rich(
-              TextSpan(
-                text: LocaleKeys
-                    .wallet_module_buy_beatzcoins_page_modal_warning2a
-                    .tr(),
-                style: TextStyle(fontSize: 12, color: Color(0xFF181818)),
-                children: [
-                  TextSpan(
-                    text: LocaleKeys
-                        .wallet_module_buy_beatzcoins_page_modal_warning2b
-                        .tr(),
-                    style: TextStyle(fontSize: 12, color: colorScheme.primary),
-                  ),
-                ],
+            Center(
+              child: Text.rich(
+                textAlign: TextAlign.center,
+                TextSpan(
+                  text: LocaleKeys
+                      .wallet_module_buy_beatzcoins_page_modal_warning2a
+                      .tr(),
+                  style: TextStyle(fontSize: 12, color: Color(0xFF181818)),
+                  children: [
+                    TextSpan(
+                      text: LocaleKeys
+                          .wallet_module_buy_beatzcoins_page_modal_warning2b
+                          .tr(),
+                      style:
+                          TextStyle(fontSize: 12, color: colorScheme.primary),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

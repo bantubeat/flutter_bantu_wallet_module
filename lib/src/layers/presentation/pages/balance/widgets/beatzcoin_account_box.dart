@@ -202,6 +202,12 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                     fontWeight: FontWeight.bold,
                     color: colorScheme.primary,
                   ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      launchUrlString(
+                        'https://legal.bantubeat.com/bantubeat/help-center?index=7',
+                      );
+                    },
                 ),
               ],
             ),

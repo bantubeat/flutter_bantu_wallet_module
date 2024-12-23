@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'i18n/fr.dart' as fr;
+import 'i18n/en.dart' as en;
 import 'my_localization.dart';
 
 /// The MyLocalization delegate class.
@@ -76,6 +77,8 @@ class MyLocalizationDelegate extends LocalizationsDelegate<MyLocalization> {
   /// The default get path function.
   static Map<String, dynamic> defaultGetLangMapFunction(Locale locale) {
     switch (locale.languageCode) {
+      case 'en':
+        return en.langMap;
       case 'fr':
       default:
         return fr.langMap;

@@ -93,7 +93,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
                             color: (item.isBlur)
-                                ? Colors.white60.withOpacity(0.2)
+                                ? Colors.white60.withValues(alpha: 0.2)
                                 : Colors.white,
                           ),
                           textAlign: TextAlign.center,

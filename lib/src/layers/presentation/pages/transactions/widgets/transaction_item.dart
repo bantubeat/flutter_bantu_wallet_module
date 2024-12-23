@@ -19,8 +19,6 @@ class TransactionItem extends StatelessWidget {
         return Colors.blue;
       case EFinancialTxStatus.success:
         return Colors.green;
-      default:
-        return Colors.grey;
     }
   }
 
@@ -35,8 +33,6 @@ class TransactionItem extends StatelessWidget {
       case EFinancialTxStatus.success:
         return LocaleKeys.wallet_module_transaction_history_page_status_SUCCESS
             .tr();
-      default:
-        return '...';
     }
   }
 
@@ -68,8 +64,6 @@ class TransactionItem extends StatelessWidget {
               .wallet_module_transaction_history_page_type_INTERNAL_OUT
               .tr();
         }
-      default:
-        return '...';
     }
   }
 
@@ -181,7 +175,7 @@ class TransactionItem extends StatelessWidget {
                     vertical: 2,
                   ),
                   decoration: BoxDecoration(
-                    color: _getStatusColor().withOpacity(0.1),
+                    color: _getStatusColor().withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(

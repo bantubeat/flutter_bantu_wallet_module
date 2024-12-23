@@ -68,7 +68,7 @@ class TransactionsPage extends StatelessWidget {
                 child: Text(
                   LocaleKeys.wallet_module_transaction_history_page_title.tr(),
                   style: TextStyle(
-                    color: Color(0xFF49454F).withOpacity(0.8),
+                    color: Color(0xFF49454F).withValues(alpha: 0.8),
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),

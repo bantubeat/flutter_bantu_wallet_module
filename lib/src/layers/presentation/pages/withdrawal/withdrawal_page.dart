@@ -51,7 +51,7 @@ class WithdrawalPage extends StatelessWidget {
               const SizedBox(height: 7.5),
               Container(
                 padding: const EdgeInsets.all(5),
-                color: Color(0xFFFFCCCC).withOpacity(0.5),
+                color: Color(0xFFFFCCCC).withValues(alpha: 0.5),
                 alignment: Alignment.center,
                 child: Text(
                   LocaleKeys.wallet_module_withdrawal_page_description.tr(),
@@ -67,7 +67,7 @@ class WithdrawalPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(

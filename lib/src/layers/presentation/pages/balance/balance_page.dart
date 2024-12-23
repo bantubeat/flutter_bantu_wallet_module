@@ -50,7 +50,7 @@ class BalancePage extends StatelessWidget {
                 const SizedBox(height: 7.5),
                 Container(
                   padding: const EdgeInsets.all(5),
-                  color: Color(0xFFFFCCCC).withOpacity(0.5),
+                  color: Color(0xFFFFCCCC).withValues(alpha: 0.5),
                   child: RichText(
                     text: TextSpan(
                       text: LocaleKeys.wallet_module_wallets_page_description

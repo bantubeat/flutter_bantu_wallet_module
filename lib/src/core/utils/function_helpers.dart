@@ -1,4 +1,4 @@
-import 'package:uuid/uuid.dart';
+/* import 'package:uuid/uuid.dart';
 
 String generateUniquePaymentId([String prefix = '']) {
   final timestamp = DateTime.now().millisecondsSinceEpoch;
@@ -9,3 +9,4 @@ String generateUniquePaymentId([String prefix = '']) {
 
   return uniqueId;
 }
+*/

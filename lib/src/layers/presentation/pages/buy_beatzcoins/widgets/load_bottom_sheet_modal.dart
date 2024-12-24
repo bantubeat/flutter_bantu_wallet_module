@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/get_bzc_
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../core/network/my_http/my_http.dart';
 import '../../../../../core/use_cases/use_case.dart';
@@ -442,8 +444,16 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                       text: LocaleKeys
                           .wallet_module_buy_beatzcoins_page_modal_warning2b
                           .tr(),
-                      style:
-                          TextStyle(fontSize: 12, color: colorScheme.primary),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: colorScheme.primary,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launchUrlString(
+                            'https://legal.bantubeat.com/bantubeat/help-center?index=12',
+                          );
+                        },
                     ),
                   ],
                 ),

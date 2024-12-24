@@ -49,9 +49,8 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
   }
 
   void onExchange() {
-    if ((fiatAmount ?? 0) < 30) return;
     final bzcQuantity = num.tryParse(bzcTextCtrl.text)?.toDouble();
-    if (bzcQuantity == null || bzcQuantity <= 0) return;
+    if (bzcQuantity == null || bzcQuantity < 30) return;
     LoadBottomSheetModal.show(
       context,
       isAfrican: widget.isAfrican,

@@ -22,7 +22,7 @@ const Map<String, dynamic> langMap = {
     "wallets_page": {
       "title": "Wallet",
       "description":
-          "In your wallet, you have a financial account that displays your account balance in monetary value and a Beatzcoin account that displays your Beatzcoin balance. All payments made on Featlink are made with your Beatzcoin tokens. To make a purchase on Featlink, you must first fund your financial account.\nIf the balance of your Beatzcoin account does not cover the full amount of the renewals, your Featlink access will be canceled. Learn more about the",
+          "In your wallet, you have a financial account that displays your account balance in monetary value and a Beatzcoin account that displays your Beatzcoin balance. All payments made on the platform are made with your Beatzcoin tokens. To make a purchase on the platform, you must first fund your financial account.\nIf the balance of your Beatzcoin account does not cover the full amount of the renewals, your platform access will be canceled. Learn more about the",
       "description2": "Bantubeat payment policy and conditions",
       "financier_account": {
         "title": "Financial Account",
@@ -70,7 +70,7 @@ const Map<String, dynamic> langMap = {
     },
     "beatzcoins_page": {
       "title":
-          "Buy Beatzcoins to enjoy premium features of Featlink and other Bantubeat applications",
+          "Buy Beatzcoins to enjoy premium features of the platform and other Bantubeat applications",
       "description":
           "The Beatzcoin is a token that we are launching to allow our users to fully enjoy the Bantubeat applications. The Beatzcoin is available and usable only on Bantubeat and its applications. Each user who holds a stock of Beatzcoins can exchange them for a Bantubeat payment. The corresponding amount, less taxes and service fees, will be credited to your financial account.",
       "description2": "\nSee the",

@@ -29,12 +29,12 @@ import 'package:pay/pay.dart';
 import 'my_app_env.dart';
 
 /// Sample [PaymentConfiguration] for Apple Pay
-final defaultApplePayConfig =
+PaymentConfiguration get defaultApplePayConfig =>
     PaymentConfiguration.fromJsonString(defaultApplePay);
 
 /// Sample configuration for Apple Pay. Contains the same content as the file
 /// under `assets/default_payment_profile_apple_pay.json`.
-const String defaultApplePay = '''{
+String get defaultApplePay => '''{
   "provider": "apple_pay",
   "data": {
     "merchantIdentifier": "merchant.com.sams.fish",
@@ -69,12 +69,12 @@ const String defaultApplePay = '''{
 }''';
 
 /// Sample [PaymentConfiguration] for Google Pay
-final defaultGooglePayConfig =
+PaymentConfiguration get defaultGooglePayConfig =>
     PaymentConfiguration.fromJsonString(defaultGooglePay);
 
 /// Sample configuration for Google Pay. Contains the same content as the file
 /// under `assets/default_payment_profile_google_pay.json`.
-const String defaultGooglePay = '''{
+String get defaultGooglePay => '''{
   "provider": "google_pay",
   "data": {
     ${MyAppEnv.isProduction ? '' : '"environment": "TEST",'}
@@ -112,7 +112,7 @@ const String defaultGooglePay = '''{
   }
 }''';
 
-const String basicGooglePayIsReadyToPay = '''{
+String get basicGooglePayIsReadyToPay => '''{
   "provider": "google_pay",
   "data": {
     "apiVersion": 2,
@@ -129,7 +129,7 @@ const String basicGooglePayIsReadyToPay = '''{
   }
 }''';
 
-const String basicGooglePayLoadPaymentData = '''{
+String get basicGooglePayLoadPaymentData => '''{
   "provider": "google_pay",
   "data": {
     "apiVersion": 2,
@@ -161,7 +161,7 @@ const String basicGooglePayLoadPaymentData = '''{
   }
 }''';
 
-const String invalidGooglePayIsReadyToPay = '''{
+String get invalidGooglePayIsReadyToPay => '''{
   "provider": "google_pay",
   "data": {
     "apiVersion": 2,
@@ -175,7 +175,7 @@ const String invalidGooglePayIsReadyToPay = '''{
   }
 }''';
 
-const String invalidGooglePayLoadPaymentData = '''{
+String get invalidGooglePayLoadPaymentData => '''{
   "provider": "google_pay",
   "data": {
     "apiVersion": 2,

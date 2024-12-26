@@ -22,7 +22,7 @@ const Map<String, dynamic> langMap = {
     "wallets_page": {
       "title": "Porte-Feuille",
       "description":
-          "Dans votre porte-feuille, vous disposez d'un compte financier qui affiche en valeur monétaire le solde de votre compte et un compte de beatzcoin qui affiche le solde de vos beatzcoins. Tous les paiements effectués sur featlink se font par vos jetons beatzcoin. Pour effectuer un achat sur featlink vous devez au préalable approvisionner votre compte financier.\nSi le solde de votre compte Beatzcoin ne couvre pas la totalité du montant des renouvellements, Votre accès Featlink sera annulé. En savoir plus sur la",
+          "Dans votre porte-feuille, vous disposez d'un compte financier qui affiche en valeur monétaire le solde de votre compte et un compte de beatzcoin qui affiche le solde de vos beatzcoins. Tous les paiements effectués sur la plateforme se font par vos jetons beatzcoin. Pour effectuer un achat sur la plateforme vous devez au préalable approvisionner votre compte financier.\nSi le solde de votre compte Beatzcoin ne couvre pas la totalité du montant des renouvellements, Votre accès à la plateforme sera annulé. En savoir plus sur la",
       "description2": " politique et condition de paiement Bantubeat",
       "financier_account": {
         "title": "Compte Financier",
@@ -71,7 +71,7 @@ const Map<String, dynamic> langMap = {
     },
     "beatzcoins_page": {
       "title":
-          "Acheter des beatzcoins pour profiter des fonctionnalités premium de Featlink et des autres applications Bantubeat",
+          "Acheter des beatzcoins pour profiter des fonctionnalités premium de la plateforme et des autres applications Bantubeat",
       "description":
           "Le Beatzcoin est un jeton que nous mettons sur pied pour permettre à nos utilisateurs de profiter plainement des applications bantubeat. Le beatzcoin est disponible et utilisable uniquement sur bantubeat et ses applications. Chaque utilisateur qui détient un stock de beatzcoin peut les échanger contre un paiement de bantubeat. la somme correspondante, déduction des taxes et frais de service sera créditée sur votre compte financier.",
       "description2": "\nVoir les ",

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show Widget;
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -43,15 +44,18 @@ import '../../layers/presentation/navigation/wallet_routes.dart';
 
 class WalletModule extends Module {
   static const floatingMenuBuilderKey = 'floatingMenuBuilder';
+  static const isProductionKey = 'isProduction';
 
   final Widget Function() floatingMenuBuilder;
   final Future<String?> Function() getAccessToken;
   final WalletRoutes _routes;
+  final bool isProduction;
 
   WalletModule({
     required this.floatingMenuBuilder,
     required this.getAccessToken,
     required WalletRoutes routes,
+    this.isProduction = kReleaseMode,
   }) : _routes = routes;
 
   MyHttpClient Function() _initMyHttpClient({required bool withCache}) {
@@ -71,6 +75,7 @@ class WalletModule extends Module {
   @override
   void binds(i) {
     const withCacheKey = 'with_cache_key';
+    i.addInstance<bool>(isProduction, key: isProductionKey);
     // Core
     i.addSingleton<MyHttpClient>(_initMyHttpClient(withCache: false));
     i.addSingleton<MyHttpClient>(

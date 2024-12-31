@@ -29,6 +29,7 @@ dependencies:
   select_form_field: ^2.2.0
   skeletonizer: ^1.4.2
   url_launcher: ^6.3.1
+  webview_flutter: ^4.10.0
 
 dev_dependencies:
   flutter_test:

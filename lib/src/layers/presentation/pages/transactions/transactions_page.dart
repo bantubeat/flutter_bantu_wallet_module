@@ -25,40 +25,40 @@ class TransactionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: colorScheme.onPrimary,
+      appBar: AppBar(
         backgroundColor: colorScheme.onPrimary,
-        appBar: AppBar(
-          backgroundColor: colorScheme.onPrimary,
-          title: Row(
-            children: [
-              CircleAvatar(
-                radius: 16,
-                backgroundImage: BantubeatImageProvider(),
-              ),
-              const SizedBox(width: 5),
-              Text(
-                'Bantubeat',
-                style: TextStyle(color: colorScheme.onSurface, fontSize: 16),
-              ),
-            ],
-          ),
-          actions: [
-            BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, String?>(
-              bloc: Modular.get(),
-              selector: (snap) => snap.data?.photoUrl,
-              builder: (context, photoUrl) => Skeletonizer(
-                enabled: photoUrl == null,
-                child: CircleAvatar(
-                  radius: 16,
-                  backgroundImage: NetworkImage(photoUrl ?? ''),
-                ),
-              ),
+        title: Row(
+          children: [
+            CircleAvatar(
+              radius: 16,
+              backgroundImage: BantubeatImageProvider(),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 5),
+            Text(
+              'Bantubeat',
+              style: TextStyle(color: colorScheme.onSurface, fontSize: 16),
+            ),
           ],
         ),
-        body: ScreenControllerBuilder(
+        actions: [
+          BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, String?>(
+            bloc: Modular.get(),
+            selector: (snap) => snap.data?.photoUrl,
+            builder: (context, photoUrl) => Skeletonizer(
+              enabled: photoUrl == null,
+              child: CircleAvatar(
+                radius: 16,
+                backgroundImage: NetworkImage(photoUrl ?? ''),
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+        ],
+      ),
+      body: SafeArea(
+        child: ScreenControllerBuilder(
           create: _TransactionsController.new,
           builder: (context, ctrl) => Column(
             children: [

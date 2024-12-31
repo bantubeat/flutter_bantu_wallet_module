@@ -22,7 +22,7 @@ const Map<String, dynamic> langMap = {
     "wallets_page": {
       "title": "Wallet",
       "description":
-          "In your wallet, you have a financial account that displays your account balance in monetary value and a Beatzcoin account that displays your Beatzcoin balance. All payments made on the platform are made with your Beatzcoin tokens. To make a purchase on the platform, you must first fund your financial account.\nIf the balance of your Beatzcoin account does not cover the full amount of the renewals, your platform access will be canceled. Learn more about the",
+          "In your wallet, you have a financial account that displays your account balance in monetary value and a Beatzcoin account that displays your Beatzcoin balance. All payments made on the platform are made with your Beatzcoin tokens. To make a purchase on the platform, you must first fund your financial account.\nIf the balance of your Beatzcoin account does not cover the full amount of the renewals, your platform access will be canceled. Learn more about the ",
       "description2": "Bantubeat payment policy and conditions",
       "financier_account": {
         "title": "Financial Account",
@@ -38,7 +38,7 @@ const Map<String, dynamic> langMap = {
         "description2":
             "You can exchange your tokens, the equivalent amount will be deposited into your financial account.",
         "description3":
-            "Please note that when you exchange your Beatzcoin tokens, fees and taxes are deducted. See the",
+            "Please note that when you exchange your Beatzcoin tokens, fees and taxes are deducted. See the ",
         "description4": "Bantubeat payment policy and conditions.",
         "minimum_bzc": "minimum {{min_quantity}} BZC",
         "exchange": "Exchange",
@@ -103,8 +103,8 @@ const Map<String, dynamic> langMap = {
     },
     "transaction_history_page": {
       "title": "Wallet history",
-      "financial_account": "Financial account",
-      "beatzocoin_account": "Beatzcoin account",
+      "financial_account": "Financial\naccount",
+      "beatzocoin_account": "Beatzcoin\naccount",
       "account": "Account",
       "table": {
         "caption": "Transaction Details",

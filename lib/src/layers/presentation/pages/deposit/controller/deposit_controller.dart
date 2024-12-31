@@ -34,20 +34,22 @@ class DepositController extends ScreenController
   @override
   @protected
   void onInit() {
-    Modular.get<GetCurrentUserUseCase>().call(NoParms()).then((data) {
-      currentUser = data;
-      _isAfricanZone = data.isAfrican;
-      _selectDefaultUserCountryCurrencyIfAvailable();
-      refreshUI();
-    });
-    Modular.get<GetAllCurrenciesUseCase>().call(NoParms()).then((data) {
-      _allCurrencies = data;
-      _selectDefaultUserCountryCurrencyIfAvailable();
-      if (selectedCurrencyTextCtrl.text.isEmpty) {
-        selectedCurrencyTextCtrl.text = data.firstOrNull?.code ?? '';
-      }
-      switchZone();
-    });
+    Future.wait([
+      Modular.get<GetCurrentUserUseCase>().call(NoParms()).then((data) {
+        currentUser = data;
+        _isAfricanZone = data.isAfrican;
+        _selectDefaultUserCountryCurrencyIfAvailable();
+        refreshUI();
+      }),
+      Modular.get<GetAllCurrenciesUseCase>().call(NoParms()).then((data) {
+        _allCurrencies = data;
+        _selectDefaultUserCountryCurrencyIfAvailable();
+        if (selectedCurrencyTextCtrl.text.isEmpty) {
+          selectedCurrencyTextCtrl.text = data.firstOrNull?.code ?? '';
+        }
+        switchZone();
+      }),
+    ]);
     amountCtrl.addListener(refreshUI);
   }
 
@@ -56,6 +58,8 @@ class DepositController extends ScreenController
   void onDispose() {
     amountCtrl.dispose();
   }
+
+  bool get initialized => _allCurrencies.isNotEmpty && currentUser != null;
 
   CurrencyItemEntity? get _selectedCurrency {
     return _allCurrencies

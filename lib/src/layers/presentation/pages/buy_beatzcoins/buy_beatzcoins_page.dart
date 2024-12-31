@@ -28,22 +28,22 @@ class BuyBeatzcoinsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: colorScheme.onPrimary,
+      appBar: AppBar(
         backgroundColor: colorScheme.onPrimary,
-        appBar: AppBar(
-          backgroundColor: colorScheme.onPrimary,
-          centerTitle: true,
-          title: Text(
-            LocaleKeys.wallet_module_beatzcoins_page_title.tr(),
-            textAlign: TextAlign.center,
-            softWrap: true,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-          ),
+        centerTitle: true,
+        title: Text(
+          LocaleKeys.wallet_module_beatzcoins_page_title.tr(),
+          textAlign: TextAlign.center,
+          softWrap: true,
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
-        body: BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, bool>(
+      ),
+      body: SafeArea(
+        child: BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, bool>(
           bloc: Modular.get<CurrentUserCubit>(),
           selector: (snap) => snap.data?.isAfrican ?? false,
           builder: (context, isAfrican) => SingleChildScrollView(

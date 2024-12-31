@@ -37,10 +37,10 @@ class WithdrawalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: colorScheme.onPrimary,
-        body: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: colorScheme.onPrimary,
+      body: SafeArea(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

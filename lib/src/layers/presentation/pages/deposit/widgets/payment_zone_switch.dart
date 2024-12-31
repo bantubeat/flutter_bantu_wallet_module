@@ -35,6 +35,7 @@ class PaymentZoneSwitch extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
+            flex: isAfricanZone ? 0 : 1,
             child: _buildPaymentTab(
               label: LocaleKeys.wallet_module_deposit_page_payment_zone_africa
                   .tr(),
@@ -44,12 +45,15 @@ class PaymentZoneSwitch extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          _buildPaymentTab(
-            label:
-                LocaleKeys.wallet_module_deposit_page_payment_zone_other.tr(),
-            icon: Icons.account_balance,
-            isSelected: !isAfricanZone,
-            onTap: onOtherZoneTap,
+          Expanded(
+            flex: !isAfricanZone ? 0 : 1,
+            child: _buildPaymentTab(
+              label:
+                  LocaleKeys.wallet_module_deposit_page_payment_zone_other.tr(),
+              icon: Icons.account_balance,
+              isSelected: !isAfricanZone,
+              onTap: onOtherZoneTap,
+            ),
           ),
         ],
       ),
@@ -70,6 +74,7 @@ class PaymentZoneSwitch extends StatelessWidget {
           color: isSelected ? Colors.white : Colors.transparent,
           borderRadius: isSelected ? BorderRadius.circular(12) : null,
         ),
+        // width: double.maxFinite,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -79,14 +84,18 @@ class PaymentZoneSwitch extends StatelessWidget {
               color: isSelected ? Colors.black : Colors.grey,
             ),
             SizedBox(width: 8),
-            Text(
-              label,
-              textAlign: TextAlign.left,
-              softWrap: true,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected ? Colors.black : Colors.grey,
+            Flexible(
+              flex: isSelected ? 0 : 1, // When NOT select sized is limited
+              child: Text(
+                label,
+                textAlign: TextAlign.left,
+                softWrap: true,
+                overflow: TextOverflow.fade,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  color: isSelected ? Colors.black : Colors.grey,
+                ),
               ),
             ),
           ],

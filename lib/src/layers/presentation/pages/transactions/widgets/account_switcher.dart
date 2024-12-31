@@ -50,32 +50,34 @@ class AccountSwitcher extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          _buildPaymentTab(
-            label: LocaleKeys
-                .wallet_module_transaction_history_page_beatzocoin_account
-                .tr(),
-            icon: Container(
-              width: 30,
-              height: 30,
-              padding: const EdgeInsets.all(2),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1.5,
-                  color: isBzcAccount ? Colors.black : Colors.grey,
-                ),
-                shape: BoxShape.circle,
-              ),
-              child: FittedBox(
-                child: Text(
-                  'BZC',
-                  style: TextStyle(
+          Expanded(
+            child: _buildPaymentTab(
+              label: LocaleKeys
+                  .wallet_module_transaction_history_page_beatzocoin_account
+                  .tr(),
+              icon: Container(
+                width: 30,
+                height: 30,
+                padding: const EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1.5,
                     color: isBzcAccount ? Colors.black : Colors.grey,
+                  ),
+                  shape: BoxShape.circle,
+                ),
+                child: FittedBox(
+                  child: Text(
+                    'BZC',
+                    style: TextStyle(
+                      color: isBzcAccount ? Colors.black : Colors.grey,
+                    ),
                   ),
                 ),
               ),
+              isSelected: isBzcAccount,
+              onTap: onSelectBzcAccount,
             ),
-            isSelected: isBzcAccount,
-            onTap: onSelectBzcAccount,
           ),
         ],
       ),
@@ -101,14 +103,17 @@ class AccountSwitcher extends StatelessWidget {
           children: [
             icon,
             SizedBox(width: 8),
-            Text(
-              label,
-              textAlign: TextAlign.left,
-              softWrap: true,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected ? Colors.black : Colors.grey,
+            Flexible(
+              child: Text(
+                label,
+                textAlign: TextAlign.left,
+                softWrap: true,
+                overflow: TextOverflow.fade,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  color: isSelected ? Colors.black : Colors.grey,
+                ),
               ),
             ),
           ],

@@ -27,22 +27,22 @@ class BeatzcoinsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: colorScheme.onPrimary,
+      appBar: AppBar(
         backgroundColor: colorScheme.onPrimary,
-        appBar: AppBar(
-          backgroundColor: colorScheme.onPrimary,
-          centerTitle: true,
-          title: Text(
-            LocaleKeys.wallet_module_beatzcoins_page_title.tr(),
-            textAlign: TextAlign.center,
-            softWrap: true,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-          ),
+        centerTitle: true,
+        title: Text(
+          LocaleKeys.wallet_module_beatzcoins_page_title.tr(),
+          textAlign: TextAlign.center,
+          softWrap: true,
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
-        body: SingleChildScrollView(
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

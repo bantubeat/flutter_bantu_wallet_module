@@ -91,12 +91,16 @@ class EUPaymentOptions extends StatelessWidget {
           children: [
             icon,
             const SizedBox(width: 7),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 16,
-                color: textColor,
-                fontWeight: FontWeight.bold,
+            Flexible(
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: textColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

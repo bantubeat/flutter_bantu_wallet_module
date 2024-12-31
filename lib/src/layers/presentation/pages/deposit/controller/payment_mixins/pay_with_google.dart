@@ -2,15 +2,15 @@ import 'dart:convert' show jsonDecode;
 
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter/services.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/e_payment_method.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/financial_transaction_entity.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/presentation/navigation/wallet_routes.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pay/pay.dart';
 
 import '../../../../../../core/utils/payment_configurations.dart';
 import '../../../../../domain/use_cases/make_deposit_direct_payment_use_case.dart';
+import '../../../../../domain/entities/e_payment_method.dart';
+import '../../../../../domain/entities/financial_transaction_entity.dart';
+import '../../../../../presentation/helpers/ui_alert_helpers.dart';
+import '../../../../../presentation/navigation/wallet_routes.dart';
 
 mixin PayWithGoogle {
   Future<void> payWithGoogle({

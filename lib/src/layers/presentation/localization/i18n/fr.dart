@@ -104,8 +104,8 @@ const Map<String, dynamic> langMap = {
     },
     "transaction_history_page": {
       "title": "Historique portefeuille",
-      "financial_account": "Compte financier",
-      "beatzocoin_account": "Compte Beatzcoin",
+      "financial_account": "Compte\nFinancier",
+      "beatzocoin_account": "Compte\nBeatzcoin",
       "account": "Compte",
       "table": {
         "caption": "Transaction Details",

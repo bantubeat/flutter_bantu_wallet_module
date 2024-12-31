@@ -43,12 +43,15 @@ class ActionButton extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 10),
                 child: prefixIcon,
               ),
-            Text(
-              text,
-              style: TextStyle(
-                color: textColor ?? colorScheme.onPrimary,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
+            Flexible(
+              child: Text(
+                text,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: textColor ?? colorScheme.onPrimary,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ],

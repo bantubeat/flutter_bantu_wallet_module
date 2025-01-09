@@ -16,15 +16,15 @@ class ExchangeRepositoryImpl extends ExchangeRepository {
 
   @override
   Future<ExchangeTransactionEntity> exchangeFiatToBzc({
-    required double fiatAmount,
+    required double fiatAmountInEur,
     int? exchangeBzcPackId,
   }) {
     if (exchangeBzcPackId == null) {
-      return _apiDataSource.post$exchangeFiatToBzcCustom(fiatAmount);
+      return _apiDataSource.post$exchangeFiatToBzcCustom(fiatAmountInEur);
     }
 
     return _apiDataSource.post$exchangeFiatToBzcWithPack(
-      amount: fiatAmount,
+      amount: fiatAmountInEur,
       exchangeBzcPackId: exchangeBzcPackId,
     );
   }

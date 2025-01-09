@@ -173,9 +173,7 @@ class BuyBeatzcoinsPage extends StatelessWidget {
                       );
                     }
 
-                    if (snap.data == null) {
-                      return const SizedBox.shrink();
-                    }
+                    if (snap.data == null) return const SizedBox.shrink();
 
                     final exchangeBzcPacks =
                         snap.requireData.first as List<ExchangeBzcPackEntity>;

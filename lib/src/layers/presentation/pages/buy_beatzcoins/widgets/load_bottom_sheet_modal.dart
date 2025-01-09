@@ -8,6 +8,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/get_bzc_
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../core/network/my_http/my_http.dart';
@@ -78,27 +79,30 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
     return widget.bzcExchangePack?.bzcAmount ?? widget.bzcQuantity;
   }
 
-  double? get fiatAmount {
+  double? get fiatAmountInEur {
     final bzcExchangePack = widget.bzcExchangePack;
-    if (bzcExchangePack != null) {
-      return widget.isAfrican
-          ? _bzcCurrencyConverter?.eurToXaf(bzcExchangePack.fiatAmount)
-          : bzcExchangePack.fiatAmount;
-    }
-
-    return widget.isAfrican
-        ? _bzcCurrencyConverter?.bzcToXaf(widget.bzcQuantity, applyFees: false)
+    return bzcExchangePack != null
+        ? bzcExchangePack.fiatAmount
         : _bzcCurrencyConverter?.bzcToEur(widget.bzcQuantity, applyFees: false);
   }
 
+  double? get fiatAmount {
+    final amount = fiatAmountInEur;
+    if (amount == null) return null;
+    return widget.isAfrican ? _bzcCurrencyConverter?.eurToXaf(amount) : amount;
+  }
+
   void onPayWithBantubeat() async {
-    final amount = fiatAmount;
-    if (amount == null || isProcessing) return;
+    final amountInEur = fiatAmountInEur;
+    if (amountInEur == null || isProcessing) return;
 
     try {
       setState(() => isProcessing = true);
       await Modular.get<ExchangeFiatToBzcUseCase>().call(
-        (fiatAmount: amount, exchangeBzcPackId: widget.bzcExchangePack?.id),
+        (
+          fiatAmountInEur: amountInEur,
+          exchangeBzcPackId: widget.bzcExchangePack?.id,
+        ),
       );
 
       userBalanceCubit.fetchUserBalance();
@@ -218,31 +222,62 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                             vertical: 4,
                           ),
                           width: double.maxFinite,
-                          height: 40,
+                          height: 80,
                           decoration: BoxDecoration(
                             color: Color(0xFF14DF21),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           alignment: Alignment.center,
-                          child: FittedBox(
-                            child: Text(
-                              LocaleKeys
-                                  .wallet_module_buy_beatzcoins_page_modal_ttc_price
-                                  .tr(
-                                namedArgs: {
-                                  'price': fiatAmount == null
-                                      ? '...'
-                                      : NumberFormat.currency(
-                                          symbol: fiatCurrencySymbol,
-                                        ).format(fiatAmount),
-                                },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                LocaleKeys
+                                    .wallet_module_buy_beatzcoins_page_modal_ttc_price
+                                    .tr(
+                                  namedArgs: {
+                                    'price':
+                                        '' /*
+                                      'price': fiatAmount == null
+                                          ? '...'
+                                          : NumberFormat.currency(
+                                              symbol: fiatCurrencySymbol,
+                                            ).format(fiatAmount), */
+                                  },
+                                ),
+                                style: TextStyle(
+                                  color: colorScheme.onPrimary,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
+                                  fontSize: 16,
+                                ),
                               ),
-                              style: TextStyle(
-                                color: colorScheme.onPrimary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
+                              const SizedBox(height: 4),
+                              Text(
+                                fiatAmount == null
+                                    ? '...'
+                                    : NumberFormat.currency(
+                                        symbol: fiatCurrencySymbol,
+                                      ).format(fiatAmount),
+                                style: TextStyle(
+                                  color: colorScheme.onPrimary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
-                            ),
+                              if (fiatAmountInEur != fiatAmount)
+                                const SizedBox(height: 4),
+                              if (fiatAmountInEur != fiatAmount)
+                                Text(
+                                  NumberFormat.currency(symbol: 'Є').format(
+                                    fiatAmountInEur,
+                                  ),
+                                  style: TextStyle(
+                                    color: colorScheme.onPrimary,
+                                    fontSize: 13.5,
+                                  ),
+                                ),
+                            ],
                           ),
                         ),
                       ),
@@ -332,13 +367,6 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                 ),
               ),
             ),
-            /*
-						InkWell(
-              onTap: isProcessing || isFundsInsufficient == true
-                  ? null
-                  : onPayWithBantubeat,
-              enableFeedback: !isProcessing && isFundsInsufficient == false,
-              child: */
             SizedBox(height: 20),
             if (isFundsInsufficient == true)
               Container(
@@ -450,8 +478,10 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          launchUrlString(
-                            'https://legal.bantubeat.com/bantubeat/help-center?index=12',
+                          launchUrl(
+                            Uri.parse(
+                                'https://legal.bantubeat.com/bantubeat/help-center?index=12'),
+                            mode: LaunchMode.externalApplication,
                           );
                         },
                     ),

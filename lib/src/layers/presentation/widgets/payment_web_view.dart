@@ -41,7 +41,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
 
       // Handle non browser scheme
       if (await canLaunchUrl(uri)) {
-        launchUrl(uri, mode: LaunchMode.externalNonBrowserApplication);
+        launchUrl(uri, mode: LaunchMode.externalApplication);
         return NavigationDecision.prevent;
       }
     }

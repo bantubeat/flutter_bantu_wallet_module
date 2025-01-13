@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../core/network/my_http/my_http.dart';
 import '../../../../../core/use_cases/use_case.dart';
@@ -237,7 +236,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                                     .tr(
                                   namedArgs: {
                                     'price':
-                                        '' /*
+                                        '', /*
                                       'price': fiatAmount == null
                                           ? '...'
                                           : NumberFormat.currency(
@@ -480,7 +479,8 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                         ..onTap = () {
                           launchUrl(
                             Uri.parse(
-                                'https://legal.bantubeat.com/bantubeat/help-center?index=12'),
+                              'https://legal.bantubeat.com/bantubeat/help-center?index=12',
+                            ),
                             mode: LaunchMode.externalApplication,
                           );
                         },

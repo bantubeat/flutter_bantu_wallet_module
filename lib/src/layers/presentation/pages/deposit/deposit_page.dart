@@ -47,11 +47,12 @@ class DepositPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Payment Method Selection
-                    PaymentZoneSwitch(
-                      isAfricanZone: ctrl.isAfricanZone,
-                      onAfricanZoneTap: ctrl.switchZone,
-                      onOtherZoneTap: ctrl.switchZone,
-                    ),
+                    if (ctrl.currentUser?.isAfrican ?? true)
+                      PaymentZoneSwitch(
+                        isAfricanZone: ctrl.isAfricanZone,
+                        onAfricanZoneTap: ctrl.switchZone,
+                        onOtherZoneTap: ctrl.switchZone,
+                      ),
                     // Currency Dropdown
                     if (ctrl.isAfricanZone)
                       Padding(
@@ -193,6 +194,7 @@ class DepositPage extends StatelessWidget {
 
                     if (!ctrl.isAfricanZone)
                       EUPaymentOptions(
+                        ctrl: ctrl,
                         onGooglePay: ctrl.onGooglePay,
                         onApplePay: ctrl.onApplePay,
                         onPayPal: ctrl.onPayPal,

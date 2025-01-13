@@ -13,22 +13,26 @@ import '../../../../../presentation/helpers/ui_alert_helpers.dart';
 import '../../../../../presentation/navigation/wallet_routes.dart';
 
 mixin PayWithGoogle {
+  PaymentConfiguration getGooglePaymentConfiguration({
+    required String countryIso2,
+    required String currency,
+  }) {
+    return PaymentConfiguration.fromJsonString(
+      defaultGooglePay
+          .replaceAll('"countryCode": "US"', '"countryCode": "$countryIso2"')
+          .replaceAll('"currencyCode": "USD"', '"currencyCode": "$currency"'),
+    );
+  }
+
   Future<void> payWithGoogle({
     required double amount,
     required String countryIso2,
     required String currency,
   }) async {
     final payClient = Pay({
-      PayProvider.google_pay: PaymentConfiguration.fromJsonString(
-        defaultGooglePay
-            .replaceAll(
-              '"countryCode": "US"',
-              '"countryCode": "$countryIso2"',
-            )
-            .replaceAll(
-              '"currencyCode": "USD"',
-              '"currencyCode": "$currency"',
-            ),
+      PayProvider.google_pay: getGooglePaymentConfiguration(
+        countryIso2: countryIso2,
+        currency: currency,
       ),
     });
 
@@ -51,6 +55,15 @@ mixin PayWithGoogle {
     }
 
     debugPrint('result => $result');
+    onGooglePayResult(result, amount: amount, currency: currency);
+  }
+
+  Future<void> onGooglePayResult(
+    Map<String, dynamic>? result, {
+    required double amount,
+    required String currency,
+  }) async {
+    if (result == null) return;
 
     Map<String, dynamic>? paymentMethodData = result['paymentMethodData'];
     debugPrint('paymentMethodData => $paymentMethodData');
@@ -79,9 +92,9 @@ mixin PayWithGoogle {
     final tx = await Modular.get<MakeDepositDirectPaymentUseCase>().call(
       (
         paymentMethod: EPaymentMethod.stripe,
-        amount: amount,
-        currency: currency,
         stripeToken: stripeToken,
+        currency: currency,
+        amount: amount,
       ),
     );
 

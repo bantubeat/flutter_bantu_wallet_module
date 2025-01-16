@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay/pay.dart';
 
 import '../../../../../layers/presentation/pages/deposit/controller/deposit_controller.dart';
 import '../../../../../layers/presentation/localization/string_translate_extension.dart';
@@ -44,14 +45,14 @@ class EUPaymentOptions extends StatelessWidget {
                 onTap: onApplePay,
               ),
             ),
-            SizedBox(width: 16),  */
+            SizedBox(width: 16),  */ /*
             Expanded(
               child: _buildButton(
                 icon: GoogleIconSvgImage(),
                 title: 'Pay',
                 onTap: onGooglePay,
               ),
-            ), /*
+            ), */
             Expanded(
               child: Builder(
                 builder: (context) {
@@ -102,7 +103,7 @@ class EUPaymentOptions extends StatelessWidget {
                   );
                 },
               ),
-            ),*/
+            ),
           ],
         ),
         SizedBox(height: 16),

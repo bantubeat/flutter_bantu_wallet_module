@@ -220,7 +220,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 45,
+                    height: 50,
                     child: TextField(
                       controller: bzcTextCtrl,
                       enabled: converterInitialized,
@@ -250,7 +250,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: SizedBox(
-                    height: 45,
+                    height: 50,
                     child: TextField(
                       controller: fiatTextCtrl,
                       readOnly: true,

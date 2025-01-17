@@ -57,7 +57,14 @@ const Map<String, dynamic> langMap = {
       "total": "Total due:",
       "continue_payment": "Continue payment",
       "amount_and_currency_required": "Amount and/or currency is required",
-      "payment_done_check_account": "Payment completed, check your balance"
+      "payment_done_check_account": "Payment completed, check your balance",
+      "warning1_your_recharge":
+          "Your recharge may be subject to additional fees due to Google's commission.",
+      "warning2_link": "Terms and Conditions",
+      "warning3_and": " and ",
+      "warning4_link": "privacy policy",
+      "warning5_google_play":
+          " of Bantubeat apply. Google Play may also ask you to accept additional terms."
     },
     "withdrawal_page": {
       "title": "Withdrawal",

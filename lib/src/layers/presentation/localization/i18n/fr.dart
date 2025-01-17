@@ -58,7 +58,14 @@ const Map<String, dynamic> langMap = {
       "continue_payment": "Continuer le paiement",
       "amount_and_currency_required":
           "Le montant et/ou la devise sont obligatoires",
-      "payment_done_check_account": "Paiement terminée, vérifier votre solde"
+      "payment_done_check_account": "Paiement terminée, vérifier votre solde",
+      "warning1_your_recharge":
+          "Votre recharge peut être soumise à des frais supplémentaires en raison de la commission de Google.",
+      "warning2_link": "Les conditions générales",
+      "warning3_and": " et ",
+      "warning4_link": "la politique de confidentialité",
+      "warning5_google_play":
+          " de Bantubeat s'appliquent. Google play peut également vous demander d'accepter des considtions supplémentaires."
     },
     "withdrawal_page": {
       "title": "Retrait",

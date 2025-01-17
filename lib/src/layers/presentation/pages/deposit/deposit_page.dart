@@ -1,9 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:select_form_field/select_form_field.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../layers/presentation/localization/string_translate_extension.dart';
 import '../../../../core/generated/locale_keys.g.dart';
@@ -200,6 +203,63 @@ class DepositPage extends StatelessWidget {
                         onPayPal: ctrl.onPayPal,
                         onCreditOrVisaCard: ctrl.onCreditOrVisaCard,
                       ),
+                    const SizedBox(height: 20),
+                    Center(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                          color: Color(0xFF667085),
+                          fontSize: 12,
+                        ),
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: LocaleKeys
+                                  .wallet_module_deposit_page_warning1_your_recharge
+                                  .tr(),
+                            ),
+                            TextSpan(
+                              text: LocaleKeys
+                                  .wallet_module_deposit_page_warning2_link
+                                  .tr(),
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  launchUrlString(
+                                    'https://legal.bantubeat.com',
+                                  );
+                                },
+                            ),
+                            TextSpan(
+                              text: LocaleKeys
+                                  .wallet_module_deposit_page_warning3_and
+                                  .tr(),
+                            ),
+                            TextSpan(
+                              text: LocaleKeys
+                                  .wallet_module_deposit_page_warning4_link
+                                  .tr(),
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  launchUrlString(
+                                    'https://legal.bantubeat.com/bantubeat/privacy-policy',
+                                  );
+                                },
+                            ),
+                            TextSpan(
+                              text: LocaleKeys
+                                  .wallet_module_deposit_page_warning5_google_play
+                                  .tr(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

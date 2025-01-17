@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 
 import '../../../../../layers/presentation/pages/deposit/controller/deposit_controller.dart';
-import '../../../../../layers/presentation/localization/string_translate_extension.dart';
-import '../../../../../core/generated/locale_keys.g.dart';
-import '../../../widgets/google_icon_svg_image.dart';
+import '../../../widgets/payments_icon_svg_image.dart';
 
 class EUPaymentOptions extends StatelessWidget {
   final VoidCallback onGooglePay;
@@ -29,10 +27,27 @@ class EUPaymentOptions extends StatelessWidget {
       children: [
         // Card Option
         _buildButton(
-          icon: Icon(Icons.credit_card),
-          title: LocaleKeys.wallet_module_deposit_page_credit_or_visa_card.tr(),
+          // icon: Icon(Icons.credit_card),
+          //title: LocaleKeys.wallet_module_deposit_page_credit_or_visa_card.tr(),
           onTap: onCreditOrVisaCard,
+          row: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                'Card',
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 12,
+                ),
+              ),
+              ...PaymentsIcon.values.map(
+                (icon) => PaymentsIconSvgImage(icon: icon),
+              ),
+            ],
+          ),
         ),
+
         SizedBox(height: 16),
         // Apple Pay and Google Pay options
         Row(
@@ -59,9 +74,6 @@ class EUPaymentOptions extends StatelessWidget {
                   final country = ctrl.currentUser?.pays.toUpperCase();
                   final currency = ctrl.selectedCurrencyCode?.toUpperCase();
                   final amount = num.tryParse(ctrl.amountCtrl.text)?.toDouble();
-                  print(
-                    'country == $country || currency == $currency || amount == $amount',
-                  );
                   if (country == null || currency == null || amount == null) {
                     return SizedBox.shrink();
                   }
@@ -79,7 +91,6 @@ class EUPaymentOptions extends StatelessWidget {
                       ),
                     ],
                     onPaymentResult: (result) {
-                      print('Google Pay Result: $result');
                       ctrl.onGooglePayResult(
                         result,
                         amount: amount,
@@ -89,9 +100,7 @@ class EUPaymentOptions extends StatelessWidget {
                     buttonProvider: PayProvider.google_pay,
                     type: GooglePayButtonType.pay,
                     margin: const EdgeInsets.only(top: 15.0),
-                    onError: (error) {
-                      print('Google Pay Error: $error');
-                    },
+                    onError: (error) => debugPrint('Google Pay Error: $error'),
                     childOnError: const Center(child: Icon(Icons.warning)),
                     loadingIndicator: const Center(
                       child: CircularProgressIndicator.adaptive(),
@@ -122,11 +131,12 @@ class EUPaymentOptions extends StatelessWidget {
   }
 
   Widget _buildButton({
-    required Widget icon,
-    required String title,
     required VoidCallback onTap,
+    Widget? icon,
+    String? title,
     Color? backgroundColor,
     Color? textColor = Colors.black,
+    Widget? row,
   }) {
     return InkWell(
       onTap: onTap,
@@ -140,25 +150,27 @@ class EUPaymentOptions extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            icon,
-            const SizedBox(width: 7),
-            Flexible(
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: textColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+        child: row ??
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (icon != null) icon,
+                const SizedBox(width: 7),
+                if (title != null)
+                  Flexible(
+                    child: Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: textColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+              ],
             ),
-          ],
-        ),
       ),
     );
   }

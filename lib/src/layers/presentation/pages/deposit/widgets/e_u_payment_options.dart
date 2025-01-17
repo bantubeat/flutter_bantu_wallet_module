@@ -50,9 +50,57 @@ class EUPaymentOptions extends StatelessWidget {
 
         SizedBox(height: 16),
         // Apple Pay and Google Pay options
+        Builder(
+          builder: (context) {
+            final country = ctrl.currentUser?.pays.toUpperCase();
+            final currency = ctrl.selectedCurrencyCode?.toUpperCase();
+            final amount = num.tryParse(ctrl.amountCtrl.text)?.toDouble();
+            if (country == null || currency == null || amount == null) {
+              return SizedBox.shrink();
+            }
+            return SizedBox(
+              height: 50,
+              child: GooglePayButton(
+                cornerRadius: 8,
+                height: 50,
+                paymentConfiguration: ctrl.getGooglePaymentConfiguration(
+                  countryIso2: country,
+                  currency: currency,
+                ),
+                paymentItems: [
+                  PaymentItem(
+                    label: 'Total',
+                    amount: amount.toStringAsFixed(2),
+                    type: PaymentItemType.total,
+                    status: PaymentItemStatus.final_price,
+                  ),
+                ],
+                onPaymentResult: (result) {
+                  ctrl.onGooglePayResult(
+                    result,
+                    amount: amount,
+                    currency: currency,
+                  );
+                },
+                buttonProvider: PayProvider.google_pay,
+                type: GooglePayButtonType.pay,
+                margin: const EdgeInsets.only(top: 15.0),
+                onError: (error) => debugPrint('Google Pay Error: $error'),
+                childOnError: const Center(child: Icon(Icons.warning)),
+                loadingIndicator: const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                ),
+                theme:
+                    Theme.of(context).colorScheme.brightness == Brightness.dark
+                        ? GooglePayButtonTheme.light
+                        : GooglePayButtonTheme.dark,
+              ),
+            );
+          },
+        ),
+        /*
         Row(
           children: [
-            /*
             Expanded(
               child: _buildButton(
                 icon: Icon(Icons.apple),
@@ -67,54 +115,9 @@ class EUPaymentOptions extends StatelessWidget {
                 title: 'Pay',
                 onTap: onGooglePay,
               ),
-            ), */
-            Expanded(
-              child: Builder(
-                builder: (context) {
-                  final country = ctrl.currentUser?.pays.toUpperCase();
-                  final currency = ctrl.selectedCurrencyCode?.toUpperCase();
-                  final amount = num.tryParse(ctrl.amountCtrl.text)?.toDouble();
-                  if (country == null || currency == null || amount == null) {
-                    return SizedBox.shrink();
-                  }
-                  return GooglePayButton(
-                    paymentConfiguration: ctrl.getGooglePaymentConfiguration(
-                      countryIso2: country,
-                      currency: currency,
-                    ),
-                    paymentItems: [
-                      PaymentItem(
-                        label: 'Total',
-                        amount: amount.toStringAsFixed(2),
-                        type: PaymentItemType.total,
-                        status: PaymentItemStatus.final_price,
-                      ),
-                    ],
-                    onPaymentResult: (result) {
-                      ctrl.onGooglePayResult(
-                        result,
-                        amount: amount,
-                        currency: currency,
-                      );
-                    },
-                    buttonProvider: PayProvider.google_pay,
-                    type: GooglePayButtonType.pay,
-                    margin: const EdgeInsets.only(top: 15.0),
-                    onError: (error) => debugPrint('Google Pay Error: $error'),
-                    childOnError: const Center(child: Icon(Icons.warning)),
-                    loadingIndicator: const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    ),
-                    theme: Theme.of(context).colorScheme.brightness ==
-                            Brightness.dark
-                        ? GooglePayButtonTheme.dark
-                        : GooglePayButtonTheme.light,
-                  );
-                },
-              ),
             ),
           ],
-        ),
+        ), */
         SizedBox(height: 16),
         // PayPal Option
         _buildButton(

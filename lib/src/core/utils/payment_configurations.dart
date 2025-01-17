@@ -77,7 +77,7 @@ PaymentConfiguration get defaultGooglePayConfig =>
 String get defaultGooglePay => '''{
   "provider": "google_pay",
   "data": {
-    "environment": "${MyAppEnv.isProduction && false ? 'PRODUCTION' : 'TEST'}",
+    "environment": "${MyAppEnv.isProduction ? 'PRODUCTION' : 'TEST'}",
     "apiVersion": 2,
     "apiVersionMinor": 0,
     "allowedPaymentMethods": [

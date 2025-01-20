@@ -10,16 +10,12 @@ import 'widgets/my_bottom_navigation_bar.dart';
 
 // TODO: Remove
 // Ben token
-// const _accessToken =
-//    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLmRldi5iYW50dWJlYXQuY29tL2FwaS9hdXRoL3JlZnJlc2giLCJpYXQiOjE3MzE1NjQzNjksImV4cCI6MTczNTQwNjEzNywibmJmIjoxNzMyOTg2OTM3LCJqdGkiOiJOZndmQzFPNnc0T2RMeldOIiwic3ViIjoiMGVjZjk1ZjQtMmNlMy00ZGUwLTg4Y2YtMGY4MmU1YTkxMmZkIn0.P5Kog5gq2ZcM_wNoQCYJrc9eLluq6TOap_7ejTB3hCw';
-
-//Jully token
-// const _accessToken =
-//    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLmRldi5iYW50dWJlYXQuY29tL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzM0MzM3OTE3LCJleHAiOjE3MzY3NTcxMTcsIm5iZiI6MTczNDMzNzkxNywianRpIjoiclZEVmZMNkZib0lOanE2TCIsInN1YiI6IjBiMWM1ZDA1LWIwMjYtNDA4YS1iNmMyLWNjYTMwMjQ3MTAyYiJ9.iPPMsbaYgjLEJDYX_hHdyNxhE7IpflAJZjz7CdX_VFI';
+const _accessToken =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLmRldi5iYW50dWJlYXQuY29tL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzM3MTk2NzU2LCJleHAiOjE3Mzk2MTU5NTYsIm5iZiI6MTczNzE5Njc1NiwianRpIjoiYjBkSlVvd1ZMQmxndzBCeiIsInN1YiI6IjBlY2Y5NWY0LTJjZTMtNGRlMC04OGNmLTBmODJlNWE5MTJmZCJ9.S0BHbOEtH_Q8F8C748ahnlnQQFhPoNrJP8yKXt2Q2Ak';
 
 // Production token
-const _accessToken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLXByb2QuYmFudHViZWF0LmNvbS9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTczNTYxOTk5MywiZXhwIjoxNzM4MDM5MTkzLCJuYmYiOjE3MzU2MTk5OTMsImp0aSI6IjhadjVRZXNQQVFFeWRqSlUiLCJzdWIiOiI3ZjkwYzg4MS0zY2QzLTQ0MGUtOTRmOS0zYmVjNDNmZTExZTEifQ.bI5S8GjTCEEkKco3q5aFAOpp35zyPFoEiet7zoB9Qds';
+//const _accessToken =
+//    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLXByb2QuYmFudHViZWF0LmNvbS9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTczNTYxOTk5MywiZXhwIjoxNzM4MDM5MTkzLCJuYmYiOjE3MzU2MTk5OTMsImp0aSI6IjhadjVRZXNQQVFFeWRqSlUiLCJzdWIiOiI3ZjkwYzg4MS0zY2QzLTQ0MGUtOTRmOS0zYmVjNDNmZTExZTEifQ.bI5S8GjTCEEkKco3q5aFAOpp35zyPFoEiet7zoB9Qds';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +32,7 @@ void main() async {
         getAccessToken: () => Future.sync(() => _accessToken),
         floatingMenuBuilder: MyBottomNavigationBar.new,
         routes: WalletRoutes(''.toLowerCase()),
-        isProduction: true,
+        isProduction: false,
       ),
       child: AppWidget(),
     ),

@@ -75,7 +75,7 @@ class WalletModule extends Module {
   @override
   void binds(i) {
     const withCacheKey = 'with_cache_key';
-    i.addInstance<bool>(isProduction, key: isProductionKey);
+    i.addSingleton<bool>(() => isProduction, key: isProductionKey);
     // Core
     i.addSingleton<MyHttpClient>(_initMyHttpClient(withCache: false));
     i.addSingleton<MyHttpClient>(

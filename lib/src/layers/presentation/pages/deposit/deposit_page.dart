@@ -141,6 +141,7 @@ class DepositPage extends StatelessWidget {
                       ),
                     ),
 
+                    /*
                     if (ctrl.isAfricanZone)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
@@ -166,7 +167,7 @@ class DepositPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
+                      ), */
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Row(

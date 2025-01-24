@@ -1,17 +1,18 @@
-import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/current_user_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../layers/presentation/localization/string_translate_extension.dart';
+import '../../../../layers/presentation/cubits/current_user_cubit.dart';
 import '../../../../core/generated/locale_keys.g.dart';
 import '../../../domain/entities/financial_transaction_entity.dart';
 import '../../../domain/entities/user_entity.dart';
 import '../../../domain/use_cases/get_transactions_history_use_case.dart';
 import '../../cubits/user_balance_cubit.dart';
+import '../../wallet_module.dart';
 import '../../widgets/bantubeat_image_provider.dart';
 import 'widgets/account_switcher.dart';
 import 'widgets/transaction_filter.dart';
@@ -119,6 +120,8 @@ class TransactionsPage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: WalletModule.getFloatingMenuWidget(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

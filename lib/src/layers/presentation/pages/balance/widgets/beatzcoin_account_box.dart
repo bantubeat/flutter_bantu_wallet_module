@@ -67,7 +67,11 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
 
   bool _canExchange() {
     final bzcQuantity = num.tryParse(bzcTextCtrl.text)?.toDouble();
-    return (bzcQuantity != null && bzcQuantity >= minimumBzc);
+    final yourCurrentBZC = userBalanceCubit.state.data?.bzc;
+    return (bzcQuantity != null &&
+        yourCurrentBZC != null &&
+        bzcQuantity >= minimumBzc &&
+        bzcQuantity < yourCurrentBZC);
   }
 
   void _onExchange() async {

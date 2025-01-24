@@ -41,6 +41,7 @@ class BuyBeatzcoinsPage extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
+        actions: [SizedBox(width: 40)],
       ),
       body: SafeArea(
         child: BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, bool>(

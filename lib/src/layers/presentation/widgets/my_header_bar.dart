@@ -36,17 +36,20 @@ class MyHeaderBar extends StatelessWidget {
             ),
             Expanded(
               child: Center(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: colorScheme.onPrimary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                child: FittedBox(
+                  child: Text(
+                    title,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: colorScheme.onPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
             ),
-            Flexible(child: SizedBox(width: 50)),
+            Flexible(child: SizedBox(width: 40)),
           ],
         ),
       ),

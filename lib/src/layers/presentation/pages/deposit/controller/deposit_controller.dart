@@ -8,7 +8,7 @@ import 'package:flutter_screen_controller/flutter_screen_controller.dart';
 import 'package:intl/intl.dart';
 import '../../../../../core/use_cases/use_case.dart';
 
-import '../../../../../core/utils/countries.dart';
+import '../../../../../core/config/countries.dart';
 import '../../../../domain/entities/currency_item_entity.dart';
 import '../../../../domain/entities/user_entity.dart';
 import '../../../../domain/use_cases/get_all_currencies_use_case.dart';

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../core/utils/countries.dart';
+import '../../../core/config/countries.dart';
 
 class UserEntity extends Equatable {
   final int id;

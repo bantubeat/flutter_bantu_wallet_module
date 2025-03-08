@@ -1,4 +1,4 @@
-import '../utils/my_app_env.dart';
+import '../config/my_app_env.dart';
 
 final class ApiConstants {
   const ApiConstants._();

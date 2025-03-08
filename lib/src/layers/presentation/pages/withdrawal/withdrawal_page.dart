@@ -51,7 +51,7 @@ class WithdrawalPage extends StatelessWidget {
               const SizedBox(height: 7.5),
               Container(
                 padding: const EdgeInsets.all(5),
-                color: Color(0xFFFFCCCC).withValues(alpha: 0.5),
+                color: colorScheme.primaryContainer.withValues(alpha: 0.5),
                 alignment: Alignment.center,
                 child: Text(
                   LocaleKeys.wallet_module_withdrawal_page_description.tr(),

@@ -58,8 +58,10 @@ class AppWidget extends StatelessWidget {
           onGenerateTitle: (context) => tr('example', context: context),
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color(0xFFFF9999),
-              primary: const Color(0xFFFF9999),
+              seedColor: const Color(0xFFF9BF0D),
+              primary: const Color(0xFFF9BF0D),
+              // seedColor: const Color(0xFFFF9999),
+              // primary: const Color(0xFFFF9999),
             ),
             textTheme: const TextTheme(),
           ),

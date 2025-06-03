@@ -58,18 +58,41 @@ class BeatzcoinPackageCard extends StatelessWidget {
               width: double.maxFinite,
               height: 40,
               decoration: BoxDecoration(
-                color: Color(0xFF14DF21),
+                color: const Color(0xFF14DF21),
                 borderRadius: BorderRadius.circular(4),
               ),
               alignment: Alignment.center,
-              child: Text(
-                NumberFormat.currency(symbol: isAfrican ? 'F CFA' : '€').format(
-                  price,
-                ),
-                style: TextStyle(
-                  color: colorScheme.onPrimary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+              child: FittedBox(
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: NumberFormat.currency(symbol: ' ', locale: 'EU')
+                            .format(price)
+                            .replaceAll('.', ' ')
+                            .replaceFirst(',00', ''),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      const TextSpan(text: '  '),
+                      TextSpan(
+                        text: isAfrican ? 'F CFA ' : '€',
+                        style: const TextStyle(
+                          color: Colors.limeAccent,
+                          //fontWeight: FontWeight.w300,
+                          overflow: TextOverflow.visible,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                    style: const TextStyle(
+                      overflow: TextOverflow.visible,
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
               ),
             ),

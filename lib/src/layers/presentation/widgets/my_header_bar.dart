@@ -49,7 +49,7 @@ class MyHeaderBar extends StatelessWidget {
                 ),
               ),
             ),
-            Flexible(child: SizedBox(width: 40)),
+            const Flexible(child: SizedBox(width: 40)),
           ],
         ),
       ),

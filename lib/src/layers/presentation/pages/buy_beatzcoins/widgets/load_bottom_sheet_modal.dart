@@ -39,7 +39,7 @@ class LoadBottomSheetModal extends StatefulWidget {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) => LoadBottomSheetModal._(
@@ -151,12 +151,12 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Color(0xFFF9F9F9),
+        color: const Color(0xFFF9F9F9),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Visibility(
         visible: initialized,
-        replacement: LinearProgressIndicator(),
+        replacement: const LinearProgressIndicator(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,7 +164,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
             Center(
               child: Container(height: 4, width: 40, color: Colors.grey[300]),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               LocaleKeys.wallet_module_buy_beatzcoins_page_modal_title.tr(),
               style: const TextStyle(
@@ -173,9 +173,9 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(4),
@@ -187,16 +187,16 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                     LocaleKeys
                         .wallet_module_buy_beatzcoins_page_modal_amount_of_your_load
                         .tr(),
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
                         child: Stack(
                           children: [
-                            SquaredBzcSvgImage(width: 100),
+                            const SquaredBzcSvgImage(width: 100),
                             Positioned(
                               top: 5,
                               right: 10,
@@ -212,7 +212,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                           ],
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Flexible(
                         child: Container(
                           margin: const EdgeInsets.all(10),
@@ -223,7 +223,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                           width: double.maxFinite,
                           height: 80,
                           decoration: BoxDecoration(
-                            color: Color(0xFF14DF21),
+                            color: const Color(0xFF14DF21),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           alignment: Alignment.center,
@@ -285,7 +285,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               LocaleKeys.wallet_module_buy_beatzcoins_page_modal_buy_with.tr(),
               style: const TextStyle(
@@ -294,13 +294,13 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: isFundsInsufficient == true
                     ? Colors.grey
-                    : Color(0xFF42A45D),
+                    : const Color(0xFF42A45D),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: Colors.grey.shade200),
               ),
@@ -366,12 +366,12 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (isFundsInsufficient == true)
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Color(0xFFBAB9B9),
+                  color: const Color(0xFFBAB9B9),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: Colors.grey.shade200),
                 ),
@@ -383,7 +383,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                           .wallet_module_buy_beatzcoins_page_modal_insufficient_funds
                           .tr(),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xFFFC0909),
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -413,11 +413,11 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                       textColor: Colors.white,
                     ),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Flexible(
                     child: Visibility(
                       visible: !isProcessing,
-                      replacement: Center(
+                      replacement: const Center(
                         child: CircularProgressIndicator.adaptive(),
                       ),
                       child: ActionButton(
@@ -457,7 +457,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
               LocaleKeys.wallet_module_buy_beatzcoins_page_modal_warning1.tr(),
               style: TextStyle(fontSize: 12, color: Color(0xFF181818)),
             ),  */
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: Text.rich(
                 textAlign: TextAlign.center,
@@ -465,7 +465,8 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                   text: LocaleKeys
                       .wallet_module_buy_beatzcoins_page_modal_warning2a
                       .tr(),
-                  style: TextStyle(fontSize: 12, color: Color(0xFF181818)),
+                  style:
+                      const TextStyle(fontSize: 12, color: Color(0xFF181818)),
                   children: [
                     TextSpan(
                       text: LocaleKeys

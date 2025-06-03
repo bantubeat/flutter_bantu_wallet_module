@@ -91,10 +91,10 @@ class _PaymentWebViewState extends State<PaymentWebView> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.close),
+          icon: const Icon(Icons.close),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text('Payment'),
+        title: const Text('Payment'),
       ),
       body: SafeArea(child: WebViewWidget(controller: _controller)),
     );

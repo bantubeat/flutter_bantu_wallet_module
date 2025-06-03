@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class BalanceCard extends StatelessWidget {
@@ -12,18 +11,18 @@ class BalanceCard extends StatelessWidget {
         color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Solde total',
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,
             ),
           ),
-          const SizedBox(height: 8),
-          const Text(
+          SizedBox(height: 8),
+          Text(
             '25.498 €',
             style: TextStyle(
               color: Colors.white,
@@ -31,13 +30,13 @@ class BalanceCard extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Compte Financier',
                     style: TextStyle(color: Colors.white70),
@@ -50,7 +49,7 @@ class BalanceCard extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: const [
+                children: [
                   Text(
                     'Compte Beatzcoin',
                     style: TextStyle(color: Colors.white70),

@@ -39,9 +39,9 @@ class BuyBeatzcoinsPage extends StatelessWidget {
           softWrap: true,
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
-        actions: [SizedBox(width: 40)],
+        actions: const [SizedBox(width: 40)],
       ),
       body: SafeArea(
         child: BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, bool>(
@@ -88,7 +88,7 @@ class BuyBeatzcoinsPage extends StatelessWidget {
                           text: LocaleKeys
                               .wallet_module_beatzcoins_page_description2
                               .tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 14.0,
                             color: Colors.grey,
                             fontWeight: FontWeight.bold,
@@ -167,7 +167,7 @@ class BuyBeatzcoinsPage extends StatelessWidget {
                   ),
                   builder: (context, snap) {
                     if (snap.connectionState == ConnectionState.waiting) {
-                      return SizedBox(
+                      return const SizedBox(
                         height: 10,
                         width: double.maxFinite,
                         child: LinearProgressIndicator(minHeight: 2),

@@ -18,7 +18,7 @@ class PaymentZoneSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(9),
       decoration: BoxDecoration(
         color: Colors.grey.shade300,
@@ -26,7 +26,7 @@ class PaymentZoneSwitch extends StatelessWidget {
         border: Border.all(color: Colors.grey.shade300),
         boxShadow: [
           BoxShadow(
-            offset: Offset(0.0, 80.0),
+            offset: const Offset(0.0, 80.0),
             blurRadius: 40,
             color: Colors.grey.shade50,
           ),
@@ -83,7 +83,7 @@ class PaymentZoneSwitch extends StatelessWidget {
               size: 30,
               color: isSelected ? Colors.black : Colors.grey,
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Flexible(
               flex: isSelected ? 0 : 1, // When NOT select sized is limited
               child: Text(

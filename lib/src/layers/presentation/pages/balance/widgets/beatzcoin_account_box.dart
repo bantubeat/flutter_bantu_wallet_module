@@ -122,7 +122,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.all(5),
-      color: Color(0xFFEBEBEB),
+      color: const Color(0xFFEBEBEB),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -142,7 +142,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     BlocSelector<UserBalanceCubit,
                         AsyncSnapshot<UserBalanceEntity>, String?>(
                       bloc: userBalanceCubit,
@@ -152,9 +152,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                           child: Text(
                             'ID: $beatzcoinWalletNumber',
                             maxLines: 1,
-                            style: TextStyle(
-                              fontSize: 12.0,
-                            ),
+                            style: const TextStyle(fontSize: 12.0),
                           ),
                         ),
                       ),
@@ -162,7 +160,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                   ],
                 ),
               ),
-              SizedBox(width: 8.0),
+              const SizedBox(width: 8.0),
               BlocSelector<UserBalanceCubit, AsyncSnapshot<UserBalanceEntity>,
                   double?>(
                 bloc: userBalanceCubit,
@@ -181,7 +179,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
             LocaleKeys.wallet_module_wallets_page_beatzcoin_account_description1
                 .tr(),
@@ -190,7 +188,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
               color: colorScheme.onSurface,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
             LocaleKeys.wallet_module_wallets_page_beatzcoin_account_description2
                 .tr(),
@@ -199,7 +197,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
               color: colorScheme.onSurface,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text.rich(
             TextSpan(
               text: LocaleKeys
@@ -229,7 +227,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
               ],
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
@@ -254,9 +252,9 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                             .tr(
                           namedArgs: {'min_quantity': minimumBzc.toString()},
                         ),
-                        fillColor: Color(0xFFD9D9D9),
+                        fillColor: const Color(0xFFD9D9D9),
                         filled: true,
-                        contentPadding: EdgeInsets.all(5),
+                        contentPadding: const EdgeInsets.all(5),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
@@ -278,9 +276,9 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                             ? fiatCurrencySymbol
                             : LocaleKeys.wallet_module_common_initializing.tr(),
                         errorText: '',
-                        fillColor: Color(0xFFD9D9D9),
+                        fillColor: const Color(0xFFD9D9D9),
                         filled: true,
-                        contentPadding: EdgeInsets.all(5),
+                        contentPadding: const EdgeInsets.all(5),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
@@ -291,12 +289,13 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
               ],
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Visibility(
             visible: converterInitialized,
             child: Visibility(
               visible: !isExchanging,
-              replacement: Center(child: CircularProgressIndicator.adaptive()),
+              replacement:
+                  const Center(child: CircularProgressIndicator.adaptive()),
               child: Visibility(
                 visible: _canExchange(),
                 child: InkWell(

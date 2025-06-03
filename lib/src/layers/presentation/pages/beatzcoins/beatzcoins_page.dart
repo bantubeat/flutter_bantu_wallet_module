@@ -38,9 +38,9 @@ class BeatzcoinsPage extends StatelessWidget {
           softWrap: true,
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
-        actions: [SizedBox(width: 40)],
+        actions: const [SizedBox(width: 40)],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -84,7 +84,7 @@ class BeatzcoinsPage extends StatelessWidget {
                         text: LocaleKeys
                             .wallet_module_beatzcoins_page_description2
                             .tr(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14.0,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
@@ -209,15 +209,15 @@ class BeatzcoinsPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: onViewDetails,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFBAB9B9),
-                  minimumSize: Size.fromHeight(45),
+                  backgroundColor: const Color(0xFFBAB9B9),
+                  minimumSize: const Size.fromHeight(45),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
                 child: Text(
                   LocaleKeys.wallet_module_beatzcoins_page_see_details.tr(),
-                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  style: const TextStyle(color: Colors.black, fontSize: 14),
                 ),
               ),
               const SizedBox(height: 30),

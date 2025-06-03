@@ -15,7 +15,7 @@ class TransactionDetailBottomSheetModal extends StatelessWidget {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) => TransactionDetailBottomSheetModal._(transactionMap),
@@ -37,13 +37,13 @@ class TransactionDetailBottomSheetModal extends StatelessWidget {
           Center(
             child: Container(height: 4, width: 40, color: Colors.grey[300]),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(
             LocaleKeys.wallet_module_transaction_history_page_table_caption
                 .tr(),
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           for (final key in transactionMap.keys)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -54,7 +54,7 @@ class TransactionDetailBottomSheetModal extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 10),
                     child: Text(
                       key,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                   Flexible(

@@ -10,7 +10,7 @@ class UserBalanceCubit extends Cubit<AsyncSnapshot<UserBalanceEntity>> {
   final GetUserBalanceUseCase _getUserBalanceUseCase;
 
   UserBalanceCubit(this._getUserBalanceUseCase)
-      : super(AsyncSnapshot.nothing()) {
+      : super(const AsyncSnapshot.nothing()) {
     fetchUserBalance();
   }
 

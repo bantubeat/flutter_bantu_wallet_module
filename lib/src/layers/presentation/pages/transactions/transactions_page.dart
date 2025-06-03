@@ -63,13 +63,13 @@ class TransactionsPage extends StatelessWidget {
           create: _TransactionsController.new,
           builder: (context, ctrl) => Column(
             children: [
-              Divider(),
+              const Divider(),
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Text(
                   LocaleKeys.wallet_module_transaction_history_page_title.tr(),
                   style: TextStyle(
-                    color: Color(0xFF49454F).withValues(alpha: 0.8),
+                    color: const Color(0xFF49454F).withValues(alpha: 0.8),
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -87,9 +87,9 @@ class TransactionsPage extends StatelessWidget {
                     Text(
                       LocaleKeys.wallet_module_transaction_history_page_account
                           .tr(),
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Flexible(
                       child: FittedBox(
                         child: Text('(ID: ${ctrl.walletNumber})'),

@@ -169,18 +169,15 @@ class WithdrawalPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: onViewDetails,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFBAB9B9),
-                  minimumSize: Size.fromHeight(45),
+                  backgroundColor: const Color(0xFFBAB9B9),
+                  minimumSize: const Size.fromHeight(45),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
                 child: Text(
                   LocaleKeys.wallet_module_withdrawal_page_see_details.tr(),
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                  ),
+                  style: const TextStyle(color: Colors.black, fontSize: 14),
                 ),
               ),
               const SizedBox(height: 15),
@@ -188,7 +185,7 @@ class WithdrawalPage extends StatelessWidget {
                 LocaleKeys
                     .wallet_module_withdrawal_page_Your_registered_payment_account
                     .tr(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),

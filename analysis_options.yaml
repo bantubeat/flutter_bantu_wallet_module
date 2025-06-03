@@ -11,16 +11,12 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude:
-    - lib/**/*.g.dart
-    - lib/**/*.gen.dart
-    - lib/**/*.freezed.dart
-    - lib/**/*.graphql.dart
-    - lib/generated/*.dart
+    - lib/src/core/generated/*.dart
     #- test/*
   errors:
     missing_required_param: error
     use_key_in_widget_constructors: ignore
-    todo: ignore
+    #todo: ignore
 
 linter:
   # The lint rules applied to this project can be customized in the
@@ -41,13 +37,13 @@ linter:
     - prefer_expression_function_bodies: false
     - always_put_required_named_parameters_first
     - always_declare_return_types
-    - avoid_redundant_argument_values: false
+    # - avoid_redundant_argument_values: false
     - avoid_relative_lib_imports
-    - avoid_shadowing_type_parameters
+    # - avoid_shadowing_type_parameters
     - require_trailing_commas
-    - library_private_types_in_public_api: false
+    # - library_private_types_in_public_api: false
     # - prefer_relative_imports
-    - prefer_const_constructors: true
+    - prefer_const_constructors
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
 

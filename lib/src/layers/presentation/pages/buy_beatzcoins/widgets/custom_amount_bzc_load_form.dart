@@ -64,81 +64,78 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
     final bzcQuantity = num.tryParse(bzcTextCtrl.text)?.toDouble();
     return Container(
       margin: const EdgeInsets.only(top: 20, bottom: 20),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: colorScheme.onPrimary,
-        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(12.0)),
         border: Border.all(width: 1, color: Colors.grey.shade300),
         boxShadow: kElevationToShadow[1],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              LocaleKeys.wallet_module_buy_beatzcoins_page_custom_load.tr(),
-              style: TextStyle(fontSize: 24.0),
-            ),
-            SizedBox(height: 8.0),
-            TextField(
-              controller: bzcTextCtrl,
-              style: TextStyle(fontSize: 20, color: Colors.black),
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: InputDecoration(
-                hintText: LocaleKeys
-                    .wallet_module_buy_beatzcoins_page_enter_quantity
-                    .tr(),
-                filled: true,
-                fillColor: Color(0xFFEBEBEB),
-                hintStyle: TextStyle(
-                  fontSize: 20,
-                  color: Color(0xFFA5A5A5),
-                ),
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 15,
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                errorText: (bzcQuantity ?? 0) > 0 && (bzcQuantity ?? 0) < 30
-                    ? LocaleKeys
-                        .wallet_module_buy_beatzcoins_page_min_fiat_amount
-                        .tr(namedArgs: {'amount': 30.toString()})
-                    : '',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            LocaleKeys.wallet_module_buy_beatzcoins_page_custom_load.tr(),
+            style: const TextStyle(fontSize: 24.0),
+          ),
+          const SizedBox(height: 8.0),
+          TextField(
+            controller: bzcTextCtrl,
+            style: const TextStyle(fontSize: 20, color: Colors.black),
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            decoration: InputDecoration(
+              hintText: LocaleKeys
+                  .wallet_module_buy_beatzcoins_page_enter_quantity
+                  .tr(),
+              filled: true,
+              fillColor: const Color(0xFFEBEBEB),
+              hintStyle: const TextStyle(
+                fontSize: 20,
+                color: Color(0xFFA5A5A5),
               ),
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 15,
+              ),
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              errorText: (bzcQuantity ?? 0) > 0 && (bzcQuantity ?? 0) < 30
+                  ? LocaleKeys.wallet_module_buy_beatzcoins_page_min_fiat_amount
+                      .tr(namedArgs: {'amount': 30.toString()})
+                  : '',
             ),
-            SizedBox(height: 12.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  LocaleKeys.wallet_module_buy_beatzcoins_page_ttc_amount_in.tr(
-                    namedArgs: {'amount': widget.isAfrican ? 'F CFA' : '€'},
-                  ),
-                  style: TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 12.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                LocaleKeys.wallet_module_buy_beatzcoins_page_ttc_amount_in.tr(
+                  namedArgs: {'amount': widget.isAfrican ? 'F CFA' : '€'},
                 ),
-                Text(
-                  fiatAmount == null
-                      ? '...'
-                      : NumberFormat.currency(
-                          symbol: fiatCurrencySymbol,
-                          decimalDigits: 4,
-                        ).format(fiatAmount),
-                  style: TextStyle(fontSize: 16),
-                ),
-              ],
-            ),
-            SizedBox(height: 16.0),
-            ActionButton(
-              fullWidth: true,
-              onPressed: onExchange,
-              enabled: (bzcQuantity ?? 0) >= 30,
-              text: LocaleKeys.wallet_module_buy_beatzcoins_page_load.tr(),
-            ),
-          ],
-        ),
+                style: const TextStyle(fontSize: 16),
+              ),
+              Text(
+                fiatAmount == null
+                    ? '...'
+                    : NumberFormat.currency(
+                        symbol: fiatCurrencySymbol,
+                        decimalDigits: 4,
+                      ).format(fiatAmount),
+                style: const TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16.0),
+          ActionButton(
+            fullWidth: true,
+            onPressed: onExchange,
+            enabled: (bzcQuantity ?? 0) >= 30,
+            text: LocaleKeys.wallet_module_buy_beatzcoins_page_load.tr(),
+          ),
+        ],
       ),
     );
   }

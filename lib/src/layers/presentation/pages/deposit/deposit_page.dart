@@ -16,17 +16,16 @@ import 'widgets/e_u_payment_options.dart';
 import 'widgets/payment_zone_switch.dart';
 
 class DepositPage extends StatelessWidget {
+  const DepositPage();
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final summaryItemTextStyle = TextStyle(
+    const summaryItemTextStyle = TextStyle(
       color: Color(0xFF5D5D5D),
       fontSize: 14,
     );
-    final summaryTotalTextStyle = TextStyle(
-      color: Colors.black,
-      fontSize: 14,
-    );
+    const summaryTotalTextStyle = TextStyle(color: Colors.black, fontSize: 14);
     return LoaderOverlay(
       child: Scaffold(
         backgroundColor: colorScheme.onPrimary,
@@ -43,7 +42,7 @@ class DepositPage extends StatelessWidget {
               create: DepositController.new,
               builder: (context, ctrl) => Visibility(
                 visible: ctrl.initialized,
-                replacement: Center(
+                replacement: const Center(
                   child: CircularProgressIndicator.adaptive(),
                 ),
                 child: Column(
@@ -63,8 +62,10 @@ class DepositPage extends StatelessWidget {
                         child: Text(
                           LocaleKeys.wallet_module_deposit_page_choose_currency
                               .tr(),
-                          style:
-                              TextStyle(fontSize: 18, color: Color(0xFF5D5D5D)),
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Color(0xFF5D5D5D),
+                          ),
                         ),
                       ),
                     if (ctrl.isAfricanZone)
@@ -87,8 +88,8 @@ class DepositPage extends StatelessWidget {
                             ],
                             onChanged: ctrl.selectCurrency,
                             decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.keyboard_arrow_down),
-                              contentPadding: EdgeInsets.all(5),
+                              suffixIcon: const Icon(Icons.keyboard_arrow_down),
+                              contentPadding: const EdgeInsets.all(5),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
@@ -111,9 +112,9 @@ class DepositPage extends StatelessWidget {
                               LocaleKeys.wallet_module_deposit_page_amount.tr(
                             namedArgs: {'amount': ctrl.currency},
                           ),
-                          fillColor: Color(0xFFD9D9D9), // D1D1D1
+                          fillColor: const Color(0xFFD9D9D9), // D1D1D1
                           filled: true,
-                          contentPadding: EdgeInsets.all(25),
+                          contentPadding: const EdgeInsets.all(25),
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(13),
@@ -121,7 +122,7 @@ class DepositPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     // Summary Section
                     Padding(
@@ -185,7 +186,7 @@ class DepositPage extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     // Continue Payment Button
                     if (ctrl.isAfricanZone)
@@ -209,7 +210,7 @@ class DepositPage extends StatelessWidget {
                       child: Text.rich(
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
-                          color: Color(0xFF667085),
+                          color: const Color(0xFF667085),
                           fontSize: 12,
                         ),
                         TextSpan(
@@ -223,7 +224,7 @@ class DepositPage extends StatelessWidget {
                               text: LocaleKeys
                                   .wallet_module_deposit_page_warning2_link
                                   .tr(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 decoration: TextDecoration.underline,
                               ),
                               recognizer: TapGestureRecognizer()
@@ -242,7 +243,7 @@ class DepositPage extends StatelessWidget {
                               text: LocaleKeys
                                   .wallet_module_deposit_page_warning4_link
                                   .tr(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 decoration: TextDecoration.underline,
                               ),
                               recognizer: TapGestureRecognizer()

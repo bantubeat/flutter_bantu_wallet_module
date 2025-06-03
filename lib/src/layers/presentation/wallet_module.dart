@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show Widget;
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../core/config/wallet_api_keys.dart';
 import '../../core/network/api_constants.dart';
 import '../../core/network/my_http/my_http.dart';
 
@@ -28,9 +29,9 @@ import '../../layers/domain/use_cases/get_transactions_history_use_case.dart';
 import '../../layers/domain/use_cases/exchange_fiat_to_bzc_use_case.dart';
 import '../../layers/domain/use_cases/get_all_currencies_use_case.dart';
 import '../../layers/domain/use_cases/get_user_balance_use_case.dart';
-
 import '../../layers/domain/use_cases/make_deposit_direct_payment_use_case.dart';
 import '../../layers/domain/use_cases/request_deposit_payment_link_use_case.dart';
+
 import '../../layers/presentation/cubits/current_user_cubit.dart';
 import '../../layers/presentation/cubits/user_balance_cubit.dart';
 import '../../layers/presentation/pages/buy_beatzcoins/buy_beatzcoins_page.dart';
@@ -50,10 +51,12 @@ class WalletModule extends Module {
   final Future<String?> Function() getAccessToken;
   final WalletRoutes _routes;
   final bool isProduction;
+  final WalletApiKeys walletApiKeys;
 
   WalletModule({
     required this.floatingMenuBuilder,
     required this.getAccessToken,
+    required this.walletApiKeys,
     required WalletRoutes routes,
     this.isProduction = kReleaseMode,
   }) : _routes = routes;
@@ -82,6 +85,7 @@ class WalletModule extends Module {
       _initMyHttpClient(withCache: true),
       key: withCacheKey,
     );
+    i.addInstance<WalletApiKeys>(walletApiKeys);
 
     // Data layer dependencies
     i.addSingleton(
@@ -123,13 +127,13 @@ class WalletModule extends Module {
 
   @override
   void routes(r) {
-    r.child(_routes.home.wp, child: (_) => HomePage());
-    r.child(_routes.balance.wp, child: (_) => BalancePage());
-    r.child(_routes.deposit.wp, child: (_) => DepositPage());
-    r.child(_routes.withdrawal.wp, child: (_) => WithdrawalPage());
-    r.child(_routes.beatzcoins.wp, child: (_) => BeatzcoinsPage());
-    r.child(_routes.buyBeatzcoins.wp, child: (_) => BuyBeatzcoinsPage());
-    r.child(_routes.transactions.wp, child: (_) => TransactionsPage());
-    r.wildcard(child: (_) => HomePage());
+    r.child(_routes.home.wp, child: (_) => const HomePage());
+    r.child(_routes.balance.wp, child: (_) => const BalancePage());
+    r.child(_routes.deposit.wp, child: (_) => const DepositPage());
+    r.child(_routes.withdrawal.wp, child: (_) => const WithdrawalPage());
+    r.child(_routes.beatzcoins.wp, child: (_) => const BeatzcoinsPage());
+    r.child(_routes.buyBeatzcoins.wp, child: (_) => const BuyBeatzcoinsPage());
+    r.child(_routes.transactions.wp, child: (_) => const TransactionsPage());
+    r.wildcard(child: (_) => const HomePage());
   }
 }

@@ -19,7 +19,7 @@ class AccountSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       padding: const EdgeInsets.all(9),
       decoration: BoxDecoration(
         color: Colors.grey.shade300,
@@ -28,7 +28,7 @@ class AccountSwitcher extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             blurRadius: 40,
-            offset: Offset(0.0, 80.0),
+            offset: const Offset(0.0, 80.0),
             color: Colors.grey.shade50,
           ),
         ],
@@ -102,7 +102,7 @@ class AccountSwitcher extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             icon,
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Flexible(
               child: Text(
                 label,

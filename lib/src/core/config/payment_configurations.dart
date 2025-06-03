@@ -23,9 +23,9 @@
 /// application.
 library;
 
-import 'package:flutter_bantu_wallet_module/src/core/config/my_api_keys.dart';
 import 'package:pay/pay.dart';
 
+import 'my_api_keys.dart';
 import 'my_app_env.dart';
 
 /// Sample [PaymentConfiguration] for Apple Pay

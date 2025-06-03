@@ -23,7 +23,7 @@ class RegisteredPaymentMethod extends StatelessWidget {
           name: 'Paypal',
           accountName: '',
           id: paymentPreference.detailEmail,
-          color: Color(0xFF004A9D),
+          color: const Color(0xFF004A9D),
         );
 
       case 'BankTransfer':
@@ -31,7 +31,7 @@ class RegisteredPaymentMethod extends StatelessWidget {
           name: paymentPreference.detailBankName,
           accountName: paymentPreference.detailName,
           id: paymentPreference.detailIban,
-          color: Color(0xFFE91D25),
+          color: const Color(0xFFE91D25),
         );
 
       case 'Mobile':
@@ -39,7 +39,7 @@ class RegisteredPaymentMethod extends StatelessWidget {
           name: paymentPreference.detailOperator,
           accountName: paymentPreference.detailName,
           id: paymentPreference.detailPhone,
-          color: Color(0xFFFCCC37),
+          color: const Color(0xFFFCCC37),
         );
 
       default:
@@ -56,7 +56,7 @@ class RegisteredPaymentMethod extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFFF9F9F9),
+        color: const Color(0xFFF9F9F9),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey.shade200),
       ),

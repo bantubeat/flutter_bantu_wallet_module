@@ -25,7 +25,9 @@ final class BzcCurrencyConverter {
 
   const BzcCurrencyConverter(this._rates);
 
-  double eurToXaf(double amountInEur) => amountInEur * _rates.oneEurInXaf;
+  double eurToXaf(double amountInEur) {
+    return (amountInEur * _rates.oneEurInXaf).roundToDouble();
+  }
 
   double xafToEur(double amountInXaf) => amountInXaf / _rates.oneEurInXaf;
 
@@ -40,7 +42,7 @@ final class BzcCurrencyConverter {
   double bzcToEur(double amountInBzc, {required bool applyFees}) {
     if (!applyFees) return amountInBzc / _rates.oneEurInBzc;
     // Multiply 0.7 our percentage
-    // Divide by 1.12 we remove TVA // TODO: remove
+    // Divide by 1.12 we remove TVA
     // Multiply 0.98 transaction fees
     //ODL: return (((amountInBzc / _rates.oneEurInBzc) * 0.7) / 1.21) * 0.98;
     return ((amountInBzc / _rates.oneEurInBzc) * 0.7) * 0.98;

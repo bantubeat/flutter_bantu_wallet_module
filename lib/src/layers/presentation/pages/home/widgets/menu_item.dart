@@ -18,9 +18,9 @@ class MenuItem extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       leading: Container(
         width: 50,
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFFEBEBEB),
           shape: BoxShape.circle,
         ),
@@ -32,13 +32,13 @@ class MenuItem extends StatelessWidget {
       ),
       trailing: Container(
         width: 34,
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFFEBEBEB),
           shape: BoxShape.circle,
         ),
-        child: Icon(
+        child: const Icon(
           Icons.chevron_right,
           color: Color(0xFF151515),
           size: 20,

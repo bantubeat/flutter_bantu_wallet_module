@@ -33,13 +33,11 @@ class EUPaymentOptions extends StatelessWidget {
           row: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
+              const Text(
                 'Card',
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 12,
-                ),
+                style: TextStyle(fontSize: 12),
               ),
               ...PaymentsIcon.values.map(
                 (icon) => PaymentsIconSvgImage(icon: icon),
@@ -48,14 +46,16 @@ class EUPaymentOptions extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         // Apple Pay and Google Pay options
         Builder(
           builder: (context) {
             final country = ctrl.currentUser?.pays.toUpperCase();
             final currency = ctrl.selectedCurrencyCode?.toUpperCase();
             // final amount = num.tryParse(ctrl.amountCtrl.text)?.toDouble();
-            if (country == null || currency == null) return SizedBox.shrink();
+            if (country == null || currency == null) {
+              return const SizedBox.shrink();
+            }
 
             return SizedBox(
               height: 50,
@@ -130,17 +130,17 @@ class EUPaymentOptions extends StatelessWidget {
             ),
           ],
         ), */
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         // PayPal Option
         _buildButton(
-          icon: Icon(Icons.paypal, color: Colors.white),
+          icon: const Icon(Icons.paypal, color: Colors.white),
           title: 'PayPal',
           onTap: onPayPal,
           textColor: Colors.white,
-          backgroundColor: Color(0xFF0070BA),
+          backgroundColor: const Color(0xFF0070BA),
         ),
 
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
       ],
     );
   }

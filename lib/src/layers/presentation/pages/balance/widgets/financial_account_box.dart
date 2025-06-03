@@ -16,7 +16,7 @@ class _FinancialAccountBox extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(5),
       width: MediaQuery.of(context).size.width,
-      color: Color(0xFFEBEBEB),
+      color: const Color(0xFFEBEBEB),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -38,7 +38,7 @@ class _FinancialAccountBox extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       BlocSelector<UserBalanceCubit,
                           AsyncSnapshot<UserBalanceEntity>, String?>(
                         bloc: userBalanceCubit,
@@ -48,7 +48,7 @@ class _FinancialAccountBox extends StatelessWidget {
                             child: Text(
                               'ID: $financialWalletNumber',
                               maxLines: 1,
-                              style: TextStyle(fontSize: 12.0),
+                              style: const TextStyle(fontSize: 12.0),
                             ),
                           ),
                         ),
@@ -56,7 +56,7 @@ class _FinancialAccountBox extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 8.0),
                 BlocSelector<UserBalanceCubit, AsyncSnapshot<UserBalanceEntity>,
                     String>(
                   bloc: userBalanceCubit,
@@ -79,13 +79,13 @@ class _FinancialAccountBox extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
             LocaleKeys.wallet_module_wallets_page_financier_account_description
                 .tr(),
             style: TextStyle(fontSize: 14, color: colorScheme.onSurface),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

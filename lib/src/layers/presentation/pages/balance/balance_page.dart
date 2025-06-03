@@ -36,7 +36,7 @@ class BalancePage extends StatelessWidget {
       backgroundColor: colorScheme.onPrimary,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child:
               BlocSelector<CurrentUserCubit, AsyncSnapshot<UserEntity>, bool>(
             bloc: Modular.get<CurrentUserCubit>(),
@@ -80,11 +80,11 @@ class BalancePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 30.0),
+                const SizedBox(height: 30.0),
                 _FinancialAccountBox(isAfrican: isAfrican),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 _BeatzacoinAccountBox(isAfrican: isAfrican),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
               ],
             ),
           ),

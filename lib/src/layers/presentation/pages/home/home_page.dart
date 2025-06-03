@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
                 child: Text(
                   LocaleKeys.wallet_module_home_page_title.tr(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 24,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

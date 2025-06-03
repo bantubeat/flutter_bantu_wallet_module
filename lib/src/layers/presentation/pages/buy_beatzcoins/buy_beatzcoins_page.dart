@@ -72,7 +72,7 @@ class BuyBeatzcoinsPage extends StatelessWidget {
                 const SizedBox(height: 2),
                 Container(
                   padding: const EdgeInsets.all(5),
-                  color: colorScheme.primaryContainer.withValues(alpha: 0.5),
+                  color: colorScheme.primary.withValues(alpha: 0.2),
                   alignment: Alignment.center,
                   child: RichText(
                     textAlign: TextAlign.center,

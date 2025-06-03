@@ -1,6 +1,6 @@
-import 'package:flutter/gestures.dart';
+import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -36,11 +36,11 @@ class DepositPage extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: ScreenControllerBuilder(
-              create: DepositController.new,
-              builder: (context, ctrl) => Visibility(
+          child: ScreenControllerBuilder(
+            create: DepositController.new,
+            builder: (context, ctrl) => SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Visibility(
                 visible: ctrl.initialized,
                 replacement: const Center(
                   child: CircularProgressIndicator.adaptive(),

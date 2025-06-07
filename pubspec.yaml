@@ -1,7 +1,7 @@
 name: flutter_bantu_wallet_module
 description: A wallet module for bantubeat eco system apps.
 # publish_to: 'none'
-version: 1.2.0
+version: 1.2.1
 
 environment:
   sdk: ">=3.4.3 <4.0.0"
@@ -27,7 +27,7 @@ dependencies:
   loader_overlay: 4.0.3
   pay: ^2.0.0
   select_form_field: ^2.2.0
-  skeletonizer: ^1.4.2
+  skeletonizer: ^2.0.1
   url_launcher: ^6.3.1
   webview_flutter: ^4.10.0
 

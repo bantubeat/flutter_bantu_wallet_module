@@ -12,14 +12,15 @@ class _TransactionsController extends ScreenController {
   bool _isBzcAccount = false;
   bool get isBzcAccount => _isBzcAccount;
 
-  final pagingController = PagingController<int, FinancialTransactionEntity>(
-    firstPageKey: 1,
-  );
+  late final PagingController<int, FinancialTransactionEntity> pagingController;
 
   @override
   @protected
   void onInit() {
-    pagingController.addPageRequestListener(_fetchPage);
+    pagingController = PagingController<int, FinancialTransactionEntity>(
+      getNextPageKey: (state) => (state.keys?.last ?? 0) + 1,
+      fetchPage: (pageKey) => _fetchPage(pageKey),
+    );
   }
 
   @override
@@ -58,26 +59,16 @@ class _TransactionsController extends ScreenController {
     refreshUI();
   }
 
-  void _fetchPage(int pageKey) async {
-    try {
-      final newItems = await Modular.get<GetTransactionsUseCase>().call(
-        GetTransactionsParams(
-          page: pageKey,
-          limit: _pageSize,
-          statuses: statuses,
-          types: types,
-          isBzcAccount: _isBzcAccount,
-        ),
-      );
-      final isLastPage = newItems.length < _pageSize;
-      if (isLastPage) {
-        pagingController.appendLastPage(newItems);
-      } else {
-        final nextPageKey = pageKey + 1;
-        pagingController.appendPage(newItems, nextPageKey);
-      }
-    } catch (error) {
-      pagingController.error = error;
-    }
+  Future<List<FinancialTransactionEntity>> _fetchPage(int pageKey) async {
+    final newItems = await Modular.get<GetTransactionsUseCase>().call(
+      GetTransactionsParams(
+        page: pageKey,
+        limit: _pageSize,
+        statuses: statuses,
+        types: types,
+        isBzcAccount: _isBzcAccount,
+      ),
+    );
+    return newItems;
   }
 }

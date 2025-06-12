@@ -108,11 +108,16 @@ class TransactionsPage extends StatelessWidget {
                     : () => ctrl.onStatusTap(null),
               ),
               Expanded(
-                child: PagedListView<int, FinancialTransactionEntity>(
-                  padding: const EdgeInsets.all(16),
-                  pagingController: ctrl.pagingController,
-                  builderDelegate: PagedChildBuilderDelegate(
-                    itemBuilder: (_, item, __) => TransactionItem(item),
+                child: PagingListener<int, FinancialTransactionEntity>(
+                  controller: ctrl.pagingController,
+                  builder: (context, state, fetchNextPage) =>
+                      PagedListView<int, FinancialTransactionEntity>(
+                    state: state,
+                    padding: const EdgeInsets.all(16),
+                    fetchNextPage: fetchNextPage,
+                    builderDelegate: PagedChildBuilderDelegate(
+                      itemBuilder: (_, item, __) => TransactionItem(item),
+                    ),
                   ),
                 ),
               ),

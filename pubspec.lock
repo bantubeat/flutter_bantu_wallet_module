@@ -37,10 +37,10 @@ packages:
     dependency: transitive
     description:
       name: auto_injector
-      sha256: ad7a95d7c381363d48b54e00cb680f024fd97009067244454e9b4850337608e8
+      sha256: "1fc2624898e92485122eb2b1698dd42511d7ff6574f84a3a8606fc4549a1e8f8"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   awesome_dio_interceptor:
     dependency: "direct main"
     description:
@@ -319,10 +319,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_modular
-      sha256: "474eb0bc7e29bdd21cff8eb9c051e4e8cef952d46fc56618c8b3e1bc707dcbfa"
+      sha256: "33a63d9fe61429d12b3dfa04795ed890f17d179d3d38e988ba7969651fcd5586"
       url: "https://pub.dev"
     source: hosted
-    version: "6.4.0"
+    version: "6.4.1"
   flutter_screen_controller:
     dependency: "direct main"
     description:
@@ -593,10 +593,10 @@ packages:
     dependency: transitive
     description:
       name: modular_core
-      sha256: c575dcdb6cef281dd62fc877ae0c597a2fdc33c8de86a7a251142a21f4f3b4e9
+      sha256: "1db0420a0dfb8a2c6dca846e7cbaa4ffeb778e247916dbcb27fb25aa566e5436"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.0"
+    version: "3.4.1"
   nested:
     dependency: transitive
     description:
@@ -681,34 +681,34 @@ packages:
     dependency: "direct main"
     description:
       name: pay
-      sha256: ad904db0e06848cade6990a3ce1e10e921ae48f7ee06447873e07b9688ac1fc5
+      sha256: "83b15697797f8013bd7693193b9f657bacfe40c5d0a31d4e084caed5fe22d29c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "3.2.1"
   pay_android:
     dependency: transitive
     description:
       name: pay_android
-      sha256: aa46cd0ece1807d3fa293113fdb84afb5fc4b6ed60cf09a4886b753acb300859
+      sha256: d3e7d72e8be7f65dd8f0d3fd36a7c0357d94b504163b7dd6eed5e99f6f32405d
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "3.1.1"
   pay_ios:
     dependency: transitive
     description:
       name: pay_ios
-      sha256: "75ccb285d03f22b136c58ab8e8e0c4b614ee52a8b67e6ccfb680d4d8c04a70f6"
+      sha256: ca4a7a12b4396b1205f314bebbc92e5268c627b65e5e6b3ab30efc2326da0a28
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.11"
+    version: "1.1.0"
   pay_platform_interface:
     dependency: transitive
     description:
       name: pay_platform_interface
-      sha256: "26a379e33c46508987c7afee8cde6f4aca5b5ab0afc697c27efbd33a9c2ea82a"
+      sha256: "39a9f5fa4bafc59ce103bd5e84a6362113c6e58c361aed8dde9494b182fac400"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.4"
+    version: "2.0.0"
   petitparser:
     dependency: transitive
     description:
@@ -769,10 +769,10 @@ packages:
     dependency: transitive
     description:
       name: result_dart
-      sha256: eecf5b08b63572b348bfaa56a50f30191fe21d9edacef59d0e19a33905dd184d
+      sha256: "0666b21fbdf697b3bdd9986348a380aa204b3ebe7c146d8e4cdaa7ce735e6054"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   select_form_field:
     dependency: "direct main"
     description:
@@ -1030,10 +1030,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics
-      sha256: "44cc7104ff32563122a929e4620cf3efd584194eec6d1d913eb5ba593dbcf6de"
+      sha256: a4f059dc26fc8295b5921376600a194c4ec7d55e72f2fe4c7d2831e103d461e6
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.18"
+    version: "1.1.19"
   vector_graphics_codec:
     dependency: transitive
     description:
@@ -1070,10 +1070,10 @@ packages:
     dependency: transitive
     description:
       name: watcher
-      sha256: "69da27e49efa56a15f8afe8f4438c4ec02eff0a117df1b22ea4aad194fe1c104"
+      sha256: "0b7fd4a0bbc4b92641dbf20adfd7e3fd1398fe17102d94b674234563e110088a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.2"
   web:
     dependency: transitive
     description:

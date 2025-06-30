@@ -150,7 +150,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                       builder: (context, beatzcoinWalletNumber) => Expanded(
                         child: FittedBox(
                           child: Text(
-                            'ID: $beatzcoinWalletNumber',
+                            "ID: ${beatzcoinWalletNumber ?? '...'}",
                             maxLines: 1,
                             style: const TextStyle(fontSize: 12.0),
                           ),

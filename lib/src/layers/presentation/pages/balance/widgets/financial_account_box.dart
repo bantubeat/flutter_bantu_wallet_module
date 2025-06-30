@@ -46,7 +46,7 @@ class _FinancialAccountBox extends StatelessWidget {
                         builder: (context, financialWalletNumber) => Expanded(
                           child: FittedBox(
                             child: Text(
-                              'ID: $financialWalletNumber',
+                              "ID: ${financialWalletNumber ?? '...'}",
                               maxLines: 1,
                               style: const TextStyle(fontSize: 12.0),
                             ),

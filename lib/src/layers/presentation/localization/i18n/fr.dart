@@ -65,7 +65,7 @@ const Map<String, dynamic> langMap = {
       "warning3_and": " et ",
       "warning4_link": "la politique de confidentialité",
       "warning5_google_play":
-          " de Bantubeat s'appliquent. Google play peut également vous demander d'accepter des considtions supplémentaires."
+          " de Bantubeat s'appliquent. Google play peut également vous demander d'accepter des conditions supplémentaires."
     },
     "withdrawal_page": {
       "title": "Retrait",

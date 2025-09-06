@@ -10,8 +10,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'widgets/my_bottom_navigation_bar.dart';
 
 // Ben token
+// const _accessToken2 =
+//    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLmRldi5iYW50dWJlYXQuY29tL2FwaS9hdXRoL3NvY2lhbC9hdXRoZW50aWNhdGUiLCJpYXQiOjE3NDg4NjM5NzUsImV4cCI6MTc1MTI4MzE3NSwibmJmIjoxNzQ4ODYzOTc1LCJqdGkiOiJZR2RIcWNTTTh4ZkhvbkJkIiwic3ViIjoiMGVjZjk1ZjQtMmNlMy00ZGUwLTg4Y2YtMGY4MmU1YTkxMmZkIn0.om9SI9wWcb6XpfHnho5DiR-ABXIPrdwh-QSxF7o2Jdw';
 const _accessToken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLmRldi5iYW50dWJlYXQuY29tL2FwaS9hdXRoL3NvY2lhbC9hdXRoZW50aWNhdGUiLCJpYXQiOjE3NDg4NjM5NzUsImV4cCI6MTc1MTI4MzE3NSwibmJmIjoxNzQ4ODYzOTc1LCJqdGkiOiJZR2RIcWNTTTh4ZkhvbkJkIiwic3ViIjoiMGVjZjk1ZjQtMmNlMy00ZGUwLTg4Y2YtMGY4MmU1YTkxMmZkIn0.om9SI9wWcb6XpfHnho5DiR-ABXIPrdwh-QSxF7o2Jdw';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLmRldi5iYW50dWJlYXQuY29tL2FwaS9hdXRoL3JlZnJlc2giLCJpYXQiOjE3NTQ4OTEyNjgsImV4cCI6MTc1NzMxMDQ2OCwibmJmIjoxNzU0ODkxMjY4LCJqdGkiOiJscHFOVU96Q0RLUE9tanVvIiwic3ViIjoiMGVjZjk1ZjQtMmNlMy00ZGUwLTg4Y2YtMGY4MmU1YTkxMmZkIn0.TG9mfK7mg5fuiWq1BkZ6zh7U-GL-byJPT1HGKYcic4g';
 
 // Production token
 //const _accessToken =
@@ -30,13 +32,14 @@ void main() async {
   const isProduction = false;
   runApp(
     ModularApp(
-      module: WalletModule(
-        getAccessToken: () => Future.sync(() => _accessToken),
-        floatingMenuBuilder: MyBottomNavigationBar.new,
-        routes: WalletRoutes(''.toLowerCase()),
-        walletApiKeys: const MyWalletApiKeys(isProduction: isProduction),
-        isProduction: isProduction,
-      ),
+      // module: WalletModule(
+      //   getAccessToken: () => Future.sync(() => _accessToken),
+      //   floatingMenuBuilder: MyBottomNavigationBar.new,
+      //   routes: WalletRoutes(''.toLowerCase()),
+      //   walletApiKeys: const MyWalletApiKeys(isProduction: isProduction),
+      //   isProduction: isProduction,
+      // ),
+      module: AppModule(),
       child: AppWidget(),
     ),
   );
@@ -108,6 +111,27 @@ class AppWidget extends StatelessWidget {
           locale: context.locale,
           builder: BantuWalletLocalization.init,
         ),
+      ),
+    );
+  }
+}
+
+class AppModule extends Module {
+  @override
+  void binds(i) {}
+
+  @override
+  void routes(r) {
+    const isProduction = false;
+    r.redirect('/', to: '/wallet/home');
+    r.module(
+      '/wallet',
+      module: WalletModule(
+        getAccessToken: () => Future.sync(() => _accessToken),
+        floatingMenuBuilder: MyBottomNavigationBar.new,
+        routes: WalletRoutes('/wallet'.toLowerCase()),
+        walletApiKeys: const MyWalletApiKeys(isProduction: isProduction),
+        isProduction: isProduction,
       ),
     );
   }

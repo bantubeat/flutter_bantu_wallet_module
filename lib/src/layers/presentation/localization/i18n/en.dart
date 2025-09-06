@@ -9,7 +9,24 @@ const Map<String, dynamic> langMap = {
       "insufficient_funds": "Insufficient funds",
       "all": "All",
       "buy": "Pay",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "validate": "Validate",
+      "save": "Save",
+      "country": "Country",
+      "upload": "Upload",
+			"first_name": "First name",
+			"last_name": "Last name",
+			"birthdate": "Birthdate",
+			"street": "Street",
+			"city": "City",
+			"postal_code": "Code postal",
+      "try_again": "Try again",
+			"all_fields_required": "All fields are required",
+			"field_required": "The field {{field}} is required"
+    },
+    "image_service": {
+			"choose_camera": "Camera",
+			"choose_gallery": "Gallery"
     },
     "home_page": {
       "title": "My Balance",
@@ -73,7 +90,10 @@ const Map<String, dynamic> langMap = {
       "financial_account_balance": "Your Financial account balance",
       "see_details": "See details",
       "Your_registered_payment_account": "Your registered payment account:",
-      "request_payment": "Request a payment"
+      "request_payment": "Request a payment",
+			"check_your_identity": "Check your identity",
+			"add_a_payment_method": "Add a payment method",
+			"you_can_receive_payment_yet": "You cannot receive payment yet."
     },
     "beatzcoins_page": {
       "title":
@@ -141,6 +161,31 @@ const Map<String, dynamic> langMap = {
         "INTERNAL_IN_bzc": "BZC purchase",
         "INTERNAL_OUT_bzc": "BZC sale"
       }
+    },
+    "payment_account": {
+			"title": "Payment Account",
+      "description":
+          "Please choose and enter the details of your payment account to which you wish to receive your payments",
+      "account_type": "Account type",
+      "mobile_operator_name": "Mobile operator name",
+      "account_number": "Account number",
+			"confirm_account_number": "Confirm account number",
+			"bank_name": "Bank name",
+			"swift_code": "Swift Code",
+      "account_holder": "Account holder",
+      "load_bank_docs": "Upload a bank document/card",
+			"mobile_payment": "Mobile Payment",
+			"mobile_payment_way": "Instantly",
+			"bank_account": "Bank Account",
+			"bank_account_way": "Bank transfer",
+			"add_payment_acconut": "Add a payment account",
+			"bad_account_number_confirmation": "Bad account number confirmation",
+			"modal": {
+				"title": "Verification code",
+				"description": "To validate the registration of your payment account, you must enter the code that was sent to you by email.",
+				"code_placeholder": "Enter the code",
+				"resend_code": "Resend code"
+			}
     }
   }
 };

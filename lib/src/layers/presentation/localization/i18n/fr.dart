@@ -9,7 +9,24 @@ const Map<String, dynamic> langMap = {
       "insufficient_funds": "Solde insuffisant",
       "all": "Tout",
       "buy": "Payer",
-      "cancel": "Annuler"
+      "cancel": "Annuler",
+      "validate": "Valider",
+      "save": "Enregistrer",
+      "country": "Pays",
+      "upload": "Téléverser",
+			"first_name": "Prénom",
+			"last_name": "Nom",
+			"birthdate": "Date de naissance",
+			"street": "Rue",
+			"city": "Ville",
+			"postal_code": "Code postal",
+      "try_again": "Re-essayez",
+			"all_fields_required": "Tous les champs sont obligatoire",
+			"field_required": "Le champ {{field}} est obligatoire"
+    },
+		"image_service": {
+			"choose_camera": "Camera",
+			"choose_gallery": "Gallerie"
     },
     "home_page": {
       "title": "Ma Balance",
@@ -74,7 +91,10 @@ const Map<String, dynamic> langMap = {
       "financial_account_balance": "Solde de votre compte Financier",
       "see_details": "Voir les détails",
       "Your_registered_payment_account": "Votre compte de paiement enregistré:",
-      "request_payment": "Demander un paiement"
+      "request_payment": "Demander un paiement",
+			"check_your_identity": "Vérifiez votre identité",
+			"add_a_payment_method": "Ajouter un moyen de paiement",
+			"you_can_receive_payment_yet": "Vous ne pouvez pas encore recevoir de paiement."
     },
     "beatzcoins_page": {
       "title":
@@ -142,6 +162,30 @@ const Map<String, dynamic> langMap = {
         "INTERNAL_IN_bzc": "Achat BZC",
         "INTERNAL_OUT_bzc": "Vente BZC"
       }
+    },
+		"payment_account": {
+      "title": "Compte de paiement",
+      "description":
+          "Veuillez choisir et saisir les coordonnées de votre compte de paiement sur lequel vous voulez recevoir vos paiements",
+      "account_type": "Type de compte",
+      "mobile_operator_name": "Nom de l'opérateur Mobile",
+      "account_number": "Numéro de compte",
+			"confirm_account_number": "Confirmer le numéro de compte",
+			"bank_name": "Nom de la banque",
+			"swift_code": "Code Swift",
+      "load_bank_docs": "Charger un document/carte bancaire",
+			"mobile_payment": "Paiement Mobile",
+			"mobile_payment_way": "Instantanément",
+			"bank_account": "Compte Bancaire",
+			"bank_account_way": "Virement bancaire",
+			"add_payment_acconut": "Ajouter un Compte de paiement",
+			"bad_account_number_confirmation": "La confirmation du numéro de compte est incorrect",
+			"modal": {
+				"title": "Code de verification",
+				"description": "Pour valider l'enregistrement de votre compte de paiement, vous devez saisir le code qui vous a été envoyé par mail",
+				"code_placeholder": "Entrez le code",
+				"resend_code": "Renvoyer le code"
+			}
     }
   }
 };

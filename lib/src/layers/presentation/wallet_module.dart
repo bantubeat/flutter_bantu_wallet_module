@@ -42,6 +42,7 @@ import '../../layers/presentation/pages/balance/balance_page.dart';
 import '../../layers/presentation/pages/withdrawal/withdrawal_page.dart';
 import '../../layers/presentation/pages/beatzcoins/beatzcoins_page.dart';
 import '../../layers/presentation/navigation/wallet_routes.dart';
+import 'pages/add_payment_account/add_payment_account_page.dart';
 
 class WalletModule extends Module {
   static const floatingMenuBuilderKey = 'floatingMenuBuilder';
@@ -134,6 +135,12 @@ class WalletModule extends Module {
     r.child(_routes.beatzcoins.wp, child: (_) => const BeatzcoinsPage());
     r.child(_routes.buyBeatzcoins.wp, child: (_) => const BuyBeatzcoinsPage());
     r.child(_routes.transactions.wp, child: (_) => const TransactionsPage());
+
+    r.child(
+      _routes.addPaymentAccount.wp,
+      child: (_) => const AddPaymentAccountPage(),
+    );
+
     r.wildcard(child: (_) => const HomePage());
   }
 }

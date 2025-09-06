@@ -1,3 +1,5 @@
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_kyc_status.dart';
+
 import '../../../core/network/my_http/my_http.dart';
 import '../../domain/entities/e_withdrawal_eligibility.dart';
 import '../../domain/entities/financial_transaction_entity.dart';
@@ -181,5 +183,21 @@ final class BantubeatApiDataSource {
         },
       },
     ).then((r) => FinancialTransactionModel.fromJson(r.data));
+  }
+
+  Future<EKycStatus> get$accountKyc() async {
+    final response = await _client.get('/account/kyc');
+    final status = response.data['status'];
+    if (status == null || status is! String) return EKycStatus.unknow;
+    switch (status.toUpperCase()) {
+      case 'PENDING':
+        return EKycStatus.pending;
+      case 'SUCCESS':
+        return EKycStatus.success;
+      case 'FAILED':
+        return EKycStatus.failed;
+      default:
+        return EKycStatus.unknow;
+    }
   }
 }

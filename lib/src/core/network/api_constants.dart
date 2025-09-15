@@ -12,4 +12,7 @@ final class ApiConstants {
   static String get websiteUrl => MyAppEnv.isProduction
       ? 'https://open.bantubeat.com'
       : 'https://test.dev.bantubeat.com';
+
+  static const privacyPolicyUrl =
+      'https://legal.bantubeat.com/bantubeat/privacy-policy';
 }

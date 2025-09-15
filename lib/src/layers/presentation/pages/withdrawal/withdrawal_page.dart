@@ -5,11 +5,9 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/get_kyc_
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
-import '../../../../core/network/api_constants.dart';
 import '../../../../core/use_cases/use_case.dart';
 
 import '../../../domain/entities/user_entity.dart';
@@ -31,10 +29,11 @@ class WithdrawalPage extends StatelessWidget {
   void onViewDetails() => Modular.get<WalletRoutes>().transactions.push();
 
   void onRequestWithdrawal() {
-    launchUrlString(
-      '${ApiConstants.websiteUrl}/balance/withdraw',
-      mode: LaunchMode.externalApplication,
-    );
+    Modular.get<WalletRoutes>().withdrawalRequestForm.push();
+    // launchUrlString(
+    //   '${ApiConstants.websiteUrl}/balance/withdraw',
+    //   mode: LaunchMode.externalApplication,
+    // );
   }
 
   @override

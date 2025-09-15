@@ -1,7 +1,7 @@
 import '../../../core/use_cases/use_case.dart';
 import '../repositories/payment_repository.dart';
 import '../entities/deposit_payment_link_entity.dart';
-import '../entities/e_payment_method.dart';
+import '../entities/enums/e_payment_method.dart';
 
 class RequestDepositPaymentLinkUseCase
     extends UseCase<DepositPaymentLinkEntity, _Param> {

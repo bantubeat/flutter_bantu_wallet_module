@@ -1,4 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart' show CountryCode;
+import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/payment_preference_input.dart';
 import 'package:image_picker/image_picker.dart' show XFile;
 
 enum EAccountType { mobile, bank }
@@ -18,6 +19,7 @@ typedef MobilePaymentAccountInfo = ({
   String mobileAccountNumber,
   XFile? otherDocument,
 });
+
 typedef BankPaymentAccountInfo = ({
   String bankName,
   String bankAccountNumber,
@@ -27,7 +29,7 @@ typedef BankPaymentAccountInfo = ({
 
 class PaymentAccountFormDataType {
   final EAccountType accountType;
-  AccountHolderInfo accountHolder;
+  final AccountHolderInfo accountHolder;
   final MobilePaymentAccountInfo? mobileAccountInfo;
   final BankPaymentAccountInfo? bankAccountInfo;
 
@@ -60,4 +62,30 @@ class PaymentAccountFormDataType {
           bankSwiftCode: bankSwiftCode,
           bankDocument: bankDocument,
         );
+
+  PaymentPreferenceInput? toPaymentPreferenceInput() {
+    final mobileData = mobileAccountInfo;
+    final bankData = bankAccountInfo;
+    if (mobileData != null) {
+      return PaymentPreferenceInput(
+        accountType: accountType,
+        detailName: mobileData.mobileOperator,
+        detailPhone: mobileData.mobileAccountNumber,
+        detailCountry: mobileData.paymentCountry.code,
+        detailOperator: mobileData.mobileOperator,
+      );
+    }
+
+    if (bankData != null) {
+      return PaymentPreferenceInput(
+        accountType: accountType,
+        detailBankName: bankData.bankName,
+        detailBic: bankData.bankSwiftCode,
+        detailIban: bankData.bankAccountNumber,
+        detailName: '${accountHolder.firstName} ${accountHolder.lastName}',
+      );
+    }
+
+    return null;
+  }
 }

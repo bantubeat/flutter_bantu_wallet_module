@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_single_quotes, require_trailing_commas
+// ignore_for_file: prefer_single_quotes, require_trailing_commas, avoid_escaping_inner_quotes
 
 const Map<String, dynamic> langMap = {
   "wallet_module": {
@@ -22,7 +22,13 @@ const Map<String, dynamic> langMap = {
 			"postal_code": "Code postal",
       "try_again": "Re-essayez",
 			"all_fields_required": "Tous les champs sont obligatoire",
-			"field_required": "Le champ {{field}} est obligatoire"
+			"field_required": "Le champ {{field}} est obligatoire",
+			"iban": "IBAN",
+			"swift_code": "Code Bic/Swift",
+			"bank_name": "Nom de la banque",
+			"gsm_number": "N° GSM",
+			"operator": "Opérateur",
+			"read_and_approved": "Lu et Approuvé"
     },
 		"image_service": {
 			"choose_camera": "Camera",
@@ -186,6 +192,25 @@ const Map<String, dynamic> langMap = {
 				"code_placeholder": "Entrez le code",
 				"resend_code": "Renvoyer le code"
 			}
-    }
+    },
+		"witdrawal": {
+			"request_title": "Bordereau N° : {{id}}",
+			"fees_warning1": "Attention les frais de tranferts de votre compte de paiement sont à votre charge et vous vous engagez à payer les taxes sur les revenus dans votre pays de résidence. voir ",
+			"fees_warning2": "conditions d'utilisation Bantubeat, politique et conditions de paiement bantubeat.",
+			"amount_to_withdraw": "Montant à retirer",
+			"insufficient_funds": "Solde insuffisant pour ce retrait",
+			"resume_description1": "Je, soussigné ",
+			"resume_description2": ", agissant en qualité de titulaire/représentant du compte ",
+			"resume_description3": ", demande le versement de la somme de ",
+			"resume_description4": " sur mon compte préférence de paiement enregistré:",
+			"use_my_bank_account": "Utiliser mon compte bancaire",
+			"use_my_mobile_account": "Utiliser mon compte Mobile Money",
+			"i_acceptes_fees": "J'accepte et reconnais que les frais de transaction seront à ma charge en déduction du montant demandé.",
+			"place_and_date1": "Fait à \"",
+			"place_and_date2": "\" Le \"",
+			"place_and_date3": "\"",
+			"signature1": "Signature: \"",
+			"signature2": "\""
+		}
   }
 };

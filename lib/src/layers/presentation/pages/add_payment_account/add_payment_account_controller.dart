@@ -1,8 +1,10 @@
 import 'package:country_code_picker/country_code_picker.dart' show CountryCode;
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/update_payment_preferences_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';
 import 'package:image_picker/image_picker.dart' show XFile;
 
@@ -203,20 +205,19 @@ class AddPaymentAccountController extends ScreenController {
     );
   }
 
-  void onNext() {
-    PaymentAccountFormDataType? paymentAccountFormData;
-    return VerificationCodeModal.show(context);
-
+  void onNext() async {
     // Validate based on the selected account type
-    if (selectedAccountType == EAccountType.mobile) {
-      paymentAccountFormData = _validateMobileAccountInfos();
-    } else if (selectedAccountType == EAccountType.bank) {
-      paymentAccountFormData = _validateBankAccountInfos();
-    }
+    final paymentAccountFormData = selectedAccountType == EAccountType.mobile
+        ? _validateMobileAccountInfos()
+        : _validateBankAccountInfos();
+
+    final paymentPrefInput = paymentAccountFormData?.toPaymentPreferenceInput();
 
     // If paymentAccountFormData is null, it means validation failed
-    if (paymentAccountFormData == null) return;
+    if (paymentPrefInput == null) return;
 
-    VerificationCodeModal.show(context);
+    await Modular.get<UpdatePaymentPreferencesUseCase>().call(paymentPrefInput);
+
+    if (context.mounted) VerificationCodeModal.show(context);
   }
 }

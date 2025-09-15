@@ -1,7 +1,8 @@
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_kyc_status.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/payment_preference_input.dart';
 
 import '../../../core/network/my_http/my_http.dart';
-import '../../domain/entities/e_withdrawal_eligibility.dart';
+import '../../domain/entities/enums/e_withdrawal_eligibility.dart';
 import '../../domain/entities/financial_transaction_entity.dart';
 import '../models/currency_item_model.dart';
 import '../models/currency_rates_model.dart';
@@ -93,6 +94,35 @@ final class BantubeatApiDataSource {
         .then((list) => list.map((e) => e as Map<String, dynamic>))
         .then((jsonList) => jsonList.map(PaymentPreferenceModel.fromJson))
         .then((iterable) => iterable.toList());
+  }
+
+  /// Post payment preferences
+  Future<void> post$paymentPreferences(PaymentPreferenceInput input) {
+    return _client
+        .post('/balance/payment-preferences', body: input.toJson())
+        .then((r) => {});
+  }
+
+  /// Post payment preferences code validation
+  Future<void> post$paymentPreferencesValidateCode(String code) {
+    return _client.post(
+      '/balance/payment-preferences/validate-code',
+      body: {'code': code},
+    ).then((r) => {});
+  }
+
+  /// Post payment preferences code resend
+  Future<void> post$paymentPreferencesResendCode() {
+    return _client
+        .post('balance/payment-preferences/resend-code')
+        .then((r) => {});
+  }
+
+  /// Post payment preferences code resend
+  Future<String> get$publicGenerateWithdrawalPaymentSlip() {
+    return _client
+        .get('public/generate-withdrawal-payment-slip')
+        .then((r) => r.data['data']);
   }
 
   /// Get BZC exchange packs

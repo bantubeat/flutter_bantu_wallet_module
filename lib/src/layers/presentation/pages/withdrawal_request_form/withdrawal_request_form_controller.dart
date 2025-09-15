@@ -1,0 +1,111 @@
+part of 'withdrawal_request_form_page.dart';
+
+class _WithdrawalRequestFormController extends ScreenController {
+  final amountCtrl = TextEditingController(text: '');
+  String slip = '...';
+  bool isProcessing = false;
+  var error = '';
+
+  _WithdrawalRequestFormController(super.state);
+
+  @override
+  void onInit() {
+    _generateSlip();
+  }
+
+  @protected
+  void _generateSlip() async {
+    slip = await Modular.get<GenerateWithdrawalPaymentSlipUseCase>()
+        .call(NoParms());
+    refreshUI();
+  }
+
+  void onPrivatePolicy() {
+    launchUrlString(
+      ApiConstants.privacyPolicyUrl,
+      mode: LaunchMode.externalApplication,
+    );
+  }
+
+  @protected
+  void _backToWithdrawalPage() {
+    Modular.to.pushReplacementNamed(
+      Modular.get<WalletRoutes>().withdrawal.toString(),
+    );
+  }
+
+  void onSubmit() async {
+    final amount = num.tryParse(amountCtrl.text);
+    if (amount == null || amount < 0) {
+      error = 'Le montant doit être un nombre positif';
+      return;
+    }
+
+    final balanceCubit = Modular.get<UserBalanceCubit>();
+    late double balanceInEur;
+    late String financialAccountId;
+
+    if (balanceCubit.state.hasData) {
+      balanceInEur = balanceCubit.state.requireData.eur;
+      financialAccountId = balanceCubit.state.requireData.financialWalletNumber;
+    } else {
+      updateUI(() => isProcessing = true);
+      final balanceState = await balanceCubit.fetchUserBalance();
+      balanceInEur = balanceState.eur;
+      financialAccountId = balanceState.financialWalletNumber;
+      updateUI(() => isProcessing = false);
+    }
+
+    if (amount < balanceInEur) {
+      error = LocaleKeys.wallet_module_witdrawal_insufficient_funds.tr();
+      return;
+    }
+
+    final paymentPrefsList =
+        await Modular.get<GetPaymentPreferencesUseCase>().call(NoParms());
+    final paymentPrefs = paymentPrefsList.firstOrNull;
+    if (paymentPrefs == null) {
+      _backToWithdrawalPage();
+      return;
+    }
+
+    final withdrawalEligibility =
+        await Modular.get<CheckWithdrawalEligibilityUseCase>().call(NoParms());
+
+    if (withdrawalEligibility != EWithdrawalEligibility.eligible) {
+      UiAlertHelpers.showErrorToast(withdrawalEligibility.englishDescription);
+      _backToWithdrawalPage();
+      return;
+      /*
+      switch (withdrawalEligibility) {
+        case EWithdrawalEligibility.alreadyMadeWithdrawal:
+          _backToWithdrawalPage();
+          break;
+        case EWithdrawalEligibility.invalidRequestPeriod:
+          _backToWithdrawalPage();
+          break;
+        case EWithdrawalEligibility.kycNotValidated:
+          _backToWithdrawalPage();
+          break;
+        case EWithdrawalEligibility.pendingWithdrawal:
+          _backToWithdrawalPage();
+          break;
+        case EWithdrawalEligibility.unknownError:
+          _backToWithdrawalPage();
+          break;
+        default:
+      } 
+      return;
+			*/
+    }
+
+    final param = CreateWithdrawalRequest(
+      otpCode: '',
+      paymentSlip: slip,
+      amount: amount,
+      paymentPreference: paymentPrefs,
+      financialAccountId: financialAccountId,
+    );
+    Modular.get<WalletRoutes>().withdrawalRequestResume.push(param);
+  }
+}

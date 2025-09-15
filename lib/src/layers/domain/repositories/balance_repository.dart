@@ -1,8 +1,9 @@
-import '../entities/e_withdrawal_eligibility.dart';
+import '../entities/enums/e_withdrawal_eligibility.dart';
 import '../entities/exchange_bzc_pack_entity.dart';
 import '../entities/payment_preference_entity.dart';
 import '../entities/financial_transaction_entity.dart';
 import '../entities/user_balance_entity.dart';
+import '../value_objects/requests/payment_preference_input.dart';
 
 abstract class BalanceRepository {
   Future<UserBalanceEntity> getUserBalance();
@@ -10,6 +11,12 @@ abstract class BalanceRepository {
   Future<List<ExchangeBzcPackEntity>> getExchangeBzcPacks();
 
   Future<List<PaymentPreferenceEntity>> getPaymentPreferences();
+
+  Future<void> updatePaymentPreferences(PaymentPreferenceInput input);
+
+  Future<bool> checkPaymentPreferencesVerificationCode(String code);
+
+  Future<void> resendPaymentPreferencesVerificationCode();
 
   Future<List<FinancialTransactionEntity>> getTransactions({
     required int limit,
@@ -20,4 +27,6 @@ abstract class BalanceRepository {
   });
 
   Future<EWithdrawalEligibility> checkWithdrawalEligibility();
+
+  Future<String> generateWithdrawalPaymentSlip();
 }

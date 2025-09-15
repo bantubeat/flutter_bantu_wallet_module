@@ -8,6 +8,7 @@ class ActionButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final bool enabled;
+  final bool isLoading;
 
   const ActionButton({
     required this.text,
@@ -17,6 +18,7 @@ class ActionButton extends StatelessWidget {
     this.textColor,
     this.prefixIcon,
     this.enabled = true,
+    this.isLoading = false,
     super.key,
   });
 
@@ -35,26 +37,34 @@ class ActionButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (prefixIcon != null)
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: prefixIcon,
-              ),
-            Flexible(
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: textColor ?? colorScheme.onPrimary,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+        child: Visibility(
+          visible: !isLoading,
+          replacement: CircularProgressIndicator.adaptive(
+            valueColor: AlwaysStoppedAnimation(
+              textColor ?? colorScheme.onPrimary,
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (prefixIcon != null)
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: prefixIcon,
+                ),
+              Flexible(
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: textColor ?? colorScheme.onPrimary,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

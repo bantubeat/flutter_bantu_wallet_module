@@ -2,6 +2,8 @@
 
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../domain/value_objects/requests/create_withdrawal_request.dart';
+
 final class WalletRoutes {
   final String prefix_;
   final String _home;
@@ -12,6 +14,8 @@ final class WalletRoutes {
   final String _buyBeatzcoins;
   final String _transactions;
   final String _addPaymentAccount;
+  final String _withdrawalRequestForm;
+  final String _withdrawalRequestResume;
 
   const WalletRoutes(
     this.prefix_, {
@@ -23,6 +27,8 @@ final class WalletRoutes {
     String buyBeatzcoins = 'buy-beatzcoins',
     String transactions = 'transactions-history',
     String addPaymentAccount = 'add-payment-account',
+    String withdrawalRequestForm = 'withdrawal-request-form',
+    String withdrawalRequestResume = 'withdrawal-request-resume',
   })  : _home = home,
         _balance = balance,
         _deposit = deposit,
@@ -30,7 +36,9 @@ final class WalletRoutes {
         _beatzcoins = beatzcoins,
         _buyBeatzcoins = buyBeatzcoins,
         _transactions = transactions,
-        _addPaymentAccount = addPaymentAccount;
+        _addPaymentAccount = addPaymentAccount,
+        _withdrawalRequestForm = withdrawalRequestForm,
+        _withdrawalRequestResume = withdrawalRequestResume;
 
   _RouteItem get home => _RouteItem(prefix_, _home);
   _RouteItem get balance => _RouteItem(prefix_, _balance);
@@ -40,6 +48,10 @@ final class WalletRoutes {
   _RouteItem get buyBeatzcoins => _RouteItem(prefix_, _buyBeatzcoins);
   _RouteItem get transactions => _RouteItem(prefix_, _transactions);
   _RouteItem get addPaymentAccount => _RouteItem(prefix_, _addPaymentAccount);
+  _RouteItem get withdrawalRequestForm =>
+      _RouteItem(prefix_, _withdrawalRequestForm);
+  _RouteItem<CreateWithdrawalRequest> get withdrawalRequestResume =>
+      _RouteItem<CreateWithdrawalRequest>(prefix_, _withdrawalRequestResume);
 }
 
 final class _RouteItem<T> {

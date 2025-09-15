@@ -23,6 +23,12 @@ abstract class  LocaleKeys {
   static const wallet_module_common_try_again = 'wallet_module.common.try_again';
   static const wallet_module_common_all_fields_required = 'wallet_module.common.all_fields_required';
   static const wallet_module_common_field_required = 'wallet_module.common.field_required';
+  static const wallet_module_common_iban = 'wallet_module.common.iban';
+  static const wallet_module_common_swift_code = 'wallet_module.common.swift_code';
+  static const wallet_module_common_bank_name = 'wallet_module.common.bank_name';
+  static const wallet_module_common_gsm_number = 'wallet_module.common.gsm_number';
+  static const wallet_module_common_operator = 'wallet_module.common.operator';
+  static const wallet_module_common_read_and_approved = 'wallet_module.common.read_and_approved';
   static const wallet_module_image_service_choose_camera = 'wallet_module.image_service.choose_camera';
   static const wallet_module_image_service_choose_gallery = 'wallet_module.image_service.choose_gallery';
   static const wallet_module_home_page_title = 'wallet_module.home_page.title';
@@ -140,5 +146,22 @@ abstract class  LocaleKeys {
   static const wallet_module_payment_account_modal_description = 'wallet_module.payment_account.modal.description';
   static const wallet_module_payment_account_modal_code_placeholder = 'wallet_module.payment_account.modal.code_placeholder';
   static const wallet_module_payment_account_modal_resend_code = 'wallet_module.payment_account.modal.resend_code';
+  static const wallet_module_witdrawal_request_title = 'wallet_module.witdrawal.request_title';
+  static const wallet_module_witdrawal_fees_warning1 = 'wallet_module.witdrawal.fees_warning1';
+  static const wallet_module_witdrawal_fees_warning2 = 'wallet_module.witdrawal.fees_warning2';
+  static const wallet_module_witdrawal_amount_to_withdraw = 'wallet_module.witdrawal.amount_to_withdraw';
+  static const wallet_module_witdrawal_insufficient_funds = 'wallet_module.witdrawal.insufficient_funds';
+  static const wallet_module_witdrawal_resume_description1 = 'wallet_module.witdrawal.resume_description1';
+  static const wallet_module_witdrawal_resume_description2 = 'wallet_module.witdrawal.resume_description2';
+  static const wallet_module_witdrawal_resume_description3 = 'wallet_module.witdrawal.resume_description3';
+  static const wallet_module_witdrawal_resume_description4 = 'wallet_module.witdrawal.resume_description4';
+  static const wallet_module_witdrawal_use_my_bank_account = 'wallet_module.witdrawal.use_my_bank_account';
+  static const wallet_module_witdrawal_use_my_mobile_account = 'wallet_module.witdrawal.use_my_mobile_account';
+  static const wallet_module_witdrawal_i_acceptes_fees = 'wallet_module.witdrawal.i_acceptes_fees';
+  static const wallet_module_witdrawal_place_and_date1 = 'wallet_module.witdrawal.place_and_date1';
+  static const wallet_module_witdrawal_place_and_date2 = 'wallet_module.witdrawal.place_and_date2';
+  static const wallet_module_witdrawal_place_and_date3 = 'wallet_module.witdrawal.place_and_date3';
+  static const wallet_module_witdrawal_signature1 = 'wallet_module.witdrawal.signature1';
+  static const wallet_module_witdrawal_signature2 = 'wallet_module.witdrawal.signature2';
 
 }

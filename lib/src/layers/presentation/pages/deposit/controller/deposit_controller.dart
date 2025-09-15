@@ -1,7 +1,7 @@
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/e_payment_method.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_payment_method.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';

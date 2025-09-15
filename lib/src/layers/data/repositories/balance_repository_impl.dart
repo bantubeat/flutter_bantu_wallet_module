@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show debugPrintStack;
+import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/payment_preference_input.dart';
 
-import '../../domain/entities/e_withdrawal_eligibility.dart';
+import '../../domain/entities/enums/e_withdrawal_eligibility.dart';
 import '../../domain/entities/exchange_bzc_pack_entity.dart';
 import '../../domain/entities/payment_preference_entity.dart';
 import '../../domain/entities/financial_transaction_entity.dart';
@@ -30,6 +32,11 @@ class BalanceRepositoryImpl implements BalanceRepository {
   }
 
   @override
+  Future<String> generateWithdrawalPaymentSlip() {
+    return _apiDataSource.get$publicGenerateWithdrawalPaymentSlip();
+  }
+
+  @override
   Future<List<ExchangeBzcPackEntity>> getExchangeBzcPacks() {
     return _apiDataSource.get$publicExchangeBzcPacks();
   }
@@ -37,6 +44,26 @@ class BalanceRepositoryImpl implements BalanceRepository {
   @override
   Future<List<PaymentPreferenceEntity>> getPaymentPreferences() {
     return _apiDataSource.get$paymentPreferences();
+  }
+
+  @override
+  Future<void> updatePaymentPreferences(PaymentPreferenceInput input) {
+    return _apiDataSource.post$paymentPreferences(input);
+  }
+
+  @override
+  Future<bool> checkPaymentPreferencesVerificationCode(String code) {
+    return _apiDataSource
+        .post$paymentPreferencesValidateCode(code)
+        .then((_) => true)
+        .catchError((err) {
+      if (err is DioException) {
+        final status = err.response?.statusCode ?? 0;
+        if (400 <= status && status <= 499) return false;
+      }
+
+      throw err;
+    });
   }
 
   @override
@@ -54,5 +81,10 @@ class BalanceRepositoryImpl implements BalanceRepository {
       typesList: typesList,
       isBzcAccount: isBzcAccount,
     );
+  }
+
+  @override
+  Future<void> resendPaymentPreferencesVerificationCode() {
+    return _apiDataSource.post$paymentPreferencesResendCode();
   }
 }

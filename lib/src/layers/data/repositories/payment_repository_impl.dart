@@ -1,5 +1,5 @@
 import '../../domain/entities/deposit_payment_link_entity.dart';
-import '../../domain/entities/e_payment_method.dart';
+import '../../domain/entities/enums/e_payment_method.dart';
 import '../../domain/entities/financial_transaction_entity.dart';
 import '../../domain/repositories/payment_repository.dart';
 

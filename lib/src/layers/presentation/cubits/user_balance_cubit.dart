@@ -14,12 +14,13 @@ class UserBalanceCubit extends Cubit<AsyncSnapshot<UserBalanceEntity>> {
     fetchUserBalance();
   }
 
-  void fetchUserBalance() async {
+  Future<UserBalanceEntity> fetchUserBalance() async {
     emit(state.inState(ConnectionState.waiting));
 
     try {
       final data = await _getUserBalanceUseCase.call(NoParms());
       emit(AsyncSnapshot.withData(ConnectionState.done, data));
+      return data;
     } catch (error, stacktrace) {
       UiAlertHelpers.showErrorToast(error.toString());
       debugPrintStack(label: error.toString(), stackTrace: stacktrace);

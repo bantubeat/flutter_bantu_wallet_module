@@ -1,5 +1,5 @@
 import '../entities/deposit_payment_link_entity.dart';
-import '../entities/e_payment_method.dart';
+import '../entities/enums/e_payment_method.dart';
 import '../entities/financial_transaction_entity.dart';
 
 abstract class PaymentRepository {

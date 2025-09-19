@@ -184,7 +184,6 @@ const Map<String, dynamic> langMap = {
 			"mobile_payment_way": "Instantanément",
 			"bank_account": "Compte Bancaire",
 			"bank_account_way": "Virement bancaire",
-			"add_payment_acconut": "Ajouter un Compte de paiement",
 			"bad_account_number_confirmation": "La confirmation du numéro de compte est incorrect",
 			"modal": {
 				"title": "Code de verification",
@@ -193,7 +192,7 @@ const Map<String, dynamic> langMap = {
 				"resend_code": "Renvoyer le code"
 			}
     },
-		"witdrawal": {
+		"withdrawal_process": {
 			"request_title": "Bordereau N° : {{id}}",
 			"fees_warning1": "Attention les frais de tranferts de votre compte de paiement sont à votre charge et vous vous engagez à payer les taxes sur les revenus dans votre pays de résidence. voir ",
 			"fees_warning2": "conditions d'utilisation Bantubeat, politique et conditions de paiement bantubeat.",
@@ -210,7 +209,11 @@ const Map<String, dynamic> langMap = {
 			"place_and_date2": "\" Le \"",
 			"place_and_date3": "\"",
 			"signature1": "Signature: \"",
-			"signature2": "\""
+			"signature2": "\"",
+			"otp_code": {
+				"title": "Code de verification",
+				"description": "Pour valider votre demande de  paiement, vous devez saisir le code qui vous a été envoyé par mail"
+			}
 		}
   }
 };

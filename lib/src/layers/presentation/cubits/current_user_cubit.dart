@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/use_cases/use_case.dart';
 import '../../domain/entities/user_entity.dart';
-import '../../domain/use_cases/get_current_user_use_case.dart';
+import '../../domain/use_cases/account/get_current_user_use_case.dart';
 
 class CurrentUserCubit extends Cubit<AsyncSnapshot<UserEntity>> {
   final GetCurrentUserUseCase _getCurrentUserUseCase;

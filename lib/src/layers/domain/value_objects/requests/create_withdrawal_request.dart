@@ -15,6 +15,22 @@ class CreateWithdrawalRequest {
     required this.financialAccountId,
   });
 
+  CreateWithdrawalRequest copyWith({
+    String? otpCode,
+    num? amount,
+    String? paymentSlip,
+    String? financialAccountId,
+    PaymentPreferenceEntity? paymentPreference,
+  }) {
+    return CreateWithdrawalRequest(
+      otpCode: otpCode ?? this.otpCode,
+      amount: amount ?? this.amount,
+      paymentSlip: paymentSlip ?? this.paymentSlip,
+      paymentPreference: paymentPreference ?? this.paymentPreference,
+      financialAccountId: financialAccountId ?? this.financialAccountId,
+    );
+  }
+
   Map<String, dynamic> toHttpBody() {
     return {
       'otp_code': otpCode,

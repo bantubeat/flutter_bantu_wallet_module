@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
-
-import '../ui_model/ui_model.dart';
 
 class AccountTypeSelector extends StatelessWidget {
   final EAccountType selectedAccountType;
@@ -18,23 +17,27 @@ class AccountTypeSelector extends StatelessWidget {
     final isMobile = selectedAccountType == EAccountType.mobile;
     return GestureDetector(
       onTap: () => _showAccountTypeModal(context, onSelectAccountType),
-      child: Container(
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 14.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey[300]!),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              isMobile
-                  ? LocaleKeys.wallet_module_payment_account_mobile_payment.tr()
-                  : LocaleKeys.wallet_module_payment_account_bank_account.tr(),
-              style: const TextStyle(fontSize: 16),
-            ),
-            const Icon(Icons.arrow_drop_down, color: Colors.grey),
-          ],
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.grey[300]!),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                isMobile
+                    ? LocaleKeys.wallet_module_payment_account_mobile_payment
+                        .tr()
+                    : LocaleKeys.wallet_module_payment_account_bank_account
+                        .tr(),
+                style: const TextStyle(fontSize: 16),
+              ),
+              const Icon(Icons.arrow_drop_down, color: Colors.grey),
+            ],
+          ),
         ),
       ),
     );
@@ -57,8 +60,7 @@ class AccountTypeSelector extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                LocaleKeys.wallet_module_payment_account_add_payment_acconut
-                    .tr(),
+                LocaleKeys.wallet_module_payment_account_account_type.tr(),
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -86,7 +88,7 @@ class AccountTypeSelector extends StatelessWidget {
                     .wallet_module_payment_account_bank_account_way
                     .tr(),
                 onTap: () {
-                  onSelectAccountType(EAccountType.bank);
+                  onSelectAccountType(EAccountType.bankTransfer);
                   Navigator.pop(context);
                 },
               ),

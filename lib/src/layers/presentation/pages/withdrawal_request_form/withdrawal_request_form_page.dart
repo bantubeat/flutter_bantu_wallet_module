@@ -4,9 +4,9 @@ import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_withdrawal_eligibility.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/check_withdrawal_eligibility_use_case.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/generate_withdrawal_payment_slip_use_case.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/get_payment_preferences_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/withdrawal/check_withdrawal_eligibility_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/withdrawal/generate_withdrawal_payment_slip_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/get_payment_preferences_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/create_withdrawal_request.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 
@@ -48,8 +48,9 @@ class WithdrawalRequestFormPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyHeaderBar(
-                  title: LocaleKeys.wallet_module_witdrawal_request_title
-                      .tr(namedArgs: {'id': ctrl.slip}),
+                  title: LocaleKeys
+                      .wallet_module_withdrawal_process_request_title
+                      .tr(namedArgs: {'id': ctrl.slip ?? '...'}),
                 ),
                 const SizedBox(height: 7.5),
                 Padding(
@@ -65,12 +66,12 @@ class WithdrawalRequestFormPage extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: LocaleKeys
-                                .wallet_module_witdrawal_fees_warning1
+                                .wallet_module_withdrawal_process_fees_warning1
                                 .tr(),
                           ),
                           TextSpan(
                             text: LocaleKeys
-                                .wallet_module_witdrawal_fees_warning2
+                                .wallet_module_withdrawal_process_fees_warning2
                                 .tr(),
                             style: TextStyle(color: colorScheme.primary),
                             recognizer: TapGestureRecognizer()
@@ -166,7 +167,8 @@ class WithdrawalRequestFormPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 Text(
-                  LocaleKeys.wallet_module_witdrawal_amount_to_withdraw.tr(),
+                  LocaleKeys.wallet_module_withdrawal_process_amount_to_withdraw
+                      .tr(),
                   style: const TextStyle(fontSize: 24.0),
                 ),
                 const SizedBox(height: 8.0),
@@ -176,7 +178,7 @@ class WithdrawalRequestFormPage extends StatelessWidget {
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
                     hintText: LocaleKeys
-                        .wallet_module_witdrawal_amount_to_withdraw
+                        .wallet_module_withdrawal_process_amount_to_withdraw
                         .tr(),
                     filled: true,
                     fillColor: const Color(0xFFEBEBEB),

@@ -1,4 +1,4 @@
-import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/add_payment_account/ui_model/ui_model.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
 
 class PaymentPreferenceInput {
   final EAccountType accountType;
@@ -25,11 +25,7 @@ class PaymentPreferenceInput {
 
   Map<String, dynamic> toJson() {
     return {
-      'account_type': switch (accountType) {
-        EAccountType.mobile => 'Mobile',
-        EAccountType.bank => 'BankTransfer',
-        // default => 'Paypal'
-      },
+      'account_type': accountType.value,
       if (detailBankName != null) 'detail_bank_name': detailBankName,
       if (detailBic != null) 'detail_bic': detailBic,
       if (detailIban != null) 'detail_iban': detailIban,

@@ -4,7 +4,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_a
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/user_balance_entity.dart';
-import '../../domain/use_cases/get_user_balance_use_case.dart';
+import '../../domain/use_cases/account/get_user_balance_use_case.dart';
 
 class UserBalanceCubit extends Cubit<AsyncSnapshot<UserBalanceEntity>> {
   final GetUserBalanceUseCase _getUserBalanceUseCase;

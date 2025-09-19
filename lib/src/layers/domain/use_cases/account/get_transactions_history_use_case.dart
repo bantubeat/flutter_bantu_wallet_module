@@ -1,7 +1,7 @@
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 
-import '../entities/financial_transaction_entity.dart';
-import '../repositories/balance_repository.dart';
+import '../../entities/financial_transaction_entity.dart';
+import '../../repositories/balance_repository.dart';
 
 class GetTransactionsUseCase
     implements

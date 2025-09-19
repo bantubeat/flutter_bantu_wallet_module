@@ -14,4 +14,9 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   Future<EKycStatus> getKycStatus() => _apiDataSource.get$accountKyc();
+
+  @override
+  Future<void> generateMailOtp() {
+    return _apiDataSource.post$accountUserGenerateMailOtp();
+  }
 }

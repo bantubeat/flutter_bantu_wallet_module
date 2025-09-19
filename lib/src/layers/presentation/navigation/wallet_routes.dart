@@ -13,7 +13,7 @@ final class WalletRoutes {
   final String _beatzcoins;
   final String _buyBeatzcoins;
   final String _transactions;
-  final String _addPaymentAccount;
+  final String _addOrEditPaymentAccount;
   final String _withdrawalRequestForm;
   final String _withdrawalRequestResume;
 
@@ -26,7 +26,7 @@ final class WalletRoutes {
     String beatzcoins = 'beatzcoins',
     String buyBeatzcoins = 'buy-beatzcoins',
     String transactions = 'transactions-history',
-    String addPaymentAccount = 'add-payment-account',
+    String addOrEditPaymentAccount = 'add-or-edit-payment-account',
     String withdrawalRequestForm = 'withdrawal-request-form',
     String withdrawalRequestResume = 'withdrawal-request-resume',
   })  : _home = home,
@@ -36,7 +36,7 @@ final class WalletRoutes {
         _beatzcoins = beatzcoins,
         _buyBeatzcoins = buyBeatzcoins,
         _transactions = transactions,
-        _addPaymentAccount = addPaymentAccount,
+        _addOrEditPaymentAccount = addOrEditPaymentAccount,
         _withdrawalRequestForm = withdrawalRequestForm,
         _withdrawalRequestResume = withdrawalRequestResume;
 
@@ -47,7 +47,8 @@ final class WalletRoutes {
   _RouteItem get beatzcoins => _RouteItem(prefix_, _beatzcoins);
   _RouteItem get buyBeatzcoins => _RouteItem(prefix_, _buyBeatzcoins);
   _RouteItem get transactions => _RouteItem(prefix_, _transactions);
-  _RouteItem get addPaymentAccount => _RouteItem(prefix_, _addPaymentAccount);
+  _RouteItem get addOrEditPaymentAccount =>
+      _RouteItem(prefix_, _addOrEditPaymentAccount);
   _RouteItem get withdrawalRequestForm =>
       _RouteItem(prefix_, _withdrawalRequestForm);
   _RouteItem<CreateWithdrawalRequest> get withdrawalRequestResume =>

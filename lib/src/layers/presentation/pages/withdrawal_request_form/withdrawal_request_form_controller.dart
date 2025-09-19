@@ -2,7 +2,7 @@ part of 'withdrawal_request_form_page.dart';
 
 class _WithdrawalRequestFormController extends ScreenController {
   final amountCtrl = TextEditingController(text: '');
-  String slip = '...';
+  String? slip;
   bool isProcessing = false;
   var error = '';
 
@@ -10,14 +10,18 @@ class _WithdrawalRequestFormController extends ScreenController {
 
   @override
   void onInit() {
-    _generateSlip();
+    _generateSlip(refreshUI: true);
   }
 
   @protected
-  void _generateSlip() async {
-    slip = await Modular.get<GenerateWithdrawalPaymentSlipUseCase>()
-        .call(NoParms());
-    refreshUI();
+  Future<String> _generateSlip({bool refreshUI = false}) {
+    return Modular.get<GenerateWithdrawalPaymentSlipUseCase>()
+        .call(NoParms())
+        .then((generatedSlip) {
+      slip = generatedSlip;
+      if (refreshUI) this.refreshUI();
+      return generatedSlip;
+    });
   }
 
   void onPrivatePolicy() {
@@ -57,7 +61,8 @@ class _WithdrawalRequestFormController extends ScreenController {
     }
 
     if (amount < balanceInEur) {
-      error = LocaleKeys.wallet_module_witdrawal_insufficient_funds.tr();
+      error =
+          LocaleKeys.wallet_module_withdrawal_process_insufficient_funds.tr();
       return;
     }
 
@@ -101,7 +106,7 @@ class _WithdrawalRequestFormController extends ScreenController {
 
     final param = CreateWithdrawalRequest(
       otpCode: '',
-      paymentSlip: slip,
+      paymentSlip: slip ?? await _generateSlip(),
       amount: amount,
       paymentPreference: paymentPrefs,
       financialAccountId: financialAccountId,

@@ -1,45 +1,70 @@
-import 'package:country_code_picker/country_code_picker.dart' show CountryCode;
-import 'package:flutter/material.dart';
-import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/update_payment_preferences_use_case.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_screen_controller/flutter_screen_controller.dart';
-import 'package:image_picker/image_picker.dart' show XFile;
+part of 'add_or_edit_payment_account_page.dart';
 
-import '../../helpers/image_picker_helper.dart';
-import 'ui_model/ui_model.dart';
-import 'widgets/verification_code_modal.dart';
-
-class AddPaymentAccountController extends ScreenController {
-  EAccountType selectedAccountType = EAccountType.mobile;
+class _AddOrEditPaymentAccountController extends ScreenController {
+  PaymentPreferenceEntity? currentPaymentPreference;
+  late EAccountType selectedAccountType;
 
   // Mobile account fields
   // Note: Mobile operator and account number are used for mobile accounts only
   CountryCode? selectedPaymentCountry;
-  final mobileOperatorCtrl = TextEditingController(text: '');
-  final mobileAccountNumberCtrl = TextEditingController(text: '');
+  late final TextEditingController mobileOperatorCtrl;
+  late final TextEditingController mobileAccountNumberCtrl;
 
   // Bank account fields
   // Note: Bank name, account number, and SWIFT code are not used for mobile
-  final bankNameCtrl = TextEditingController(text: '');
-  final bankAccountNumberCtrl = TextEditingController(text: '');
-  final bankAccountNumberConfirmCtrl = TextEditingController(text: '');
-  final bankSwiftCodeCtrl = TextEditingController(text: '');
+  late final TextEditingController bankNameCtrl;
+  late final TextEditingController bankAccountNumberCtrl;
+  late final TextEditingController bankAccountNumberConfirmCtrl;
+  late final TextEditingController bankSwiftCodeCtrl;
 
   // Common for both mobile and bank accounts
-  final accountHolderFirstNameCtrl = TextEditingController(text: '');
-  final accountHolderLastNameCtrl = TextEditingController(text: '');
-  final accountHolderStreetCtrl = TextEditingController(text: '');
-  final accountHolderCityCtrl = TextEditingController(text: '');
-  final accountHolderPostalCodeCtrl = TextEditingController(text: '');
+  late final TextEditingController accountHolderFirstNameCtrl;
+  late final TextEditingController accountHolderLastNameCtrl;
+  late final TextEditingController accountHolderStreetCtrl;
+  late final TextEditingController accountHolderCityCtrl;
+  late final TextEditingController accountHolderPostalCodeCtrl;
   DateTime? _pickedBirthdate;
 
   XFile? _bankDocumentXFile;
   ImageProvider? bankDocument;
 
-  AddPaymentAccountController(super.state);
+  _AddOrEditPaymentAccountController(
+    super.state,
+    this.currentPaymentPreference,
+  );
+
+  @override
+  @protected
+  void onInit() {
+    final pref = currentPaymentPreference;
+
+    selectedAccountType = pref?.accountType ?? EAccountType.mobile;
+
+    // Mobile account fields
+    selectedPaymentCountry = CountryCode.tryFromCountryCode(
+      pref?.detailCountry ?? '',
+    );
+    mobileOperatorCtrl = TextEditingController(
+      text: pref?.detailOperator ?? '',
+    );
+    mobileAccountNumberCtrl = TextEditingController(
+      text: pref?.detailPhone ?? '',
+    );
+
+    // Bank account fields
+    bankNameCtrl = TextEditingController(text: pref?.detailBankName ?? '');
+    bankAccountNumberCtrl = TextEditingController(text: pref?.detailIban ?? '');
+    bankSwiftCodeCtrl = TextEditingController(text: pref?.detailBic ?? '');
+    bankAccountNumberConfirmCtrl = TextEditingController(text: '');
+
+    // Common for both mobile and bank accounts
+    final names = _splitFullName(pref?.detailName ?? '');
+    accountHolderFirstNameCtrl = TextEditingController(text: names.firstName);
+    accountHolderLastNameCtrl = TextEditingController(text: names.lastName);
+    accountHolderStreetCtrl = TextEditingController(text: '');
+    accountHolderCityCtrl = TextEditingController(text: '');
+    accountHolderPostalCodeCtrl = TextEditingController(text: '');
+  }
 
   @protected
   @override
@@ -56,6 +81,16 @@ class AddPaymentAccountController extends ScreenController {
     accountHolderStreetCtrl.dispose();
     accountHolderCityCtrl.dispose();
     accountHolderPostalCodeCtrl.dispose();
+  }
+
+  ({String firstName, String lastName}) _splitFullName(String fullName) {
+    final parts = fullName.trim().split(RegExp(r'\s+'));
+    if (parts.length == 1) {
+      return (firstName: parts[0], lastName: '');
+    }
+    final firstName = parts.first;
+    final lastName = parts.sublist(1).join(' ');
+    return (firstName: firstName, lastName: lastName);
   }
 
   String get pickedBirthdate {
@@ -218,6 +253,23 @@ class AddPaymentAccountController extends ScreenController {
 
     await Modular.get<UpdatePaymentPreferencesUseCase>().call(paymentPrefInput);
 
-    if (context.mounted) VerificationCodeModal.show(context);
+    if (!context.mounted) return;
+    OtpCodeModal(
+      title: LocaleKeys.wallet_module_payment_account_modal_title.tr(),
+      description:
+          LocaleKeys.wallet_module_payment_account_modal_description.tr(),
+      handleSubmit: (context, code) async {
+        final isValid =
+            await Modular.get<CheckPaymentPreferencesVerificationCodeUseCase>()
+                .call(code);
+        if (!isValid || !context.mounted) return;
+        Navigator.pop(context);
+        Modular.get<WalletRoutes>().withdrawal.navigate();
+      },
+      handleResend: (context) {
+        return Modular.get<ResendPaymentPreferencesVerificationCodeUseCase>()
+            .call(NoParms());
+      },
+    ).show(context);
   }
 }

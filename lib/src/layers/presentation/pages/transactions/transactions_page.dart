@@ -10,7 +10,7 @@ import '../../../../layers/presentation/cubits/current_user_cubit.dart';
 import '../../../../core/generated/locale_keys.g.dart';
 import '../../../domain/entities/financial_transaction_entity.dart';
 import '../../../domain/entities/user_entity.dart';
-import '../../../domain/use_cases/get_transactions_history_use_case.dart';
+import '../../../domain/use_cases/account/get_transactions_history_use_case.dart';
 import '../../cubits/user_balance_cubit.dart';
 import '../../wallet_module.dart';
 import '../../widgets/bantubeat_image_provider.dart';

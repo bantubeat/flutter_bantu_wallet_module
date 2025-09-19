@@ -1,6 +1,6 @@
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 
-import '../repositories/public_repository.dart';
+import '../../repositories/public_repository.dart';
 
 class ConvertFiatCurrencyUseCase extends UseCase<double, _Param> {
   final PublicRepository _repository;

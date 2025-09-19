@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
+import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/payment_preference_entity.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/withdrawal/request_withdrawal_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/withdrawal/send_withdrawal_mail_otp_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/create_withdrawal_request.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/action_button.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/my_header_bar.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/otp_code_modal.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
@@ -28,8 +35,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
 
   // Helper for the bank account details section
   Widget _buildBankAccountInfo(ColorScheme colorScheme) {
-    final isMobile =
-        param.paymentPreference.accountType.toLowerCase().contains('mobile');
+    final isMobile = param.paymentPreference.accountType == EAccountType.mobile;
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
@@ -50,9 +56,11 @@ class WithdrawalRequestResumePage extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 isMobile
-                    ? LocaleKeys.wallet_module_witdrawal_use_my_mobile_account
+                    ? LocaleKeys
+                        .wallet_module_withdrawal_process_use_my_mobile_account
                         .tr()
-                    : LocaleKeys.wallet_module_witdrawal_use_my_bank_account
+                    : LocaleKeys
+                        .wallet_module_withdrawal_process_use_my_bank_account
                         .tr(),
                 style: const TextStyle(
                   fontSize: 16,
@@ -118,28 +126,36 @@ class WithdrawalRequestResumePage extends StatelessWidget {
       TextSpan(
         children: [
           TextSpan(
-            text: LocaleKeys.wallet_module_witdrawal_resume_description1.tr(),
+            text: LocaleKeys
+                .wallet_module_withdrawal_process_resume_description1
+                .tr(),
           ),
           TextSpan(
             text: param.paymentPreference.detailName ?? '',
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           TextSpan(
-            text: LocaleKeys.wallet_module_witdrawal_resume_description2.tr(),
+            text: LocaleKeys
+                .wallet_module_withdrawal_process_resume_description2
+                .tr(),
           ),
           TextSpan(
             text: param.financialAccountId,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           TextSpan(
-            text: LocaleKeys.wallet_module_witdrawal_resume_description3.tr(),
+            text: LocaleKeys
+                .wallet_module_withdrawal_process_resume_description3
+                .tr(),
           ),
           TextSpan(
             text: param.amount.toString(),
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           TextSpan(
-            text: LocaleKeys.wallet_module_witdrawal_resume_description4.tr(),
+            text: LocaleKeys
+                .wallet_module_withdrawal_process_resume_description4
+                .tr(),
           ),
         ],
       ),
@@ -149,7 +165,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
   List<Widget> _buildOtherTextWidgets() {
     return [
       Text(
-        LocaleKeys.wallet_module_witdrawal_i_acceptes_fees.tr(),
+        LocaleKeys.wallet_module_withdrawal_process_i_acceptes_fees.tr(),
         style: const TextStyle(color: Colors.black54, fontSize: 14),
       ),
       const SizedBox(height: 30),
@@ -158,21 +174,24 @@ class WithdrawalRequestResumePage extends StatelessWidget {
           style: const TextStyle(fontSize: 16),
           children: [
             TextSpan(
-              text: LocaleKeys.wallet_module_witdrawal_place_and_date1.tr(),
+              text: LocaleKeys.wallet_module_withdrawal_process_place_and_date1
+                  .tr(),
             ),
             TextSpan(
-              text: 'VILLE',
+              text: LocaleKeys.wallet_module_common_city.tr().toUpperCase(),
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             TextSpan(
-              text: LocaleKeys.wallet_module_witdrawal_place_and_date2.tr(),
+              text: LocaleKeys.wallet_module_withdrawal_process_place_and_date2
+                  .tr(),
             ),
             TextSpan(
               text: DateFormat('dd MM yyyy').format(DateTime.now()),
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             TextSpan(
-              text: LocaleKeys.wallet_module_witdrawal_place_and_date3.tr(),
+              text: LocaleKeys.wallet_module_withdrawal_process_place_and_date3
+                  .tr(),
             ),
           ],
         ),
@@ -183,14 +202,14 @@ class WithdrawalRequestResumePage extends StatelessWidget {
           style: const TextStyle(fontSize: 16),
           children: [
             TextSpan(
-              text: LocaleKeys.wallet_module_witdrawal_signature1.tr(),
+              text: LocaleKeys.wallet_module_withdrawal_process_signature1.tr(),
             ),
             TextSpan(
               text: param.paymentPreference.detailName,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             TextSpan(
-              text: LocaleKeys.wallet_module_witdrawal_signature2.tr(),
+              text: LocaleKeys.wallet_module_withdrawal_process_signature2.tr(),
             ),
           ],
         ),
@@ -215,7 +234,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MyHeaderBar(
-                title: LocaleKeys.wallet_module_witdrawal_request_title
+                title: LocaleKeys.wallet_module_withdrawal_process_request_title
                     .tr(namedArgs: {'id': param.paymentSlip}),
               ),
               const SizedBox(height: 7.5),
@@ -231,6 +250,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
                 create: (state) =>
                     _WithdrawalRequestResumeController(state, param),
                 builder: (context, ctrl) => ActionButton(
+                  isLoading: ctrl.isProcessing,
                   text: LocaleKeys.wallet_module_common_validate.tr(),
                   onPressed: ctrl.onSubmit,
                   fullWidth: true,

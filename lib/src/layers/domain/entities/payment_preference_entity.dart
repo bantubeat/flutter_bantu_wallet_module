@@ -1,3 +1,5 @@
+import 'enums/e_account_type.dart';
+
 abstract class PaymentPreferenceEntity {
   final int id;
   final String uuid;
@@ -9,7 +11,7 @@ abstract class PaymentPreferenceEntity {
   final String? detailBic;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final String accountType;
+  final EAccountType accountType;
   final String? detailCountry;
   final String? detailOperator;
   final String? detailBankName;

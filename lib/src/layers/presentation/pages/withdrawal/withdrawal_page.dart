@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_kyc_status.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/payment_preference_entity.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/get_kyc_status_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/get_kyc_status_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -11,11 +12,10 @@ import '../../../../core/generated/locale_keys.g.dart';
 import '../../../../core/use_cases/use_case.dart';
 
 import '../../../domain/entities/user_entity.dart';
-import '../../../domain/use_cases/get_payment_preferences_use_case.dart';
+import '../../../domain/use_cases/payment_preference/get_payment_preferences_use_case.dart';
 import '../../../domain/entities/user_balance_entity.dart';
 
 import '../../../presentation/cubits/current_user_cubit.dart';
-import '../../../presentation/navigation/wallet_routes.dart';
 
 import '../../cubits/user_balance_cubit.dart';
 import '../../widgets/action_button.dart';
@@ -26,14 +26,20 @@ import 'widgets/registered_payment_method.dart';
 class WithdrawalPage extends StatelessWidget {
   const WithdrawalPage({super.key});
 
-  void onViewDetails() => Modular.get<WalletRoutes>().transactions.push();
+  void _onViewDetails() => Modular.get<WalletRoutes>().transactions.push();
 
-  void onRequestWithdrawal() {
+  void _goToKycForm() => WalletModule.goToKycForm();
+
+  void _onRequestWithdrawal() {
     Modular.get<WalletRoutes>().withdrawalRequestForm.push();
     // launchUrlString(
     //   '${ApiConstants.websiteUrl}/balance/withdraw',
     //   mode: LaunchMode.externalApplication,
     // );
+  }
+
+  void _onAddPaymentPreference() {
+    Modular.get<WalletRoutes>().addOrEditPaymentAccount.push();
   }
 
   @override
@@ -172,7 +178,7 @@ class WithdrawalPage extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               ElevatedButton(
-                onPressed: onViewDetails,
+                onPressed: _onViewDetails,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFBAB9B9),
                   minimumSize: const Size.fromHeight(45),
@@ -231,7 +237,7 @@ class WithdrawalPage extends StatelessWidget {
                           text: LocaleKeys
                               .wallet_module_withdrawal_page_check_your_identity
                               .tr(),
-                          onPressed: onRequestWithdrawal,
+                          onPressed: _goToKycForm,
                           fullWidth: true,
                         )
                       else if (paymentPreferences.isEmpty)
@@ -239,7 +245,7 @@ class WithdrawalPage extends StatelessWidget {
                           text: LocaleKeys
                               .wallet_module_withdrawal_page_add_a_payment_method
                               .tr(),
-                          onPressed: onRequestWithdrawal,
+                          onPressed: _onAddPaymentPreference,
                           fullWidth: true,
                         )
                       else ...[
@@ -253,7 +259,7 @@ class WithdrawalPage extends StatelessWidget {
                           text: LocaleKeys
                               .wallet_module_withdrawal_page_request_payment
                               .tr(),
-                          onPressed: onRequestWithdrawal,
+                          onPressed: _onRequestWithdrawal,
                           fullWidth: true,
                         ),
                       ],

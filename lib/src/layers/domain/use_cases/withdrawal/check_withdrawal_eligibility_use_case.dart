@@ -1,7 +1,7 @@
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 
-import '../entities/enums/e_withdrawal_eligibility.dart';
-import '../repositories/balance_repository.dart';
+import '../../entities/enums/e_withdrawal_eligibility.dart';
+import '../../repositories/balance_repository.dart';
 
 class CheckWithdrawalEligibilityUseCase
     implements UseCase<EWithdrawalEligibility, NoParms> {

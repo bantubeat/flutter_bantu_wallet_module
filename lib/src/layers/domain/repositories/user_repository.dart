@@ -5,4 +5,6 @@ abstract class UserRepository {
   Future<UserEntity> getCurrentUser();
 
   Future<EKycStatus> getKycStatus();
+
+  Future<void> generateMailOtp();
 }

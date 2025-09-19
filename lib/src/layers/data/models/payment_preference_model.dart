@@ -1,3 +1,4 @@
+import '../../domain/entities/enums/e_account_type.dart';
 import '../../domain/entities/payment_preference_entity.dart';
 
 class PaymentPreferenceModel extends PaymentPreferenceEntity {
@@ -22,22 +23,22 @@ class PaymentPreferenceModel extends PaymentPreferenceEntity {
 
   factory PaymentPreferenceModel.fromJson(Map<String, dynamic> json) {
     return PaymentPreferenceModel(
-      id: json['id'] as int,
-      uuid: json['uuid'] as String,
-      userId: json['user_id'] as int,
-      detailName: json['detail_name'] as String?,
-      detailPhone: json['detail_phone'] as String?,
-      detailEmail: json['detail_email'] as String?,
-      detailIban: json['detail_iban'] as String?,
-      detailBic: json['detail_bic'] as String?,
+      id: json['id'],
+      uuid: json['uuid'],
+      userId: json['user_id'],
+      detailName: json['detail_name'],
+      detailPhone: json['detail_phone'],
+      detailEmail: json['detail_email'],
+      detailIban: json['detail_iban'],
+      detailBic: json['detail_bic'],
       createdAt: DateTime.tryParse(json['created_at'] ?? ''),
       updatedAt: DateTime.tryParse(json['updated_at'] ?? ''),
-      accountType: json['account_type'] as String,
-      detailCountry: json['detail_country'] as String?,
-      detailOperator: json['detail_operator'] as String?,
-      detailBankName: json['detail_bank_name'] as String?,
+      accountType: EAccountType.fromString(json['account_type']),
+      detailCountry: json['detail_country'],
+      detailOperator: json['detail_operator'],
+      detailBankName: json['detail_bank_name'],
       isVerified: int.tryParse(json['is_verified'] ?? '') == 1,
-      verificationCode: json['verification_code'] as String?,
+      verificationCode: json['verification_code'],
     );
   }
 
@@ -53,7 +54,7 @@ class PaymentPreferenceModel extends PaymentPreferenceEntity {
       'detail_bic': detailBic,
       'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
-      'account_type': accountType,
+      'account_type': accountType.value,
       'detail_country': detailCountry,
       'detail_operator': detailOperator,
       'detail_bank_name': detailBankName,

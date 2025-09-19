@@ -1,7 +1,7 @@
-import '../../../core/use_cases/use_case.dart';
-import '../entities/financial_transaction_entity.dart';
-import '../repositories/payment_repository.dart';
-import '../entities/enums/e_payment_method.dart';
+import '../../../../core/use_cases/use_case.dart';
+import '../../entities/financial_transaction_entity.dart';
+import '../../repositories/payment_repository.dart';
+import '../../entities/enums/e_payment_method.dart';
 
 class MakeDepositDirectPaymentUseCase
     extends UseCase<FinancialTransactionEntity, _Param> {

@@ -1,8 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart' show CountryCode;
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/payment_preference_input.dart';
 import 'package:image_picker/image_picker.dart' show XFile;
-
-enum EAccountType { mobile, bank }
 
 typedef AccountHolderInfo = ({
   String firstName,
@@ -54,7 +53,7 @@ class PaymentAccountFormDataType {
     required String bankSwiftCode,
     required this.accountHolder,
     required XFile? bankDocument,
-  })  : accountType = EAccountType.bank,
+  })  : accountType = EAccountType.bankTransfer,
         mobileAccountInfo = null,
         bankAccountInfo = (
           bankName: bankName,

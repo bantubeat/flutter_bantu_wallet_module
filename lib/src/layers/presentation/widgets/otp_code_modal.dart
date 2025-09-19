@@ -1,42 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
-import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/check_payment_preferences_verification_code_use_case.dart';
-import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/resend_payment_preferences_verification_code_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/action_button.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
-class VerificationCodeModal extends StatefulWidget {
-  const VerificationCodeModal({super.key});
+class OtpCodeModal extends StatefulWidget {
+  final String title;
+  final String description;
+  final Future<void> Function(BuildContext, String) handleSubmit;
+  final Future<void> Function(BuildContext)? handleResend;
+
+  const OtpCodeModal({
+    required this.title,
+    required this.description,
+    required this.handleSubmit,
+    this.handleResend,
+    super.key,
+  });
 
   @override
-  State<VerificationCodeModal> createState() => _VerificationCodeModalState();
+  State<OtpCodeModal> createState() => _OtpCodeModalState();
 
   // A static method to show the modal
-  static void show(BuildContext context) {
-    showDialog(
+  Future<dynamic> show(BuildContext context) {
+    return showDialog(
       context: context,
       barrierDismissible: false, // Prevents closing by tapping outside
-      builder: (BuildContext context) {
-        return const VerificationCodeModal();
-      },
+      builder: (_) => this,
     );
   }
 }
 
-class _VerificationCodeModalState extends State<VerificationCodeModal> {
+class _OtpCodeModalState extends State<OtpCodeModal> {
   final textCtrl = TextEditingController(text: '');
   bool _resendingCode = false;
   bool _submitting = false;
 
   void _onResentCode() async {
+    final handler = widget.handleResend;
+    if (handler == null) return;
     setState(() => _resendingCode = true);
     try {
-      await Modular.get<ResendPaymentPreferencesVerificationCodeUseCase>()
-          .call(NoParms());
+      await handler(context);
     } catch (_) {
       if (!mounted) return;
 
@@ -45,7 +50,7 @@ class _VerificationCodeModalState extends State<VerificationCodeModal> {
         LocaleKeys.wallet_module_common_an_error_occur.tr(),
       );
     } finally {
-      setState(() => _resendingCode = false);
+      if (mounted) setState(() => _resendingCode = false);
     }
   }
 
@@ -54,29 +59,22 @@ class _VerificationCodeModalState extends State<VerificationCodeModal> {
     if (code.isEmpty) {
       return UiAlertHelpers.showErrorSnackBar(
         context,
-        LocaleKeys.wallet_module_common_field_required
-            .tr(namedArgs: {'field': 'code'}),
+        LocaleKeys.wallet_module_common_field_required.tr(
+          namedArgs: {'field': 'code'},
+        ),
       );
     }
 
     setState(() => _submitting = true);
 
     try {
-      final result =
-          await Modular.get<CheckPaymentPreferencesverificationCodeUseCase>()
-              .call(code);
-
-      if (!result || !mounted) return;
-
-      Navigator.pop(context, result);
-      Modular.get<WalletRoutes>().withdrawal.navigate();
+      await widget.handleSubmit(context, code);
     } catch (_) {
-      UiAlertHelpers.showErrorSnackBar(
-        context,
+      UiAlertHelpers.showErrorToast(
         LocaleKeys.wallet_module_common_an_error_occur.tr(),
       );
     } finally {
-      setState(() => _submitting = false);
+      if (mounted) setState(() => _submitting = false);
     }
   }
 
@@ -94,7 +92,7 @@ class _VerificationCodeModalState extends State<VerificationCodeModal> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  LocaleKeys.wallet_module_payment_account_modal_title.tr(),
+                  widget.title,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0,
@@ -116,7 +114,7 @@ class _VerificationCodeModalState extends State<VerificationCodeModal> {
             ),
             const SizedBox(height: 16.0),
             Text(
-              LocaleKeys.wallet_module_payment_account_modal_description.tr(),
+              widget.description,
               style: const TextStyle(
                 fontSize: 14.0,
                 color: Colors.black54,
@@ -136,7 +134,7 @@ class _VerificationCodeModalState extends State<VerificationCodeModal> {
               controller: textCtrl,
               validator: (val) => null,
               decoration: InputDecoration(
-                hintText: 'k5w000',
+                hintText: '123456',
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
                   vertical: 12.0,

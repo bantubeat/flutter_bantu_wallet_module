@@ -1,19 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/action_button.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';
+import 'package:country_code_picker/country_code_picker.dart' show CountryCode;
+import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
+import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/payment_preference_entity.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/check_payment_preferences_verification_code_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/resend_payment_preferences_verification_code_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/update_payment_preferences_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/otp_code_modal.dart';
 
+import 'package:image_picker/image_picker.dart' show XFile;
+
+import '../../helpers/image_picker_helper.dart';
 import 'ui_model/ui_model.dart';
-import 'add_payment_account_controller.dart';
+
 import 'widgets/account_type_selector.dart';
 import 'widgets/country_select_field.dart';
 import 'widgets/payment_account_text_field.dart';
 import 'widgets/upload_box.dart';
 
-class AddPaymentAccountPage extends StatelessWidget {
-  const AddPaymentAccountPage();
+part 'add_or_edit_payment_account_controller.dart';
+
+class AddOrEditPaymentAccountPage extends StatelessWidget {
+  final PaymentPreferenceEntity? currentPaymentPreference;
+  const AddOrEditPaymentAccountPage(this.currentPaymentPreference);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +58,10 @@ class AddPaymentAccountPage extends StatelessWidget {
                 boxShadow: kElevationToShadow[2],
               ),
               child: ScreenControllerBuilder(
-                create: AddPaymentAccountController.new,
+                create: (s) => _AddOrEditPaymentAccountController(
+                  s,
+                  currentPaymentPreference,
+                ),
                 builder: (context, controller) {
                   final isMobile =
                       controller.selectedAccountType == EAccountType.mobile;

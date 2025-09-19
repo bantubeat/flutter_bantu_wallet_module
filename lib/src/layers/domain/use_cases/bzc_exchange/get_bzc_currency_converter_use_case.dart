@@ -1,7 +1,7 @@
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 
-import '../entities/currency_rates_entity.dart';
-import '../repositories/public_repository.dart';
+import '../../entities/currency_rates_entity.dart';
+import '../../repositories/public_repository.dart';
 
 class GetBzcCurrencyConverterUseCase
     extends UseCase<BzcCurrencyConverter, NoParms> {

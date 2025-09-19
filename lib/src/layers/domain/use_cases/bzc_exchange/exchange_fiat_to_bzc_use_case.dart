@@ -1,7 +1,7 @@
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 
-import '../entities/exchange_transaction_entity.dart';
-import '../repositories/exchange_repository.dart';
+import '../../entities/exchange_transaction_entity.dart';
+import '../../repositories/exchange_repository.dart';
 
 class ExchangeFiatToBzcUseCase
     implements UseCase<ExchangeTransactionEntity, _Param> {

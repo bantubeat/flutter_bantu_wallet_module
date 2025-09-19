@@ -184,7 +184,6 @@ const Map<String, dynamic> langMap = {
 			"mobile_payment_way": "Instantly",
 			"bank_account": "Bank Account",
 			"bank_account_way": "Bank transfer",
-			"add_payment_acconut": "Add a payment account",
 			"bad_account_number_confirmation": "Bad account number confirmation",
 			"modal": {
 				"title": "Verification code",
@@ -193,7 +192,7 @@ const Map<String, dynamic> langMap = {
 				"resend_code": "Resend code"
 			}
     },
-		"witdrawal": {
+		"withdrawal_process": {
       "request_title": "Slip N° : {{id}}",
       "fees_warning1": "Please note that the transfer fees from your payment account are your responsibility and you agree to pay income taxes in your country of residence. See ",
       "fees_warning2": "Bantubeat terms of use, policy, and Bantubeat payment conditions.",
@@ -210,7 +209,11 @@ const Map<String, dynamic> langMap = {
       "place_and_date2": "\" On \"",
       "place_and_date3": "\"",
       "signature1": "Signature: \"",
-      "signature2": "\""
+      "signature2": "\"",
+			"otp_code": {
+				"title": "Verification code",
+				"description": "To validate your payment request, you must enter the code that was sent to you by email"
+			}
     }
   }
 };

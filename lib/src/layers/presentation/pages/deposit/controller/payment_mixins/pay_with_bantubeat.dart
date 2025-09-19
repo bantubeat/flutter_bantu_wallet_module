@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../domain/entities/enums/e_payment_method.dart';
-import '../../../../../domain/use_cases/request_deposit_payment_link_use_case.dart';
+import '../../../../../domain/use_cases/deposit/request_deposit_payment_link_use_case.dart';
 import '../../../../widgets/payment_web_view.dart';
 
 mixin PayWithBantubeat {

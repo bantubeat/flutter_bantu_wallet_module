@@ -6,7 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pay/pay.dart';
 
 import '../../../../../../core/config/payment_configurations.dart';
-import '../../../../../domain/use_cases/make_deposit_direct_payment_use_case.dart';
+import '../../../../../domain/use_cases/deposit/make_deposit_direct_payment_use_case.dart';
 import '../../../../../domain/entities/enums/e_payment_method.dart';
 import '../../../../../domain/entities/financial_transaction_entity.dart';
 import '../../../../../presentation/helpers/ui_alert_helpers.dart';

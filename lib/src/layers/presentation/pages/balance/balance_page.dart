@@ -13,8 +13,8 @@ import '../../../../core/use_cases/use_case.dart';
 
 import '../../../domain/entities/user_entity.dart';
 import '../../../domain/entities/user_balance_entity.dart';
-import '../../../domain/use_cases/exchange_bzc_to_fiat_use_case.dart';
-import '../../../domain/use_cases/get_bzc_currency_converter_use_case.dart';
+import '../../../domain/use_cases/bzc_exchange/exchange_bzc_to_fiat_use_case.dart';
+import '../../../domain/use_cases/bzc_exchange/get_bzc_currency_converter_use_case.dart';
 
 import '../../cubits/current_user_cubit.dart';
 import '../../cubits/user_balance_cubit.dart';

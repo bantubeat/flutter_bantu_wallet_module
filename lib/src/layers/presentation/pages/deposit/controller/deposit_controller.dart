@@ -11,8 +11,8 @@ import '../../../../../core/use_cases/use_case.dart';
 import '../../../../../core/config/countries.dart';
 import '../../../../domain/entities/currency_item_entity.dart';
 import '../../../../domain/entities/user_entity.dart';
-import '../../../../domain/use_cases/get_all_currencies_use_case.dart';
-import '../../../../domain/use_cases/get_current_user_use_case.dart';
+import '../../../../domain/use_cases/currency/get_all_currencies_use_case.dart';
+import '../../../../domain/use_cases/account/get_current_user_use_case.dart';
 
 import 'payment_mixins/pay_with_bantubeat.dart';
 import 'payment_mixins/pay_with_google.dart';

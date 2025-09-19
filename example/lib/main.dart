@@ -132,6 +132,10 @@ class AppModule extends Module {
         routes: WalletRoutes('/wallet'.toLowerCase()),
         walletApiKeys: const MyWalletApiKeys(isProduction: isProduction),
         isProduction: isProduction,
+        onGoToKycForm: () {
+          print('onGoToKycForm called');
+          Modular.to.navigate(Modular.initialRoute);
+        },
       ),
     );
   }

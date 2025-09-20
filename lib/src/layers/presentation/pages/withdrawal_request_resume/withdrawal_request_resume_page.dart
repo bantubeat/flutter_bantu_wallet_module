@@ -24,10 +24,11 @@ class WithdrawalRequestResumePage extends StatelessWidget {
 
   // Helper for the bottom address/contact info
   Widget _buildFooterInfo() {
-    return const Center(
+    return const Align(
+      alignment: Alignment.centerLeft,
       child: Text(
         'BANTUBEAT\nRue des Hiercheuses 140, 6001 Charleroi/Belgique N° entreprise : 802237609 - Tva: 0802237609 Contact@bantubeat.com\nTel: +32471307504',
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.left,
         style: TextStyle(color: Colors.grey, fontSize: 12),
       ),
     );
@@ -39,7 +40,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey.shade300,
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(color: Colors.grey.shade300),
       ),
@@ -54,17 +55,21 @@ class WithdrawalRequestResumePage extends StatelessWidget {
                 size: 20,
               ),
               const SizedBox(width: 8),
-              Text(
-                isMobile
-                    ? LocaleKeys
-                        .wallet_module_withdrawal_process_use_my_mobile_account
-                        .tr()
-                    : LocaleKeys
-                        .wallet_module_withdrawal_process_use_my_bank_account
-                        .tr(),
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+              Flexible(
+                child: FittedBox(
+                  child: Text(
+                    isMobile
+                        ? LocaleKeys
+                            .wallet_module_withdrawal_process_use_my_mobile_account
+                            .tr()
+                        : LocaleKeys
+                            .wallet_module_withdrawal_process_use_my_bank_account
+                            .tr(),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -162,16 +167,16 @@ class WithdrawalRequestResumePage extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildOtherTextWidgets() {
+  List<Widget> _buildOtherTextWidgets(ColorScheme colorScheme) {
     return [
       Text(
         LocaleKeys.wallet_module_withdrawal_process_i_acceptes_fees.tr(),
-        style: const TextStyle(color: Colors.black54, fontSize: 14),
+        style: TextStyle(color: colorScheme.onSurface, fontSize: 14),
       ),
       const SizedBox(height: 30),
       RichText(
         text: TextSpan(
-          style: const TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16, color: colorScheme.onSurface),
           children: [
             TextSpan(
               text: LocaleKeys.wallet_module_withdrawal_process_place_and_date1
@@ -199,7 +204,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
       const SizedBox(height: 16),
       RichText(
         text: TextSpan(
-          style: const TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16, color: colorScheme.onSurface),
           children: [
             TextSpan(
               text: LocaleKeys.wallet_module_withdrawal_process_signature1.tr(),
@@ -242,13 +247,12 @@ class WithdrawalRequestResumePage extends StatelessWidget {
               const SizedBox(height: 20),
               _buildBankAccountInfo(colorScheme),
               const SizedBox(height: 20),
-              ..._buildOtherTextWidgets(),
+              ..._buildOtherTextWidgets(colorScheme),
               const SizedBox(height: 24),
               _buildFooterInfo(),
               const SizedBox(height: 24),
               ScreenControllerBuilder(
-                create: (state) =>
-                    _WithdrawalRequestResumeController(state, param),
+                create: (s) => _WithdrawalRequestResumeController(s, param),
                 builder: (context, ctrl) => ActionButton(
                   isLoading: ctrl.isProcessing,
                   text: LocaleKeys.wallet_module_common_validate.tr(),

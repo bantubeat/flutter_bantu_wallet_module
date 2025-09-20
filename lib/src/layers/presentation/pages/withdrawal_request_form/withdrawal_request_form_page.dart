@@ -83,25 +83,30 @@ class WithdrawalRequestFormPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.grey.shade200),
-                    ),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey.shade200),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         Row(
                           children: [
-                            Text(
-                              LocaleKeys
-                                  .wallet_module_withdrawal_page_financial_account_balance
-                                  .tr(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
+                            Flexible(
+                              flex: 3,
+                              child: FittedBox(
+                                child: Text(
+                                  LocaleKeys
+                                      .wallet_module_withdrawal_page_financial_account_balance
+                                      .tr(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
                               ),
                             ),
                             const SizedBox(width: 10),
@@ -136,13 +141,8 @@ class WithdrawalRequestFormPage extends StatelessWidget {
                             bloc: Modular.get<UserBalanceCubit>(),
                             builder: (context, balanceSnap) => Text(
                               balanceSnap.hasData
-                                  ? NumberFormat.currency(
-                                      symbol: isAfrican ? 'F CFA' : '€',
-                                    ).format(
-                                      isAfrican
-                                          ? balanceSnap.data?.xaf
-                                          : balanceSnap.data?.eur,
-                                    )
+                                  ? NumberFormat.currency(symbol: ' € ')
+                                      .format(balanceSnap.data?.eur)
                                   : '...',
                               style: const TextStyle(
                                 fontSize: 20,
@@ -154,7 +154,7 @@ class WithdrawalRequestFormPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 14),
                         Text(
-                          DateFormat('dd MM yyyy').format(DateTime.now()),
+                          DateFormat('dd/MM/yyyy').format(DateTime.now()),
                           style: const TextStyle(
                             fontSize: 12,
                             color: Colors.white,
@@ -167,7 +167,8 @@ class WithdrawalRequestFormPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 Text(
-                  LocaleKeys.wallet_module_withdrawal_process_amount_to_withdraw
+                  LocaleKeys
+                      .wallet_module_withdrawal_process_amount_to_withdraw_in_eur
                       .tr(),
                   style: const TextStyle(fontSize: 24.0),
                 ),
@@ -178,7 +179,7 @@ class WithdrawalRequestFormPage extends StatelessWidget {
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
                     hintText: LocaleKeys
-                        .wallet_module_withdrawal_process_amount_to_withdraw
+                        .wallet_module_withdrawal_process_amount_to_withdraw_in_eur
                         .tr(),
                     filled: true,
                     fillColor: const Color(0xFFEBEBEB),

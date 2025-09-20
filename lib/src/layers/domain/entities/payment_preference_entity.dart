@@ -1,7 +1,6 @@
 import 'enums/e_account_type.dart';
 
 abstract class PaymentPreferenceEntity {
-  final int id;
   final String uuid;
   final int userId;
   final String? detailName;
@@ -19,7 +18,6 @@ abstract class PaymentPreferenceEntity {
   final String? verificationCode;
 
   const PaymentPreferenceEntity({
-    required this.id,
     required this.uuid,
     required this.userId,
     required this.accountType,

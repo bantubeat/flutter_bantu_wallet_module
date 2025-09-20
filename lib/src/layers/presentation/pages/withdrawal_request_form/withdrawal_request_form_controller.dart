@@ -39,10 +39,15 @@ class _WithdrawalRequestFormController extends ScreenController {
   }
 
   void onSubmit() async {
+    if (isProcessing) return;
     final amount = num.tryParse(amountCtrl.text);
     if (amount == null || amount < 0) {
       error = 'Le montant doit être un nombre positif';
+      refreshUI();
       return;
+    } else {
+      error = '';
+      refreshUI();
     }
 
     final balanceCubit = Modular.get<UserBalanceCubit>();
@@ -54,15 +59,16 @@ class _WithdrawalRequestFormController extends ScreenController {
       financialAccountId = balanceCubit.state.requireData.financialWalletNumber;
     } else {
       updateUI(() => isProcessing = true);
-      final balanceState = await balanceCubit.fetchUserBalance();
-      balanceInEur = balanceState.eur;
-      financialAccountId = balanceState.financialWalletNumber;
+      final userBalance = await balanceCubit.fetchUserBalance();
+      balanceInEur = userBalance.eur;
+      financialAccountId = userBalance.financialWalletNumber;
       updateUI(() => isProcessing = false);
     }
 
-    if (amount < balanceInEur) {
+    if (amount > balanceInEur) {
       error =
           LocaleKeys.wallet_module_withdrawal_process_insufficient_funds.tr();
+      refreshUI();
       return;
     }
 

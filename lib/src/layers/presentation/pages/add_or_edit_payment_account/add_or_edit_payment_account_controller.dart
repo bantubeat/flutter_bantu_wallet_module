@@ -27,6 +27,7 @@ class _AddOrEditPaymentAccountController extends ScreenController {
 
   XFile? _bankDocumentXFile;
   ImageProvider? bankDocument;
+  bool isProcessing = false;
 
   _AddOrEditPaymentAccountController(
     super.state,
@@ -41,9 +42,14 @@ class _AddOrEditPaymentAccountController extends ScreenController {
     selectedAccountType = pref?.accountType ?? EAccountType.mobile;
 
     // Mobile account fields
-    selectedPaymentCountry = CountryCode.tryFromCountryCode(
-      pref?.detailCountry ?? '',
-    );
+    final country = pref?.detailCountry ?? '';
+    if (country.isNotEmpty) {
+      selectedPaymentCountry = CountryCode.tryFromCountryCode(country) ??
+          codes
+              .where((c) => c['name']?.toUpperCase() == country)
+              .map((c) => CountryCode.fromJson(c))
+              .firstOrNull;
+    }
     mobileOperatorCtrl = TextEditingController(
       text: pref?.detailOperator ?? '',
     );
@@ -241,6 +247,7 @@ class _AddOrEditPaymentAccountController extends ScreenController {
   }
 
   void onNext() async {
+    if (isProcessing) return;
     // Validate based on the selected account type
     final paymentAccountFormData = selectedAccountType == EAccountType.mobile
         ? _validateMobileAccountInfos()
@@ -250,11 +257,13 @@ class _AddOrEditPaymentAccountController extends ScreenController {
 
     // If paymentAccountFormData is null, it means validation failed
     if (paymentPrefInput == null) return;
+    isProcessing = true;
+    refreshUI();
 
     await Modular.get<UpdatePaymentPreferencesUseCase>().call(paymentPrefInput);
 
     if (!context.mounted) return;
-    OtpCodeModal(
+    await OtpCodeModal(
       title: LocaleKeys.wallet_module_payment_account_modal_title.tr(),
       description:
           LocaleKeys.wallet_module_payment_account_modal_description.tr(),
@@ -271,5 +280,9 @@ class _AddOrEditPaymentAccountController extends ScreenController {
             .call(NoParms());
       },
     ).show(context);
+
+    if (!context.mounted) return;
+    isProcessing = false;
+    refreshUI();
   }
 }

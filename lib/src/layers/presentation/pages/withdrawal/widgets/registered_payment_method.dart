@@ -14,10 +14,7 @@ typedef _PaymentPreferenceSumary = ({
 class RegisteredPaymentMethod extends StatelessWidget {
   final PaymentPreferenceEntity paymentPreference;
 
-  const RegisteredPaymentMethod({
-    required this.paymentPreference,
-    super.key,
-  });
+  const RegisteredPaymentMethod(this.paymentPreference);
 
   void _onEdit() {
     Modular.get<WalletRoutes>().addOrEditPaymentAccount.push(paymentPreference);
@@ -51,20 +48,26 @@ class RegisteredPaymentMethod extends StatelessWidget {
     }
   }
 
+  String _maskAccountId(String accountId) {
+    final length = accountId.length;
+    final maskLength = (length * 0.7).toInt();
+    return ('*' * maskLength) + accountId.substring(maskLength);
+  }
+
   @override
   Widget build(BuildContext context) {
     final summary = _getSumary();
     final accountType = summary.name ?? paymentPreference.accountType.value;
     final accountId = (summary.id ?? paymentPreference.detailName ?? '');
     final accountName = summary.accountName;
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFFF9F9F9),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.grey.shade200),
-        ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: const Color(0xFFF9F9F9),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
         child: Row(
           children: [
             Column(
@@ -79,11 +82,7 @@ class RegisteredPaymentMethod extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  accountId.replaceFirst(
-                    RegExp(r'[a-zA-Z1-9]'),
-                    '*',
-                    (accountId.length * 0.3).toInt(),
-                  ),
+                  _maskAccountId(accountId),
                   style: TextStyle(
                     color: Colors.grey[600],
                     fontSize: 14,

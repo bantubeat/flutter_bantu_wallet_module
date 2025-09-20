@@ -3,7 +3,6 @@ import '../../domain/entities/payment_preference_entity.dart';
 
 class PaymentPreferenceModel extends PaymentPreferenceEntity {
   const PaymentPreferenceModel({
-    required super.id,
     required super.uuid,
     required super.userId,
     required super.accountType,
@@ -23,7 +22,6 @@ class PaymentPreferenceModel extends PaymentPreferenceEntity {
 
   factory PaymentPreferenceModel.fromJson(Map<String, dynamic> json) {
     return PaymentPreferenceModel(
-      id: json['id'],
       uuid: json['uuid'],
       userId: json['user_id'],
       detailName: json['detail_name'],
@@ -37,14 +35,13 @@ class PaymentPreferenceModel extends PaymentPreferenceEntity {
       detailCountry: json['detail_country'],
       detailOperator: json['detail_operator'],
       detailBankName: json['detail_bank_name'],
-      isVerified: int.tryParse(json['is_verified'] ?? '') == 1,
+      isVerified: int.tryParse(json['is_verified']?.toString() ?? '') == 1,
       verificationCode: json['verification_code'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'uuid': uuid,
       'user_id': userId,
       'detail_name': detailName,

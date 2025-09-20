@@ -196,7 +196,7 @@ const Map<String, dynamic> langMap = {
 			"request_title": "Bordereau N° : {{id}}",
 			"fees_warning1": "Attention les frais de tranferts de votre compte de paiement sont à votre charge et vous vous engagez à payer les taxes sur les revenus dans votre pays de résidence. voir ",
 			"fees_warning2": "conditions d'utilisation Bantubeat, politique et conditions de paiement bantubeat.",
-			"amount_to_withdraw": "Montant à retirer",
+			"amount_to_withdraw_in_eur": "Montant à retirer en €",
 			"insufficient_funds": "Solde insuffisant pour ce retrait",
 			"resume_description1": "Je, soussigné ",
 			"resume_description2": ", agissant en qualité de titulaire/représentant du compte ",

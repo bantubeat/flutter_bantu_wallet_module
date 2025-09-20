@@ -95,25 +95,30 @@ class WithdrawalPage extends StatelessWidget {
               ),
             ), */
               const SizedBox(height: 24),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: colorScheme.primary,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.grey.shade200),
-                  ),
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: colorScheme.primary,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey.shade200),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
                   child: Column(
                     children: [
                       Row(
                         children: [
-                          Text(
-                            LocaleKeys
-                                .wallet_module_withdrawal_page_financial_account_balance
-                                .tr(),
-                            style: TextStyle(
-                              color: colorScheme.onPrimary,
-                              fontSize: 16,
+                          Flexible(
+                            flex: 3,
+                            child: FittedBox(
+                              child: Text(
+                                LocaleKeys
+                                    .wallet_module_withdrawal_page_financial_account_balance
+                                    .tr(),
+                                style: TextStyle(
+                                  color: colorScheme.onPrimary,
+                                  fontSize: 16,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(width: 10),
@@ -165,7 +170,7 @@ class WithdrawalPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 14),
                       Text(
-                        DateFormat('dd MM yyyy').format(DateTime.now()),
+                        DateFormat('dd/MM/yyyy').format(DateTime.now()),
                         style: TextStyle(
                           fontSize: 12,
                           color: colorScheme.onPrimary,
@@ -208,6 +213,15 @@ class WithdrawalPage extends StatelessWidget {
                   Modular.get<GetPaymentPreferencesUseCase>().call(NoParms()),
                 ]),
                 builder: (context, snap) {
+                  final error = snap.error;
+                  if (error != null) {
+                    debugPrint(error.toString());
+                    debugPrintStack(
+                      label: error.toString(),
+                      stackTrace: snap.stackTrace,
+                    );
+                  }
+
                   final kycStatus = snap.data?.first as EKycStatus?;
                   final paymentPreferences =
                       snap.data?.last as List<PaymentPreferenceEntity>?;
@@ -220,7 +234,7 @@ class WithdrawalPage extends StatelessWidget {
 
                   return Column(
                     children: [
-                      if (paymentPreferences.isNotEmpty) ...[
+                      if (paymentPreferences.isEmpty) ...[
                         Text(
                           LocaleKeys
                               .wallet_module_withdrawal_page_you_can_receive_payment_yet
@@ -249,11 +263,7 @@ class WithdrawalPage extends StatelessWidget {
                           fullWidth: true,
                         )
                       else ...[
-                        ...paymentPreferences.map(
-                          (paymentPreference) => RegisteredPaymentMethod(
-                            paymentPreference: paymentPreference,
-                          ),
-                        ),
+                        ...paymentPreferences.map(RegisteredPaymentMethod.new),
                         const SizedBox(height: 20),
                         ActionButton(
                           text: LocaleKeys

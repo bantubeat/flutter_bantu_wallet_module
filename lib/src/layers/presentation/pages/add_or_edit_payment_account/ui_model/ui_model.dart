@@ -70,7 +70,7 @@ class PaymentAccountFormDataType {
         accountType: accountType,
         detailName: mobileData.mobileOperator,
         detailPhone: mobileData.mobileAccountNumber,
-        detailCountry: mobileData.paymentCountry.code,
+        detailCountry: mobileData.paymentCountry.name,
         detailOperator: mobileData.mobileOperator,
       );
     }

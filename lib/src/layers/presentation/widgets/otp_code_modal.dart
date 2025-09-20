@@ -91,13 +91,18 @@ class _OtpCodeModalState extends State<OtpCodeModal> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
+                Flexible(
+                  child: FittedBox(
+                    child: Text(
+                      widget.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
                   ),
                 ),
+                const SizedBox(width: 16.0),
                 CircleAvatar(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   child: GestureDetector(

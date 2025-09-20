@@ -1,3 +1,5 @@
+import 'package:country_code_picker/country_code_picker.dart'
+    show CountryCode, codes;
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
@@ -5,7 +7,6 @@ import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/action_button.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';
-import 'package:country_code_picker/country_code_picker.dart' show CountryCode;
 import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/payment_preference_entity.dart';
@@ -198,6 +199,7 @@ class AddOrEditPaymentAccountPage extends StatelessWidget {
                       const SizedBox(height: 32),
                       ActionButton(
                         text: LocaleKeys.wallet_module_common_save.tr(),
+                        isLoading: controller.isProcessing,
                         onPressed: controller.onNext,
                       ),
                     ],

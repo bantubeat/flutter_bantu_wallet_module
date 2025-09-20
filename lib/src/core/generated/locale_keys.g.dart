@@ -148,7 +148,7 @@ abstract class  LocaleKeys {
   static const wallet_module_withdrawal_process_request_title = 'wallet_module.withdrawal_process.request_title';
   static const wallet_module_withdrawal_process_fees_warning1 = 'wallet_module.withdrawal_process.fees_warning1';
   static const wallet_module_withdrawal_process_fees_warning2 = 'wallet_module.withdrawal_process.fees_warning2';
-  static const wallet_module_withdrawal_process_amount_to_withdraw = 'wallet_module.withdrawal_process.amount_to_withdraw';
+  static const wallet_module_withdrawal_process_amount_to_withdraw_in_eur = 'wallet_module.withdrawal_process.amount_to_withdraw_in_eur';
   static const wallet_module_withdrawal_process_insufficient_funds = 'wallet_module.withdrawal_process.insufficient_funds';
   static const wallet_module_withdrawal_process_resume_description1 = 'wallet_module.withdrawal_process.resume_description1';
   static const wallet_module_withdrawal_process_resume_description2 = 'wallet_module.withdrawal_process.resume_description2';

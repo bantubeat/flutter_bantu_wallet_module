@@ -20,20 +20,19 @@ class MyHeaderBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
-              child: InkWell(
-                onTap: () => Modular.to.canPop() ? Modular.to.pop() : null,
-                child: CircleAvatar(
-                  radius: 12,
-                  backgroundColor: colorScheme.onPrimary,
-                  child: Icon(
-                    Icons.arrow_back_sharp,
-                    color: colorScheme.primary,
-                    size: 15,
-                  ),
+            InkWell(
+              onTap: () => Modular.to.canPop() ? Modular.to.pop() : null,
+              child: CircleAvatar(
+                radius: 12,
+                backgroundColor: colorScheme.onPrimary,
+                child: Icon(
+                  Icons.arrow_back_sharp,
+                  color: colorScheme.primary,
+                  size: 15,
                 ),
               ),
             ),
+            const SizedBox(width: 20),
             Expanded(
               child: Center(
                 child: FittedBox(
@@ -49,7 +48,7 @@ class MyHeaderBar extends StatelessWidget {
                 ),
               ),
             ),
-            const Flexible(child: SizedBox(width: 40)),
+            const SizedBox(width: 20),
           ],
         ),
       ),

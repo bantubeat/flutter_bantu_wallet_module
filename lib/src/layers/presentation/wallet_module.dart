@@ -54,9 +54,9 @@ import '../domain/use_cases/withdrawal/send_withdrawal_mail_otp_use_case.dart';
 import 'pages/add_or_edit_payment_account/add_or_edit_payment_account_page.dart';
 
 class WalletModule extends Module {
-  static const _floatingMenuBuilderKey = 'floatingMenuBuilder';
-  static const _onGoToKycFormKey = 'onGoToKycForm';
-  static const _isProductionKey = 'isProduction';
+  static const _floatingMenuBuilderKey = 'WalletModule@floatingMenuBuilder';
+  static const _onGoToKycFormKey = 'WalletModule@onGoToKycForm';
+  static const _isProductionKey = 'WalletModule@isProduction';
 
   final Widget Function() floatingMenuBuilder;
   final Future<String?> Function() getAccessToken;
@@ -99,7 +99,7 @@ class WalletModule extends Module {
 
   @override
   void binds(i) {
-    const withCacheKey = 'with_cache_key';
+    const withCacheKey = 'WalletModule@with_cache_key';
     i.add<bool>(() => isProduction, key: _isProductionKey);
     // Core
     i.addSingleton<MyHttpClient>(_initMyHttpClient(withCache: false));

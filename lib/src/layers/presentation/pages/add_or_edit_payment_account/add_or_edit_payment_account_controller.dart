@@ -273,7 +273,7 @@ class _AddOrEditPaymentAccountController extends ScreenController {
                 .call(code);
         if (!isValid || !context.mounted) return;
         Navigator.pop(context);
-        Modular.get<WalletRoutes>().withdrawal.navigate();
+        Modular.get<WalletRoutes>().home.navigate();
       },
       handleResend: (context) {
         return Modular.get<ResendPaymentPreferencesVerificationCodeUseCase>()

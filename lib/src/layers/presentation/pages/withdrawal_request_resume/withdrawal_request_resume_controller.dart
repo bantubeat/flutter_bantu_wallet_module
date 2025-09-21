@@ -30,7 +30,7 @@ class _WithdrawalRequestResumeController extends ScreenController {
           );
           if (!context.mounted) return;
           Navigator.pop(context);
-          Modular.get<WalletRoutes>().withdrawal.navigate();
+          Modular.get<WalletRoutes>().home.navigate();
         },
         handleResend: (context) {
           return Modular.get<SendWithdrawalMailOtpUseCase>().call(NoParms());

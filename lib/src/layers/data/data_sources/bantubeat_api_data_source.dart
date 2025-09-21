@@ -217,18 +217,25 @@ final class BantubeatApiDataSource {
   }
 
   Future<EKycStatus> get$accountKyc() async {
-    final response = await _client.get('/account/kyc');
-    final status = response.data['status'];
-    if (status == null || status is! String) return EKycStatus.unknow;
-    switch (status.toUpperCase()) {
-      case 'PENDING':
-        return EKycStatus.pending;
-      case 'SUCCESS':
-        return EKycStatus.success;
-      case 'FAILED':
-        return EKycStatus.failed;
-      default:
-        return EKycStatus.unknow;
+    try {
+      final response = await _client.get('/account/kyc');
+      final status = response.data['status'];
+      if (status == null || status is! String) return EKycStatus.unknow;
+      switch (status.toUpperCase()) {
+        case 'PENDING':
+          return EKycStatus.pending;
+        case 'SUCCESS':
+          return EKycStatus.success;
+        case 'FAILED':
+          return EKycStatus.failed;
+        default:
+          return EKycStatus.unknow;
+      }
+    } catch (err) {
+      if (err is MyHttpClientSideException && err.statusCode == 404) {
+        return EKycStatus.notSubmitted;
+      }
+      rethrow;
     }
   }
 

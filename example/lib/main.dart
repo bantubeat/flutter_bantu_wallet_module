@@ -9,13 +9,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'widgets/my_bottom_navigation_bar.dart';
 
-// Ben token
+// test token
 const _accessToken =
     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLmRldi5iYW50dWJlYXQuY29tL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU4Mzc4Mjc1LCJleHAiOjE3NjA3OTc0NzUsIm5iZiI6MTc1ODM3ODI3NSwianRpIjoiVVQ0YlJiNlU3UTRPRzJXeSIsInN1YiI6IjBlY2Y5NWY0LTJjZTMtNGRlMC04OGNmLTBmODJlNWE5MTJmZCJ9.e2oZWrQavG8XOYVDC5G_rzL6O1RYIT0GYYR0uBDZyOQ';
-
-// Production token
-//const _accessToken =
-//    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLXByb2QuYmFudHViZWF0LmNvbS9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTczNTYxOTk5MywiZXhwIjoxNzM4MDM5MTkzLCJuYmYiOjE3MzU2MTk5OTMsImp0aSI6IjhadjVRZXNQQVFFeWRqSlUiLCJzdWIiOiI3ZjkwYzg4MS0zY2QzLTQ0MGUtOTRmOS0zYmVjNDNmZTExZTEifQ.bI5S8GjTCEEkKco3q5aFAOpp35zyPFoEiet7zoB9Qds';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -27,16 +23,8 @@ void main() async {
     Hive.init(appDocumentDirectory.path);
   }
 
-  const isProduction = false;
   runApp(
     ModularApp(
-      // module: WalletModule(
-      //   getAccessToken: () => Future.sync(() => _accessToken),
-      //   floatingMenuBuilder: MyBottomNavigationBar.new,
-      //   routes: WalletRoutes(''.toLowerCase()),
-      //   walletApiKeys: const MyWalletApiKeys(isProduction: isProduction),
-      //   isProduction: isProduction,
-      // ),
       module: AppModule(),
       child: AppWidget(),
     ),
@@ -131,7 +119,7 @@ class AppModule extends Module {
         walletApiKeys: const MyWalletApiKeys(isProduction: isProduction),
         isProduction: isProduction,
         onGoToKycForm: () {
-          print('onGoToKycForm called');
+          debugPrint('onGoToKycForm called');
           Modular.to.navigate(Modular.initialRoute);
         },
       ),

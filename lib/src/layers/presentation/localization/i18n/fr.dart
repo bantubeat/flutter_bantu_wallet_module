@@ -44,8 +44,7 @@ const Map<String, dynamic> langMap = {
     },
     "wallets_page": {
       "title": "Porte-Feuille",
-      "description":
-          "Dans votre porte-feuille, vous disposez d'un compte financier qui affiche en valeur monétaire le solde de votre compte et un compte de beatzcoin qui affiche le solde de vos beatzcoins. Tous les paiements effectués sur la plateforme se font par vos jetons beatzcoin. Pour effectuer un achat sur la plateforme vous devez au préalable approvisionner votre compte financier.\nSi le solde de votre compte Beatzcoin ne couvre pas la totalité du montant des renouvellements, Votre accès à la plateforme sera annulé. En savoir plus sur la",
+      "description": "Attention les frais de tranferts de votre compte de paiement sont à votre charge et vous vous engagez à payer les taxes sur les revenus dans votre pays de résidence.",
       "description2": " politique et condition de paiement Bantubeat",
       "financier_account": {
         "title": "Compte Financier",

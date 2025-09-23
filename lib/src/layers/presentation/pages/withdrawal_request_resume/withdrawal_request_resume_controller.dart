@@ -26,11 +26,10 @@ class _WithdrawalRequestResumeController extends ScreenController {
 
   @protected
   void _initNameAndCountry(UserEntity currentUser) {
-    //final paymentPreference = createWithdrawalRequest.paymentPreference;
-    //fullName = (paymentPreference.detailName?.isNotEmpty ?? false)
-    //    ? paymentPreference.detailName!
-    //    : currentUser.noms;
-    fullName = currentUser.noms;
+    final paymentPreference = createWithdrawalRequest.paymentPreference;
+    fullName = (paymentPreference.detailName?.isNotEmpty ?? false)
+        ? paymentPreference.detailName!
+        : '${currentUser.nom} ${currentUser.prenom}';
     countryName = CountryCode.tryFromCountryCode(currentUser.pays)?.name ?? '';
     refreshUI();
   }
@@ -74,6 +73,7 @@ class _WithdrawalRequestResumeController extends ScreenController {
     } catch (e, s) {
       debugPrint('Request withdrawal error: ${e.toString()}');
       debugPrintStack(label: e.toString(), stackTrace: s);
+      message = e.toString();
       status = null;
     }
 
@@ -126,7 +126,11 @@ class _WithdrawalRequestResumeController extends ScreenController {
             .tr();
         break;
       case null:
-        message = LocaleKeys.wallet_module_common_an_error_occur.tr();
+        message = LocaleKeys.wallet_module_common_an_error_occur.tr(
+          namedArgs: {
+            'message': message,
+          },
+        );
         break;
     }
 

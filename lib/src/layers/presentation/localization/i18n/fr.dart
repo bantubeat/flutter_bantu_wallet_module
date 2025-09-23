@@ -44,7 +44,7 @@ const Map<String, dynamic> langMap = {
     },
     "wallets_page": {
       "title": "Porte-Feuille",
-      "description": "Attention les frais de tranferts de votre compte de paiement sont à votre charge et vous vous engagez à payer les taxes sur les revenus dans votre pays de résidence.",
+			"description": "Dans votre portefeuille, vous disposez d’un compte financier qui affiche le solde de votre compte en valeur monétaire et d’un compte Beatzcoin qui affiche le solde de vos Beatzcoins. Tous les paiements effectués sur la plateforme se font avec vos jetons Beatzcoin. Pour effectuer un achat sur la plateforme, vous devez d’abord approvisionner votre compte financier.\nSi le solde de votre compte Beatzcoin ne couvre pas la totalité du montant des renouvellements, votre accès à la plateforme sera annulé. En savoir plus sur la ",
       "description2": " politique et condition de paiement Bantubeat",
       "financier_account": {
         "title": "Compte Financier",
@@ -91,8 +91,7 @@ const Map<String, dynamic> langMap = {
     },
     "withdrawal_page": {
       "title": "Retrait",
-      "description":
-          "les demandes de paiement sont éffectuées via votre profil Bantubeat. Connectez vous sur votre Compte Bantubeat puis allez dans votre Balance et dans retrait.\nVous devez obligatoirement enregistrer un moyen de paiement sur lequel vos demandes de paiement seront transférées, vous pourriez modifier vos préférences de paiement à tout moment.\nN.B. Vous ne pouvez effectuer que 1 retrait par mois. Toutes les demandes de paiement doivent se faire entre le 25 et le 30 du mois. comptez en moyenne 15 jours pour la réception des fonds sur votre compte.\nConformément aux lois de l’union européenne, nous devons vérifier votre identité avant tout paiement.",
+      "description": "Attention les frais de tranferts de votre compte de paiement sont à votre charge et vous vous engagez à payer les taxes sur les revenus dans votre pays de résidence.",
       "financial_account_balance": "Solde de votre compte Financier",
       "see_details": "Voir les détails",
       "Your_registered_payment_account": "Votre compte de paiement enregistré:",

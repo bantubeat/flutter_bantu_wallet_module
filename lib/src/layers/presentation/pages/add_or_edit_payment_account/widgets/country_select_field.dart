@@ -23,7 +23,7 @@ class CountrySelectField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          label ?? LocaleKeys.wallet_module_payment_account_account_type.tr(),
+          label ?? LocaleKeys.wallet_module_common_country.tr(),
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w500,

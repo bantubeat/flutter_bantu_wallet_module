@@ -59,7 +59,10 @@ class WithdrawalPage extends StatelessWidget {
               const SizedBox(height: 7.5),
               Container(
                 padding: const EdgeInsets.all(5),
-                color: colorScheme.primaryContainer.withValues(alpha: 0.5),
+                decoration: BoxDecoration(
+                  color: colorScheme.primary.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(5),
+                ),
                 alignment: Alignment.center,
                 child: Text(
                   LocaleKeys.wallet_module_withdrawal_page_description.tr(),
@@ -70,30 +73,6 @@ class WithdrawalPage extends StatelessWidget {
                   ),
                 ),
               ),
-              /*
-            SizedBox(height: 30.0),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.info_outline,
-                      color: Theme.of(context).colorScheme.primary),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      'Les demandes de paiement sont effectuées via votre profil Bantubeat.',
-                      style: const TextStyle(
-                        color: Color.fromRGBO(18, 18, 18, 1),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ), */
               const SizedBox(height: 24),
               DecoratedBox(
                 decoration: BoxDecoration(

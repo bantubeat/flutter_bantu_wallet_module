@@ -1,12 +1,20 @@
+import 'dart:async';
+
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_withdrawal_response_status.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/payment_preference_entity.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/user_entity.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/withdrawal/request_withdrawal_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/withdrawal/send_withdrawal_mail_otp_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/create_withdrawal_request.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/current_user_cubit.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/user_balance_cubit.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/action_button.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/my_header_bar.dart';
@@ -121,7 +129,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
     );
   }
 
-  Widget _buildResume(ColorScheme colorScheme) {
+  Widget _buildResume(ColorScheme colorScheme, String fullName) {
     return Text.rich(
       textAlign: TextAlign.center,
       style: TextStyle(
@@ -136,7 +144,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
                 .tr(),
           ),
           TextSpan(
-            text: param.paymentPreference.detailName ?? '',
+            text: fullName,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           TextSpan(
@@ -154,7 +162,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
                 .tr(),
           ),
           TextSpan(
-            text: param.amount.toString(),
+            text: '${param.amount.toString()}€',
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           TextSpan(
@@ -167,7 +175,11 @@ class WithdrawalRequestResumePage extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildOtherTextWidgets(ColorScheme colorScheme) {
+  List<Widget> _buildOtherTextWidgets(
+    ColorScheme colorScheme, {
+    required String fullName,
+    required String country,
+  }) {
     return [
       Text(
         LocaleKeys.wallet_module_withdrawal_process_i_acceptes_fees.tr(),
@@ -183,7 +195,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
                   .tr(),
             ),
             TextSpan(
-              text: LocaleKeys.wallet_module_common_city.tr().toUpperCase(),
+              text: country.toUpperCase(),
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             TextSpan(
@@ -191,7 +203,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
                   .tr(),
             ),
             TextSpan(
-              text: DateFormat('dd MM yyyy').format(DateTime.now()),
+              text: DateFormat('dd/MM/yyyy').format(DateTime.now()),
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             TextSpan(
@@ -210,7 +222,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
               text: LocaleKeys.wallet_module_withdrawal_process_signature1.tr(),
             ),
             TextSpan(
-              text: param.paymentPreference.detailName,
+              text: fullName,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             TextSpan(
@@ -235,32 +247,37 @@ class WithdrawalRequestResumePage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              MyHeaderBar(
-                title: LocaleKeys.wallet_module_withdrawal_process_request_title
-                    .tr(namedArgs: {'id': param.paymentSlip}),
-              ),
-              const SizedBox(height: 7.5),
-              _buildResume(colorScheme),
-              const SizedBox(height: 20),
-              _buildBankAccountInfo(colorScheme),
-              const SizedBox(height: 20),
-              ..._buildOtherTextWidgets(colorScheme),
-              const SizedBox(height: 24),
-              _buildFooterInfo(),
-              const SizedBox(height: 24),
-              ScreenControllerBuilder(
-                create: (s) => _WithdrawalRequestResumeController(s, param),
-                builder: (context, ctrl) => ActionButton(
+          child: ScreenControllerBuilder(
+            create: (s) => _WithdrawalRequestResumeController(s, param),
+            builder: (context, ctrl) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MyHeaderBar(
+                  title: LocaleKeys
+                      .wallet_module_withdrawal_process_request_title
+                      .tr(namedArgs: {'id': param.paymentSlip}),
+                ),
+                const SizedBox(height: 7.5),
+                _buildResume(colorScheme, ctrl.fullName),
+                const SizedBox(height: 20),
+                _buildBankAccountInfo(colorScheme),
+                const SizedBox(height: 20),
+                ..._buildOtherTextWidgets(
+                  colorScheme,
+                  fullName: ctrl.fullName,
+                  country: ctrl.countryName,
+                ),
+                const SizedBox(height: 24),
+                _buildFooterInfo(),
+                const SizedBox(height: 24),
+                ActionButton(
                   isLoading: ctrl.isProcessing,
                   text: LocaleKeys.wallet_module_common_validate.tr(),
                   onPressed: ctrl.onSubmit,
                   fullWidth: true,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

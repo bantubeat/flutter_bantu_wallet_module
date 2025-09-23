@@ -6,9 +6,10 @@ class _AddOrEditPaymentAccountController extends ScreenController {
 
   // Mobile account fields
   // Note: Mobile operator and account number are used for mobile accounts only
-  CountryCode? selectedPaymentCountry;
+  // CountryCode? selectedPaymentCountry;
   late final TextEditingController mobileOperatorCtrl;
-  late final TextEditingController mobileAccountNumberCtrl;
+  late PhoneNumber mobilePhoneNumber;
+  bool _isMobilePhoneNumberValid = false;
 
   // Bank account fields
   // Note: Bank name, account number, and SWIFT code are not used for mobile
@@ -42,20 +43,28 @@ class _AddOrEditPaymentAccountController extends ScreenController {
     selectedAccountType = pref?.accountType ?? EAccountType.mobile;
 
     // Mobile account fields
-    final country = pref?.detailCountry ?? '';
-    if (country.isNotEmpty) {
-      selectedPaymentCountry = CountryCode.tryFromCountryCode(country) ??
-          codes
-              .where((c) => c['name']?.toUpperCase() == country)
-              .map((c) => CountryCode.fromJson(c))
-              .firstOrNull;
-    }
     mobileOperatorCtrl = TextEditingController(
       text: pref?.detailOperator ?? '',
     );
-    mobileAccountNumberCtrl = TextEditingController(
-      text: pref?.detailPhone ?? '',
-    );
+    mobilePhoneNumber = PhoneNumber(phoneNumber: pref?.detailPhone ?? '');
+/*
+    var countryCodeOrName = pref?.detailCountry ?? '';
+    if (countryCodeOrName.length != 2 && mobilePhoneNumber.isoCode != null) {
+      countryCodeOrName = mobilePhoneNumber.isoCode ?? '';
+    }
+    selectedPaymentCountry = countryCodeOrName.length == 2
+        ? CountryCode.tryFromCountryCode(countryCodeOrName)
+        : codes
+            .where(
+              (c) =>
+                  c['name']?.toUpperCase() == countryCodeOrName.toUpperCase(),
+            )
+            .map((c) => CountryCode.fromJson(c))
+            .firstOrNull;
+
+    // Default to Cameroon if no country found
+    selectedPaymentCountry ??= CountryCode.fromCountryCode('CM');
+*/
 
     // Bank account fields
     bankNameCtrl = TextEditingController(text: pref?.detailBankName ?? '');
@@ -76,7 +85,6 @@ class _AddOrEditPaymentAccountController extends ScreenController {
   @override
   void onDispose() {
     mobileOperatorCtrl.dispose();
-    mobileAccountNumberCtrl.dispose();
     bankNameCtrl.dispose();
     bankAccountNumberCtrl.dispose();
     bankAccountNumberConfirmCtrl.dispose();
@@ -116,10 +124,10 @@ class _AddOrEditPaymentAccountController extends ScreenController {
     refreshUI();
   }
 
-  void selectPaymentCountry(CountryCode countryCode) {
-    selectedPaymentCountry = countryCode;
-    refreshUI();
-  }
+  // void selectPaymentCountry(CountryCode countryCode) {
+  //   selectedPaymentCountry = countryCode;
+  //   refreshUI();
+  // }
 
   void setAccountType(EAccountType type) {
     selectedAccountType = type;
@@ -137,6 +145,20 @@ class _AddOrEditPaymentAccountController extends ScreenController {
         }
       },
     );
+  }
+
+  void onPhoneNumberChanged(PhoneNumber number) {
+    mobilePhoneNumber = number;
+    // final isoCode = number.isoCode;
+    // if (isoCode != null) {
+    //   selectedPaymentCountry = CountryCode.tryFromCountryCode(isoCode);
+    // }
+    refreshUI();
+  }
+
+  void onPhoneNumberValidated(bool isValid) {
+    _isMobilePhoneNumberValid = isValid;
+    refreshUI();
   }
 
   bool _requiredFieldsAreNotAllOk(Map<String, TextEditingController> reqCtrls) {
@@ -174,7 +196,23 @@ class _AddOrEditPaymentAccountController extends ScreenController {
   }
 
   PaymentAccountFormDataType? _validateMobileAccountInfos() {
-    final country = selectedPaymentCountry;
+    // final country = selectedPaymentCountry;
+    final mobileAccountNumber = mobilePhoneNumber.phoneNumber;
+    final country = CountryCode.tryFromCountryCode(
+      mobilePhoneNumber.isoCode ?? '',
+    );
+    if (mobileAccountNumber == null) {
+      UiAlertHelpers.showErrorSnackBar(
+        context,
+        LocaleKeys.wallet_module_common_field_required.tr(
+          namedArgs: {
+            'field':
+                LocaleKeys.wallet_module_payment_account_account_number.tr(),
+          },
+        ),
+      );
+      return null;
+    }
     if (country == null) {
       UiAlertHelpers.showErrorSnackBar(
         context,
@@ -185,11 +223,17 @@ class _AddOrEditPaymentAccountController extends ScreenController {
       return null;
     }
 
+    if (!_isMobilePhoneNumberValid) {
+      UiAlertHelpers.showErrorSnackBar(
+        context,
+        LocaleKeys.wallet_module_payment_account_invalid_phone_number.tr(),
+      );
+      return null;
+    }
+
     if (_requiredFieldsAreNotAllOk({
       LocaleKeys.wallet_module_payment_account_mobile_operator_name.tr():
           mobileOperatorCtrl,
-      LocaleKeys.wallet_module_payment_account_account_number.tr():
-          mobileAccountNumberCtrl,
     })) {
       return null;
     }
@@ -197,7 +241,7 @@ class _AddOrEditPaymentAccountController extends ScreenController {
     return PaymentAccountFormDataType.mobilePayment(
       paymentCountry: country,
       mobileOperator: mobileOperatorCtrl.text,
-      mobileAccountNumber: mobileAccountNumberCtrl.text,
+      mobileAccountNumber: mobileAccountNumber,
       otherDocument: _bankDocumentXFile,
       accountHolder: (
         firstName: accountHolderFirstNameCtrl.text,

@@ -1,4 +1,5 @@
 import '../entities/enums/e_withdrawal_eligibility.dart';
+import '../entities/enums/e_withdrawal_response_status.dart';
 import '../entities/exchange_bzc_pack_entity.dart';
 import '../entities/payment_preference_entity.dart';
 import '../entities/financial_transaction_entity.dart';
@@ -31,5 +32,7 @@ abstract class BalanceRepository {
 
   Future<String> generateWithdrawalPaymentSlip();
 
-  Future<void> requestWithdrawal(CreateWithdrawalRequest request);
+  Future<EWithdrawalResponseStatus> requestWithdrawal(
+    CreateWithdrawalRequest request,
+  );
 }

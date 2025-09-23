@@ -1,5 +1,4 @@
-import 'package:country_code_picker/country_code_picker.dart'
-    show CountryCode, codes;
+import 'package:country_code_picker/country_code_picker.dart' show CountryCode;
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
@@ -17,12 +16,14 @@ import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_a
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/otp_code_modal.dart';
 
 import 'package:image_picker/image_picker.dart' show XFile;
+import 'package:intl_phone_number_input/intl_phone_number_input.dart'
+    show PhoneNumber;
 
 import '../../helpers/image_picker_helper.dart';
 import 'ui_model/ui_model.dart';
 
 import 'widgets/account_type_selector.dart';
-import 'widgets/country_select_field.dart';
+import 'widgets/payment_account_phone_field.dart';
 import 'widgets/payment_account_text_field.dart';
 import 'widgets/upload_box.dart';
 
@@ -42,9 +43,11 @@ class AddOrEditPaymentAccountPage extends StatelessWidget {
           onPressed: Modular.to.pop,
           icon: const Icon(Icons.chevron_left),
         ),
-        title: Text(
-          LocaleKeys.wallet_module_payment_account_title.tr().toUpperCase(),
-          style: const TextStyle(fontWeight: FontWeight.bold),
+        title: FittedBox(
+          child: Text(
+            LocaleKeys.wallet_module_payment_account_title.tr().toUpperCase(),
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -106,11 +109,6 @@ class AddOrEditPaymentAccountPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       if (isMobile) ...[
-                        CountrySelectField(
-                          initialSelection:
-                              controller.selectedPaymentCountry?.code,
-                          onChanged: controller.selectPaymentCountry,
-                        ),
                         const SizedBox(height: 16),
                         PaymentAccountTextField(
                           label: LocaleKeys
@@ -119,11 +117,13 @@ class AddOrEditPaymentAccountPage extends StatelessWidget {
                           controller: controller.mobileOperatorCtrl,
                         ),
                         const SizedBox(height: 16),
-                        PaymentAccountTextField(
+                        PaymentAccountPhoneField(
                           label: LocaleKeys
                               .wallet_module_payment_account_account_number
                               .tr(),
-                          controller: controller.mobileAccountNumberCtrl,
+                          initialValue: controller.mobilePhoneNumber,
+                          onInputChanged: controller.onPhoneNumberChanged,
+                          onInputValidated: controller.onPhoneNumberValidated,
                         ),
                       ] else ...[
                         PaymentAccountTextField(

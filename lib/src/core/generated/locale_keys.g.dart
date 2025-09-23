@@ -141,6 +141,7 @@ abstract class  LocaleKeys {
   static const wallet_module_payment_account_bank_account = 'wallet_module.payment_account.bank_account';
   static const wallet_module_payment_account_bank_account_way = 'wallet_module.payment_account.bank_account_way';
   static const wallet_module_payment_account_bad_account_number_confirmation = 'wallet_module.payment_account.bad_account_number_confirmation';
+  static const wallet_module_payment_account_invalid_phone_number = 'wallet_module.payment_account.invalid_phone_number';
   static const wallet_module_payment_account_modal_title = 'wallet_module.payment_account.modal.title';
   static const wallet_module_payment_account_modal_description = 'wallet_module.payment_account.modal.description';
   static const wallet_module_payment_account_modal_code_placeholder = 'wallet_module.payment_account.modal.code_placeholder';
@@ -164,5 +165,20 @@ abstract class  LocaleKeys {
   static const wallet_module_withdrawal_process_signature2 = 'wallet_module.withdrawal_process.signature2';
   static const wallet_module_withdrawal_process_otp_code_title = 'wallet_module.withdrawal_process.otp_code.title';
   static const wallet_module_withdrawal_process_otp_code_description = 'wallet_module.withdrawal_process.otp_code.description';
+  static const wallet_module_withdrawal_process_eligibility_eligible = 'wallet_module.withdrawal_process.eligibility.eligible';
+  static const wallet_module_withdrawal_process_eligibility_pendingWithdrawal = 'wallet_module.withdrawal_process.eligibility.pendingWithdrawal';
+  static const wallet_module_withdrawal_process_eligibility_alreadyMadeWithdrawal = 'wallet_module.withdrawal_process.eligibility.alreadyMadeWithdrawal';
+  static const wallet_module_withdrawal_process_eligibility_invalidRequestPeriod = 'wallet_module.withdrawal_process.eligibility.invalidRequestPeriod';
+  static const wallet_module_withdrawal_process_eligibility_kycNotValidated = 'wallet_module.withdrawal_process.eligibility.kycNotValidated';
+  static const wallet_module_withdrawal_process_eligibility_unknownError = 'wallet_module.withdrawal_process.eligibility.unknownError';
+  static const wallet_module_withdrawal_process_status_successfullyCreated = 'wallet_module.withdrawal_process.status.successfullyCreated';
+  static const wallet_module_withdrawal_process_status_badOrExpiredPaymentSlip = 'wallet_module.withdrawal_process.status.badOrExpiredPaymentSlip';
+  static const wallet_module_withdrawal_process_status_kycNotValidated = 'wallet_module.withdrawal_process.status.kycNotValidated';
+  static const wallet_module_withdrawal_process_status_paymentPreferenceNotFound = 'wallet_module.withdrawal_process.status.paymentPreferenceNotFound';
+  static const wallet_module_withdrawal_process_status_insufficientBalance = 'wallet_module.withdrawal_process.status.insufficientBalance';
+  static const wallet_module_withdrawal_process_status_requestConflict = 'wallet_module.withdrawal_process.status.requestConflict';
+  static const wallet_module_withdrawal_process_status_badOrExpiredOTPCode = 'wallet_module.withdrawal_process.status.badOrExpiredOTPCode';
+  static const wallet_module_withdrawal_process_status_invalidRequestPeriod = 'wallet_module.withdrawal_process.status.invalidRequestPeriod';
+  static const wallet_module_withdrawal_process_status_unknownError = 'wallet_module.withdrawal_process.status.unknownError';
 
 }

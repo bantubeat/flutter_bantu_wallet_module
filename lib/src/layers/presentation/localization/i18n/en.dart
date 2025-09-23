@@ -185,6 +185,7 @@ const Map<String, dynamic> langMap = {
 			"bank_account": "Bank Account",
 			"bank_account_way": "Bank transfer",
 			"bad_account_number_confirmation": "Bad account number confirmation",
+			"invalid_phone_number": "Invalid phone number",
 			"modal": {
 				"title": "Verification code",
 				"description": "To validate the registration of your payment account, you must enter the code that was sent to you by email.",
@@ -213,6 +214,25 @@ const Map<String, dynamic> langMap = {
 			"otp_code": {
 				"title": "Verification code",
 				"description": "To validate your payment request, you must enter the code that was sent to you by email"
+			},
+			"eligibility": {
+				"eligible": "You are eligible to make a withdrawal",
+				"pendingWithdrawal": "You already have a withdrawal request being processed. You cannot make a new request.",
+				"alreadyMadeWithdrawal": "You have already made a withdrawal this month",
+				"invalidRequestPeriod": "Withdrawal requests must be made between the 25th and 30th of the month",
+				"kycNotValidated": "Your KYC has not yet been validated. You cannot make a withdrawal until your KYC is validated.",
+				"unknownError": "An error occurred while checking your withdrawal eligibility. Please try again later."
+			},
+			"status": {
+				"successfullyCreated": "Withdrawal request created successfully",
+				"badOrExpiredPaymentSlip": "The withdrawal slip is invalid or has expired",
+				"kycNotValidated": "Your KYC has not yet been validated",
+				"paymentPreferenceNotFound": "No payment method registered",
+				"insufficientBalance": "Insufficient balance for this withdrawal",
+				"requestConflict": "You already have a withdrawal request being processed",
+				"badOrExpiredOTPCode": "The OTP code is invalid or has expired",
+				"invalidRequestPeriod": "Withdrawal requests must be made between the 25th and 30th of the month",
+				"unknownError": "An error occurred while creating your withdrawal request"
 			}
     }
   }

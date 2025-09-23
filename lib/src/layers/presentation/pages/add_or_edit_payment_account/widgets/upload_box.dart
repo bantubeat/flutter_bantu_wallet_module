@@ -21,6 +21,7 @@ class UploadBox extends StatelessWidget {
       child: Container(
         height: 150,
         width: double.infinity,
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.grey[300]!),
@@ -33,7 +34,7 @@ class UploadBox extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(label),
+              Text(label, textAlign: TextAlign.center),
               const SizedBox(height: 8),
               ElevatedButton.icon(
                 onPressed: onTap,

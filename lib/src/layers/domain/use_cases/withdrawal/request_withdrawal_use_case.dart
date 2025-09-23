@@ -1,15 +1,17 @@
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/create_withdrawal_request.dart';
 
+import '../../entities/enums/e_withdrawal_response_status.dart';
 import '../../repositories/balance_repository.dart';
 
-class RequestWithdrawalUseCase extends UseCase<void, CreateWithdrawalRequest> {
+class RequestWithdrawalUseCase
+    extends UseCase<EWithdrawalResponseStatus, CreateWithdrawalRequest> {
   final BalanceRepository _repository;
 
   const RequestWithdrawalUseCase(this._repository);
 
   @override
-  Future<void> call(request) async {
+  Future<EWithdrawalResponseStatus> call(request) async {
     return await _repository.requestWithdrawal(request);
   }
 }

@@ -145,6 +145,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  dlibphonenumber:
+    dependency: transitive
+    description:
+      name: dlibphonenumber
+      sha256: "95d8e08c6f750e81c5303efd16085db4e7c696b4c306c99617548f81b1854f0c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.47"
   easy_localization:
     dependency: "direct main"
     description:
@@ -244,7 +252,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.2.4"
+    version: "2.1.2"
   flutter_bloc:
     dependency: transitive
     description:
@@ -476,6 +484,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.20.2"
+  intl_phone_number_input:
+    dependency: transitive
+    description:
+      name: intl_phone_number_input
+      sha256: "9d4d7f174cfc3a85b238e0b465ec0e7232fc0815a779e5a58fbf118dee26dfa0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.5"
   isolate_channel:
     dependency: transitive
     description:
@@ -700,6 +716,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  protobuf:
+    dependency: transitive
+    description:
+      name: protobuf
+      sha256: de9c9eb2c33f8e933a42932fe1dc504800ca45ebc3d673e6ed7f39754ee4053e
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
   provider:
     dependency: transitive
     description:

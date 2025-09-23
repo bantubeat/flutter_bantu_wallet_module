@@ -185,6 +185,7 @@ const Map<String, dynamic> langMap = {
 			"bank_account": "Compte Bancaire",
 			"bank_account_way": "Virement bancaire",
 			"bad_account_number_confirmation": "La confirmation du numéro de compte est incorrect",
+			"invalid_phone_number": "Le numéro de téléphone est invalide",
 			"modal": {
 				"title": "Code de verification",
 				"description": "Pour valider l'enregistrement de votre compte de paiement, vous devez saisir le code qui vous a été envoyé par mail",
@@ -213,6 +214,25 @@ const Map<String, dynamic> langMap = {
 			"otp_code": {
 				"title": "Code de verification",
 				"description": "Pour valider votre demande de  paiement, vous devez saisir le code qui vous a été envoyé par mail"
+			},
+			"eligibility": {
+				"eligible": "Vous êtes éligible pour effectuer un retrait",
+				"pendingWithdrawal": "Vous avez déjà une demande de retrait en cours de traitement. Vous ne pouvez pas effectuer une nouvelle demande.",
+				"alreadyMadeWithdrawal": "Vous avez déjà effectué un retrait ce mois-ci",
+				"invalidRequestPeriod": "Les demandes de retrait doivent être effectuées entre le 25 et le 30 du mois",
+				"kycNotValidated": "Votre KYC n'est pas encore validé. Vous ne pouvez pas effectuer de retrait tant que votre KYC n'est pas validé.",
+				"unknownError": "Une erreur est survenue lors de la vérification de votre éligibilité au retrait. Veuillez réessayer plus tard."
+			},
+			"status": {
+				"successfullyCreated": "Demande de retrait créée avec succès",
+				"badOrExpiredPaymentSlip": "Le bordereau de retrait est invalide ou a expiré",
+				"kycNotValidated": "Votre KYC n'est pas encore validé",
+				"paymentPreferenceNotFound": "Aucun moyen de paiement enregistré",
+				"insufficientBalance": "Solde insuffisant pour ce retrait",
+				"requestConflict": "Vous avez déjà une demande de retrait en cours de traitement",
+				"badOrExpiredOTPCode": "Le code OTP est invalide ou a expiré",
+				"invalidRequestPeriod": "Les demandes de retrait doivent être effectuées entre le 25 et le 30 du mois",
+				"unknownError": "Une erreur est survenue lors de la création de votre demande de retrait"
 			}
 		}
   }

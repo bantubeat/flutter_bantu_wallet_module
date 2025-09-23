@@ -4,6 +4,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requ
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/payment_preference_input.dart';
 
 import '../../domain/entities/enums/e_withdrawal_eligibility.dart';
+import '../../domain/entities/enums/e_withdrawal_response_status.dart';
 import '../../domain/entities/exchange_bzc_pack_entity.dart';
 import '../../domain/entities/payment_preference_entity.dart';
 import '../../domain/entities/financial_transaction_entity.dart';
@@ -38,7 +39,9 @@ class BalanceRepositoryImpl implements BalanceRepository {
   }
 
   @override
-  Future<void> requestWithdrawal(CreateWithdrawalRequest request) {
+  Future<EWithdrawalResponseStatus> requestWithdrawal(
+    CreateWithdrawalRequest request,
+  ) {
     return _apiDataSource.post$balanceWithdrawals(request);
   }
 

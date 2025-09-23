@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show Widget;
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/get_kyc_status_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/check_payment_preferences_verification_code_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/resend_payment_preferences_verification_code_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/update_payment_preferences_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/withdrawal/request_withdrawal_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/withdrawal_request_form/withdrawal_request_form_page.dart';
@@ -145,6 +146,7 @@ class WalletModule extends Module {
     i.add(SendWithdrawalMailOtpUseCase.new);
     i.add(RequestWithdrawalUseCase.new);
     i.add(GetKycStatusUseCase.new);
+    i.add(ResendPaymentPreferencesVerificationCodeUseCase.new);
 
     // Presentation layer dependencies
     i.addSingleton(CurrentUserCubit.new);

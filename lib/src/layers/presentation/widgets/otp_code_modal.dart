@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
+import 'package:flutter_bantu_wallet_module/src/core/network/my_http/my_http_exceptions.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/action_button.dart';
@@ -42,12 +43,15 @@ class _OtpCodeModalState extends State<OtpCodeModal> {
     setState(() => _resendingCode = true);
     try {
       await handler(context);
-    } catch (_) {
+    } catch (e) {
       if (!mounted) return;
+      final message = (e is MyHttpException) ? e.message : null;
 
       UiAlertHelpers.showErrorSnackBar(
         context,
-        LocaleKeys.wallet_module_common_an_error_occur.tr(),
+        message ??
+            LocaleKeys.wallet_module_common_an_error_occur
+                .tr(namedArgs: {'message': e.toString()}),
       );
     } finally {
       if (mounted) setState(() => _resendingCode = false);
@@ -69,9 +73,13 @@ class _OtpCodeModalState extends State<OtpCodeModal> {
 
     try {
       await widget.handleSubmit(context, code);
-    } catch (_) {
+    } catch (e) {
+      final message = (e is MyHttpException) ? e.message : null;
       UiAlertHelpers.showErrorToast(
-        LocaleKeys.wallet_module_common_an_error_occur.tr(),
+        message ??
+            LocaleKeys.wallet_module_common_an_error_occur.tr(
+              namedArgs: {'message': e.toString()},
+            ),
       );
     } finally {
       if (mounted) setState(() => _submitting = false);
@@ -82,7 +90,7 @@ class _OtpCodeModalState extends State<OtpCodeModal> {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-      child: Padding(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -138,8 +146,9 @@ class _OtpCodeModalState extends State<OtpCodeModal> {
             TextFormField(
               controller: textCtrl,
               validator: (val) => null,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                hintText: '123456',
+                hintText: '',
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
                   vertical: 12.0,

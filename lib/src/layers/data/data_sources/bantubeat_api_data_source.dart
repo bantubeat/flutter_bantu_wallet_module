@@ -1,4 +1,5 @@
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_kyc_status.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_withdrawal_response_status.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/create_withdrawal_request.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/payment_preference_input.dart';
 
@@ -243,9 +244,17 @@ final class BantubeatApiDataSource {
     return _client.post('/account/user/generate-mail-otp').then((r) => {});
   }
 
-  Future<void> post$balanceWithdrawals(CreateWithdrawalRequest request) {
+  Future<EWithdrawalResponseStatus> post$balanceWithdrawals(
+    CreateWithdrawalRequest request,
+  ) {
     return _client
         .post('/balance/withdrawals', body: request.toHttpBody())
-        .then((r) => {});
+        .then((r) => EWithdrawalResponseStatus.successfullyCreated)
+        .catchError((err) {
+      if (err is MyHttpClientSideException) {
+        return EWithdrawalResponseStatus.fromHttpCode(err.statusCode);
+      }
+      throw err;
+    });
   }
 }

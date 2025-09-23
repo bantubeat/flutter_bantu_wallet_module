@@ -1,7 +1,7 @@
+import 'package:image_picker/image_picker.dart' show XFile;
 import 'package:country_code_picker/country_code_picker.dart' show CountryCode;
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/payment_preference_input.dart';
-import 'package:image_picker/image_picker.dart' show XFile;
 
 typedef AccountHolderInfo = ({
   String firstName,
@@ -68,10 +68,10 @@ class PaymentAccountFormDataType {
     if (mobileData != null) {
       return PaymentPreferenceInput(
         accountType: accountType,
-        detailName: mobileData.mobileOperator,
         detailPhone: mobileData.mobileAccountNumber,
-        detailCountry: mobileData.paymentCountry.name,
+        detailCountry: mobileData.paymentCountry.code,
         detailOperator: mobileData.mobileOperator,
+        detailName: '${accountHolder.firstName} ${accountHolder.lastName}',
       );
     }
 

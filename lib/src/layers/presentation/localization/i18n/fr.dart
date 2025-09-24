@@ -92,7 +92,10 @@ const Map<String, dynamic> langMap = {
     "withdrawal_page": {
       "title": "Retrait",
       "description": "Attention les frais de tranferts de votre compte de paiement sont à votre charge et vous vous engagez à payer les taxes sur les revenus dans votre pays de résidence.",
-      "financial_account_balance": "Solde de votre compte Financier",
+			"description1": "N.B. Les demandes de paiement Peuvent s’éffectuer à tout moment. comptez en moyenne 15 jours pour la réception des fonds sur votre compte. ",
+      "description2": "Conformément aux lois de l’union européenne, nous devons vérifier votre identité avant tout paiement. voir ",
+			"description3": " politique et condition de paiement Bantubeat",
+			"financial_account_balance": "Solde de votre compte Financier",
       "see_details": "Voir les détails",
       "Your_registered_payment_account": "Votre compte de paiement enregistré:",
       "request_payment": "Demander un paiement",

@@ -92,7 +92,10 @@ const Map<String, dynamic> langMap = {
     "withdrawal_page": {
       "title": "Withdrawal",
 			"description": "Please note that the transfer fees from your payment account are your responsibility and you agree to pay income taxes in your country of residence.",
-      "financial_account_balance": "Your Financial account balance",
+			"description1": "Note: Payment requests can be made at any time. Please allow an average of 15 days for the funds to be received in your account.",
+			"description2": "In accordance with European Union laws, we must verify your identity before any payment. See ",
+			"description3": "Bantubeat payment policy and conditions",
+			"financial_account_balance": "Your Financial account balance",
       "see_details": "See details",
       "Your_registered_payment_account": "Your registered payment account:",
       "request_payment": "Request a payment",

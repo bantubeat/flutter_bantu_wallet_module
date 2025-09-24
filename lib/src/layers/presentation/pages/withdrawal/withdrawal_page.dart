@@ -4,6 +4,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_k
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/payment_preference_entity.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/get_kyc_status_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/withdrawal_description.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
@@ -57,22 +58,7 @@ class WithdrawalPage extends StatelessWidget {
                 title: LocaleKeys.wallet_module_withdrawal_page_title.tr(),
               ),
               const SizedBox(height: 7.5),
-              Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: colorScheme.primary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  LocaleKeys.wallet_module_withdrawal_page_description.tr(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: colorScheme.onSurface,
-                  ),
-                ),
-              ),
+              const WithdrawalDescription(),
               const SizedBox(height: 24),
               DecoratedBox(
                 decoration: BoxDecoration(

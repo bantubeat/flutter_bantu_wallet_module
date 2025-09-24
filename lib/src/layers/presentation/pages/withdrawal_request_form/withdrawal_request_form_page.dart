@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requ
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/withdrawal_description.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';
@@ -53,35 +53,7 @@ class WithdrawalRequestFormPage extends StatelessWidget {
                       .tr(namedArgs: {'id': ctrl.slip ?? '...'}),
                 ),
                 const SizedBox(height: 7.5),
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Center(
-                    child: Text.rich(
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: colorScheme.onSurface,
-                      ),
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: LocaleKeys
-                                .wallet_module_withdrawal_process_fees_warning1
-                                .tr(),
-                          ),
-                          TextSpan(
-                            text: LocaleKeys
-                                .wallet_module_withdrawal_process_fees_warning2
-                                .tr(),
-                            style: TextStyle(color: colorScheme.primary),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = ctrl.onPrivatePolicy,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                const WithdrawalDescription(),
                 const SizedBox(height: 24),
                 DecoratedBox(
                   decoration: BoxDecoration(

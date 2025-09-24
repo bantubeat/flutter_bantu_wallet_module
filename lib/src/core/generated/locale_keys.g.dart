@@ -71,6 +71,9 @@ abstract class  LocaleKeys {
   static const wallet_module_deposit_page_warning5_google_play = 'wallet_module.deposit_page.warning5_google_play';
   static const wallet_module_withdrawal_page_title = 'wallet_module.withdrawal_page.title';
   static const wallet_module_withdrawal_page_description = 'wallet_module.withdrawal_page.description';
+  static const wallet_module_withdrawal_page_description1 = 'wallet_module.withdrawal_page.description1';
+  static const wallet_module_withdrawal_page_description2 = 'wallet_module.withdrawal_page.description2';
+  static const wallet_module_withdrawal_page_description3 = 'wallet_module.withdrawal_page.description3';
   static const wallet_module_withdrawal_page_financial_account_balance = 'wallet_module.withdrawal_page.financial_account_balance';
   static const wallet_module_withdrawal_page_see_details = 'wallet_module.withdrawal_page.see_details';
   static const wallet_module_withdrawal_page_Your_registered_payment_account = 'wallet_module.withdrawal_page.Your_registered_payment_account';

@@ -15,6 +15,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: const IconButton(
+          onPressed: WalletModule.handleCloseModule,
+          icon: Icon(Icons.close, size: 30),
+        ),
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(

@@ -58,8 +58,10 @@ class WalletModule extends Module {
   static const _floatingMenuBuilderKey = 'WalletModule@floatingMenuBuilder';
   static const _onGoToKycFormKey = 'WalletModule@onGoToKycForm';
   static const _isProductionKey = 'WalletModule@isProduction';
+  static const _onCloseModule = 'WalletModule@onCloseModule';
 
   final Widget Function() floatingMenuBuilder;
+  final void Function() onCloseModule;
   final Future<String?> Function() getAccessToken;
   final VoidCallback? onGoToKycForm;
   final WalletRoutes _routes;
@@ -67,6 +69,7 @@ class WalletModule extends Module {
   final WalletApiKeys walletApiKeys;
 
   WalletModule({
+    required this.onCloseModule,
     required this.floatingMenuBuilder,
     required this.getAccessToken,
     required this.walletApiKeys,
@@ -91,6 +94,11 @@ class WalletModule extends Module {
 
   static void goToKycForm() {
     final cb = Modular.tryGet<VoidCallback>(key: _onGoToKycFormKey);
+    if (cb != null) cb();
+  }
+
+  static void handleCloseModule() {
+    final cb = Modular.tryGet<VoidCallback>(key: _onCloseModule);
     if (cb != null) cb();
   }
 

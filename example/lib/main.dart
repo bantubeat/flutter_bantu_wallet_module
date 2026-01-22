@@ -113,6 +113,7 @@ class AppModule extends Module {
     r.module(
       '/wallet',
       module: WalletModule(
+        onCloseModule: () {},
         getAccessToken: () => Future.sync(() => _accessToken),
         floatingMenuBuilder: MyBottomNavigationBar.new,
         routes: WalletRoutes('/wallet'.toLowerCase()),

@@ -15,18 +15,19 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const IconButton(
-          onPressed: WalletModule.handleCloseModule,
-          icon: Icon(Icons.close, size: 30),
-        ),
-      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           child: Column(
             children: [
+              const Align(
+                alignment: AlignmentGeometry.centerLeft,
+                child: IconButton(
+                  onPressed: WalletModule.handleCloseModule,
+                  icon: Icon(Icons.close, size: 30),
+                ),
+              ),
               Center(
                 child: Text(
                   LocaleKeys.wallet_module_home_page_title.tr(),

@@ -61,7 +61,7 @@ class WalletModule extends Module {
   static const _onCloseModule = 'WalletModule@onCloseModule';
 
   final Widget Function() floatingMenuBuilder;
-  final void Function() onCloseModule;
+  final VoidCallback onCloseModule;
   final Future<String?> Function() getAccessToken;
   final VoidCallback? onGoToKycForm;
   final WalletRoutes _routes;
@@ -161,6 +161,8 @@ class WalletModule extends Module {
     i.addSingleton(UserBalanceCubit.new);
     i.addSingleton(floatingMenuBuilder, key: _floatingMenuBuilderKey);
     i.addSingleton(() => onGoToKycForm, key: _onGoToKycFormKey);
+    i.addSingleton(() => onCloseModule, key: _onCloseModule);
+
     i.addInstance<WalletRoutes>(_routes);
   }
 

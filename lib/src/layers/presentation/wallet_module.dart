@@ -98,7 +98,7 @@ class WalletModule extends Module {
   }
 
   static void handleCloseModule() {
-    final cb = Modular.tryGet<VoidCallback>(key: _onCloseModule);
+    final cb = Modular.tryGet<void Function()>(key: _onCloseModule);
     if (cb != null) cb();
   }
 

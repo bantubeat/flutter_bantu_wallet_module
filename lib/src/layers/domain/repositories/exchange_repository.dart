@@ -9,4 +9,8 @@ abstract class ExchangeRepository {
     required double fiatAmountInEur,
     int? exchangeBzcPackId,
   });
+
+  Future<ExchangeTransactionEntity> purchaseTokenPack({
+    required double tokenCount,
+  });
 }

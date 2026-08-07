@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show debugPrintStack;
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/create_withdrawal_request.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/payment_preference_input.dart';
 
@@ -81,14 +82,14 @@ class BalanceRepositoryImpl implements BalanceRepository {
     int page = 1,
     List<EFinancialTxStatus>? statusList,
     List<EFinancialTxType>? typesList,
-    bool? isBzcAccount,
+    AccountType? accountType,
   }) {
     return _apiDataSource.get$transactions(
       limit: limit,
       page: page,
       statusList: statusList,
       typesList: typesList,
-      isBzcAccount: isBzcAccount,
+      accountType: accountType,
     );
   }
 

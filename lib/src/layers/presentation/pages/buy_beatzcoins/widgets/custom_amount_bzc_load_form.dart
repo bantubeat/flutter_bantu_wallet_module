@@ -12,31 +12,28 @@ class _CustomAmountBzcLoadForm extends StatefulWidget {
 class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
   final bzcTextCtrl = TextEditingController();
   double? fiatAmount;
-  BzcCurrencyConverter? _bzcCurrencyConverter;
+  TokenPriceEntity? _tokenPrice;
 
-  String get fiatCurrencySymbol => widget.isAfrican ? 'F CFA' : '€';
+  String get fiatCurrencySymbol =>
+      _tokenPrice?.symbol ?? (widget.isAfrican ? 'F CFA' : '€');
 
-  bool get converterInitialized => _bzcCurrencyConverter != null;
+  bool get converterInitialized => _tokenPrice != null;
 
   @override
   void initState() {
     super.initState();
-    bzcTextCtrl.addListener(_performConversion);
-    Modular.get<GetBzcCurrencyConverterUseCase>()
+    bzcTextCtrl.addListener(_performCalculation);
+    Modular.get<GetTokenPricesUseCase>()
         .call(NoParms())
-        .then((converter) => setState(() => _bzcCurrencyConverter = converter));
+        .then((tokenPrice) => setState(() => _tokenPrice = tokenPrice));
   }
 
-  void _performConversion() {
+  void _performCalculation() {
     final amountInBzc = num.tryParse(bzcTextCtrl.text)?.toDouble();
-    final converter = _bzcCurrencyConverter;
+    final unitPrice = _tokenPrice?.unitPrice;
 
-    if (converter != null && amountInBzc != null && amountInBzc > 0) {
-      setState(() {
-        fiatAmount = widget.isAfrican
-            ? converter.bzcToXaf(amountInBzc, applyFees: false)
-            : converter.bzcToEur(amountInBzc, applyFees: false);
-      });
+    if (unitPrice != null && amountInBzc != null && amountInBzc > 0) {
+      setState(() => fiatAmount = amountInBzc * unitPrice);
     } else {
       setState(() => fiatAmount = null);
     }
@@ -50,10 +47,12 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
 
   void onExchange() {
     final bzcQuantity = num.tryParse(bzcTextCtrl.text)?.toDouble();
-    if (bzcQuantity == null || bzcQuantity < 30) return;
+    final tokenPrice = _tokenPrice;
+    if (bzcQuantity == null || bzcQuantity < 30 || tokenPrice == null) return;
     LoadBottomSheetModal.show(
       context,
       isAfrican: widget.isAfrican,
+      tokenPrice: tokenPrice,
       bzcQuantity: bzcQuantity,
     ).whenComplete(bzcTextCtrl.clear);
   }
@@ -122,7 +121,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
                     ? '...'
                     : NumberFormat.currency(
                         symbol: fiatCurrencySymbol,
-                        decimalDigits: 4,
+                        decimalDigits: 2,
                       ).format(fiatAmount),
                 style: const TextStyle(fontSize: 16),
               ),
@@ -131,6 +130,7 @@ class _CustomAmountBzcLoadFormState extends State<_CustomAmountBzcLoadForm> {
           const SizedBox(height: 16.0),
           ActionButton(
             fullWidth: true,
+            backgroundColor: Colors.black,
             onPressed: onExchange,
             enabled: (bzcQuantity ?? 0) >= 30,
             text: LocaleKeys.wallet_module_buy_beatzcoins_page_load.tr(),

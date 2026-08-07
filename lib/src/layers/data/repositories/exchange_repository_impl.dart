@@ -28,4 +28,11 @@ class ExchangeRepositoryImpl extends ExchangeRepository {
       exchangeBzcPackId: exchangeBzcPackId,
     );
   }
+
+  @override
+  Future<ExchangeTransactionEntity> purchaseTokenPack({
+    required double tokenCount,
+  }) {
+    return _apiDataSource.post$tokenPackPurchase(tokenCount);
+  }
 }

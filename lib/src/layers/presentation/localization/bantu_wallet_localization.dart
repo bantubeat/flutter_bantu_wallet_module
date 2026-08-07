@@ -25,6 +25,10 @@ class BantuWalletLocalization {
     return child!;
   }
 
+  /// The language code of the current locale (e.g. 'fr', 'en').
+  static String get currentLanguageCode =>
+      _localization?.locale.languageCode ?? 'en';
+
   // Utility method for translations
   static String tr(
     String key, {

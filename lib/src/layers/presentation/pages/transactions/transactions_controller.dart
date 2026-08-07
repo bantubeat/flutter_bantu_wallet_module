@@ -9,8 +9,8 @@ class _TransactionsController extends ScreenController {
   final List<EFinancialTxStatus> statuses = [];
   final List<EFinancialTxType> types = [];
 
-  bool _isBzcAccount = false;
-  bool get isBzcAccount => _isBzcAccount;
+  AccountType _accountType = AccountType.payment;
+  AccountType get accountType => _accountType;
 
   late final PagingController<int, FinancialTransactionEntity> pagingController;
 
@@ -32,7 +32,7 @@ class _TransactionsController extends ScreenController {
   String get walletNumber {
     if (userBalanceCubit.state.hasError) return 'E';
 
-    return _isBzcAccount
+    return accountType == AccountType.payment
         ? (userBalanceCubit.state.data?.beatzcoinWalletNumber ?? '...')
         : (userBalanceCubit.state.data?.financialWalletNumber ?? '...');
   }
@@ -51,8 +51,8 @@ class _TransactionsController extends ScreenController {
     refreshUI();
   }
 
-  void switchAccount() {
-    _isBzcAccount = !_isBzcAccount;
+  void switchAccount(AccountType accountType) {
+    _accountType = accountType;
     statuses.clear();
     types.clear();
     pagingController.refresh();
@@ -66,7 +66,7 @@ class _TransactionsController extends ScreenController {
         limit: _pageSize,
         statuses: statuses,
         types: types,
-        isBzcAccount: _isBzcAccount,
+        accountType: accountType,
       ),
     );
     return newItems;

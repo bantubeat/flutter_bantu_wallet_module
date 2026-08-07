@@ -1,3 +1,5 @@
+import 'package:flutter_bantu_wallet_module/src/layers/data/models/eligible_country.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_kyc_status.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_withdrawal_response_status.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/create_withdrawal_request.dart';
@@ -14,6 +16,7 @@ import '../models/user_balance_model.dart';
 import '../models/exchange_bzc_pack_model.dart';
 import '../models/payment_preference_model.dart';
 import '../models/exchange_transaction_model.dart';
+import '../models/token_price_model.dart';
 import '../models/user_model.dart';
 
 ///
@@ -68,6 +71,25 @@ final class BantubeatApiDataSource {
       '/exchanges/bzc_to_fiat',
       body: {'quantity': quantity},
     ).then((r) => ExchangeTransactionModel.fromJson(r.data));
+  }
+
+  Future<List<EligibleCountry>?> get$checkMonetizationEligibleCountries([
+    String? countryCode,
+  ]) {
+    final query = countryCode == null ? '' : '?country_code=$countryCode';
+    return _client
+        .get(
+      '/public/monetization-eligible-countries$query',
+    )
+        .then((res) {
+      final data = res.data;
+      if (data is List) {
+        return data.map((e) => EligibleCountry.fromJson(e)).toList();
+      } else {
+        return null;
+      }
+      // return Balance.fromJson(res.data);
+    });
   }
 
   /// Check if user can make a withdrawal
@@ -137,6 +159,21 @@ final class BantubeatApiDataSource {
         .then((iterable) => iterable.toList());
   }
 
+  /// Get token packs for the current user's monetary zone
+  Future<TokenPriceModel> get$tokenPacks() {
+    return _client
+        .get('/token-packs')
+        .then((r) => TokenPriceModel.fromJson(r.data));
+  }
+
+  /// Purchase a token pack for the current user
+  Future<ExchangeTransactionModel> post$tokenPackPurchase(double tokenCount) {
+    return _client.post(
+      '/token-packs/purchase',
+      body: {'token_count': tokenCount.toInt().toString()},
+    ).then((r) => ExchangeTransactionModel.fromJson(r.data));
+  }
+
   /// Exchange Fiat to BZC (with pack)
   Future<ExchangeTransactionModel> post$exchangeFiatToBzcWithPack({
     required double amount,
@@ -162,13 +199,13 @@ final class BantubeatApiDataSource {
     int page = 1,
     List<EFinancialTxStatus>? statusList,
     List<EFinancialTxType>? typesList,
-    bool? isBzcAccount,
+    AccountType? accountType,
     String? keyword,
   }) {
     String queryString = _mapToQueryParams({
       'limit': limit,
       'page': page,
-      if (isBzcAccount != null) 'account_type': isBzcAccount ? 'bzc' : 'fiat',
+      if (accountType != null) 'account_type': accountType.name,
       if (keyword != null) 'keyword': keyword,
       if (statusList != null)
         for (final status in statusList) 'financial_tx_status[]': status.value,

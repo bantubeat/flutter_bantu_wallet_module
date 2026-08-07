@@ -36,6 +36,8 @@ abstract class FinancialTransactionEntity {
 
 enum EFinancialTxType {
   deposit('DEPOSIT'),
+  debit('DEBIT'),
+  credit('CREDIT'),
   withdrawal('WITHDRAWAL'),
   internalIn('INTERNAL_IN'),
   internalOut('INTERNAL_OUT');
@@ -44,13 +46,17 @@ enum EFinancialTxType {
   const EFinancialTxType(this.value);
 
   static EFinancialTxType fromString(String value) {
-    switch (value) {
+    switch (value.toUpperCase()) {
       case 'DEPOSIT':
         return EFinancialTxType.deposit;
       case 'WITHDRAWAL':
         return EFinancialTxType.withdrawal;
       case 'INTERNAL_IN':
         return EFinancialTxType.internalIn;
+      case 'DEBIT':
+        return EFinancialTxType.debit;
+      case 'CREDIT':
+        return EFinancialTxType.credit;
       case 'INTERNAL_OUT':
         return EFinancialTxType.internalOut;
       default:

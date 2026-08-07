@@ -6,13 +6,13 @@ import '../../../widgets/squared_bzc_svg_image.dart';
 class BeatzcoinPackageCard extends StatelessWidget {
   final double amount;
   final double price;
-  final bool isAfrican;
+  final String currencySymbol;
   final VoidCallback onTap;
 
   const BeatzcoinPackageCard({
     required this.amount,
     required this.price,
-    required this.isAfrican,
+    required this.currencySymbol,
     required this.onTap,
     super.key,
   });
@@ -79,7 +79,7 @@ class BeatzcoinPackageCard extends StatelessWidget {
                       ),
                       const TextSpan(text: '  '),
                       TextSpan(
-                        text: isAfrican ? 'F CFA ' : '€',
+                        text: '$currencySymbol ',
                         style: const TextStyle(
                           color: Colors.limeAccent,
                           //fontWeight: FontWeight.w300,

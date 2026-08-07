@@ -19,6 +19,7 @@ class UserModel extends UserEntity {
     required super.profilBannerUrl,
     super.city,
     super.whatsapp,
+    super.monetaryZone, // Nouveau paramètre
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -40,6 +41,9 @@ class UserModel extends UserEntity {
       profilBannerUrl: json['profil_banner_url'],
       createdAt: DateTime.tryParse(json['created_at'] ?? ''),
       updatedAt: DateTime.tryParse(json['updated_at'] ?? ''),
+      monetaryZone: json['monetary_zone'] != null
+          ? MonetaryZone.fromJson(json['monetary_zone'])
+          : null, // Nouveau
     );
   }
 
@@ -62,6 +66,7 @@ class UserModel extends UserEntity {
       'noms': noms,
       'photo_url': photoUrl,
       'profil_banner_url': profilBannerUrl,
+      'monetary_zone': monetaryZone?.toJson(), // Nouveau
     };
   }
 }

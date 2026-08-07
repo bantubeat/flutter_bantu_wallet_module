@@ -7,6 +7,7 @@ import '../../domain/value_objects/requests/create_withdrawal_request.dart';
 final class WalletRoutes {
   final String prefix_;
   final String _home;
+  final String _monetisationProgramHome;
   final String _balance;
   final String _deposit;
   final String _withdrawal;
@@ -20,6 +21,7 @@ final class WalletRoutes {
   const WalletRoutes(
     this.prefix_, {
     String home = 'home',
+    String monetisationProgramHome = 'monetisation-program-home',
     String balance = 'balance',
     String deposit = 'deposit',
     String withdrawal = 'withdrawal',
@@ -30,6 +32,7 @@ final class WalletRoutes {
     String withdrawalRequestForm = 'withdrawal-request-form',
     String withdrawalRequestResume = 'withdrawal-request-resume',
   })  : _home = home,
+        _monetisationProgramHome = monetisationProgramHome,
         _balance = balance,
         _deposit = deposit,
         _withdrawal = withdrawal,
@@ -41,6 +44,8 @@ final class WalletRoutes {
         _withdrawalRequestResume = withdrawalRequestResume;
 
   _RouteItem get home => _RouteItem(prefix_, _home);
+  _RouteItem get monetisationProgramHome =>
+      _RouteItem(prefix_, _monetisationProgramHome);
   _RouteItem get balance => _RouteItem(prefix_, _balance);
   _RouteItem get deposit => _RouteItem(prefix_, _deposit);
   _RouteItem get withdrawal => _RouteItem(prefix_, _withdrawal);

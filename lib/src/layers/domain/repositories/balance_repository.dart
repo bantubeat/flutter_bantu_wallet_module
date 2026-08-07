@@ -1,3 +1,5 @@
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
+
 import '../entities/enums/e_withdrawal_eligibility.dart';
 import '../entities/enums/e_withdrawal_response_status.dart';
 import '../entities/exchange_bzc_pack_entity.dart';
@@ -25,7 +27,7 @@ abstract class BalanceRepository {
     int page = 1,
     List<EFinancialTxStatus>? statusList,
     List<EFinancialTxType>? typesList,
-    bool? isBzcAccount,
+    AccountType? accountType,
   });
 
   Future<EWithdrawalEligibility> checkWithdrawalEligibility();

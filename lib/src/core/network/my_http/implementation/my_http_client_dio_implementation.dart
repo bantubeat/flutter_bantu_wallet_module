@@ -33,12 +33,20 @@ class MyHttpClientDioImplemenation extends MyHttpClient {
           return handler.next(options); // Continue the request
         },
         onError: (DioException err, handler) async {
-          // Handle 401 Unauthorized and refresh the token
-          if (err.response?.statusCode == 401) {
+          // Handle 401 Unauthorized and refresh the token.
+          // Only retry once, and only if a fresh token was actually obtained,
+          // otherwise the retry loop could hammer the server until it
+          // rate-limits the client.
+          final alreadyRetried = err.requestOptions.extra['auth_retried'] == true;
+          if (err.response?.statusCode == 401 && !alreadyRetried) {
             try {
               final newToken = refreshAccessToken != null
                   ? await refreshAccessToken!()
                   : null;
+              if (newToken == null) {
+                return handler.reject(err);
+              }
+              err.requestOptions.extra['auth_retried'] = true;
               err.requestOptions.headers['Authorization'] = 'Bearer $newToken';
 
               // Retry the original request with the new token
@@ -47,6 +55,7 @@ class MyHttpClientDioImplemenation extends MyHttpClient {
                 options: Options(
                   method: err.requestOptions.method,
                   headers: err.requestOptions.headers,
+                  extra: err.requestOptions.extra,
                 ),
                 data: err.requestOptions.data,
                 queryParameters: err.requestOptions.queryParameters,

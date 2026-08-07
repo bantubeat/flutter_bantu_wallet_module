@@ -5,6 +5,8 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/resend_payment_preferences_verification_code_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/update_payment_preferences_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/withdrawal/request_withdrawal_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/balance/paiement_account_page.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/withdrawal/monetization_withdrawal_page.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/withdrawal_request_form/withdrawal_request_form_page.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/withdrawal_request_resume/withdrawal_request_resume_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -26,12 +28,15 @@ import '../../layers/domain/repositories/payment_repository.dart';
 import '../../layers/domain/repositories/public_repository.dart';
 import '../../layers/domain/repositories/user_repository.dart';
 import '../domain/entities/payment_preference_entity.dart';
+import '../domain/use_cases/account/get_monetization_eligibility_use_case.dart';
 import '../domain/use_cases/withdrawal/check_withdrawal_eligibility_use_case.dart';
 import '../domain/use_cases/currency/convert_fiat_currency_use_case.dart';
 import '../domain/use_cases/bzc_exchange/exchange_bzc_to_fiat_use_case.dart';
 import '../domain/use_cases/bzc_exchange/get_bzc_currency_converter_use_case.dart';
+import '../domain/use_cases/bzc_exchange/get_token_prices_use_case.dart';
 import '../domain/use_cases/account/get_current_user_use_case.dart';
 import '../domain/use_cases/bzc_exchange/get_exchange_bzc_packs_use_case.dart';
+import '../domain/use_cases/bzc_exchange/purchase_token_pack_use_case.dart';
 import '../domain/use_cases/payment_preference/get_payment_preferences_use_case.dart';
 import '../domain/use_cases/account/get_transactions_history_use_case.dart';
 import '../domain/use_cases/bzc_exchange/exchange_fiat_to_bzc_use_case.dart';
@@ -46,13 +51,13 @@ import '../../layers/presentation/pages/buy_beatzcoins/buy_beatzcoins_page.dart'
 import '../../layers/presentation/pages/deposit/deposit_page.dart';
 import '../../layers/presentation/pages/home/home_page.dart';
 import '../../layers/presentation/pages/transactions/transactions_page.dart';
-import '../../layers/presentation/pages/balance/balance_page.dart';
-import '../../layers/presentation/pages/withdrawal/withdrawal_page.dart';
 import '../../layers/presentation/pages/beatzcoins/beatzcoins_page.dart';
 import '../../layers/presentation/navigation/wallet_routes.dart';
 import '../domain/use_cases/withdrawal/generate_withdrawal_payment_slip_use_case.dart';
 import '../domain/use_cases/withdrawal/send_withdrawal_mail_otp_use_case.dart';
 import 'pages/add_or_edit_payment_account/add_or_edit_payment_account_page.dart';
+import 'pages/home/featlink_wallet_page.dart';
+import 'pages/menetisation_program/monetization_home_page.dart';
 
 class WalletModule extends Module {
   static const _floatingMenuBuilderKey = 'WalletModule@floatingMenuBuilder';
@@ -143,9 +148,12 @@ class WalletModule extends Module {
     i.add(GetBzcCurrencyConverterUseCase.new);
     i.add(GetCurrentUserUseCase.new);
     i.add(GetExchangeBzcPacksUseCase.new);
+    i.add(GetTokenPricesUseCase.new);
     i.add(GetTransactionsUseCase.new);
     i.add(GetUserBalanceUseCase.new);
+    i.add(GetMonetizationEligibilityUseCase.new);
     i.add(MakeDepositDirectPaymentUseCase.new);
+    i.add(PurchaseTokenPackUseCase.new);
     i.add(RequestDepositPaymentLinkUseCase.new);
     i.add(GetPaymentPreferencesUseCase.new);
     i.add(UpdatePaymentPreferencesUseCase.new);
@@ -168,10 +176,19 @@ class WalletModule extends Module {
 
   @override
   void routes(r) {
-    r.child(_routes.home.wp, child: (_) => const HomePage());
-    r.child(_routes.balance.wp, child: (_) => const BalancePage());
+    r.child(_routes.home.wp, child: (_) => const FeatlinkWalletPage());
+    r.child(
+      _routes.monetisationProgramHome.wp,
+      child: (_) => const MonetizationHomePage(),
+    );
+    r.child(_routes.balance.wp, child: (_) => const PaiementAccountPage());
+
     r.child(_routes.deposit.wp, child: (_) => const DepositPage());
-    r.child(_routes.withdrawal.wp, child: (_) => const WithdrawalPage());
+    r.child(
+      _routes.withdrawal.wp,
+      child: (_) => const MonetizationWithdrawalPage(),
+    );
+    // r.child(_routes.withdrawal.wp, child: (_) => const WithdrawalPage());
     r.child(_routes.beatzcoins.wp, child: (_) => const BeatzcoinsPage());
     r.child(_routes.buyBeatzcoins.wp, child: (_) => const BuyBeatzcoinsPage());
     r.child(_routes.transactions.wp, child: (_) => const TransactionsPage());
@@ -200,5 +217,7 @@ class WalletModule extends Module {
     );
 
     r.wildcard(child: (_) => const HomePage());
+    // r.child(_routes.home.wp, child: (_) => const HomePage());
+    // r.child(_routes.balance.wp, child: (_) => const BalancePage());
   }
 }

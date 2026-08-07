@@ -42,7 +42,7 @@ class _WithdrawalRequestFormController extends ScreenController {
     if (isProcessing) return;
     final amount = num.tryParse(amountCtrl.text);
     if (amount == null || amount < 0) {
-      error = 'Le montant doit être un nombre positif';
+      error = LocaleKeys.wallet_module_common_positive_amount_error.tr();
       refreshUI();
       return;
     } else {

@@ -1,4 +1,6 @@
-import 'package:awesome_dio_interceptor/awesome_dio_interceptor.dart';
+import 'dart:developer';
+
+// import 'package:awesome_dio_interceptor/awesome_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:http_cache_hive_store/http_cache_hive_store.dart';
@@ -30,14 +32,31 @@ class MyHttpClientDioImplemenation extends MyHttpClient {
           if (token != null) {
             options.headers['Authorization'] = 'Bearer $token';
           }
+          if (kDebugMode) {
+            debugPrint('📤 REQUEST: ${options.method} ${options.uri}');
+            debugPrint('📤 Headers: ${options.headers}');
+            debugPrint('📤 Body: ${options.data}');
+          }
           return handler.next(options); // Continue the request
+        },
+        onResponse: (response, handler) {
+          if (kDebugMode) {
+            log(
+              '📤 RESPONSE: ${response.statusCode} ${response.data} ${response.realUri.path}',
+            );
+          }
+          handler.next(response);
         },
         onError: (DioException err, handler) async {
           // Handle 401 Unauthorized and refresh the token.
           // Only retry once, and only if a fresh token was actually obtained,
           // otherwise the retry loop could hammer the server until it
           // rate-limits the client.
-          final alreadyRetried = err.requestOptions.extra['auth_retried'] == true;
+          if (kDebugMode) {
+            log('📤 RESPONSE ERREUR: ${err.response?.data}');
+          }
+          final alreadyRetried =
+              err.requestOptions.extra['auth_retried'] == true;
           if (err.response?.statusCode == 401 && !alreadyRetried) {
             try {
               final newToken = refreshAccessToken != null
@@ -71,20 +90,20 @@ class MyHttpClientDioImplemenation extends MyHttpClient {
       ),
     );
 
-    if (kDebugMode) {
-      _dio.interceptors.add(
-        AwesomeDioInterceptor(
-          // Disabling headers and timeout would minimize the logging output.
-          // Optional, defaults to true
-          logRequestTimeout: true,
-          logRequestHeaders: true,
-          logResponseHeaders: true,
+    // if (kDebugMode) {
+    //   _dio.interceptors.add(
+    //     AwesomeDioInterceptor(
+    //       // Disabling headers and timeout would minimize the logging output.
+    //       // Optional, defaults to true
+    //       logRequestTimeout: true,
+    //       logRequestHeaders: true,
+    //       logResponseHeaders: true,
 
-          // Optional, defaults to the 'log' function in the 'dart:developer' package.
-          logger: debugPrint,
-        ),
-      );
-    }
+    //       // Optional, defaults to the 'log' function in the 'dart:developer' package.
+    //       logger: debugPrint,
+    //     ),
+    //   );
+    // }
 
     if (cacheEnabled) {
       _dio.interceptors.add(

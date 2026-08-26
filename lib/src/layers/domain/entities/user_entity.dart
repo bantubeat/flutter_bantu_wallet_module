@@ -57,14 +57,34 @@ class UserEntity extends Equatable {
   final String? photoUrl;
   final String? profilBannerUrl;
   final int birthyear;
+  final String? gender;
   final String email;
   final String pays;
   final String? telephone;
   final String? city;
   final String? whatsapp;
+  final String? postalCode;
+  final String? neighborhood;
+  final String? street;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final MonetaryZone? monetaryZone; // Nouveau champ
+  final MonetaryZone? monetaryZone;
+  final String? image;
+  final bool? status;
+  final DateTime? emailVerifiedAt;
+  final DateTime? certifiedAt;
+  final DateTime? deletedAt;
+  final String? lawManagementCompany;
+  final String? ipi;
+  final String? description;
+  final String? facebook;
+  final String? instagram;
+  final String? twitter;
+  final String? youtube;
+  final String? soundCloud;
+  final String? tiktok;
+  final String? snapchat;
+  final bool? authUserFollow;
 
   const UserEntity({
     required this.id,
@@ -82,9 +102,29 @@ class UserEntity extends Equatable {
     required this.noms,
     required this.photoUrl,
     required this.profilBannerUrl,
+    this.gender,
     this.city,
     this.whatsapp,
-    this.monetaryZone, // Nouveau paramètre
+    this.postalCode,
+    this.neighborhood,
+    this.street,
+    this.monetaryZone,
+    this.image,
+    this.status,
+    this.emailVerifiedAt,
+    this.certifiedAt,
+    this.deletedAt,
+    this.lawManagementCompany,
+    this.ipi,
+    this.description,
+    this.facebook,
+    this.instagram,
+    this.twitter,
+    this.youtube,
+    this.soundCloud,
+    this.tiktok,
+    this.snapchat,
+    this.authUserFollow,
   });
 
   bool get isAfrican => africanCountryCurrencyList
@@ -111,10 +151,30 @@ class UserEntity extends Equatable {
         telephone,
         city,
         whatsapp,
+        postalCode,
+        neighborhood,
+        street,
         birthyear,
+        gender,
         noms,
         photoUrl,
         profilBannerUrl,
-        monetaryZone, // Ajouté aux props
+        monetaryZone,
+        image,
+        status,
+        emailVerifiedAt,
+        certifiedAt,
+        deletedAt,
+        lawManagementCompany,
+        ipi,
+        description,
+        facebook,
+        instagram,
+        twitter,
+        youtube,
+        soundCloud,
+        tiktok,
+        snapchat,
+        authUserFollow,
       ];
 }

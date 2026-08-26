@@ -44,34 +44,83 @@ class EligibleCountry {
     required this.updatedAt,
     this.complianceNotes,
   });
-
   factory EligibleCountry.fromJson(Map<String, dynamic> json) {
+    // Fonction utilitaire pour parser les booléens de manière sécurisée
+    bool parseBool(dynamic value) {
+      if (value == null) return false;
+      if (value is bool) return value;
+      if (value is int) return value == 1;
+      if (value is String) return value.toLowerCase() == 'true' || value == '1';
+      return false;
+    }
+
+    // Fonction utilitaire pour parser les doubles de manière sécurisée
+    double parseDouble(dynamic value, {double defaultValue = 0.0}) {
+      if (value == null) return defaultValue;
+      if (value is double) return value;
+      if (value is int) return value.toDouble();
+      if (value is String) {
+        final cleaned = value.replaceAll(',', '.').trim();
+        return double.tryParse(cleaned) ?? defaultValue;
+      }
+      return defaultValue;
+    }
+
+    // Fonction utilitaire pour parser les entiers de manière sécurisée
+    int parseInt(dynamic value, {int defaultValue = 0}) {
+      if (value == null) return defaultValue;
+      if (value is int) return value;
+      if (value is double) return value.toInt();
+      if (value is String) return int.tryParse(value) ?? defaultValue;
+      return defaultValue;
+    }
+
+    // Fonction utilitaire pour parser les dates
+    DateTime parseDate(dynamic value, {DateTime? defaultValue}) {
+      if (value == null) {
+        return defaultValue ?? DateTime.now();
+      }
+      if (value is DateTime) return value;
+      if (value is String) {
+        try {
+          return DateTime.parse(value);
+        } catch (e) {
+          return defaultValue ?? DateTime.now();
+        }
+      }
+      return defaultValue ?? DateTime.now();
+    }
+
+    // Fonction utilitaire pour parser les strings
+    String parseString(dynamic value, {String defaultValue = ''}) {
+      if (value == null) return defaultValue;
+      if (value is String) return value;
+      if (value is int || value is double) return value.toString();
+      return defaultValue;
+    }
+
     return EligibleCountry(
-      id: json['id'] as int,
-      countryCode: json['country_code'] as String,
-      currency: json['currency'] as String,
-      isMonetisationActive: json['is_monetisation_active'] as bool,
-      // is_payout_active arrive parfois en int (0/1), parfois en bool
-      isPayoutActive:
-          json['is_payout_active'] == true || json['is_payout_active'] == 1,
-      kycLevel: json['kyc_level'] as String,
-      kycAllFieldsRequired: json['kyc_all_fields_required'] == true ||
-          json['kyc_all_fields_required'] == 1,
-      payoutMinThreshold: double.parse(json['payout_min_threshold'].toString()),
-      payoutDailyLimit: double.parse(json['payout_daily_limit'].toString()),
-      payoutWeeklyLimit: double.parse(json['payout_weekly_limit'].toString()),
-      payoutMonthlyLimit: double.parse(json['payout_monthly_limit'].toString()),
-      pspPayin: json['psp_payin'] as String,
-      pspPayout: json['psp_payout'] as String,
+      id: parseInt(json['id'], defaultValue: -1),
+      countryCode: parseString(json['country_code']),
+      currency: parseString(json['currency']),
+      isMonetisationActive: parseBool(json['is_monetisation_active']),
+      isPayoutActive: parseBool(json['is_payout_active']),
+      kycLevel: parseString(json['kyc_level']),
+      kycAllFieldsRequired: parseBool(json['kyc_all_fields_required']),
+      payoutMinThreshold: parseDouble(json['payout_min_threshold']),
+      payoutDailyLimit: parseDouble(json['payout_daily_limit']),
+      payoutWeeklyLimit: parseDouble(json['payout_weekly_limit']),
+      payoutMonthlyLimit: parseDouble(json['payout_monthly_limit']),
+      pspPayin: parseString(json['psp_payin']),
+      pspPayout: parseString(json['psp_payout']),
       complianceNotes: json['compliance_notes'] as String?,
-      fxSpread: double.parse(json['fx_spread'].toString()),
-      roundingRule: json['rounding_rule'] as String,
-      quoteTtlMinutes: json['quote_ttl_minutes'] as int,
-      displayCurrency: json['display_currency'] as String,
-      showBzcAmount:
-          json['show_bzc_amount'] == true || json['show_bzc_amount'] == 1,
-      createdAt: DateTime.parse(json['created_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
+      fxSpread: parseDouble(json['fx_spread'], defaultValue: 1.0),
+      roundingRule: parseString(json['rounding_rule'], defaultValue: 'half_up'),
+      quoteTtlMinutes: parseInt(json['quote_ttl_minutes'], defaultValue: 60),
+      displayCurrency: parseString(json['display_currency']),
+      showBzcAmount: parseBool(json['show_bzc_amount']),
+      createdAt: parseDate(json['created_at']),
+      updatedAt: parseDate(json['updated_at']),
     );
   }
 

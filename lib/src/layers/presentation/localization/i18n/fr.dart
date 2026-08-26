@@ -221,6 +221,106 @@ const Map<String, dynamic> langMap = {
             "Pour valider l'enregistrement de votre compte de paiement, vous devez saisir le code qui vous a été envoyé par mail",
         "code_placeholder": "Entrez le code",
         "resend_code": "Renvoyer le code"
+      },
+      "otp_phone": {
+        "title": "Code de validation",
+        "description":
+            "Nous avons envoyé un code à 6 chiffres au {{phone}}. Veuillez le saisir ci-dessous pour sécuriser votre accès.",
+        "resend": "RENVOYER LE CODE",
+        "encryption": "CHIFFREMENT DE BOUT EN BOUT",
+        "confirm": "Confirmer",
+        "code_resent": "Code envoyé."
+      },
+      "otp_result": {
+        "success_title": "Vérification réussie",
+        "success_message":
+            "Le numéro de téléphone a été vérifié\nvous pouvez continuer, l'enregistrement de votre compte de règlement",
+        "success_cta": "Continuer",
+        "failure_title": "Échec de validation",
+        "failure_message":
+            "Le code saisi est incorrect ou a expiré. Veuillez réessayer.",
+        "failure_cta": "Réessayer"
+      },
+      "otp_help": {
+        "title": "Besoin d'aide ?",
+        "message": "Contactez notre support L'Éclat Noir 24/7."
+      },
+      "otp_secured_by": "SECURED BY L'ÉCLAT NOIR ARCHITECTURE",
+      "update": {
+        "title_mobile": "Modifier le compte Mobile",
+        "title_bank": "Modifier le compte bancaire",
+        "account_holder_first_name": "Prénom du titulaire du compte",
+        "account_holder_last_name": "Nom du titulaire du compte",
+        "account_holder_helper":
+            "Entrer le nom du titulaire du compte, tel qu'il apparaît sur les relevés",
+        "account_holder_helper_bank":
+            "Entrer le nom du titulaire du compte, tel qu'il apparaît sur les relevés bancaires",
+        "address": "Adresse",
+        "address_helper":
+            "Adresse du titulaire du compte, pour les entreprises mettez l'adresse de l'entreprise.",
+        "city": "Ville",
+        "postal_code": "Code postal",
+        "birthdate_helper": "Date de naissance du titulaire du compte",
+        "account_type": "Type de compte de paiement",
+        "mobile_money": "Compte Mobile Money",
+        "bank_account": "Compte bancaire",
+        "mobile_number": "Numéro Mobile",
+        "phone_hint": "X XX XX XX XX",
+        "mobile_help": "Identique à votre relevé mobile",
+        "no_operator": "Aucun opérateur disponible",
+        "operator_hint": "Ex: MTN, Orange...",
+        "bank_helper": "Identique à votre relevé de banque ou carte de banque",
+        "swift_bic": "SWIFT/BIC",
+        "operator_required": "L'opérateur est obligatoire",
+        "required": "Requis",
+        "required_min": "Requis min:{{min}}",
+        "select_operator": "Veuillez sélectionner un opérateur.",
+        "enter_mobile_number": "Veuillez entrer le numero mobile money",
+        "enter_birthdate": "Veuillez renseigner la date de naissance.",
+        "send": "Envoyer",
+        "cancel": "ANNULER",
+        "change": "CHANGER",
+        "upload_cta": "UPLOAD +"
+      },
+      "verify": {
+        "title":
+            "Entrez votre numéro de compte enregistré actuellement pour confirmer votre identité",
+        "iban_label": "IBAN",
+        "mobile_label": "Mobile",
+        "iban_empty": "Veuillez entrer le numéro IBAN enregistré",
+        "mobile_empty": "Veuillez entrer le numéro mobile enregistré",
+        "verify": "Vérifier",
+        "add": "Ajouter"
+      },
+      "whatsapp_warning": {
+        "title": "Vérification WhatsApp",
+        "description":
+            "Pour valider votre compte Mobile Money, un code de vérification OTP vous sera envoyé exclusivement via WhatsApp sur le numéro renseigné. Assurez-vous que ce numéro possède un compte WhatsApp actif.",
+        "security":
+            "Cette étape est indispensable pour garantir la sécurité de vos futurs paiements.",
+        "cta": "J'AI COMPRIS"
+      },
+      "send_otp_failed": "Échec de l'envoi du code.",
+      "explore_features": "EXPLORER LES FONCTIONNALITÉS",
+      "date_hint": "mm/dd/yyyy",
+      "full_address_hint": "Adresse complète",
+      "bank_name_hint": "Ex: Afriland First Bank",
+      "bic_swift_hint": "BIC/SWIFT",
+      "doc_formats_hint":
+          "Formats acceptés: JPG, PNG, PDF.\nTaille maximale: 5MB.",
+      "months": {
+        "january": "Janvier",
+        "february": "Février",
+        "march": "Mars",
+        "april": "Avril",
+        "may": "Mai",
+        "june": "Juin",
+        "july": "Juillet",
+        "august": "Août",
+        "september": "Septembre",
+        "october": "Octobre",
+        "november": "Novembre",
+        "december": "Décembre"
       }
     },
     "withdrawal_process": {
@@ -329,12 +429,29 @@ const Map<String, dynamic> langMap = {
       "settlement_account": "Compte de Règlement",
       "settlement_account_description":
           "Vos demandes de paiement seront versées sur le moyen de paiement suivant : {{account}}",
+      "tax_id_required": "Identifiant Fiscal REQUIS",
+      "tax_id_required_tag": "REQUIS",
+      "tax_id_required_description":
+          "Ajouter vos informations d'identification Fiscale",
+      "tax_id_pending": "Identifiant Fiscal EN COURS DE VALIDATION",
+      "tax_id_pending_description":
+          "Vos informations fiscales ont été soumises et sont en cours de vérification. Vous pouvez les mettre à jour si nécessaire.",
+      "tax_id_title": "Identifiant Fiscal",
+      "tax_id_label": "N° Identifiant Fiscal",
+      "tax_id_hint": "Ex: 1234567890A",
+      "tax_id_saved": "Identifiant fiscal enregistré",
       "diamonds": "DIAMANTS",
       "stars": "ETOILES",
-      "diamond_rate": "1 diamant = {{rate}} FCFA",
+      "diamond_rate": "1 diamant = {{rate}} {{currency}}",
       "stars_rate": "{{count}} étoiles = 1 diamant",
       "estimated_value": "Valeur estimée\nActifs Digitaux",
       "convert": "CONVERTIR",
+      "coming_soon": "Conversion bientôt disponible",
+      "convert_diamonds_title": "Convertir des diamants",
+      "convert_available": "Disponible : {{amount}}",
+      "convert_hint": "Nombre de diamants à convertir",
+      "convert_invalid_amount": "Montant invalide",
+      "convert_success": "Conversion réussie",
       "country_with_currency": "{{country}} ({{currency}})",
       "secure_transactions": "Transactions sécurisées",
       "delay_info":
@@ -349,6 +466,47 @@ const Map<String, dynamic> langMap = {
       "generating_receipt": "Génération du reçu…",
       "support_help":
           "Besoin d'aide ? Contactez notre équipe d'assistance à l'adresse\n"
+    },
+    "tax_identifier_screen": {
+      "title": "Identifiant Fiscal",
+      "intro":
+          "Veuillez renseigner votre identifiant fiscal pour valider vos prochaines demandes de paiement.",
+      "country_label": "PAYS",
+      "tax_id_label": "NUMÉRO D'IDENTIFIANT FISCAL*",
+      "tax_id_hint": "Ex: 0000000000",
+      "field_required": "Ce champ est requis",
+      "document_label": "Document justificatif*",
+      "choose_file": "Choisir un fichier",
+      "file_format": "Format PDF, JPG ou PNG (max 5 Mo)",
+      "save": "ENREGISTRER",
+      "document_missing": "Veuillez ajouter un document justificatif.",
+      "success_title": "Données enregistrées avec succès",
+      "success_description":
+          "Vos informations ont été enregistrées avec succès.",
+      "continue": "CONTINUER",
+      "error_title": "Échec de l'enregistrement",
+      "error_description":
+          "Une erreur est survenue lors de l'enregistrement de vos données. Veuillez réessayer.",
+      "retry": "RECOMMENCER"
+    },
+    "kyc_session": {
+      "verification_completed": "✅ Vérification KYC terminée avec succès !",
+      "verification_cancelled": "❌ La vérification KYC a été annulée",
+      "session_expired":
+          "La session a expiré. Veuillez recommencer le processus",
+      "network_error": "Erreur réseau. Vérifiez votre connexion internet",
+      "camera_access_denied":
+          "Accès à la caméra refusé. Autorisez l'accès dans les paramètres",
+      "sdk_not_initialized": "Le SDK n'est pas initialisé. Veuillez réessayer",
+      "api_error": "Erreur serveur. Veuillez réessayer plus tard",
+      "retry_blocked": "Trop de tentatives. Veuillez réessayer plus tard",
+      "unknown_error": "Erreur inconnue : {{message}}"
+    },
+    "incomplete_profile_modal": {
+      "title": "Votre profil est incomplet",
+      "description": "Veuillez compléter vos informations pour accéder aux revenus.",
+      "primary_button": "COMPLÉTER MES DONNÉES",
+      "secondary_button": "PLUS TARD"
     },
     "monetization_program": {
       "app_title": "MONETIZATION",

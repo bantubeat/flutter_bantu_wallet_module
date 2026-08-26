@@ -6,6 +6,7 @@ import '../entities/exchange_bzc_pack_entity.dart';
 import '../entities/payment_preference_entity.dart';
 import '../entities/financial_transaction_entity.dart';
 import '../entities/user_balance_entity.dart';
+import '../entities/payout_method_entity.dart';
 import '../value_objects/requests/create_withdrawal_request.dart';
 import '../value_objects/requests/payment_preference_input.dart';
 
@@ -16,11 +17,25 @@ abstract class BalanceRepository {
 
   Future<List<PaymentPreferenceEntity>> getPaymentPreferences();
 
-  Future<void> updatePaymentPreferences(PaymentPreferenceInput input);
+  Future<PaymentPreferenceEntity> updatePaymentPreferences(
+    PaymentPreferenceInput input,
+  );
 
-  Future<bool> checkPaymentPreferencesVerificationCode(String code);
+  Future<bool> checkPaymentPreferencesVerificationCode({
+    required String uuid,
+    required String code,
+  });
 
   Future<void> resendPaymentPreferencesVerificationCode();
+
+  Future<bool> checkPaymentPreferencesEmailVerificationCode({
+    required String uuid,
+    required String code,
+  });
+
+  Future<void> resendPaymentPreferencesEmailVerificationCode({
+    required String uuid,
+  });
 
   Future<List<FinancialTransactionEntity>> getTransactions({
     required int limit,
@@ -37,4 +52,8 @@ abstract class BalanceRepository {
   Future<EWithdrawalResponseStatus> requestWithdrawal(
     CreateWithdrawalRequest request,
   );
+
+  Future<void> convertDiamonds(double diamondAmount);
+
+  Future<PayoutMethodsResultEntity> getPayoutMethods();
 }

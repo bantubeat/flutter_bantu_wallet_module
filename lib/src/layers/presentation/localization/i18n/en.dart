@@ -218,6 +218,106 @@ const Map<String, dynamic> langMap = {
             "To validate the registration of your payment account, you must enter the code that was sent to you by email.",
         "code_placeholder": "Enter the code",
         "resend_code": "Resend code"
+      },
+      "otp_phone": {
+        "title": "Validation code",
+        "description":
+            "We sent a 6-digit code to {{phone}}. Please enter it below to secure your access.",
+        "resend": "RESEND THE CODE",
+        "encryption": "END-TO-END ENCRYPTION",
+        "confirm": "Confirm",
+        "code_resent": "Code sent."
+      },
+      "otp_result": {
+        "success_title": "Verification successful",
+        "success_message":
+            "The phone number has been verified.\nYou can continue registering your payment account.",
+        "success_cta": "Continue",
+        "failure_title": "Validation failed",
+        "failure_message":
+            "The code entered is incorrect or has expired. Please try again.",
+        "failure_cta": "Try again"
+      },
+      "otp_help": {
+        "title": "Need help?",
+        "message": "Contact our L'Éclat Noir support 24/7."
+      },
+      "otp_secured_by": "SECURED BY L'ÉCLAT NOIR ARCHITECTURE",
+      "update": {
+        "title_mobile": "Edit Mobile Money account",
+        "title_bank": "Edit bank account",
+        "account_holder_first_name": "Account holder first name",
+        "account_holder_last_name": "Account holder last name",
+        "account_holder_helper":
+            "Enter the account holder name, as it appears on the statements",
+        "account_holder_helper_bank":
+            "Enter the account holder name, as it appears on the bank statements",
+        "address": "Address",
+        "address_helper":
+            "Account holder address; for companies enter the company address.",
+        "city": "City",
+        "postal_code": "Postal code",
+        "birthdate_helper": "Account holder birth date",
+        "account_type": "Payment account type",
+        "mobile_money": "Mobile Money account",
+        "bank_account": "Bank account",
+        "mobile_number": "Mobile number",
+        "phone_hint": "X XX XX XX XX",
+        "mobile_help": "Same as on your mobile statement",
+        "no_operator": "No operator available",
+        "operator_hint": "E.g.: MTN, Orange...",
+        "bank_helper": "Same as on your bank statement or bank card",
+        "swift_bic": "SWIFT/BIC",
+        "operator_required": "Operator is required",
+        "required": "Required",
+        "required_min": "Required min:{{min}}",
+        "select_operator": "Please select an operator.",
+        "enter_mobile_number": "Please enter the mobile money number",
+        "enter_birthdate": "Please fill in the birth date.",
+        "send": "Send",
+        "cancel": "CANCEL",
+        "change": "CHANGE",
+        "upload_cta": "UPLOAD +"
+      },
+      "verify": {
+        "title":
+            "Enter your currently registered account number to confirm your identity",
+        "iban_label": "IBAN",
+        "mobile_label": "Mobile",
+        "iban_empty": "Please enter the registered IBAN number",
+        "mobile_empty": "Please enter the registered mobile number",
+        "verify": "Verify",
+        "add": "Add"
+      },
+      "whatsapp_warning": {
+        "title": "WhatsApp verification",
+        "description":
+            "To validate your Mobile Money account, an OTP verification code will be sent exclusively via WhatsApp to the number provided. Make sure this number has an active WhatsApp account.",
+        "security":
+            "This step is essential to ensure the security of your future payments.",
+        "cta": "GOT IT"
+      },
+      "send_otp_failed": "Failed to send the code.",
+      "explore_features": "EXPLORE FEATURES",
+      "date_hint": "mm/dd/yyyy",
+      "full_address_hint": "Full address",
+      "bank_name_hint": "E.g.: Afriland First Bank",
+      "bic_swift_hint": "BIC/SWIFT",
+      "doc_formats_hint":
+          "Accepted formats: JPG, PNG, PDF.\nMaximum size: 5MB.",
+      "months": {
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
       }
     },
     "withdrawal_process": {
@@ -325,12 +425,28 @@ const Map<String, dynamic> langMap = {
       "settlement_account": "Settlement Account",
       "settlement_account_description":
           "Your payment requests will be paid to the following payment method: {{account}}",
+      "tax_id_required": "Tax ID REQUIRED",
+      "tax_id_required_tag": "REQUIRED",
+      "tax_id_required_description": "Add your tax identification information",
+      "tax_id_pending": "Tax ID PENDING REVIEW",
+      "tax_id_pending_description":
+          "Your tax information has been submitted and is being reviewed. You can update it if needed.",
+      "tax_id_title": "Tax ID",
+      "tax_id_label": "Tax ID Number",
+      "tax_id_hint": "E.g.: 1234567890A",
+      "tax_id_saved": "Tax ID saved",
       "diamonds": "DIAMONDS",
       "stars": "STARS",
-      "diamond_rate": "1 diamond = {{rate}} FCFA",
+      "diamond_rate": "1 diamond = {{rate}} {{currency}}",
       "stars_rate": "{{count}} stars = 1 diamond",
       "estimated_value": "Estimated value\nDigital Assets",
       "convert": "CONVERT",
+      "coming_soon": "Conversion coming soon",
+      "convert_diamonds_title": "Convert diamonds",
+      "convert_available": "Available: {{amount}}",
+      "convert_hint": "Number of diamonds to convert",
+      "convert_invalid_amount": "Invalid amount",
+      "convert_success": "Conversion successful",
       "country_with_currency": "{{country}} ({{currency}})",
       "secure_transactions": "Secure transactions",
       "delay_info":
@@ -344,6 +460,45 @@ const Map<String, dynamic> langMap = {
       "download_receipt": "Download Receipt",
       "generating_receipt": "Generating receipt…",
       "support_help": "Need help? Contact our support team at\n"
+    },
+    "tax_identifier_screen": {
+      "title": "Tax ID",
+      "intro":
+          "Please provide your tax ID to validate your upcoming payment requests.",
+      "country_label": "COUNTRY",
+      "tax_id_label": "TAX ID NUMBER*",
+      "tax_id_hint": "E.g.: 0000000000",
+      "field_required": "This field is required",
+      "document_label": "Supporting document*",
+      "choose_file": "Choose a file",
+      "file_format": "PDF, JPG or PNG format (max 5 MB)",
+      "save": "SAVE",
+      "document_missing": "Please add a supporting document.",
+      "success_title": "Data saved successfully",
+      "success_description": "Your information has been saved successfully.",
+      "continue": "CONTINUE",
+      "error_title": "Save failed",
+      "error_description":
+          "An error occurred while saving your data. Please try again.",
+      "retry": "RETRY"
+    },
+    "kyc_session": {
+      "verification_completed": "✅ KYC verification completed successfully!",
+      "verification_cancelled": "❌ KYC verification was cancelled",
+      "session_expired": "The session has expired. Please restart the process",
+      "network_error": "Network error. Check your internet connection",
+      "camera_access_denied":
+          "Camera access denied. Allow access in settings",
+      "sdk_not_initialized": "The SDK is not initialized. Please try again",
+      "api_error": "Server error. Please try again later",
+      "retry_blocked": "Too many attempts. Please try again later",
+      "unknown_error": "Unknown error: {{message}}"
+    },
+    "incomplete_profile_modal": {
+      "title": "Your profile is incomplete",
+      "description": "Please complete your information to access earnings.",
+      "primary_button": "COMPLETE MY DATA",
+      "secondary_button": "LATER"
     },
     "monetization_program": {
       "app_title": "MONETIZATION",

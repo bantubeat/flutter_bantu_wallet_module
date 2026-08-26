@@ -76,6 +76,7 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
   @override
   void initState() {
     super.initState();
+
     Modular.get<GetBzcCurrencyConverterUseCase>()
         .call(NoParms())
         .then((converter) => setState(() => _bzcCurrencyConverter = converter));

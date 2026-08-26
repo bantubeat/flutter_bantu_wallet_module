@@ -1,8 +1,9 @@
-
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/data/models/monetization_account_model.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/diamond_convert_rate_entity.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_kyc_status.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/financial_transaction_entity.dart';
@@ -10,20 +11,29 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/payment_p
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/user_balance_entity.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/user_entity.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/get_kyc_status_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/get_monetization_accounts_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/get_monetization_eligibility_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/get_profile_completion_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/get_transactions_history_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/diamond/convert_diamonds_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/diamond/get_diamond_convert_rate_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/current_user_cubit.dart'
     show CurrentUserCubit;
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/user_balance_cubit.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/account_type_modal.dart'
+    hide AccountType;
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/incomplete_profile_modal.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
+import '../../../../core/network/my_http/my_http.dart';
 import '../../../../core/use_cases/use_case.dart';
 import '../../../domain/use_cases/payment_preference/get_payment_preferences_use_case.dart';
+import 'complete_profile_screen.dart';
 
 // ============================================================================
 // PAGE
@@ -41,19 +51,27 @@ enum _MonetizationState {
   error,
   countryRestricted,
   kycRequired,
+  taxIdRequired,
+  taxIdPending,
   eligible
 }
 
 class _MonetizationWithdrawalPageState
     extends State<MonetizationWithdrawalPage> {
-  static const double _diamondToFcfaRate = 32.8;
   static const int _starsPerDiamond = 200;
 
   EKycStatus? _kycStatus;
   List<PaymentPreferenceEntity>? _paymentPreferences;
   bool? _isCountryEligible;
+  List<MonetizationAccountModel>? _monetizationAccounts;
   bool _isLoadingStatus = true;
   bool _hasError = false;
+  DiamondConvertRateEntity? _diamondConvertRate;
+
+  /// True once the user has at least one monetization account with an
+  /// approved review status.
+  bool get _hasTaxId =>
+      _monetizationAccounts?.any((a) => a.isApproved) ?? false;
 
   List<FinancialTransactionEntity>? _transactions;
   bool _isLoadingTransactions = true;
@@ -66,6 +84,44 @@ class _MonetizationWithdrawalPageState
 
   Future<void> _loadAll() async {
     await Future.wait([_loadStatus(), _loadTransactions()]);
+    await _loadProfileCompletion();
+  }
+
+  Future<void> _loadProfileCompletion() async {
+    try {
+      final result =
+          await Modular.get<GetProfileCompletionUseCase>().call(NoParms());
+      if (!mounted) return;
+      if (!result.isComplete) {
+        _showIncompleteProfileModal();
+      }
+    } catch (_) {
+      if (!mounted) return;
+    }
+  }
+
+  void _showIncompleteProfileModal() {
+    if (!mounted) return;
+    IncompleteProfileModal.show(
+      context,
+      onLater: () {
+        Navigator.of(context).pop();
+
+        if (Modular.to.canPop()) {
+          Modular.to.pop();
+        } else {
+          Modular.get<WalletRoutes>().home.navigate();
+        }
+      },
+      onComplete: () async {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const CompleteProfileScreen(),
+          ),
+        );
+        if (mounted) await _loadProfileCompletion();
+      },
+    );
   }
 
   Future<void> _loadStatus() async {
@@ -79,12 +135,16 @@ class _MonetizationWithdrawalPageState
         Modular.get<GetPaymentPreferencesUseCase>().call(NoParms()),
         Modular.get<GetMonetizationEligibilityUseCase>()
             .call(Modular.get<CurrentUserCubit>().state.data?.pays ?? ''),
+        Modular.get<GetDiamondConvertRateUseCase>().call(NoParms()),
+        Modular.get<GetMonetizationAccountsUseCase>().call(NoParms()),
       ]);
       if (!mounted) return;
       setState(() {
         _kycStatus = results[0] as EKycStatus;
         _paymentPreferences = results[1] as List<PaymentPreferenceEntity>;
         _isCountryEligible = results[2] as bool;
+        _diamondConvertRate = results[3] as DiamondConvertRateEntity;
+        _monetizationAccounts = results[4] as List<MonetizationAccountModel>;
         _isLoadingStatus = false;
       });
     } catch (e, st) {
@@ -128,13 +188,54 @@ class _MonetizationWithdrawalPageState
       return _MonetizationState.countryRestricted;
     }
     if (_kycStatus != EKycStatus.success) return _MonetizationState.kycRequired;
-    return _MonetizationState.eligible;
+    if (_hasTaxId) return _MonetizationState.eligible;
+    // Data submitted but not approved yet -> pending review.
+    if (_monetizationAccounts?.isNotEmpty ?? false) {
+      return _MonetizationState.taxIdPending;
+    }
+    return _MonetizationState.taxIdRequired;
   }
 
-  void _goToKycForm() => WalletModule.goToKycForm();
+  void _goToKycForm() => WalletModule.startKycVerification(context);
 
-  void _onAddPaymentPreference() =>
-      Modular.get<WalletRoutes>().addOrEditPaymentAccount.push();
+  void _onAddPaymentPreference(PaymentPreferenceEntity? pref) {
+    if (pref != null) {
+      Modular.get<WalletRoutes>()
+          .verifiePaiementAccount
+          .push(pref)
+          .then((e) => _loadAll());
+    } else {
+      Modular.get<WalletRoutes>()
+          .addOrEditPaymentAccount
+          .push()
+          .then((e) => _loadAll());
+    }
+  }
+
+  /// Account used to prefill the tax identifier screen: prefer the
+  /// 'particulier' one, otherwise the most recent.
+  MonetizationAccountModel? get _currentMonetizationAccount {
+    final accounts = _monetizationAccounts;
+    if (accounts == null || accounts.isEmpty) return null;
+    return accounts.firstWhere(
+      (a) => a.accountType == 'particulier',
+      orElse: () => accounts.first,
+    );
+  }
+
+  void _onAddTaxId() async {
+    final type = await AccountTypeModal.show(context);
+    if (type == null || !mounted) return;
+    final saved = await Modular.get<WalletRoutes>()
+        .taxIdentifier
+        .push<bool>(_currentMonetizationAccount);
+    if (saved != true || !mounted) return;
+    UiAlertHelpers.showSuccessToast(
+      LocaleKeys.wallet_module_monetization_page_tax_id_saved.tr(),
+    );
+    // Refresh the fiscal data state from the API.
+    await _loadStatus();
+  }
 
   void _onRequestWithdrawal() =>
       Modular.get<WalletRoutes>().withdrawalRequestForm.push();
@@ -142,11 +243,123 @@ class _MonetizationWithdrawalPageState
   void _openHistory() => Modular.get<WalletRoutes>().transactions.push();
 
   void _onConvertDiamonds() {
-    // TODO: brancher sur l'écran / le use case de conversion diamants -> FCFA
+    _showConvertDiamondsDialog();
   }
 
   void _onConvertStars() {
-    // TODO: brancher sur l'écran / le use case de conversion étoiles -> diamants
+    UiAlertHelpers.showSuccessToast(
+      LocaleKeys.wallet_module_monetization_page_coming_soon.tr(),
+    );
+  }
+
+  double? get _availableDiamonds {
+    final balance = Modular.get<UserBalanceCubit>().state.data;
+    return balance?.revenueAccount?.diamonds.balance ?? balance?.diamond;
+  }
+
+  Future<void> _showConvertDiamondsDialog() async {
+    final available = _availableDiamonds;
+    final controller = TextEditingController();
+    final amount = await showDialog<double>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(
+          LocaleKeys.wallet_module_monetization_page_convert_diamonds_title
+              .tr(),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              LocaleKeys.wallet_module_monetization_page_stars_rate.tr(
+                namedArgs: {'count': '$_starsPerDiamond'},
+              ),
+              style: const TextStyle(fontSize: 12, color: Colors.black54),
+            ),
+            const SizedBox(height: 4),
+            if (available != null)
+              Text(
+                LocaleKeys.wallet_module_monetization_page_convert_available
+                    .tr(namedArgs: {'amount': _formatAmount(available)}),
+                style: const TextStyle(fontSize: 12, color: Colors.black54),
+              ),
+            const SizedBox(height: 14),
+            TextField(
+              controller: controller,
+              autofocus: true,
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+              decoration: InputDecoration(
+                hintText: LocaleKeys
+                    .wallet_module_monetization_page_convert_hint
+                    .tr(),
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(6)),
+                  borderSide: BorderSide(color: Colors.black26, width: 1),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(6)),
+                  borderSide: BorderSide(color: Colors.black26, width: 1),
+                ),
+                isDense: true,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(
+              LocaleKeys.wallet_module_common_cancel.tr(),
+              style: const TextStyle(color: Colors.black),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final value =
+                  double.tryParse(controller.text.trim().replaceAll(',', '.'));
+              if (value == null || value <= 0) {
+                UiAlertHelpers.showErrorToast(
+                  LocaleKeys
+                      .wallet_module_monetization_page_convert_invalid_amount
+                      .tr(),
+                );
+                return;
+              }
+              Navigator.pop(dialogContext, value);
+            },
+            child: Text(
+              LocaleKeys.wallet_module_common_validate.tr(),
+              style: const TextStyle(color: Colors.black),
+            ),
+          ),
+        ],
+      ),
+    );
+    if (amount == null) return;
+    await _convertDiamonds(amount);
+  }
+
+  Future<void> _convertDiamonds(double amount) async {
+    try {
+      await Modular.get<ConvertDiamondsUseCase>().call(
+        ConvertDiamondsParams(amount),
+      );
+      if (!mounted) return;
+      await Modular.get<UserBalanceCubit>().fetchUserBalance();
+      if (!mounted) return;
+      UiAlertHelpers.showSuccessToast(
+        LocaleKeys.wallet_module_monetization_page_convert_success.tr(),
+      );
+    } catch (e) {
+      final message = e is MyHttpClientSideException
+          ? (e.message ?? e.toString())
+          : e.toString();
+      if (mounted) {
+        UiAlertHelpers.showErrorToast(message);
+      }
+    }
   }
 
   void _onOpenMonetizationProgram() {
@@ -165,6 +378,18 @@ class _MonetizationWithdrawalPageState
   String _formatAmount(num? value) {
     if (value == null) return '--';
     return NumberFormat('#,##0', 'fr_FR').format(value).replaceAll(',', ' ');
+  }
+
+  String _formatDiamondRate() {
+    final rate = _diamondConvertRate?.unitPrice;
+    if (rate == null) return '--';
+    return rate.toStringAsFixed(1).replaceAll('.', ',');
+  }
+
+  String _estimatedDigitalAssetsValue(num? diamonds) {
+    final rate = _diamondConvertRate?.unitPrice;
+    if (diamonds == null || rate == null) return '--';
+    return _formatAmount(diamonds * rate);
   }
 
   String _maskAccountNumber(PaymentPreferenceEntity pref) {
@@ -436,7 +661,7 @@ class _MonetizationWithdrawalPageState
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(
-                  onPressed: _onAddPaymentPreference,
+                  onPressed: () => _onAddPaymentPreference(null),
                   icon: const Icon(Icons.credit_card, size: 18),
                   label: Text(
                     LocaleKeys
@@ -505,6 +730,8 @@ class _MonetizationWithdrawalPageState
   /// Section variable sous les boutons, selon l'état :
   /// - éligible + KYC ok        -> "Compte de Règlement"
   /// - éligible + KYC pas ok    -> "KYC REQUIS" + "Programme de Monétisation"
+  /// - identifiant fiscal manquant -> "Identifiant Fiscal REQUIS" + "Programme de Monétisation"
+  /// - identifiant fiscal en attente -> "Identifiant Fiscal EN COURS DE VALIDATION" + "Programme de Monétisation"
   /// - pays non éligible        -> "Monétisation restreinte" uniquement
   List<Widget> _buildStateSection() {
     switch (_state) {
@@ -539,11 +766,44 @@ class _MonetizationWithdrawalPageState
             onTap: _onOpenMonetizationProgram,
           ),
         ];
+      case _MonetizationState.taxIdPending:
+      case _MonetizationState.taxIdRequired:
+        return [
+          _buildInfoRow(
+            title: (_state == _MonetizationState.taxIdPending
+                    ? LocaleKeys.wallet_module_monetization_page_tax_id_pending
+                    : LocaleKeys
+                        .wallet_module_monetization_page_tax_id_required)
+                .tr(),
+            description: (_state == _MonetizationState.taxIdPending
+                    ? LocaleKeys
+                        .wallet_module_monetization_page_tax_id_pending_description
+                    : LocaleKeys
+                        .wallet_module_monetization_page_tax_id_required_description)
+                .tr(),
+            onTap: _onAddTaxId,
+          ),
+          const SizedBox(height: 16),
+          _buildInfoRow(
+            title:
+                LocaleKeys.wallet_module_monetization_page_program_title.tr(),
+            description: LocaleKeys
+                .wallet_module_monetization_page_program_description
+                .tr(),
+            onTap: _onOpenMonetizationProgram,
+          ),
+        ];
       case _MonetizationState.eligible:
-        final pref =
-            (_paymentPreferences != null && _paymentPreferences!.isNotEmpty)
-                ? _paymentPreferences!.first
-                : null;
+        final prefOrdList = _paymentPreferences!
+          ..sort((a, b) {
+            if (a.updatedAt == null && b.updatedAt == null) {
+              return b.createdAt!.compareTo(a.createdAt!);
+            }
+            if (a.updatedAt == null) return 1;
+            if (b.updatedAt == null) return -1;
+            return b.updatedAt!.compareTo(a.updatedAt!);
+          });
+        final pref = (prefOrdList.isNotEmpty) ? prefOrdList.first : null;
         final masked = pref != null ? _maskAccountNumber(pref) : '...';
         return [
           _buildInfoRow(
@@ -552,7 +812,7 @@ class _MonetizationWithdrawalPageState
             description: LocaleKeys
                 .wallet_module_monetization_page_settlement_account_description
                 .tr(namedArgs: {'account': masked}),
-            onTap: _onAddPaymentPreference,
+            onTap: () => _onAddPaymentPreference(pref),
           ),
           const SizedBox(height: 16),
           _buildInfoRow(
@@ -640,8 +900,8 @@ class _MonetizationWithdrawalPageState
           value: restricted ? '-' : _formatAmount(diamonds),
           rateLabel: LocaleKeys.wallet_module_monetization_page_diamond_rate.tr(
             namedArgs: {
-              'rate':
-                  _diamondToFcfaRate.toStringAsFixed(1).replaceAll('.', ','),
+              'rate': _formatDiamondRate(),
+              'currency': _diamondConvertRate?.currencySymbol ?? 'FCFA',
             },
           ),
           onConvert: restricted ? null : _onConvertDiamonds,
@@ -685,18 +945,19 @@ class _MonetizationWithdrawalPageState
                   ),
                 ),
               ),
-              const Text(
-                '--',
-                style: TextStyle(
+              Text(
+                _estimatedDigitalAssetsValue(diamonds),
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: Colors.black38,
                 ),
               ),
               const SizedBox(width: 6),
-              const Text(
-                'FCFA',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+              Text(
+                _diamondConvertRate?.currencySymbol ?? 'FCFA',
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
               ),
             ],
           ),

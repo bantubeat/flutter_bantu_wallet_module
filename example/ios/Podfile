@@ -1,6 +1,31 @@
 # Uncomment this line to define a global platform for your project
 # platform :ios, '13.0'
-platform :ios, '13.0'
+# platform :ios, '13.0'
+
+# ------------------------------------------------------------
+# DIDIT SDK CONFIGURATION
+# ------------------------------------------------------------
+# Choisir le variant : 'all', 'core', 'autodetection', 'nfc'
+$DiditSdkIosVariant = 'autodetection'  # Recommandé pour BeSafe (sans NFC)
+
+didit_sdk_ios_deployment_target = ['all', 'nfc'].include?($DiditSdkIosVariant) ? '15.0' : '13.0'
+platform :ios, didit_sdk_ios_deployment_target
+
+didit_sdk_ios_pod = case $DiditSdkIosVariant
+                    when 'all'
+                      'DiditSDK/All'
+                    when 'core'
+                      'DiditSDK/Core'
+                    when 'autodetection'
+                      'DiditSDK/AutoDetection'
+                    when 'nfc'
+                      'DiditSDK/NFC'
+                    else
+                      raise "Invalid $DiditSdkIosVariant '#{$DiditSdkIosVariant}'. Supported values: all, core, autodetection, nfc."
+                    end
+didit_sdk_ios_podspec = 'https://raw.githubusercontent.com/didit-protocol/sdk-ios/4.6.0/DiditSDK.podspec'
+# ------------------------------------------------------------
+
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
@@ -30,6 +55,9 @@ flutter_ios_podfile_setup
 target 'Runner' do
   use_frameworks!
 
+  # 👇 AJOUT DE LA DÉPENDANCE DIDIT SDK
+  pod didit_sdk_ios_pod, :podspec => didit_sdk_ios_podspec
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
     inherit! :search_paths
@@ -39,5 +67,10 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    
+    # 👇 AJOUT POUR APPLIQUER LE BON DÉPLOIEMENT
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = didit_sdk_ios_deployment_target
+    end
   end
 end

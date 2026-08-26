@@ -37,6 +37,7 @@ dependencies:
   printing: ^5.14.3
   share_plus: ^13.3.0
   path_provider: ^2.1.6
+  didit_sdk: ^4.6.0
 
 dev_dependencies:
   flutter_test:

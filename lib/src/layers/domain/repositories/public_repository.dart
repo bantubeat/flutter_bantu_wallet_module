@@ -2,6 +2,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/data/models/eligible_coun
 
 import '../entities/currency_item_entity.dart';
 import '../entities/currency_rates_entity.dart';
+import '../entities/diamond_convert_rate_entity.dart';
 import '../entities/token_price_entity.dart';
 
 abstract class PublicRepository {
@@ -11,4 +12,5 @@ abstract class PublicRepository {
   ]);
   Future<CurrencyRatesEntity> getBzcCurrencyRates();
   Future<TokenPriceEntity> getTokenPacks();
+  Future<DiamondConvertRateEntity> getDiamondConvertRate();
 }

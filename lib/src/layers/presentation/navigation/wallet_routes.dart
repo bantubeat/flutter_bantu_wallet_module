@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/payment_preference_entity.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../domain/value_objects/requests/create_withdrawal_request.dart';
@@ -17,6 +18,8 @@ final class WalletRoutes {
   final String _addOrEditPaymentAccount;
   final String _withdrawalRequestForm;
   final String _withdrawalRequestResume;
+  final String _verifiePaiementAccount;
+  final String _taxIdentifier;
 
   const WalletRoutes(
     this.prefix_, {
@@ -31,6 +34,8 @@ final class WalletRoutes {
     String addOrEditPaymentAccount = 'add-or-edit-payment-account',
     String withdrawalRequestForm = 'withdrawal-request-form',
     String withdrawalRequestResume = 'withdrawal-request-resume',
+    String verifiePaiementAccount = 'verifie-paiement-account',
+    String taxIdentifier = 'tax-identifier',
   })  : _home = home,
         _monetisationProgramHome = monetisationProgramHome,
         _balance = balance,
@@ -41,7 +46,9 @@ final class WalletRoutes {
         _transactions = transactions,
         _addOrEditPaymentAccount = addOrEditPaymentAccount,
         _withdrawalRequestForm = withdrawalRequestForm,
-        _withdrawalRequestResume = withdrawalRequestResume;
+        _withdrawalRequestResume = withdrawalRequestResume,
+        _verifiePaiementAccount = verifiePaiementAccount,
+        _taxIdentifier = taxIdentifier;
 
   _RouteItem get home => _RouteItem(prefix_, _home);
   _RouteItem get monetisationProgramHome =>
@@ -58,6 +65,9 @@ final class WalletRoutes {
       _RouteItem(prefix_, _withdrawalRequestForm);
   _RouteItem<CreateWithdrawalRequest> get withdrawalRequestResume =>
       _RouteItem<CreateWithdrawalRequest>(prefix_, _withdrawalRequestResume);
+  _RouteItem<PaymentPreferenceEntity> get verifiePaiementAccount =>
+      _RouteItem<PaymentPreferenceEntity>(prefix_, _verifiePaiementAccount);
+  _RouteItem get taxIdentifier => _RouteItem(prefix_, _taxIdentifier);
 }
 
 final class _RouteItem<T> {

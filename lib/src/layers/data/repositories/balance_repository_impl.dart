@@ -10,6 +10,7 @@ import '../../domain/entities/exchange_bzc_pack_entity.dart';
 import '../../domain/entities/payment_preference_entity.dart';
 import '../../domain/entities/financial_transaction_entity.dart';
 import '../../domain/entities/user_balance_entity.dart';
+import '../../domain/entities/payout_method_entity.dart';
 import '../../domain/repositories/balance_repository.dart';
 import '../data_sources/bantubeat_api_data_source.dart';
 
@@ -47,6 +48,11 @@ class BalanceRepositoryImpl implements BalanceRepository {
   }
 
   @override
+  Future<void> convertDiamonds(double diamondAmount) {
+    return _apiDataSource.post$diamondConvert(diamondAmount);
+  }
+
+  @override
   Future<List<ExchangeBzcPackEntity>> getExchangeBzcPacks() {
     return _apiDataSource.get$publicExchangeBzcPacks();
   }
@@ -57,14 +63,19 @@ class BalanceRepositoryImpl implements BalanceRepository {
   }
 
   @override
-  Future<void> updatePaymentPreferences(PaymentPreferenceInput input) {
+  Future<PaymentPreferenceEntity> updatePaymentPreferences(
+    PaymentPreferenceInput input,
+  ) {
     return _apiDataSource.post$paymentPreferences(input);
   }
 
   @override
-  Future<bool> checkPaymentPreferencesVerificationCode(String code) {
+  Future<bool> checkPaymentPreferencesVerificationCode({
+    required String uuid,
+    required String code,
+  }) {
     return _apiDataSource
-        .post$paymentPreferencesValidateCode(code)
+        .post$paymentPreferencesVerifyOtp(uuid: uuid, code: code)
         .then((_) => true)
         .catchError((err) {
       if (err is DioException) {
@@ -94,7 +105,37 @@ class BalanceRepositoryImpl implements BalanceRepository {
   }
 
   @override
+  Future<PayoutMethodsResultEntity> getPayoutMethods() {
+    return _apiDataSource.get$balancePayoutMethods();
+  }
+
+  @override
   Future<void> resendPaymentPreferencesVerificationCode() {
     return _apiDataSource.post$paymentPreferencesResendCode();
+  }
+
+  @override
+  Future<bool> checkPaymentPreferencesEmailVerificationCode({
+    required String uuid,
+    required String code,
+  }) {
+    return _apiDataSource
+        .post$paymentPreferencesVerifyEmailCode(uuid: uuid, code: code)
+        .then((_) => true)
+        .catchError((err) {
+      if (err is DioException) {
+        final status = err.response?.statusCode ?? 0;
+        if (400 <= status && status <= 499) return false;
+      }
+
+      throw err;
+    });
+  }
+
+  @override
+  Future<void> resendPaymentPreferencesEmailVerificationCode({
+    required String uuid,
+  }) {
+    return _apiDataSource.post$paymentPreferencesResendEmailCode(uuid: uuid);
   }
 }

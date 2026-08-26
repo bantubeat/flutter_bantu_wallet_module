@@ -24,6 +24,12 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Nous avons besoin de la caméra pour vérifier votre identité.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Le microphone est utilisé pour la vérification de liveness.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Pour importer des photos de documents.</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>

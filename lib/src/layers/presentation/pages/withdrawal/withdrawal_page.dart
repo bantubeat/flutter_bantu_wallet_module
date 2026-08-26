@@ -29,7 +29,8 @@ class WithdrawalPage extends StatelessWidget {
 
   void _onViewDetails() => Modular.get<WalletRoutes>().transactions.push();
 
-  void _goToKycForm() => WalletModule.goToKycForm();
+  void _goToKycForm(BuildContext context) =>
+      WalletModule.startKycVerification(context);
 
   void _onRequestWithdrawal() {
     Modular.get<WalletRoutes>().withdrawalRequestForm.push();
@@ -216,7 +217,7 @@ class WithdrawalPage extends StatelessWidget {
                           text: LocaleKeys
                               .wallet_module_withdrawal_page_check_your_identity
                               .tr(),
-                          onPressed: _goToKycForm,
+                          onPressed: () => _goToKycForm(context),
                           fullWidth: true,
                         )
                       else if (paymentPreferences.isEmpty)

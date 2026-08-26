@@ -304,7 +304,11 @@ class _AddOrEditPaymentAccountController extends ScreenController {
     isProcessing = true;
     refreshUI();
 
-    await Modular.get<UpdatePaymentPreferencesUseCase>().call(paymentPrefInput);
+    final preference =
+        await Modular.get<UpdatePaymentPreferencesUseCase>().call(
+      paymentPrefInput,
+    );
+    final preferenceUuid = preference.uuid;
 
     if (!context.mounted) return;
     await OtpCodeModal(
@@ -312,9 +316,9 @@ class _AddOrEditPaymentAccountController extends ScreenController {
       description:
           LocaleKeys.wallet_module_payment_account_modal_description.tr(),
       handleSubmit: (context, code) async {
-        final isValid =
-            await Modular.get<CheckPaymentPreferencesVerificationCodeUseCase>()
-                .call(code);
+        final isValid = await Modular
+            .get<CheckPaymentPreferencesVerificationCodeUseCase>()
+            .call((uuid: preferenceUuid, code: code));
         if (!isValid || !context.mounted) return;
         Navigator.pop(context);
         Modular.get<WalletRoutes>().home.navigate();

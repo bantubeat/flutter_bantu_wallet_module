@@ -15,6 +15,8 @@ final class ApiConstants {
       'packages/flutter_bantu_wallet_module/assets/images/saloondprivedBg.png';
   static String get servicesProBg =>
       'packages/flutter_bantu_wallet_module/assets/images/servicesProBg.png';
+  static String get whatsaapImg =>
+      'packages/flutter_bantu_wallet_module/assets/images/whatsaap.png';
 
   static String get websiteUrl => MyAppEnv.isProduction
       ? 'https://open.bantubeat.com'

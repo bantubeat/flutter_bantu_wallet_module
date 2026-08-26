@@ -73,6 +73,7 @@ class _OtpCodeModalState extends State<OtpCodeModal> {
 
     try {
       await widget.handleSubmit(context, code);
+      UiAlertHelpers.showSuccessToast('Success');
     } catch (e) {
       final message = (e is MyHttpException) ? e.message : null;
       UiAlertHelpers.showErrorToast(
@@ -89,6 +90,7 @@ class _OtpCodeModalState extends State<OtpCodeModal> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
@@ -112,7 +114,7 @@ class _OtpCodeModalState extends State<OtpCodeModal> {
                 ),
                 const SizedBox(width: 16.0),
                 CircleAvatar(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  backgroundColor: Colors.black,
                   child: GestureDetector(
                     onTap: () {
                       Navigator.of(context).pop(); // Close the modal
@@ -172,9 +174,9 @@ class _OtpCodeModalState extends State<OtpCodeModal> {
               alignment: Alignment.center,
               child: Visibility(
                 visible: !_resendingCode,
-                replacement: CircularProgressIndicator.adaptive(
+                replacement: const CircularProgressIndicator.adaptive(
                   valueColor: AlwaysStoppedAnimation(
-                    Theme.of(context).colorScheme.primary,
+                    Colors.black,
                   ),
                 ),
                 child: TextButton(
@@ -182,10 +184,10 @@ class _OtpCodeModalState extends State<OtpCodeModal> {
                   child: Text(
                     LocaleKeys.wallet_module_payment_account_modal_resend_code
                         .tr(),
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
+                    style: const TextStyle(
+                      color: Colors.black,
                       decoration: TextDecoration.underline,
-                      decorationColor: Theme.of(context).colorScheme.primary,
+                      decorationColor: Colors.black,
                     ),
                   ),
                 ),
@@ -196,6 +198,7 @@ class _OtpCodeModalState extends State<OtpCodeModal> {
               isLoading: _submitting,
               text: LocaleKeys.wallet_module_common_validate.tr(),
               onPressed: _onSubmit,
+              backgroundColor: Colors.black,
             ),
           ],
         ),

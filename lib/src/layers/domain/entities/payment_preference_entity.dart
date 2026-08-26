@@ -14,6 +14,12 @@ abstract class PaymentPreferenceEntity {
   final String? detailCountry;
   final String? detailOperator;
   final String? detailBankName;
+  final String? firstName;
+  final String? lastName;
+  final DateTime? birthDate;
+  final String? street;
+  final String? city;
+  final String? postalCode;
   final bool isVerified;
   final String? verificationCode;
 
@@ -32,6 +38,12 @@ abstract class PaymentPreferenceEntity {
     this.detailCountry,
     this.detailOperator,
     this.detailBankName,
+    this.firstName,
+    this.lastName,
+    this.birthDate,
+    this.street,
+    this.city,
+    this.postalCode,
     this.verificationCode,
   });
 }

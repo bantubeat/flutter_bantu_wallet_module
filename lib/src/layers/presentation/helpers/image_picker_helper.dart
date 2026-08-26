@@ -46,6 +46,7 @@ final class ImagePickerHelper {
 
     showModalBottomSheet(
       context: context,
+      backgroundColor: Colors.white,
       builder: (BuildContext context) {
         return SafeArea(
           child: Padding(

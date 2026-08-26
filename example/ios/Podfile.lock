@@ -1,4 +1,8 @@
 PODS:
+  - didit_sdk (4.6.0):
+    - DiditSDK/AutoDetection (= 4.6.0)
+    - Flutter
+  - DiditSDK/AutoDetection (4.6.0)
   - Flutter (1.0.0)
   - fluttertoast (0.0.2):
     - Flutter
@@ -20,6 +24,8 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
+  - didit_sdk (from `.symlinks/plugins/didit_sdk/ios`)
+  - DiditSDK/AutoDetection (from `https://raw.githubusercontent.com/didit-protocol/sdk-ios/4.6.0/DiditSDK.podspec`)
   - Flutter (from `Flutter`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
@@ -31,6 +37,10 @@ DEPENDENCIES:
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/darwin`)
 
 EXTERNAL SOURCES:
+  didit_sdk:
+    :path: ".symlinks/plugins/didit_sdk/ios"
+  DiditSDK:
+    :podspec: https://raw.githubusercontent.com/didit-protocol/sdk-ios/4.6.0/DiditSDK.podspec
   Flutter:
     :path: Flutter
   fluttertoast:
@@ -51,6 +61,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
 SPEC CHECKSUMS:
+  didit_sdk: f7bf021e8ae15e3f8e46adb37454ccec29cdcb6e
+  DiditSDK: b931ae53d94010fbca2e33e213ed5bd373e5391b
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   fluttertoast: 2c67e14dce98bbdb200df9e1acf610d7a6264ea1
   image_picker_ios: e0ece4aa2a75771a7de3fa735d26d90817041326
@@ -61,6 +73,6 @@ SPEC CHECKSUMS:
   url_launcher_ios: 7a95fa5b60cc718a708b8f2966718e93db0cef1b
   webview_flutter_wkwebview: 8ebf4fded22593026f7dbff1fbff31ea98573c8d
 
-PODFILE CHECKSUM: c29657ced933e7a9ac0861b7cddc944fe79f8f48
+PODFILE CHECKSUM: 100122d9b8e87d2cb32e2c58a21544c6ed7bb8ca
 
 COCOAPODS: 1.16.2

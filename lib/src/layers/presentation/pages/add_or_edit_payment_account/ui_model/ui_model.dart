@@ -71,7 +71,12 @@ class PaymentAccountFormDataType {
         detailPhone: mobileData.mobileAccountNumber,
         detailCountry: mobileData.paymentCountry.code,
         detailOperator: mobileData.mobileOperator,
-        detailName: '${accountHolder.firstName} ${accountHolder.lastName}',
+        firstName: accountHolder.firstName,
+        lastName: accountHolder.lastName,
+        birthDate: accountHolder.birthdate,
+        city: accountHolder.city,
+        postalCode: accountHolder.postalCode,
+        street: accountHolder.street,
       );
     }
 
@@ -81,7 +86,12 @@ class PaymentAccountFormDataType {
         detailBankName: bankData.bankName,
         detailBic: bankData.bankSwiftCode,
         detailIban: bankData.bankAccountNumber,
-        detailName: '${accountHolder.firstName} ${accountHolder.lastName}',
+        firstName: accountHolder.firstName,
+        lastName: accountHolder.lastName,
+        birthDate: accountHolder.birthdate,
+        city: accountHolder.city,
+        postalCode: accountHolder.postalCode,
+        street: accountHolder.street,
       );
     }
 

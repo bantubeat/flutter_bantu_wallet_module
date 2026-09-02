@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart' show kIsWeb, kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -11,7 +11,9 @@ import 'widgets/my_bottom_navigation_bar.dart';
 
 // test token
 const _accessToken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLmRldi5iYW50dWJlYXQuY29tL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU4Mzc4Mjc1LCJleHAiOjE3NjA3OTc0NzUsIm5iZiI6MTc1ODM3ODI3NSwianRpIjoiVVQ0YlJiNlU3UTRPRzJXeSIsInN1YiI6IjBlY2Y5NWY0LTJjZTMtNGRlMC04OGNmLTBmODJlNWE5MTJmZCJ9.e2oZWrQavG8XOYVDC5G_rzL6O1RYIT0GYYR0uBDZyOQ';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLmRldi5iYW50dWJlYXQuY29tL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzg2ODAxMDg0LCJleHAiOjE3ODkyMjAyODQsIm5iZiI6MTc4NjgwMTA4NCwianRpIjoiOVg2dHFxSHZXWm96ZnU0ViIsInN1YiI6IjdkNWQ0ZjE2LTU5OTgtNDY3YS04MTFkLTVjZDc4NTZhMTg2ZCJ9.qPTXfvfhfXD_u9nUriUFM_ltyYUfS_CM4L1snaBGuEQ';
+// const _accessToken =
+//     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLmRldi5iYW50dWJlYXQuY29tL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzg2MDk0NDQyLCJleHAiOjE3ODg1MTM2NDIsIm5iZiI6MTc4NjA5NDQ0MiwianRpIjoidHdVSFB1QWFhTUE4MW83SCIsInN1YiI6IjllM2M2OGUxLTczZDYtNDcyMy04YTAxLWE5YjMxZGQyMjAwOCJ9.fYRSF6QMZby2AOLUNUNbAE8m0sMTlMjpNoaxRQYPnmE';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -64,7 +66,7 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const supportedLocales = [Locale('fr')];
+    const supportedLocales = [Locale('en')];
     return EasyLocalization(
       path: kIsWeb ? 'i18n' : 'assets/i18n',
       saveLocale: false,

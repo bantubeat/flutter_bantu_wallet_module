@@ -5,9 +5,11 @@ class ActionButton extends StatelessWidget {
   final VoidCallback onPressed;
   final bool fullWidth;
   final Widget? prefixIcon;
+  final Widget? trailingIcon;
   final Color? backgroundColor;
   final Color? textColor;
   final bool enabled;
+  final BorderRadius? borderRadius;
   final bool isLoading;
 
   const ActionButton({
@@ -17,9 +19,11 @@ class ActionButton extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     this.prefixIcon,
+    this.trailingIcon,
     this.enabled = true,
     this.isLoading = false,
     super.key,
+    this.borderRadius,
   });
 
   @override
@@ -30,11 +34,11 @@ class ActionButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: enabled ? onPressed : null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ?? colorScheme.primary,
+          backgroundColor: backgroundColor ?? Colors.black,
           foregroundColor: Colors.white,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: borderRadius ?? BorderRadius.circular(8),
           ),
         ),
         child: Visibility(
@@ -63,6 +67,11 @@ class ActionButton extends StatelessWidget {
                   ),
                 ),
               ),
+              if (trailingIcon != null)
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: trailingIcon,
+                ),
             ],
           ),
         ),

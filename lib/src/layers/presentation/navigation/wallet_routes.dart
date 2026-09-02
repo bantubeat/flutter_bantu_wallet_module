@@ -1,5 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/payment_preference_entity.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/withdrawal/bordereau_args.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../domain/value_objects/requests/create_withdrawal_request.dart';
@@ -7,6 +9,7 @@ import '../../domain/value_objects/requests/create_withdrawal_request.dart';
 final class WalletRoutes {
   final String prefix_;
   final String _home;
+  final String _monetisationProgramHome;
   final String _balance;
   final String _deposit;
   final String _withdrawal;
@@ -16,10 +19,15 @@ final class WalletRoutes {
   final String _addOrEditPaymentAccount;
   final String _withdrawalRequestForm;
   final String _withdrawalRequestResume;
+  final String _verifiePaiementAccount;
+  final String _taxIdentifier;
+  final String _retraitPage;
+  final String _bordereauPage;
 
   const WalletRoutes(
     this.prefix_, {
     String home = 'home',
+    String monetisationProgramHome = 'monetisation-program-home',
     String balance = 'balance',
     String deposit = 'deposit',
     String withdrawal = 'withdrawal',
@@ -29,7 +37,12 @@ final class WalletRoutes {
     String addOrEditPaymentAccount = 'add-or-edit-payment-account',
     String withdrawalRequestForm = 'withdrawal-request-form',
     String withdrawalRequestResume = 'withdrawal-request-resume',
+    String verifiePaiementAccount = 'verifie-paiement-account',
+    String taxIdentifier = 'tax-identifier',
+    String retraitPage = 'retrait-page',
+    String bordereauPage = 'bordereau-page',
   })  : _home = home,
+        _monetisationProgramHome = monetisationProgramHome,
         _balance = balance,
         _deposit = deposit,
         _withdrawal = withdrawal,
@@ -38,9 +51,15 @@ final class WalletRoutes {
         _transactions = transactions,
         _addOrEditPaymentAccount = addOrEditPaymentAccount,
         _withdrawalRequestForm = withdrawalRequestForm,
-        _withdrawalRequestResume = withdrawalRequestResume;
+        _withdrawalRequestResume = withdrawalRequestResume,
+        _verifiePaiementAccount = verifiePaiementAccount,
+        _taxIdentifier = taxIdentifier,
+        _retraitPage = retraitPage,
+        _bordereauPage = bordereauPage;
 
   _RouteItem get home => _RouteItem(prefix_, _home);
+  _RouteItem get monetisationProgramHome =>
+      _RouteItem(prefix_, _monetisationProgramHome);
   _RouteItem get balance => _RouteItem(prefix_, _balance);
   _RouteItem get deposit => _RouteItem(prefix_, _deposit);
   _RouteItem get withdrawal => _RouteItem(prefix_, _withdrawal);
@@ -53,6 +72,12 @@ final class WalletRoutes {
       _RouteItem(prefix_, _withdrawalRequestForm);
   _RouteItem<CreateWithdrawalRequest> get withdrawalRequestResume =>
       _RouteItem<CreateWithdrawalRequest>(prefix_, _withdrawalRequestResume);
+  _RouteItem<PaymentPreferenceEntity> get verifiePaiementAccount =>
+      _RouteItem<PaymentPreferenceEntity>(prefix_, _verifiePaiementAccount);
+  _RouteItem get taxIdentifier => _RouteItem(prefix_, _taxIdentifier);
+  _RouteItem get retraitPage => _RouteItem(prefix_, _retraitPage);
+  _RouteItem<BordereauArgs> get bordereauPage =>
+      _RouteItem<BordereauArgs>(prefix_, _bordereauPage);
 }
 
 final class _RouteItem<T> {

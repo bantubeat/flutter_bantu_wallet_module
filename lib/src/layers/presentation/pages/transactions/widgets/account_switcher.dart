@@ -1,3 +1,4 @@
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -5,25 +6,23 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import '../../../../../core/generated/locale_keys.g.dart';
 
 class AccountSwitcher extends StatelessWidget {
-  final bool isBzcAccount;
-  final VoidCallback onSelectFiatAccount;
-  final VoidCallback onSelectBzcAccount;
+  final AccountType accountType;
+  final void Function(AccountType accountType) onSelect;
 
   const AccountSwitcher({
-    required this.isBzcAccount,
-    required this.onSelectFiatAccount,
-    required this.onSelectBzcAccount,
+    required this.accountType,
+    required this.onSelect,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      padding: const EdgeInsets.all(9),
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 7),
+      padding: const EdgeInsets.all(7),
       decoration: BoxDecoration(
         color: Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(15),
         border: Border.all(color: Colors.grey.shade300),
         boxShadow: [
           BoxShadow(
@@ -34,6 +33,7 @@ class AccountSwitcher extends StatelessWidget {
         ],
       ),
       child: Row(
+        spacing: 8,
         children: [
           Expanded(
             child: _buildPaymentTab(
@@ -42,27 +42,46 @@ class AccountSwitcher extends StatelessWidget {
                   .tr(),
               icon: Icon(
                 Ionicons.wallet_outline,
-                size: 30,
-                color: !isBzcAccount ? Colors.black : Colors.grey,
+                size: 25,
+                color: accountType == AccountType.payment
+                    ? Colors.black
+                    : Colors.grey,
               ),
-              isSelected: !isBzcAccount,
-              onTap: onSelectFiatAccount,
+              isSelected: accountType == AccountType.payment,
+              onTap: () => onSelect(AccountType.payment),
             ),
           ),
-          const SizedBox(width: 10),
+          Expanded(
+            child: _buildPaymentTab(
+              label: LocaleKeys
+                  .wallet_module_transaction_history_page_financial_account
+                  .tr(),
+              icon: Icon(
+                Ionicons.wallet_outline,
+                size: 25,
+                color: accountType == AccountType.revenue
+                    ? Colors.black
+                    : Colors.grey,
+              ),
+              isSelected: accountType == AccountType.revenue,
+              onTap: () => onSelect(AccountType.revenue),
+            ),
+          ),
           Expanded(
             child: _buildPaymentTab(
               label: LocaleKeys
                   .wallet_module_transaction_history_page_beatzocoin_account
                   .tr(),
               icon: Container(
-                width: 30,
-                height: 30,
+                width: 25,
+                height: 25,
                 padding: const EdgeInsets.all(2),
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1.5,
-                    color: isBzcAccount ? Colors.black : Colors.grey,
+                    color: accountType == AccountType.bzc
+                        ? Colors.black
+                        : Colors.grey,
                   ),
                   shape: BoxShape.circle,
                 ),
@@ -70,13 +89,16 @@ class AccountSwitcher extends StatelessWidget {
                   child: Text(
                     'BZC',
                     style: TextStyle(
-                      color: isBzcAccount ? Colors.black : Colors.grey,
+                      fontSize: 12,
+                      color: accountType == AccountType.bzc
+                          ? Colors.black
+                          : Colors.grey,
                     ),
                   ),
                 ),
               ),
-              isSelected: isBzcAccount,
-              onTap: onSelectBzcAccount,
+              isSelected: accountType == AccountType.bzc,
+              onTap: () => onSelect(AccountType.bzc),
             ),
           ),
         ],
@@ -93,10 +115,10 @@ class AccountSwitcher extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(9),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: isSelected ? Colors.white : Colors.transparent,
-          borderRadius: isSelected ? BorderRadius.circular(12) : null,
+          borderRadius: isSelected ? BorderRadius.circular(18) : null,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -108,9 +130,10 @@ class AccountSwitcher extends StatelessWidget {
                 label,
                 textAlign: TextAlign.left,
                 softWrap: true,
+                maxLines: 2,
                 overflow: TextOverflow.fade,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   color: isSelected ? Colors.black : Colors.grey,
                 ),

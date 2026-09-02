@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/enums/e_account_type.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -12,10 +13,8 @@ import '../../../domain/entities/financial_transaction_entity.dart';
 import '../../../domain/entities/user_entity.dart';
 import '../../../domain/use_cases/account/get_transactions_history_use_case.dart';
 import '../../cubits/user_balance_cubit.dart';
-import '../../wallet_module.dart';
-import '../../widgets/bantubeat_image_provider.dart';
 import 'widgets/account_switcher.dart';
-import 'widgets/transaction_filter.dart';
+// import 'widgets/transaction_filter.dart';
 import 'widgets/transaction_item.dart';
 
 part 'transactions_controller.dart';
@@ -30,17 +29,17 @@ class TransactionsPage extends StatelessWidget {
       backgroundColor: colorScheme.onPrimary,
       appBar: AppBar(
         backgroundColor: colorScheme.onPrimary,
-        title: Row(
+        title: const Row(
           children: [
-            CircleAvatar(
-              radius: 16,
-              backgroundImage: BantubeatImageProvider(),
-            ),
-            const SizedBox(width: 5),
-            Text(
-              'Bantubeat',
-              style: TextStyle(color: colorScheme.onSurface, fontSize: 16),
-            ),
+            // CircleAvatar(
+            //   radius: 16,
+            //   backgroundImage: BantubeatImageProvider(),
+            // ),
+            // const SizedBox(width: 5),
+            // Text(
+            //   'Bantubeat',
+            //   style: TextStyle(color: colorScheme.onSurface, fontSize: 16),
+            // ),
           ],
         ),
         actions: [
@@ -51,7 +50,10 @@ class TransactionsPage extends StatelessWidget {
               enabled: photoUrl == null,
               child: CircleAvatar(
                 radius: 16,
-                backgroundImage: NetworkImage(photoUrl ?? ''),
+                backgroundImage: NetworkImage(
+                  photoUrl ?? '',
+                  scale: 1.0,
+                ),
               ),
             ),
           ),
@@ -76,9 +78,8 @@ class TransactionsPage extends StatelessWidget {
                 ),
               ),
               AccountSwitcher(
-                isBzcAccount: ctrl.isBzcAccount,
-                onSelectBzcAccount: ctrl.switchAccount,
-                onSelectFiatAccount: ctrl.switchAccount,
+                accountType: ctrl.accountType,
+                onSelect: ctrl.switchAccount,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 16, top: 8),
@@ -98,15 +99,18 @@ class TransactionsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              TransactionFilter(
-                selectedStatus: ctrl.statuses.firstOrNull,
-                selectedType: ctrl.types.firstOrNull,
-                onStatusTap: !ctrl.isBzcAccount ? ctrl.onStatusTap : null,
-                onTypeTap: ctrl.isBzcAccount ? ctrl.onTypeTap : null,
-                onAllTap: ctrl.isBzcAccount
-                    ? () => ctrl.onTypeTap(null)
-                    : () => ctrl.onStatusTap(null),
-              ),
+              // TransactionFilter(
+              //   selectedStatus: ctrl.statuses.firstOrNull,
+              //   selectedType: ctrl.types.firstOrNull,
+              //   onStatusTap: !(ctrl.accountType == AccountType.bzc)
+              //       ? ctrl.onStatusTap
+              //       : null,
+              //   onTypeTap:
+              //       ctrl.accountType == AccountType.bzc ? ctrl.onTypeTap : null,
+              //   onAllTap: ctrl.accountType == AccountType.bzc
+              //       ? () => ctrl.onTypeTap(null)
+              //       : () => ctrl.onStatusTap(null),
+              // ),
               Expanded(
                 child: PagingListener<int, FinancialTransactionEntity>(
                   controller: ctrl.pagingController,
@@ -116,7 +120,37 @@ class TransactionsPage extends StatelessWidget {
                     padding: const EdgeInsets.all(16),
                     fetchNextPage: fetchNextPage,
                     builderDelegate: PagedChildBuilderDelegate(
-                      itemBuilder: (_, item, __) => TransactionItem(item),
+                      itemBuilder: (_, item, index) {
+                        final items = ctrl.pagingController.items ??
+                            const <FinancialTransactionEntity>[];
+                        final isToday =
+                            _isSameDay(item.createdAt, DateTime.now());
+                        final prevIsToday = index > 0 &&
+                            _isSameDay(
+                              items[index - 1].createdAt,
+                              DateTime.now(),
+                            );
+                        final showTodayLabel =
+                            isToday && (index == 0 || !prevIsToday);
+                        final showPreviousLabel =
+                            !isToday && (index == 0 || prevIsToday);
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (showTodayLabel)
+                              _SectionLabel(
+                                text:
+                                    LocaleKeys.wallet_module_common_today.tr(),
+                              ),
+                            if (showPreviousLabel)
+                              _SectionLabel(
+                                text: LocaleKeys.wallet_module_common_previous
+                                    .tr(),
+                              ),
+                            TransactionItem(item),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -125,8 +159,33 @@ class TransactionsPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: WalletModule.getFloatingMenuWidget(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: WalletModule.getFloatingMenuWidget(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
+  }
+}
+
+bool _isSameDay(DateTime a, DateTime b) =>
+    a.year == b.year && a.month == b.month && a.day == b.day;
+
+class _SectionLabel extends StatelessWidget {
+  final String text;
+
+  const _SectionLabel({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, bottom: 12),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w800,
+          letterSpacing: 0.4,
+          color: Color(0xFF49454F),
+        ),
+      ),
     );
   }
 }

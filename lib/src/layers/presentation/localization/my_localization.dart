@@ -2,6 +2,7 @@ import 'dart:collection' show HashMap;
 
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart' show initializeDateFormatting;
 
 /// Callback allowing to get the language path according to the specified locale.
 typedef GetLangMapFunction = Map<String, dynamic> Function(Locale locale);
@@ -39,6 +40,7 @@ class MyLocalization {
     try {
       Map<String, dynamic> strings = getLangMapFunction(locale);
       strings.forEach((String key, dynamic data) => _addValues(key, data));
+      await initializeDateFormatting(locale.languageCode);
       return true;
     } catch (exception, stacktrace) {
       if (kDebugMode) {

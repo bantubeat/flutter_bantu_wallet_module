@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/data/models/eligible_country.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/currency_rates_entity.dart';
 
 import '../../domain/entities/currency_item_entity.dart';
+import '../../domain/entities/diamond_convert_rate_entity.dart';
+import '../../domain/entities/token_price_entity.dart';
 import '../../domain/repositories/public_repository.dart';
 import '../data_sources/bantubeat_api_data_source.dart';
 
@@ -24,5 +27,23 @@ class PublicRepositoryImpl implements PublicRepository {
   @override
   Future<CurrencyRatesEntity> getBzcCurrencyRates() {
     return _bantubeatApiDataSource.get$publicCurrencies();
+  }
+
+  @override
+  Future<List<EligibleCountry>?> checkMonetizationEligibleCountries([
+    String? countryCode,
+  ]) {
+    return _bantubeatApiDataSource
+        .get$checkMonetizationEligibleCountries(countryCode);
+  }
+
+  @override
+  Future<TokenPriceEntity> getTokenPacks() {
+    return _bantubeatApiDataSource.get$tokenPacks();
+  }
+
+  @override
+  Future<DiamondConvertRateEntity> getDiamondConvertRate() {
+    return _bantubeatApiDataSource.get$diamondConvertRate();
   }
 }

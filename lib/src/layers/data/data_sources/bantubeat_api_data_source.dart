@@ -21,7 +21,9 @@ import '../models/user_balance_model.dart';
 import '../models/exchange_bzc_pack_model.dart';
 import '../models/payment_preference_model.dart';
 import '../models/payout_method_model.dart';
+import '../models/payout_configs_model.dart';
 import '../models/exchange_transaction_model.dart';
+import '../models/withdrawal_simulation_model.dart';
 import '../models/kyc_session_model.dart';
 import '../models/monetization_account_model.dart';
 import '../models/token_price_model.dart';
@@ -294,6 +296,12 @@ final class BantubeatApiDataSource {
         .then((r) => PayoutMethodsResultModel.fromJson(r.data));
   }
 
+  Future<PayoutConfigsModel> get$payoutConfigs() {
+    return _client
+        .get('/balance/payout-configs')
+        .then((r) => PayoutConfigsModel.fromJson(r.data));
+  }
+
   Future<DepositPaymentLinkModel> post$depositPaymentRequestPaymentLink({
     required String paymentMethod,
     required double amount,
@@ -448,5 +456,20 @@ final class BantubeatApiDataSource {
       }
       throw err;
     });
+  }
+
+  Future<WithdrawalSimulationModel> post$balanceWithdrawalsSimulate({
+    required num amount,
+    required String paymentPreferenceUuid,
+  }) {
+    return _client
+        .post(
+      '/balance/withdrawals/simulate',
+      body: {
+        'amount': amount,
+        'payment_preference_uuid': paymentPreferenceUuid,
+      },
+    )
+        .then((r) => WithdrawalSimulationModel.fromJson(r.data));
   }
 }

@@ -130,6 +130,7 @@ const Map<String, dynamic> langMap = {
           "Vous ne pouvez pas encore recevoir de paiement."
     },
     "beatzcoins_page": {
+      "intro1": "Beatzcoin est le token de ",
       "title":
           "Acheter des beatzcoins pour profiter des fonctionnalités premium de la plateforme et des autres applications Bantubeat",
       "description":
@@ -289,6 +290,7 @@ const Map<String, dynamic> langMap = {
         "mobile_label": "Mobile",
         "iban_empty": "Veuillez entrer le numéro IBAN enregistré",
         "mobile_empty": "Veuillez entrer le numéro mobile enregistré",
+        "iban_invalid": "Le numéro IBAN saisi est invalide",
         "verify": "Vérifier",
         "add": "Ajouter"
       },
@@ -349,7 +351,67 @@ const Map<String, dynamic> langMap = {
       "otp_code": {
         "title": "Code de verification",
         "description":
-            "Pour valider votre demande de  paiement, vous devez saisir le code qui vous a été envoyé par mail"
+            "Pour valider votre demande de  paiement, vous devez saisir le code qui vous a été envoyé par mail",
+        "secure_validation": "Validation Sécurisée",
+        "account_of": "COMPTE DE",
+        "confirm_withdrawal": "Confirmer le retrait",
+        "resend_code": "Renvoyer le code"
+      },
+      "load_error": "Erreur de chargement",
+      "solde_disponible": "SOLDE DISPONIBLE",
+      "minimum_maximum": "MINIMUM : {{min}} XAF  •  MAXIMUM : {{max}} XAF",
+      "minimum": "Minimum : {{amount}} XAF",
+      "maximum": "Maximum : {{amount}} XAF",
+      "amount_to_withdraw_label": "MONTANT À RETIRER",
+      "operation_details": "DÉTAILS DE L'OPÉRATION",
+      "bnc": "BNC ({{pct}}%)",
+      "service_fee": "Frais service ({{pct}}%)",
+      "bank_fee": "Frais bancaire ({{pct}}%)",
+      "net_to_receive_label": "NET À RECEVOIR",
+      "continue": "CONTINUER",
+      "bordereau": {
+        "title_mobile": "Bordereau Paiement Mobile",
+        "title_bank": "Bordereau Bancaire",
+        "appbar": "Bordereau",
+        "verify_info_before_confirm":
+            "Veuillez vérifier les informations de virement avant de valider votre demande de retrait.",
+        "document_status": "STATUT DU DOCUMENT",
+        "reference": "RÉFÉRENCE",
+        "pdf_status": "Statut",
+        "amount_to_transfer": "Montant à transférer",
+        "gross_amount": "Montant brut",
+        "platform_fee": "Frais de plateforme ({{pct}})",
+        "operator_fee": "Frais opérateur ({{pct}})",
+        "taxes": "Taxes ({{pct}})",
+        "total_fees": "Total des frais",
+        "net_to_receive": "Net à recevoir",
+        "operator": "Opérateur",
+        "bank": "Banque",
+        "account_number": "N° Compte",
+        "transfer_type": "Type de\ntransfert",
+        "mobile_money": "Mobile Money",
+        "bank_transfer": "Virement",
+        "legal_engagement": "ENGAGEMENT LÉGAL & CONFORMITÉ",
+        "engagement_mobile":
+            "En validant cette transaction, je certifie que les coordonnées mobile saisies ({{account}}) sont exactes et m'appartiennent. Je reconnais que les frais sur transfert mobile money seront à ma charge.",
+        "engagement_bank":
+            "En validant cette transaction, je certifie que les coordonnées bancaires saisies ({{account}}) sont exactes et m'appartiennent. Je reconnais que les virements internationaux peuvent prendre de 2 à 5 jours ouvrables selon les correspondants bancaires.",
+        "confirm_agreement":
+            "Je confirme avoir pris connaissance des conditions générales et accepte les délais de traitement interbancaires.",
+        "confirm_and_send": "Confirmer et envoyer",
+        "secure_transaction_aes":
+            "TRANSACTION SÉCURISÉE PAR CHIFFREMENT AES-256",
+        "modify_coordinates": "Modifier les coordonnées",
+        "withdrawal_created": "Retrait enregistré",
+        "withdrawal_failed": "Retrait non effectué",
+        "back_home": "Retour à l'accueil",
+        "download_slip_pdf": "Télécharger le récépissé (PDF)",
+        "processing_time": "Le transfert sera traité sous ",
+        "processing_time_desc": "2 à 5 jours ouvrables",
+        "processing_time_suffix": " selon votre moyen de paiement.",
+        "withdrawal_success_message":
+            "Votre demande de retrait de {{amount}} XAF a bien été enregistrée. Vous recevrez un e-mail de confirmation.",
+        "pdf_title": "Bordereau de retrait — {{reference}}"
       },
       "eligibility": {
         "eligible": "Vous êtes éligible pour effectuer un retrait",
@@ -379,6 +441,37 @@ const Map<String, dynamic> langMap = {
         "unknownError":
             "Une erreur est survenue lors de la création de votre demande de retrait"
       }
+    },
+    "complete_profile": {
+      "appbar_title": "Informations personnelles",
+      "title": "Compléter mon profil",
+      "description":
+          "Veuillez renseigner vos informations pour finaliser votre inscription.",
+      "first_name_label": "PRÉNOM*",
+      "first_name_hint": "Entrez votre prénom",
+      "last_name_label": "NOM*",
+      "last_name_hint": "Entrez votre nom",
+      "dob_label": "DATE DE NAISSANCE*",
+      "gender_label": "GENRE*",
+      "gender_select": "Sélectionner",
+      "gender_homme": "Homme",
+      "gender_femme": "Femme",
+      "gender_autre": "Autre",
+      "country_label": "PAYS*",
+      "city_label": "VILLE*",
+      "city_hint": "Ex: Douala, Yaoundé...",
+      "postal_code_label": "CODE POSTAL*",
+      "postal_code_hint": "Entrez le code postal de la ville",
+      "neighborhood_label": "QUARTIER",
+      "neighborhood_hint": "Entrez votre quartier",
+      "address_label": "RUE ET N°/ LIEU DIT*",
+      "address_hint": "Précisez votre adresse (ex: Derrière la pharmacie...)",
+      "field_required": "Ce champ est requis",
+      "enter_birthdate": "Veuillez renseigner votre date de naissance.",
+      "select_gender": "Veuillez sélectionner votre genre.",
+      "save_success": "Profil mis à jour avec succès",
+      "save_error":
+          "Une erreur est survenue lors de la mise à jour. Veuillez réessayer."
     },
     "featlink_home_page": {
       "title": "Featlink Wallet",

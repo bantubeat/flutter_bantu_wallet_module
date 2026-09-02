@@ -71,7 +71,9 @@ class _MonetizationWithdrawalPageState
   /// True once the user has at least one monetization account with an
   /// approved review status.
   bool get _hasTaxId =>
-      _monetizationAccounts?.any((a) => a.isApproved) ?? false;
+      _monetizationAccounts?.any((a) => a.fiscalIdNumber.isNotEmpty) ?? false;
+  // bool get _hasTaxId =>
+  //     _monetizationAccounts?.any((a) => a.isApproved) ?? false;
 
   List<FinancialTransactionEntity>? _transactions;
   bool _isLoadingTransactions = true;
@@ -237,8 +239,7 @@ class _MonetizationWithdrawalPageState
     await _loadStatus();
   }
 
-  void _onRequestWithdrawal() =>
-      Modular.get<WalletRoutes>().withdrawalRequestForm.push();
+  void _onRequestWithdrawal() => Modular.get<WalletRoutes>().retraitPage.push();
 
   void _openHistory() => Modular.get<WalletRoutes>().transactions.push();
 

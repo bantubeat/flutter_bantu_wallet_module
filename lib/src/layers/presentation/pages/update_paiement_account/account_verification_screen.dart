@@ -69,57 +69,101 @@ class _AccountVerificationScreenState extends State<AccountVerificationScreen> {
   }
 
   Future<void> _submitIban() async {
-    if (_ibanController.text.trim().isEmpty) {
+    final value = _ibanController.text.trim();
+    if (value.isEmpty) {
       setState(() {
         _ibanError = LocaleKeys.wallet_module_payment_account_verify_iban_empty
             .tr();
       });
       return;
     }
-    // TODO: remplacer par la vraie logique de vérification (appel API).
-    await _continue(EAccountType.bankTransfer);
+    if (!_isValidIban(value)) {
+      setState(() {
+        _ibanError = LocaleKeys
+            .wallet_module_payment_account_verify_iban_invalid
+            .tr();
+      });
+      return;
+    }
+    await _handlePaymentPreference(EAccountType.bankTransfer);
   }
 
   Future<void> _submitMobile() async {
-    if (_mobileController.text.trim().isEmpty) {
+    final value = _mobileController.text.trim();
+    if (value.isEmpty) {
       setState(() {
         _mobileError =
             LocaleKeys.wallet_module_payment_account_verify_mobile_empty.tr();
       });
       return;
     }
-    // TODO: remplacer par la vraie logique de vérification (appel API).
-    await _continue(EAccountType.mobile);
-  }
-
-  /// S'il existe déjà un moyen de paiement pour ce type de compte, on ouvre
-  /// l'écran de vérification/édition, sinon on ouvre l'écran de création.
-  Future<void> _continue(EAccountType type) async {
-    if (_hasPaymentMethod == true) {
-      try {
-        final preferences =
-            await Modular.get<GetPaymentPreferencesUseCase>().call(NoParms());
-        if (!mounted) return;
-        final existing =
-            preferences.where((p) => p.accountType == type).toList();
-        if (existing.isNotEmpty) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => EditPaymentAccountScreen(
-                currentPaymentPreference: existing.first,
-              ),
-            ),
-          );
-          return;
-        }
-      } catch (err) {
-        debugPrint(
-          '[AccountVerificationScreen] payment preferences error: $err',
-        );
-      }
+    if (!_isValidMobileNumber(value)) {
+      setState(() {
+        _mobileError =
+            LocaleKeys.wallet_module_payment_account_invalid_phone_number.tr();
+      });
       return;
     }
-    Modular.get<WalletRoutes>().addOrEditPaymentAccount.push();
+    await _handlePaymentPreference(EAccountType.mobile);
+  }
+
+  /// Valide le format d'un numéro IBAN (contrôle de la clé modulo 97).
+  bool _isValidIban(String iban) {
+    final cleaned = iban.replaceAll(RegExp(r'[\s-]'), '').toUpperCase();
+    if (cleaned.length < 15 || cleaned.length > 34) return false;
+    if (!RegExp(r'^[A-Z]{2}\d{2}[A-Z0-9]+$').hasMatch(cleaned)) return false;
+
+    final rearranged = cleaned.substring(4) + cleaned.substring(0, 4);
+    final numeric = rearranged.split('').map((ch) {
+      final code = ch.codeUnitAt(0);
+      if (code >= 65 && code <= 90) {
+        return (code - 55).toString();
+      }
+      return ch;
+    }).join();
+
+    var remainder = 0;
+    for (var i = 0; i < numeric.length; i += 7) {
+      final block = remainder.toString() + numeric.substring(i, i + 7 > numeric.length ? numeric.length : i + 7);
+      remainder = int.parse(block) % 97;
+    }
+    return remainder == 1;
+  }
+
+  /// Valide qu'un numéro de mobile comporte un nombre de chiffres plausible.
+  bool _isValidMobileNumber(String number) {
+    final cleaned = number.replaceAll(RegExp(r'[\s\-()]'), '');
+    return RegExp(r'^\+?\d{7,15}$').hasMatch(cleaned);
+  }
+
+  /// Vérifie qu'un moyen de paiement existe déjà pour ce type de compte.
+  /// Si c'est le cas on ouvre l'écran d'édition, sinon l'écran de création.
+  Future<void> _handlePaymentPreference(EAccountType type) async {
+    try {
+      final preferences =
+          await Modular.get<GetPaymentPreferencesUseCase>().call(NoParms());
+      if (!mounted) return;
+      final existing =
+          preferences.where((p) => p.accountType == type).toList();
+      if (existing.isNotEmpty) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => EditPaymentAccountScreen(
+              currentPaymentPreference: existing.first,
+            ),
+          ),
+        );
+      } else {
+        Modular.get<WalletRoutes>().addOrEditPaymentAccount.push();
+      }
+    } catch (err) {
+      debugPrint(
+        '[AccountVerificationScreen] payment preferences error: $err',
+      );
+      if (mounted) {
+        Modular.get<WalletRoutes>().addOrEditPaymentAccount.push();
+      }
+    }
   }
 
   // Masque une valeur, ex: BE845566552517 -> XXXXXXXXXXXXX17

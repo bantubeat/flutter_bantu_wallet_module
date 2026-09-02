@@ -11,6 +11,8 @@ import '../../domain/entities/payment_preference_entity.dart';
 import '../../domain/entities/financial_transaction_entity.dart';
 import '../../domain/entities/user_balance_entity.dart';
 import '../../domain/entities/payout_method_entity.dart';
+import '../../domain/entities/payout_configs_entity.dart';
+import '../../domain/entities/withdrawal_simulation_entity.dart';
 import '../../domain/repositories/balance_repository.dart';
 import '../data_sources/bantubeat_api_data_source.dart';
 
@@ -107,6 +109,22 @@ class BalanceRepositoryImpl implements BalanceRepository {
   @override
   Future<PayoutMethodsResultEntity> getPayoutMethods() {
     return _apiDataSource.get$balancePayoutMethods();
+  }
+
+  @override
+  Future<PayoutConfigsEntity> getPayoutConfigs() {
+    return _apiDataSource.get$payoutConfigs();
+  }
+
+  @override
+  Future<WithdrawalSimulationEntity> simulateWithdrawal({
+    required num amount,
+    required String paymentPreferenceUuid,
+  }) {
+    return _apiDataSource.post$balanceWithdrawalsSimulate(
+      amount: amount,
+      paymentPreferenceUuid: paymentPreferenceUuid,
+    );
   }
 
   @override

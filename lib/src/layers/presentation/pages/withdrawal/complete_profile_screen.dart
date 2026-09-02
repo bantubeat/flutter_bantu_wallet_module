@@ -1,5 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart' show CountryCode;
 import 'package:flutter/material.dart';
+import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
 import 'package:flutter_bantu_wallet_module/src/core/network/my_http/my_http_exceptions.dart';
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/get_current_user_use_case.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/personal_infos_input.dart';
 
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/action_button.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -59,9 +61,12 @@ enum _Gender { homme, femme, autre }
 
 extension on _Gender {
   String get label => switch (this) {
-        _Gender.homme => 'Homme',
-        _Gender.femme => 'Femme',
-        _Gender.autre => 'Autre',
+        _Gender.homme =>
+          LocaleKeys.wallet_module_complete_profile_gender_homme.tr(),
+        _Gender.femme =>
+          LocaleKeys.wallet_module_complete_profile_gender_femme.tr(),
+        _Gender.autre =>
+          LocaleKeys.wallet_module_complete_profile_gender_autre.tr(),
       };
 
   /// API value sent in the `gender` field of /account/personal-infos.
@@ -152,7 +157,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     final picked = await showDatePicker(
       context: context,
       initialDate: _dob ??
-          (_birthyear != null ? DateTime(_birthyear!, 6, 15) : DateTime(now.year - 25)),
+          (_birthyear != null
+              ? DateTime(_birthyear!, 6, 15)
+              : DateTime(now.year - 25)),
       firstDate: DateTime(1900),
       lastDate: now,
     );
@@ -165,8 +172,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     }
   }
 
-  String? _requiredValidator(String? v) =>
-      (v == null || v.trim().isEmpty) ? 'Ce champ est requis' : null;
+  String? _requiredValidator(String? v) => (v == null || v.trim().isEmpty)
+      ? LocaleKeys.wallet_module_complete_profile_field_required.tr()
+      : null;
 
   /// Saves the connected user's personal informations via
   /// POST /account/personal-infos.
@@ -174,12 +182,14 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     if (!_formKey.currentState!.validate()) return;
     if (_dob == null) {
       UiAlertHelpers.showErrorToast(
-        'Veuillez renseigner votre date de naissance.',
+        LocaleKeys.wallet_module_complete_profile_enter_birthdate.tr(),
       );
       return;
     }
     if (_gender == null) {
-      UiAlertHelpers.showErrorToast('Veuillez sélectionner votre genre.');
+      UiAlertHelpers.showErrorToast(
+        LocaleKeys.wallet_module_complete_profile_select_gender.tr(),
+      );
       return;
     }
 
@@ -200,7 +210,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
         ),
       );
       if (!mounted) return;
-      UiAlertHelpers.showSuccessToast('Profil mis à jour avec succès');
+      UiAlertHelpers.showSuccessToast(
+        LocaleKeys.wallet_module_complete_profile_save_success.tr(),
+      );
       if (Modular.to.canPop()) {
         Modular.to.pop();
       }
@@ -210,7 +222,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
       UiAlertHelpers.showErrorToast(
         (serverMessage != null && serverMessage.isNotEmpty)
             ? serverMessage
-            : 'Une erreur est survenue lors de la mise à jour. Veuillez réessayer.',
+            : LocaleKeys.wallet_module_complete_profile_save_error.tr(),
       );
     } finally {
       if (mounted) setState(() => _submitting = false);
@@ -225,7 +237,10 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: const BackButton(color: _textPrimary),
-        title: const Text('Informations personnelles', style: _appBarTitle),
+        title: Text(
+          LocaleKeys.wallet_module_complete_profile_appbar_title.tr(),
+          style: _appBarTitle,
+        ),
       ),
       body: _loadingCountry
           ? const Center(child: CircularProgressIndicator())
@@ -235,39 +250,59 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 child: ListView(
                   padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
                   children: [
-                    const Text('Compléter mon profil', style: _h1),
+                    Text(
+                      LocaleKeys.wallet_module_complete_profile_title.tr(),
+                      style: _h1,
+                    ),
                     const SizedBox(height: 10),
-                    const Text(
-                      'Veuillez renseigner vos informations pour finaliser votre inscription.',
+                    Text(
+                      LocaleKeys.wallet_module_complete_profile_description
+                          .tr(),
                       style: _body,
                     ),
                     const SizedBox(height: 26),
                     _IconTextField(
-                      label: 'PRÉNOM*',
+                      label: LocaleKeys
+                          .wallet_module_complete_profile_first_name_label
+                          .tr(),
                       controller: _firstNameController,
-                      hint: 'Entrez votre prénom',
+                      hint: LocaleKeys
+                          .wallet_module_complete_profile_first_name_hint
+                          .tr(),
                       icon: Icons.person_outline_rounded,
                       validator: _requiredValidator,
                     ),
                     _IconTextField(
-                      label: 'NOM*',
+                      label: LocaleKeys
+                          .wallet_module_complete_profile_last_name_label
+                          .tr(),
                       controller: _lastNameController,
-                      hint: 'Entrez votre nom',
+                      hint: LocaleKeys
+                          .wallet_module_complete_profile_last_name_hint
+                          .tr(),
                       icon: Icons.badge_outlined,
                       validator: _requiredValidator,
                     ),
                     _IconTextField(
-                      label: 'DATE DE NAISSANCE*',
+                      label: LocaleKeys.wallet_module_complete_profile_dob_label
+                          .tr(),
                       controller: _dobController,
-                      hint: 'mm/dd/yyyy',
+                      hint: LocaleKeys.wallet_module_payment_account_date_hint
+                          .tr(),
                       icon: Icons.calendar_today_outlined,
                       readOnly: true,
                       onTap: _pickDob,
                       validator: (v) => (v == null || v.isEmpty)
-                          ? 'Ce champ est requis'
+                          ? LocaleKeys
+                              .wallet_module_complete_profile_field_required
+                              .tr()
                           : null,
                     ),
-                    const Text('GENRE*', style: _fieldLabel),
+                    Text(
+                      LocaleKeys.wallet_module_complete_profile_gender_label
+                          .tr(),
+                      style: _fieldLabel,
+                    ),
                     const SizedBox(height: 8),
                     DropdownButtonFormField<_Gender>(
                       initialValue: _gender,
@@ -278,7 +313,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       ),
                       style: _fieldValue,
                       decoration: InputDecoration(
-                        hintText: 'Sélectionner',
+                        hintText: LocaleKeys
+                            .wallet_module_complete_profile_gender_select
+                            .tr(),
                         hintStyle: _fieldHint,
                         prefixIcon: const Icon(
                           Icons.wc_rounded,
@@ -316,11 +353,18 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                           )
                           .toList(),
                       onChanged: (g) => setState(() => _gender = g),
-                      validator: (g) =>
-                          g == null ? 'Ce champ est requis' : null,
+                      validator: (g) => g == null
+                          ? LocaleKeys
+                              .wallet_module_complete_profile_field_required
+                              .tr()
+                          : null,
                     ),
                     const SizedBox(height: 18),
-                    const Text('PAYS*', style: _fieldLabel),
+                    Text(
+                      LocaleKeys.wallet_module_complete_profile_country_label
+                          .tr(),
+                      style: _fieldLabel,
+                    ),
                     const SizedBox(height: 8),
                     Container(
                       width: double.infinity,
@@ -356,37 +400,51 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                     ),
                     const SizedBox(height: 18),
                     _IconTextField(
-                      label: 'VILLE*',
+                      label: LocaleKeys
+                          .wallet_module_complete_profile_city_label
+                          .tr(),
                       controller: _cityController,
-                      hint: 'Ex: Douala, Yaoundé...',
+                      hint: LocaleKeys.wallet_module_complete_profile_city_hint
+                          .tr(),
                       icon: Icons.location_city_outlined,
                       validator: _requiredValidator,
                     ),
                     _IconTextField(
-                      label: 'CODE POSTAL*',
+                      label: LocaleKeys
+                          .wallet_module_complete_profile_postal_code_label
+                          .tr(),
                       controller: _postalCodeController,
-                      hint: 'Entrez le code postal de la ville',
+                      hint: LocaleKeys
+                          .wallet_module_complete_profile_postal_code_hint
+                          .tr(),
                       icon: Icons.location_city_outlined,
                       validator: _requiredValidator,
                     ),
                     _IconTextField(
-                      label: 'QUARTIER',
+                      label: LocaleKeys
+                          .wallet_module_complete_profile_neighborhood_label
+                          .tr(),
                       controller: _neighborhoodController,
-                      hint: 'Entrez votre quartier',
+                      hint: LocaleKeys
+                          .wallet_module_complete_profile_neighborhood_hint
+                          .tr(),
                       icon: Icons.map_outlined,
                     ),
                     _IconTextField(
-                      label: 'RUE ET N°/ LIEU DIT*',
+                      label: LocaleKeys
+                          .wallet_module_complete_profile_address_label
+                          .tr(),
                       controller: _addressController,
-                      hint:
-                          'Précisez votre adresse (ex: Derrière la pharmacie...)',
+                      hint: LocaleKeys
+                          .wallet_module_complete_profile_address_hint
+                          .tr(),
                       icon: Icons.place_outlined,
                       maxLines: 2,
                       validator: _requiredValidator,
                     ),
                     const SizedBox(height: 24),
                     ActionButton(
-                      text: 'Enregistrer',
+                      text: LocaleKeys.wallet_module_common_save.tr(),
                       isLoading: _submitting,
                       backgroundColor: _primaryButton,
                       trailingIcon: const Icon(

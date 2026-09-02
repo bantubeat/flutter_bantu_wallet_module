@@ -7,6 +7,8 @@ import '../entities/payment_preference_entity.dart';
 import '../entities/financial_transaction_entity.dart';
 import '../entities/user_balance_entity.dart';
 import '../entities/payout_method_entity.dart';
+import '../entities/payout_configs_entity.dart';
+import '../entities/withdrawal_simulation_entity.dart';
 import '../value_objects/requests/create_withdrawal_request.dart';
 import '../value_objects/requests/payment_preference_input.dart';
 
@@ -56,4 +58,11 @@ abstract class BalanceRepository {
   Future<void> convertDiamonds(double diamondAmount);
 
   Future<PayoutMethodsResultEntity> getPayoutMethods();
+
+  Future<PayoutConfigsEntity> getPayoutConfigs();
+
+  Future<WithdrawalSimulationEntity> simulateWithdrawal({
+    required num amount,
+    required String paymentPreferenceUuid,
+  });
 }

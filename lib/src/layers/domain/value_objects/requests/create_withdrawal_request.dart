@@ -5,6 +5,7 @@ class CreateWithdrawalRequest {
   final num amount;
   final String paymentSlip;
   final String financialAccountId;
+  final String? paymentReference;
   final PaymentPreferenceEntity paymentPreference;
 
   const CreateWithdrawalRequest({
@@ -13,6 +14,7 @@ class CreateWithdrawalRequest {
     required this.paymentSlip,
     required this.paymentPreference,
     required this.financialAccountId,
+    this.paymentReference,
   });
 
   CreateWithdrawalRequest copyWith({
@@ -20,6 +22,7 @@ class CreateWithdrawalRequest {
     num? amount,
     String? paymentSlip,
     String? financialAccountId,
+    String? paymentReference,
     PaymentPreferenceEntity? paymentPreference,
   }) {
     return CreateWithdrawalRequest(
@@ -28,6 +31,7 @@ class CreateWithdrawalRequest {
       paymentSlip: paymentSlip ?? this.paymentSlip,
       paymentPreference: paymentPreference ?? this.paymentPreference,
       financialAccountId: financialAccountId ?? this.financialAccountId,
+      paymentReference: paymentReference ?? this.paymentReference,
     );
   }
 
@@ -37,6 +41,7 @@ class CreateWithdrawalRequest {
       'amount': amount,
       'payment_slip': paymentSlip,
       'payment_preference_uuid': paymentPreference.uuid,
+      if (paymentReference != null) 'payment_reference': paymentReference,
     };
   }
 }

@@ -128,6 +128,7 @@ const Map<String, dynamic> langMap = {
       "you_can_receive_payment_yet": "You cannot receive payment yet."
     },
     "beatzcoins_page": {
+      "intro1": "Beatzcoin is the token of ",
       "title":
           "Buy Beatzcoins to enjoy premium features of the platform and other Bantubeat applications",
       "description":
@@ -286,6 +287,7 @@ const Map<String, dynamic> langMap = {
         "mobile_label": "Mobile",
         "iban_empty": "Please enter the registered IBAN number",
         "mobile_empty": "Please enter the registered mobile number",
+        "iban_invalid": "The entered IBAN number is invalid",
         "verify": "Verify",
         "add": "Add"
       },
@@ -345,7 +347,66 @@ const Map<String, dynamic> langMap = {
       "otp_code": {
         "title": "Verification code",
         "description":
-            "To validate your payment request, you must enter the code that was sent to you by email"
+            "To validate your payment request, you must enter the code that was sent to you by email",
+        "secure_validation": "Secure Validation",
+        "account_of": "ACCOUNT OF",
+        "confirm_withdrawal": "Confirm the withdrawal",
+        "resend_code": "Resend the code"
+      },
+      "load_error": "Loading error",
+      "solde_disponible": "AVAILABLE BALANCE",
+      "minimum_maximum": "MINIMUM: {{min}} XAF  •  MAXIMUM: {{max}} XAF",
+      "minimum": "Minimum: {{amount}} XAF",
+      "maximum": "Maximum: {{amount}} XAF",
+      "amount_to_withdraw_label": "AMOUNT TO WITHDRAW",
+      "operation_details": "OPERATION DETAILS",
+      "bnc": "BNC ({{pct}}%)",
+      "service_fee": "Service fee ({{pct}}%)",
+      "bank_fee": "Bank fee ({{pct}}%)",
+      "net_to_receive_label": "NET TO RECEIVE",
+      "continue": "CONTINUE",
+      "bordereau": {
+        "title_mobile": "Mobile Payment Slip",
+        "title_bank": "Bank Slip",
+        "appbar": "Slip",
+        "verify_info_before_confirm":
+            "Please verify the transfer information before confirming your withdrawal request.",
+        "document_status": "DOCUMENT STATUS",
+        "reference": "REFERENCE",
+        "pdf_status": "Status",
+        "amount_to_transfer": "Amount to transfer",
+        "gross_amount": "Gross amount",
+        "platform_fee": "Platform fee ({{pct}})",
+        "operator_fee": "Operator fee ({{pct}})",
+        "taxes": "Taxes ({{pct}})",
+        "total_fees": "Total fees",
+        "net_to_receive": "Net to receive",
+        "operator": "Operator",
+        "bank": "Bank",
+        "account_number": "Account No.",
+        "transfer_type": "Transfer\ntype",
+        "mobile_money": "Mobile Money",
+        "bank_transfer": "Bank transfer",
+        "legal_engagement": "LEGAL COMMITMENT & COMPLIANCE",
+        "engagement_mobile":
+            "By validating this transaction, I certify that the mobile details entered ({{account}}) are accurate and belong to me. I acknowledge that the mobile money transfer fees will be my responsibility.",
+        "engagement_bank":
+            "By validating this transaction, I certify that the bank details entered ({{account}}) are accurate and belong to me. I acknowledge that international transfers may take 2 to 5 business days depending on the correspondent banks.",
+        "confirm_agreement":
+            "I confirm that I have read the general conditions and accept the interbank processing times.",
+        "confirm_and_send": "Confirm and send",
+        "secure_transaction_aes": "TRANSACTION SECURED BY AES-256 ENCRYPTION",
+        "modify_coordinates": "Modify account details",
+        "withdrawal_created": "Withdrawal recorded",
+        "withdrawal_failed": "Withdrawal not processed",
+        "back_home": "Back to home",
+        "download_slip_pdf": "Download receipt (PDF)",
+        "processing_time": "The transfer will be processed within ",
+        "processing_time_desc": "2 to 5 business days",
+        "processing_time_suffix": " depending on your payment method.",
+        "withdrawal_success_message":
+            "Your withdrawal request of {{amount}} XAF has been recorded. You will receive a confirmation email.",
+        "pdf_title": "Withdrawal slip — {{reference}}"
       },
       "eligibility": {
         "eligible": "You are eligible to make a withdrawal",
@@ -375,6 +436,36 @@ const Map<String, dynamic> langMap = {
         "unknownError":
             "An error occurred while creating your withdrawal request"
       }
+    },
+    "complete_profile": {
+      "appbar_title": "Personal information",
+      "title": "Complete my profile",
+      "description":
+          "Please provide your information to finalize your registration.",
+      "first_name_label": "FIRST NAME*",
+      "first_name_hint": "Enter your first name",
+      "last_name_label": "LAST NAME*",
+      "last_name_hint": "Enter your last name",
+      "dob_label": "DATE OF BIRTH*",
+      "gender_label": "GENDER*",
+      "gender_select": "Select",
+      "gender_homme": "Male",
+      "gender_femme": "Female",
+      "gender_autre": "Other",
+      "country_label": "COUNTRY*",
+      "city_label": "CITY*",
+      "city_hint": "E.g.: Douala, Yaoundé...",
+      "postal_code_label": "POSTAL CODE*",
+      "postal_code_hint": "Enter the city postal code",
+      "neighborhood_label": "NEIGHBORHOOD",
+      "neighborhood_hint": "Enter your neighborhood",
+      "address_label": "STREET AND NO./ PLACE NAME*",
+      "address_hint": "Specify your address (e.g.: Behind the pharmacy...)",
+      "field_required": "This field is required",
+      "enter_birthdate": "Please provide your date of birth.",
+      "select_gender": "Please select your gender.",
+      "save_success": "Profile updated successfully",
+      "save_error": "An error occurred while updating. Please try again."
     },
     "featlink_home_page": {
       "title": "Featlink Wallet",

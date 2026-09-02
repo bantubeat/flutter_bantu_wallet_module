@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/get_kyc_status_use_case.dart';
+import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/delete_kyc_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/save_monetization_account_use_case.dart';
@@ -65,6 +66,7 @@ import '../domain/use_cases/bzc_exchange/exchange_fiat_to_bzc_use_case.dart';
 import '../domain/use_cases/currency/get_all_currencies_use_case.dart';
 import '../domain/use_cases/account/get_user_balance_use_case.dart';
 import '../domain/use_cases/balance/get_payout_methods_use_case.dart';
+import '../domain/use_cases/balance/get_payout_configs_use_case.dart';
 import '../domain/use_cases/deposit/make_deposit_direct_payment_use_case.dart';
 import '../domain/use_cases/deposit/request_deposit_payment_link_use_case.dart';
 
@@ -78,10 +80,15 @@ import '../../layers/presentation/pages/home/home_page.dart';
 import '../../layers/presentation/pages/transactions/transactions_page.dart';
 import '../../layers/presentation/pages/beatzcoins/beatzcoins_page.dart';
 import '../../layers/presentation/navigation/wallet_routes.dart';
+import '../../layers/presentation/localization/string_translate_extension.dart';
 import '../domain/use_cases/withdrawal/generate_withdrawal_payment_slip_use_case.dart';
 import '../domain/use_cases/withdrawal/send_withdrawal_mail_otp_use_case.dart';
+import '../domain/use_cases/withdrawal/simulate_withdrawal_use_case.dart';
 import 'pages/home/featlink_wallet_page.dart';
 import 'pages/menetisation_program/monetization_home_page.dart';
+import 'pages/withdrawal/bordereau_args.dart';
+import 'pages/withdrawal/bordereau_page.dart';
+import 'pages/withdrawal/retrait_page.dart';
 
 class WalletModule extends Module {
   static const _floatingMenuBuilderKey = 'WalletModule@floatingMenuBuilder';
@@ -194,10 +201,12 @@ class WalletModule extends Module {
         debugPrint('Status: ${session.status}');
         debugPrint('Session ID: ${session.sessionId}');
         UiAlertHelpers.showSuccessToast(
-          '✅ Vérification KYC terminée avec succès !',
+          LocaleKeys.wallet_module_kyc_session_verification_completed.tr(),
         );
       case VerificationCancelled():
-        UiAlertHelpers.showErrorToast('❌ La vérification KYC a été annulée');
+        UiAlertHelpers.showErrorToast(
+          LocaleKeys.wallet_module_kyc_session_verification_cancelled.tr(),
+        );
         debugPrint('User cancelled');
         unawaited(
           Modular.get<DeleteKycUseCase>().call(NoParms()).catchError((err) {
@@ -216,19 +225,20 @@ class WalletModule extends Module {
   static String _getErrorMessage(VerificationError error) {
     switch (error.type) {
       case VerificationErrorType.sessionExpired:
-        return 'La session a expiré. Veuillez recommencer le processus';
+        return LocaleKeys.wallet_module_kyc_session_session_expired.tr();
       case VerificationErrorType.networkError:
-        return 'Erreur réseau. Vérifiez votre connexion internet';
+        return LocaleKeys.wallet_module_kyc_session_network_error.tr();
       case VerificationErrorType.cameraAccessDenied:
-        return "Accès à la caméra refusé. Autorisez l'accès dans les paramètres";
+        return LocaleKeys.wallet_module_kyc_session_camera_access_denied.tr();
       case VerificationErrorType.notInitialized:
-        return "Le SDK n'est pas initialisé. Veuillez réessayer";
+        return LocaleKeys.wallet_module_kyc_session_sdk_not_initialized.tr();
       case VerificationErrorType.apiError:
-        return 'Erreur serveur. Veuillez réessayer plus tard';
+        return LocaleKeys.wallet_module_kyc_session_api_error.tr();
       case VerificationErrorType.retryBlocked:
-        return 'Trop de tentatives. Veuillez réessayer plus tard';
+        return LocaleKeys.wallet_module_kyc_session_retry_blocked.tr();
       case VerificationErrorType.unknown:
-        return 'Erreur inconnue : ${error.message}';
+        return LocaleKeys.wallet_module_kyc_session_unknown_error
+            .tr(namedArgs: {'message': error.message});
     }
   }
 
@@ -295,6 +305,7 @@ class WalletModule extends Module {
     i.add(GenerateWithdrawalPaymentSlipUseCase.new);
     i.add(SendWithdrawalMailOtpUseCase.new);
     i.add(RequestWithdrawalUseCase.new);
+    i.add(SimulateWithdrawalUseCase.new);
     i.add(GetKycStatusUseCase.new);
     i.add(StartKycSessionUseCase.new);
     i.add(DeleteKycUseCase.new);
@@ -304,6 +315,7 @@ class WalletModule extends Module {
     i.add(SavePersonalInfosUseCase.new);
     i.add(GetProfileCompletionUseCase.new);
     i.add(GetPayoutMethodsUseCase.new);
+    i.add(GetPayoutConfigsUseCase.new);
     i.add(ResendPaymentPreferencesVerificationCodeUseCase.new);
     i.add(ResendPaymentPreferencesEmailVerificationCodeUseCase.new);
 
@@ -372,6 +384,19 @@ class WalletModule extends Module {
     r.child(
       _routes.withdrawalRequestResume.wp,
       child: (_) => WithdrawalRequestResumePage(r.args.data),
+    );
+
+    r.child(
+      _routes.retraitPage.wp,
+      child: (_) => const RetraitPage(),
+    );
+
+    r.child(
+      _routes.bordereauPage.wp,
+      child: (_) {
+        final args = r.args.data as BordereauArgs;
+        return BordereauPage(args.simulation, args.paymentPreference);
+      },
     );
 
     r.wildcard(child: (_) => const HomePage());

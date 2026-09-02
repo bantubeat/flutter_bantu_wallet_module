@@ -36,9 +36,9 @@ class BeatzcoinsPage extends StatelessWidget {
           onTap: () => Navigator.of(context).maybePop(),
           child: const Icon(Icons.arrow_back, color: Colors.black),
         ),
-        title: const Text(
-          'Featlink Wallet',
-          style: TextStyle(
+        title: Text(
+          LocaleKeys.wallet_module_featlink_home_page_title.tr(),
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w700,
             fontSize: 20,
@@ -63,7 +63,10 @@ class BeatzcoinsPage extends StatelessWidget {
                     height: 1.15,
                   ),
                   children: [
-                    const TextSpan(text: 'Beatzcoin est le token de '),
+                    TextSpan(
+                      text: LocaleKeys.wallet_module_beatzcoins_page_intro1
+                          .tr(),
+                    ),
                     TextSpan(
                       text: 'Featlink',
                       style: TextStyle(
@@ -227,7 +230,11 @@ class BeatzcoinsPage extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Text(
-                                'ID COMPTE: ${beatzcoinWalletNumber ?? '...'}',
+                                LocaleKeys.wallet_module_common_account_id.tr(
+                                  namedArgs: {
+                                    'id': beatzcoinWalletNumber ?? '...',
+                                  },
+                                ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(

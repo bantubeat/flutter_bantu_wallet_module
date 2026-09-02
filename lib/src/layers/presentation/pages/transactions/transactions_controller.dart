@@ -18,7 +18,10 @@ class _TransactionsController extends ScreenController {
   @protected
   void onInit() {
     pagingController = PagingController<int, FinancialTransactionEntity>(
-      getNextPageKey: (state) => (state.keys?.last ?? 0) + 1,
+      getNextPageKey: (state) {
+        if (state.lastPageIsEmpty) return null;
+        return (state.keys?.last ?? 0) + 1;
+      },
       fetchPage: (pageKey) => _fetchPage(pageKey),
     );
   }

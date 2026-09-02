@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/payment_preference_entity.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/withdrawal/bordereau_args.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../domain/value_objects/requests/create_withdrawal_request.dart';
@@ -20,6 +21,8 @@ final class WalletRoutes {
   final String _withdrawalRequestResume;
   final String _verifiePaiementAccount;
   final String _taxIdentifier;
+  final String _retraitPage;
+  final String _bordereauPage;
 
   const WalletRoutes(
     this.prefix_, {
@@ -36,6 +39,8 @@ final class WalletRoutes {
     String withdrawalRequestResume = 'withdrawal-request-resume',
     String verifiePaiementAccount = 'verifie-paiement-account',
     String taxIdentifier = 'tax-identifier',
+    String retraitPage = 'retrait-page',
+    String bordereauPage = 'bordereau-page',
   })  : _home = home,
         _monetisationProgramHome = monetisationProgramHome,
         _balance = balance,
@@ -48,7 +53,9 @@ final class WalletRoutes {
         _withdrawalRequestForm = withdrawalRequestForm,
         _withdrawalRequestResume = withdrawalRequestResume,
         _verifiePaiementAccount = verifiePaiementAccount,
-        _taxIdentifier = taxIdentifier;
+        _taxIdentifier = taxIdentifier,
+        _retraitPage = retraitPage,
+        _bordereauPage = bordereauPage;
 
   _RouteItem get home => _RouteItem(prefix_, _home);
   _RouteItem get monetisationProgramHome =>
@@ -68,6 +75,9 @@ final class WalletRoutes {
   _RouteItem<PaymentPreferenceEntity> get verifiePaiementAccount =>
       _RouteItem<PaymentPreferenceEntity>(prefix_, _verifiePaiementAccount);
   _RouteItem get taxIdentifier => _RouteItem(prefix_, _taxIdentifier);
+  _RouteItem get retraitPage => _RouteItem(prefix_, _retraitPage);
+  _RouteItem<BordereauArgs> get bordereauPage =>
+      _RouteItem<BordereauArgs>(prefix_, _bordereauPage);
 }
 
 final class _RouteItem<T> {

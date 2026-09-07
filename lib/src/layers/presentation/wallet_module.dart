@@ -88,6 +88,7 @@ import 'pages/home/featlink_wallet_page.dart';
 import 'pages/menetisation_program/monetization_home_page.dart';
 import 'pages/withdrawal/bordereau_args.dart';
 import 'pages/withdrawal/bordereau_page.dart';
+import 'pages/withdrawal/complete_profile_screen.dart';
 import 'pages/withdrawal/retrait_page.dart';
 
 class WalletModule extends Module {
@@ -389,6 +390,10 @@ class WalletModule extends Module {
     r.child(
       _routes.retraitPage.wp,
       child: (_) => const RetraitPage(),
+    );
+    r.child(
+      _routes.completeProfile.wp,
+      child: (_) => const CompleteProfileScreen(),
     );
 
     r.child(

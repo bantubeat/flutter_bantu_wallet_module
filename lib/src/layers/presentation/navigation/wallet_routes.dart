@@ -76,6 +76,7 @@ final class WalletRoutes {
       _RouteItem<PaymentPreferenceEntity>(prefix_, _verifiePaiementAccount);
   _RouteItem get taxIdentifier => _RouteItem(prefix_, _taxIdentifier);
   _RouteItem get retraitPage => _RouteItem(prefix_, _retraitPage);
+  _RouteItem get completeProfile => _RouteItem(prefix_, 'complete-profile');
   _RouteItem<BordereauArgs> get bordereauPage =>
       _RouteItem<BordereauArgs>(prefix_, _bordereauPage);
 }

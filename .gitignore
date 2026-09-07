@@ -8,7 +8,6 @@
 .buildlog/
 .history
 .svn/
-.vscode
 migrate_working_dir/
 
 # IntelliJ related
@@ -46,4 +45,7 @@ app.*.map.json
 
 /.dart_tool/
 .dart_tool/
+/.vscode/
+.vscode/
+.vscode
 .dart_tool

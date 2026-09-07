@@ -132,12 +132,18 @@ class _MonetizationWithdrawalPageState
       _hasError = false;
     });
     try {
-      Modular.get<CurrentUserCubit>().fetchCurrentUser();
+      final currentUserCubit = Modular.get<CurrentUserCubit>();
+      if (currentUserCubit.state.data == null) {
+        await currentUserCubit.stream.firstWhere(
+          (snap) => snap.connectionState == ConnectionState.done,
+        );
+      }
+      final countryCode = currentUserCubit.state.data?.pays ?? '';
+
       final results = await Future.wait([
         Modular.get<GetKycStatusUseCase>().call(NoParms()),
         Modular.get<GetPaymentPreferencesUseCase>().call(NoParms()),
-        Modular.get<GetMonetizationEligibilityUseCase>()
-            .call(Modular.get<CurrentUserCubit>().state.data?.pays ?? ''),
+        Modular.get<GetMonetizationEligibilityUseCase>().call(countryCode),
         Modular.get<GetDiamondConvertRateUseCase>().call(NoParms()),
         Modular.get<GetMonetizationAccountsUseCase>().call(NoParms()),
       ]);

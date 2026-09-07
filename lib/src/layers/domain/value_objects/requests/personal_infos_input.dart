@@ -31,6 +31,7 @@ class PersonalInfosInput {
       'gender': gender,
       'country_iso2': countryIso2,
       'city_name': cityName,
+      'city': cityName,
       'postal_code': postalCode,
       'neighborhood': neighborhood,
       'street': street,

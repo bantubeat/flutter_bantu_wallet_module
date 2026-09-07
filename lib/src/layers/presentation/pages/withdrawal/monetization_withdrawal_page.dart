@@ -132,6 +132,7 @@ class _MonetizationWithdrawalPageState
       _hasError = false;
     });
     try {
+      Modular.get<CurrentUserCubit>().fetchCurrentUser();
       final results = await Future.wait([
         Modular.get<GetKycStatusUseCase>().call(NoParms()),
         Modular.get<GetPaymentPreferencesUseCase>().call(NoParms()),

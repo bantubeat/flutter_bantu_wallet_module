@@ -5,6 +5,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/user_
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
 import 'widgets/menu_tile.dart';
@@ -264,7 +265,8 @@ class FeatlinkWalletPage extends StatelessWidget {
               const SizedBox(height: 28),
               Center(
                 child: OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () =>
+                      launchUrlString('https://legal.bantubeat.com/'),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,

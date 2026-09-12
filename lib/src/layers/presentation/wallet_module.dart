@@ -86,6 +86,7 @@ import '../domain/use_cases/withdrawal/send_withdrawal_mail_otp_use_case.dart';
 import '../domain/use_cases/withdrawal/simulate_withdrawal_use_case.dart';
 import 'pages/home/featlink_wallet_page.dart';
 import 'pages/menetisation_program/monetization_home_page.dart';
+import 'pages/menetisation_program/pays_eligibles_page.dart';
 import 'pages/withdrawal/bordereau_args.dart';
 import 'pages/withdrawal/bordereau_page.dart';
 import 'pages/withdrawal/complete_profile_screen.dart';
@@ -392,6 +393,10 @@ class WalletModule extends Module {
       child: (_) => const RetraitPage(),
     );
     r.child(
+      _routes.eligiblesCountry.wp,
+      child: (_) => const PaysEligiblesPage(),
+    );
+    r.child(
       _routes.completeProfile.wp,
       child: (_) => const CompleteProfileScreen(),
     );
@@ -405,7 +410,5 @@ class WalletModule extends Module {
     );
 
     r.wildcard(child: (_) => const HomePage());
-    // r.child(_routes.home.wp, child: (_) => const HomePage());
-    // r.child(_routes.balance.wp, child: (_) => const BalancePage());
   }
 }

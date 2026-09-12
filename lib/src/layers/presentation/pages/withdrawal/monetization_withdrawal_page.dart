@@ -423,9 +423,25 @@ class _MonetizationWithdrawalPageState
     if (_isProfileComplete != true) {
       return Scaffold(
         backgroundColor: Colors.white,
-        body: _isProfileComplete == null
-            ? const Center(child: CircularProgressIndicator.adaptive())
-            : const SizedBox.shrink(),
+        body: SafeArea(
+          child: Column(
+            children: [
+              if (_isProfileComplete == null)
+                const Center(child: CircularProgressIndicator.adaptive()),
+              InkWell(
+                onTap: Modular.to.canPop() ? Modular.to.pop : null,
+                child: const Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                    size: 22,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     }
 

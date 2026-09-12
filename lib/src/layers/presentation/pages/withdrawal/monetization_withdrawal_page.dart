@@ -701,7 +701,7 @@ class _MonetizationWithdrawalPageState
                 ),
               ),
             ),
-            if (!kycOk) ...[
+            if (!kycOk && !isRestricted) ...[
               const SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,

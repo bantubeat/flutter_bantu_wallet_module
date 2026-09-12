@@ -66,6 +66,7 @@ class _MonetizationWithdrawalPageState
   List<MonetizationAccountModel>? _monetizationAccounts;
   bool _isLoadingStatus = true;
   bool _hasError = false;
+  bool? _isProfileComplete;
   DiamondConvertRateEntity? _diamondConvertRate;
 
   /// True once the user has at least one monetization account with an
@@ -94,11 +95,18 @@ class _MonetizationWithdrawalPageState
       final result =
           await Modular.get<GetProfileCompletionUseCase>().call(NoParms());
       if (!mounted) return;
+      setState(() {
+        _isProfileComplete = result.isComplete;
+      });
       if (!result.isComplete) {
         _showIncompleteProfileModal();
       }
     } catch (_) {
       if (!mounted) return;
+      // Si la vérification échoue, on laisse l'accès à la page.
+      setState(() {
+        _isProfileComplete = true;
+      });
     }
   }
 
@@ -408,6 +416,19 @@ class _MonetizationWithdrawalPageState
 
   @override
   Widget build(BuildContext context) {
+    // La page ne s'affiche que si le profil est complet. Tant que la
+    // vérification est en cours ou si le profil est incomplet, on affiche un
+    // écran blanc afin de ne jamais voir la page en arrière-plan derrière la
+    // IncompleteProfileModal.
+    if (_isProfileComplete != true) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: _isProfileComplete == null
+            ? const Center(child: CircularProgressIndicator.adaptive())
+            : const SizedBox.shrink(),
+      );
+    }
+
     final userBalanceCubit = Modular.get<UserBalanceCubit>();
 
     return Scaffold(

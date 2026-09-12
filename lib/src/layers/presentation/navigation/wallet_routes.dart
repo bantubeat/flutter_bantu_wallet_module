@@ -21,9 +21,10 @@ final class WalletRoutes {
   final String _withdrawalRequestResume;
   final String _verifiePaiementAccount;
   final String _taxIdentifier;
+  final String _completeProfile;
   final String _retraitPage;
   final String _bordereauPage;
-
+  final String _eligiblesCountry;
   const WalletRoutes(
     this.prefix_, {
     String home = 'home',
@@ -41,6 +42,8 @@ final class WalletRoutes {
     String taxIdentifier = 'tax-identifier',
     String retraitPage = 'retrait-page',
     String bordereauPage = 'bordereau-page',
+    String completeProfile = 'complete-profile',
+    String eligiblesCountry = 'eligibles-country',
   })  : _home = home,
         _monetisationProgramHome = monetisationProgramHome,
         _balance = balance,
@@ -54,8 +57,10 @@ final class WalletRoutes {
         _withdrawalRequestResume = withdrawalRequestResume,
         _verifiePaiementAccount = verifiePaiementAccount,
         _taxIdentifier = taxIdentifier,
+        _completeProfile = completeProfile,
         _retraitPage = retraitPage,
-        _bordereauPage = bordereauPage;
+        _bordereauPage = bordereauPage,
+        _eligiblesCountry = eligiblesCountry;
 
   _RouteItem get home => _RouteItem(prefix_, _home);
   _RouteItem get monetisationProgramHome =>
@@ -76,8 +81,8 @@ final class WalletRoutes {
       _RouteItem<PaymentPreferenceEntity>(prefix_, _verifiePaiementAccount);
   _RouteItem get taxIdentifier => _RouteItem(prefix_, _taxIdentifier);
   _RouteItem get retraitPage => _RouteItem(prefix_, _retraitPage);
-  _RouteItem get completeProfile => _RouteItem(prefix_, 'complete-profile');
-  _RouteItem get eligiblesCountry => _RouteItem(prefix_, 'eligibles-country');
+  _RouteItem get completeProfile => _RouteItem(prefix_, _completeProfile);
+  _RouteItem get eligiblesCountry => _RouteItem(prefix_, _eligiblesCountry);
   _RouteItem<BordereauArgs> get bordereauPage =>
       _RouteItem<BordereauArgs>(prefix_, _bordereauPage);
 }

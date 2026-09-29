@@ -166,7 +166,8 @@ const Map<String, dynamic> langMap = {
     "transaction_history_page": {
       "title": "Historique portefeuille",
       "financial_account": "Compte\nFinancier",
-      "beatzocoin_account": "Compte\nBeatzcoin",
+      "beatzocoin_account": "Compte\nBZC",
+      "revenue_account": "Compte\nRevenue",
       "account": "Compte",
       "table": {
         "caption": "Détails de la transaction",
@@ -597,7 +598,8 @@ const Map<String, dynamic> langMap = {
     },
     "incomplete_profile_modal": {
       "title": "Votre profil est incomplet",
-      "description": "Veuillez compléter vos informations pour accéder aux revenus.",
+      "description":
+          "Veuillez compléter vos informations pour accéder aux revenus.",
       "primary_button": "COMPLÉTER MES DONNÉES",
       "secondary_button": "PLUS TARD"
     },
@@ -672,7 +674,8 @@ const Map<String, dynamic> langMap = {
       "unlimited": "ILLIMITÉ",
       "dialpay_title": "DialPay",
       "dialpay_description": "Répondez aux messages prioritaires.",
-      "dialpay_note": "Vous recevez des Diamants quand vous acceptez et répondez",
+      "dialpay_note":
+          "Vous recevez des Diamants quand vous acceptez et répondez",
       "swippay_title": "SwipePay",
       "swippay_description": "Likes prioritaires.",
       "swippay_note":

@@ -132,6 +132,7 @@ abstract class  LocaleKeys {
   static const wallet_module_transaction_history_page_title = 'wallet_module.transaction_history_page.title';
   static const wallet_module_transaction_history_page_financial_account = 'wallet_module.transaction_history_page.financial_account';
   static const wallet_module_transaction_history_page_beatzocoin_account = 'wallet_module.transaction_history_page.beatzocoin_account';
+  static const wallet_module_transaction_history_page_revenue_account = 'wallet_module.transaction_history_page.revenue_account';
   static const wallet_module_transaction_history_page_account = 'wallet_module.transaction_history_page.account';
   static const wallet_module_transaction_history_page_table_caption = 'wallet_module.transaction_history_page.table.caption';
   static const wallet_module_transaction_history_page_table_transaction_id = 'wallet_module.transaction_history_page.table.transaction_id';

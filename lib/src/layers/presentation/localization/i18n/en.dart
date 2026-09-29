@@ -164,7 +164,8 @@ const Map<String, dynamic> langMap = {
     "transaction_history_page": {
       "title": "Wallet history",
       "financial_account": "Financial\naccount",
-      "beatzocoin_account": "Beatzcoin\naccount",
+      "beatzocoin_account": "BZC\naccount",
+      "revenue_account": "Revenue\naccount",
       "account": "Account",
       "table": {
         "caption": "Transaction Details",
@@ -578,8 +579,7 @@ const Map<String, dynamic> langMap = {
       "verification_cancelled": "❌ KYC verification was cancelled",
       "session_expired": "The session has expired. Please restart the process",
       "network_error": "Network error. Check your internet connection",
-      "camera_access_denied":
-          "Camera access denied. Allow access in settings",
+      "camera_access_denied": "Camera access denied. Allow access in settings",
       "sdk_not_initialized": "The SDK is not initialized. Please try again",
       "api_error": "Server error. Please try again later",
       "retry_blocked": "Too many attempts. Please try again later",
@@ -622,7 +622,8 @@ const Map<String, dynamic> langMap = {
       "chat_title": "Featlink Chat",
       "chat_description": "Earn via DialPay, SwipePay and gifts",
       "saloonprived_title": "SaloonPrived",
-      "saloonprived_description": "Sell exclusive content, receive gifts and tips",
+      "saloonprived_description":
+          "Sell exclusive content, receive gifts and tips",
       "liberty_title": "Liberty",
       "liberty_description": "Receive gifts",
       "service_pro_title": "Service Pro",
@@ -678,7 +679,8 @@ const Map<String, dynamic> langMap = {
       "monetize_expertise": "Monetize your expertise",
       "content_sale": "Content sales",
       "items_sale": "Selling items & goods",
-      "items_sale_description": "Products and Pro offers (according to authorized categories)",
+      "items_sale_description":
+          "Products and Pro offers (according to authorized categories)",
       "gifts_conversation_description":
           "Receive gifts through your conversations in the chat.",
       "diamonds": "DIAMONDS",

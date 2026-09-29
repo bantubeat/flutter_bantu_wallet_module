@@ -54,7 +54,7 @@ class AccountSwitcher extends StatelessWidget {
           Expanded(
             child: _buildPaymentTab(
               label: LocaleKeys
-                  .wallet_module_transaction_history_page_financial_account
+                  .wallet_module_transaction_history_page_revenue_account
                   .tr(),
               icon: Icon(
                 Ionicons.wallet_outline,

@@ -193,6 +193,7 @@ class UserBalanceModel extends UserBalanceEntity {
       'user_currency_code': userCurrencyCode,
       'financial_wallet_number': financialWalletNumber,
       'beatzcoin_wallet_number': beatzcoinWalletNumber,
+      'revenue_wallet_number': revenueWalletNumber,
       if (paymentAccount is PaymentAccountModel)
         'payment_account': (paymentAccount as PaymentAccountModel).toJson(),
       if (revenueAccount is RevenueAccountModel)

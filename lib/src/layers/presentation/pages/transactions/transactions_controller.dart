@@ -34,6 +34,15 @@ class _TransactionsController extends ScreenController {
 
   String get walletNumber {
     if (userBalanceCubit.state.hasError) return 'E';
+    if (accountType == AccountType.payment) {
+      return userBalanceCubit.state.data?.paymentAccount?.walletNumber ?? '...';
+    }
+    if (accountType == AccountType.revenue) {
+      return userBalanceCubit.state.data?.revenueAccount?.walletNumber ?? '...';
+    }
+    if (accountType == AccountType.bzc) {
+      return userBalanceCubit.state.data?.beatzcoinWalletNumber ?? '...';
+    }
 
     return accountType == AccountType.payment
         ? (userBalanceCubit.state.data?.beatzcoinWalletNumber ?? '...')

@@ -35,6 +35,13 @@ class DepositController extends ScreenController
   /// monetaryZone de l'utilisateur), false = zone carte (EUR/USD).
   bool _isLocalZone = false;
 
+  /// Une devise appartient à la zone locale si elle n'est pas vide et si elle
+  /// n'est pas traitée via carte / PayPal / Google Pay (EUR, USD).
+  static bool isLocalCurrencyCode(String? code) {
+    if (code == null || code.isEmpty) return false;
+    return !cardZoneCurrencies.contains(code.toUpperCase());
+  }
+
   final amountCtrl = TextEditingController();
   UserEntity? currentUser;
 
@@ -44,9 +51,10 @@ class DepositController extends ScreenController
     Future.wait([
       Modular.get<GetCurrentUserUseCase>().call(NoParms()).then((data) {
         currentUser = data;
-        // La zone par défaut dépend uniquement de la présence d'une
-        // monetaryZone renvoyée par le backend pour l'utilisateur connecté.
-        _isLocalZone = data.monetaryZone != null;
+        // La zone locale correspond à une monetaryZone dont la devise n'est
+        // pas EUR/USD (une zone EUR/USD => zone carte).
+        _isLocalZone = isLocalCurrencyCode(data.monetaryZone?.currencyIso);
+
         _selectDefaultCurrency();
         refreshUI();
       }),
@@ -78,7 +86,7 @@ class DepositController extends ScreenController
 
   /// Devises "locales" disponibles (tout sauf EUR/USD) — zone Afrique.
   List<CurrencyItemEntity> get localCurrencies => _allCurrencies
-      .where((c) => !cardZoneCurrencies.contains(c.code))
+      .where((c) => isLocalCurrencyCode(c.code))
       .toList();
 
   /// Devises "carte" disponibles (EUR/USD) — zone Autres.

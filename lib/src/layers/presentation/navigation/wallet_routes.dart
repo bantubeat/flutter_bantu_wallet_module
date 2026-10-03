@@ -19,6 +19,7 @@ final class WalletRoutes {
   final String _withdrawalRequestForm;
   final String _withdrawalRequestResume;
   final String _verifiePaiementAccount;
+  final String _verifiePaiementAccount1;
   final String _taxIdentifier;
   final String _completeProfile;
   final String _retraitPage;
@@ -38,6 +39,7 @@ final class WalletRoutes {
     String withdrawalRequestForm = 'withdrawal-request-form',
     String withdrawalRequestResume = 'withdrawal-request-resume',
     String verifiePaiementAccount = 'verifie-paiement-account',
+    String verifiePaiementAccount1 = 'verifie-paiement-account-1',
     String taxIdentifier = 'tax-identifier',
     String retraitPage = 'retrait-page',
     String bordereauPage = 'bordereau-page',
@@ -55,6 +57,7 @@ final class WalletRoutes {
         _withdrawalRequestForm = withdrawalRequestForm,
         _withdrawalRequestResume = withdrawalRequestResume,
         _verifiePaiementAccount = verifiePaiementAccount,
+        _verifiePaiementAccount1 = verifiePaiementAccount1,
         _taxIdentifier = taxIdentifier,
         _completeProfile = completeProfile,
         _retraitPage = retraitPage,
@@ -78,6 +81,8 @@ final class WalletRoutes {
       _RouteItem<CreateWithdrawalRequest>(prefix_, _withdrawalRequestResume);
   _RouteItem<String> get verifiePaiementAccount =>
       _RouteItem<String>(prefix_, _verifiePaiementAccount);
+  _RouteItem<String> get verifiePaiementAccount1 =>
+      _RouteItem<String>(prefix_, _verifiePaiementAccount1);
   _RouteItem get taxIdentifier => _RouteItem(prefix_, _taxIdentifier);
   _RouteItem get retraitPage => _RouteItem(prefix_, _retraitPage);
   _RouteItem get completeProfile => _RouteItem(prefix_, _completeProfile);

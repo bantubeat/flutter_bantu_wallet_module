@@ -8,6 +8,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/personal_infos_input.dart';
 
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/country_localization.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/action_button.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -391,7 +392,11 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              _country?.name ?? '',
+                              localizedCountryName(
+                                context,
+                                _country?.code,
+                                fallback: '',
+                              ),
                               style: _fieldValue,
                             ),
                           ),

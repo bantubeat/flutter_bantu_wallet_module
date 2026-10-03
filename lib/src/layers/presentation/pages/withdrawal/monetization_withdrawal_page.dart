@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
@@ -21,6 +20,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/curre
     show CurrentUserCubit;
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/user_balance_cubit.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/country_localization.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/account_type_modal.dart'
     hide AccountType;
@@ -219,7 +219,7 @@ class _MonetizationWithdrawalPageState
     if (pref != null) {
       Modular.get<WalletRoutes>()
           .verifiePaiementAccount
-          .push(pref)
+          .push(pref.uuid)
           .then((e) => _loadAll());
     } else {
       Modular.get<WalletRoutes>()
@@ -772,114 +772,119 @@ class _MonetizationWithdrawalPageState
     );
   }
 
-  /// Section variable sous les boutons, selon l'état :
-  /// - éligible + KYC ok        -> "Compte de Règlement"
-  /// - éligible + KYC pas ok    -> "KYC REQUIS" + "Programme de Monétisation"
-  /// - identifiant fiscal manquant -> "Identifiant Fiscal REQUIS" + "Programme de Monétisation"
-  /// - identifiant fiscal en attente -> "Identifiant Fiscal EN COURS DE VALIDATION" + "Programme de Monétisation"
-  /// - pays non éligible        -> "Monétisation restreinte" uniquement
+  /// Section variable sous les boutons. Chaque bloc dépend uniquement de ses
+  /// propres données, il n'est plus masqué par l'état global du KYC :
+  /// - KYC non validé        -> "KYC REQUIS"
+  /// - identifiant fiscal manquant -> "Identifiant Fiscal REQUIS" (ou "EN COURS DE VALIDATION")
+  /// - compte de règlement  -> toujours affiché (ajout ou modification)
+  /// - programme de monétisation -> toujours affiché
+  /// - pays non éligible    -> "Monétisation restreinte" uniquement
   List<Widget> _buildStateSection() {
-    switch (_state) {
-      case _MonetizationState.countryRestricted:
-        return [
-          _buildInfoRow(
-            title: LocaleKeys
-                .wallet_module_monetization_page_monetization_restricted
-                .tr(),
-            description: LocaleKeys
-                .wallet_module_monetization_page_monetization_restricted_description
-                .tr(),
-            onTap: _onOpenMonetizationProgram,
+    final state = _state;
+    if (state == _MonetizationState.loading ||
+        state == _MonetizationState.error) {
+      return [
+        const Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 12),
+            child: CircularProgressIndicator.adaptive(),
           ),
-        ];
-      case _MonetizationState.kycRequired:
-        return [
-          _buildInfoRow(
-            title: LocaleKeys.wallet_module_monetization_page_kyc_required.tr(),
-            description: LocaleKeys
-                .wallet_module_monetization_page_kyc_required_description
-                .tr(),
-            onTap: _onOpenKycInfo,
-          ),
-          const SizedBox(height: 16),
-          _buildInfoRow(
-            title:
-                LocaleKeys.wallet_module_monetization_page_program_title.tr(),
-            description: LocaleKeys
-                .wallet_module_monetization_page_program_description
-                .tr(),
-            onTap: _onOpenMonetizationProgram,
-          ),
-        ];
-      case _MonetizationState.taxIdPending:
-      case _MonetizationState.taxIdRequired:
-        return [
-          _buildInfoRow(
-            title: (_state == _MonetizationState.taxIdPending
-                    ? LocaleKeys.wallet_module_monetization_page_tax_id_pending
-                    : LocaleKeys
-                        .wallet_module_monetization_page_tax_id_required)
-                .tr(),
-            description: (_state == _MonetizationState.taxIdPending
-                    ? LocaleKeys
-                        .wallet_module_monetization_page_tax_id_pending_description
-                    : LocaleKeys
-                        .wallet_module_monetization_page_tax_id_required_description)
-                .tr(),
-            onTap: _onAddTaxId,
-          ),
-          const SizedBox(height: 16),
-          _buildInfoRow(
-            title:
-                LocaleKeys.wallet_module_monetization_page_program_title.tr(),
-            description: LocaleKeys
-                .wallet_module_monetization_page_program_description
-                .tr(),
-            onTap: _onOpenMonetizationProgram,
-          ),
-        ];
-      case _MonetizationState.eligible:
-        final prefOrdList = _paymentPreferences!
-          ..sort((a, b) {
-            if (a.updatedAt == null && b.updatedAt == null) {
-              return b.createdAt!.compareTo(a.createdAt!);
-            }
-            if (a.updatedAt == null) return 1;
-            if (b.updatedAt == null) return -1;
-            return b.updatedAt!.compareTo(a.updatedAt!);
-          });
-        final pref = (prefOrdList.isNotEmpty) ? prefOrdList.first : null;
-        final masked = pref != null ? _maskAccountNumber(pref) : '...';
-        return [
-          _buildInfoRow(
-            title: LocaleKeys.wallet_module_monetization_page_settlement_account
-                .tr(),
-            description: LocaleKeys
-                .wallet_module_monetization_page_settlement_account_description
-                .tr(namedArgs: {'account': masked}),
-            onTap: () => _onAddPaymentPreference(pref),
-          ),
-          const SizedBox(height: 16),
-          _buildInfoRow(
-            title:
-                LocaleKeys.wallet_module_monetization_page_program_title.tr(),
-            description: LocaleKeys
-                .wallet_module_monetization_page_program_description
-                .tr(),
-            onTap: _onOpenMonetizationProgram,
-          ),
-        ];
-      case _MonetizationState.loading:
-      case _MonetizationState.error:
-        return [
-          const Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 12),
-              child: CircularProgressIndicator.adaptive(),
-            ),
-          ),
-        ];
+        ),
+      ];
     }
+
+    if (state == _MonetizationState.countryRestricted) {
+      return [
+        _buildInfoRow(
+          title: LocaleKeys
+              .wallet_module_monetization_page_monetization_restricted
+              .tr(),
+          description: LocaleKeys
+              .wallet_module_monetization_page_monetization_restricted_description
+              .tr(),
+          onTap: _onOpenMonetizationProgram,
+        ),
+      ];
+    }
+
+    final rows = <Widget>[];
+
+    if (_kycStatus != EKycStatus.success) {
+      rows.add(
+        _buildInfoRow(
+          title: LocaleKeys.wallet_module_monetization_page_kyc_required.tr(),
+          description: LocaleKeys
+              .wallet_module_monetization_page_kyc_required_description
+              .tr(),
+          onTap: _onOpenKycInfo,
+        ),
+      );
+    }
+
+    if (!_hasTaxId) {
+      final isPending = _monetizationAccounts?.isNotEmpty ?? false;
+      rows.add(
+        _buildInfoRow(
+          title: (isPending
+                  ? LocaleKeys.wallet_module_monetization_page_tax_id_pending
+                  : LocaleKeys.wallet_module_monetization_page_tax_id_required)
+              .tr(),
+          description: (isPending
+                  ? LocaleKeys
+                      .wallet_module_monetization_page_tax_id_pending_description
+                  : LocaleKeys
+                      .wallet_module_monetization_page_tax_id_required_description)
+              .tr(),
+          onTap: _onAddTaxId,
+        ),
+      );
+    }
+
+    final pref = _primaryPaymentPreference;
+    final masked = pref != null ? _maskAccountNumber(pref) : '...';
+    rows.add(
+      _buildInfoRow(
+        title:
+            LocaleKeys.wallet_module_monetization_page_settlement_account.tr(),
+        description: LocaleKeys
+            .wallet_module_monetization_page_settlement_account_description
+            .tr(namedArgs: {'account': masked}),
+        onTap: () => _onAddPaymentPreference(pref),
+      ),
+    );
+
+    rows.add(
+      _buildInfoRow(
+        title: LocaleKeys.wallet_module_monetization_page_program_title.tr(),
+        description:
+            LocaleKeys.wallet_module_monetization_page_program_description.tr(),
+        onTap: _onOpenMonetizationProgram,
+      ),
+    );
+
+    final widgets = <Widget>[];
+    for (var i = 0; i < rows.length; i++) {
+      if (i > 0) widgets.add(const SizedBox(height: 16));
+      widgets.add(rows[i]);
+    }
+    return widgets;
+  }
+
+  /// Compte de règlement principal : le plus récemment mis à jour, à défaut
+  /// le plus récemment créé.
+  PaymentPreferenceEntity? get _primaryPaymentPreference {
+    final preferences = _paymentPreferences;
+    if (preferences == null || preferences.isEmpty) return null;
+    final ordered = [...preferences]..sort((a, b) {
+        if (a.updatedAt == null && b.updatedAt == null) {
+          return (b.createdAt ?? DateTime(0))
+              .compareTo(a.createdAt ?? DateTime(0));
+        }
+        if (a.updatedAt == null) return 1;
+        if (b.updatedAt == null) return -1;
+        return b.updatedAt!.compareTo(a.updatedAt!);
+      });
+    return ordered.first;
   }
 
   Widget _buildInfoRow({
@@ -1266,7 +1271,7 @@ class _MonetizationWithdrawalPageState
         UserEntity?>(
       bloc: Modular.get<CurrentUserCubit>(),
       selector: (state) => state.data,
-      builder: (context, currencyCode) => Container(
+      builder: (context, user) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
           color: const Color(0xFFF7F7F7),
@@ -1281,12 +1286,8 @@ class _MonetizationWithdrawalPageState
               LocaleKeys.wallet_module_monetization_page_country_with_currency
                   .tr(
                 namedArgs: {
-                  'country': currencyCode?.pays != null
-                      ? CountryCode.fromCountryCode(currencyCode?.pays ?? '')
-                              .name ??
-                          '--'
-                      : '--',
-                  'currency': currencyCode?.monetaryZone?.currencyIso ?? '--',
+                  'country': localizedCountryName(context, user?.pays),
+                  'currency': user?.monetaryZone?.currencyIso ?? '--',
                 },
               ),
               style: const TextStyle(

@@ -1,6 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/payment_preference_entity.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/withdrawal/bordereau_args.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -77,8 +76,8 @@ final class WalletRoutes {
       _RouteItem(prefix_, _withdrawalRequestForm);
   _RouteItem<CreateWithdrawalRequest> get withdrawalRequestResume =>
       _RouteItem<CreateWithdrawalRequest>(prefix_, _withdrawalRequestResume);
-  _RouteItem<PaymentPreferenceEntity> get verifiePaiementAccount =>
-      _RouteItem<PaymentPreferenceEntity>(prefix_, _verifiePaiementAccount);
+  _RouteItem<String> get verifiePaiementAccount =>
+      _RouteItem<String>(prefix_, _verifiePaiementAccount);
   _RouteItem get taxIdentifier => _RouteItem(prefix_, _taxIdentifier);
   _RouteItem get retraitPage => _RouteItem(prefix_, _retraitPage);
   _RouteItem get completeProfile => _RouteItem(prefix_, _completeProfile);

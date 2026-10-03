@@ -7,6 +7,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/save_monetization_account_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/account/upload_monetization_document_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/country_localization.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/action_button.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/result_feedback_modals.dart';
@@ -150,7 +151,8 @@ class _TaxIdentifierScreenState extends State<TaxIdentifierScreen> {
         description: LocaleKeys
             .wallet_module_tax_identifier_screen_success_description
             .tr(),
-        buttonText: LocaleKeys.wallet_module_tax_identifier_screen_continue.tr(),
+        buttonText:
+            LocaleKeys.wallet_module_tax_identifier_screen_continue.tr(),
         onAction: () {
           if (Modular.to.canPop()) {
             Modular.to.pop(true);
@@ -166,8 +168,7 @@ class _TaxIdentifierScreenState extends State<TaxIdentifierScreen> {
         title: LocaleKeys.wallet_module_tax_identifier_screen_error_title.tr(),
         description: (serverMessage != null && serverMessage.isNotEmpty)
             ? serverMessage
-            : LocaleKeys
-                .wallet_module_tax_identifier_screen_error_description
+            : LocaleKeys.wallet_module_tax_identifier_screen_error_description
                 .tr(),
         buttonText: LocaleKeys.wallet_module_tax_identifier_screen_retry.tr(),
         onAction: () {},
@@ -243,7 +244,11 @@ class _TaxIdentifierScreenState extends State<TaxIdentifierScreen> {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              _country?.name ?? '',
+                              localizedCountryName(
+                                context,
+                                _country?.code,
+                                fallback: '',
+                              ),
                               style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,

@@ -14,6 +14,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/resend_payment_preferences_email_verification_code_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/update_payment_preferences_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/country_localization.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/action_button.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/otp_code_modal.dart';
@@ -441,7 +442,7 @@ class _PaymentAccountFormScreenState extends State<PaymentAccountFormScreen> {
                                       .wallet_module_payment_account_bank_account
                                       .tr(),
                             ),
-                            if (_isMobileMoney) ..._mobileMoneyFields(),
+                            if (_isMobileMoney) ..._mobileMoneyFields(context),
                             if (!_isMobileMoney) _bankTopFields(),
                             const Divider(height: 8, color: _divider),
                             const SizedBox(height: 12),
@@ -489,7 +490,11 @@ class _PaymentAccountFormScreenState extends State<PaymentAccountFormScreen> {
                                     ),
                                     const SizedBox(width: 8),
                                     Text(
-                                      _country!.name ?? '',
+                                      localizedCountryName(
+                                        context,
+                                        _country?.code,
+                                        fallback: '',
+                                      ),
                                       style: _fieldValue,
                                     ),
                                   ],
@@ -539,7 +544,7 @@ class _PaymentAccountFormScreenState extends State<PaymentAccountFormScreen> {
     );
   }
 
-  List<Widget> _mobileMoneyFields() {
+  List<Widget> _mobileMoneyFields(BuildContext context) {
     return [
       _PremiumLockedField(
         label: LocaleKeys.wallet_module_common_country.tr(),
@@ -550,7 +555,10 @@ class _PaymentAccountFormScreenState extends State<PaymentAccountFormScreen> {
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(width: 8),
-            Text(_country!.name ?? '', style: _fieldValue),
+            Text(
+              localizedCountryName(context, _country?.code, fallback: ''),
+              style: _fieldValue,
+            ),
           ],
         ),
       ),

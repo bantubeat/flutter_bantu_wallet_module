@@ -14,6 +14,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/resend_payment_preferences_email_verification_code_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/payment_preference/update_payment_preferences_use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/country_localization.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/register_paiement_account/add_payment_account_screen.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/register_paiement_account/mobile_money_otp_verification_screen.dart';
@@ -513,7 +514,14 @@ class _EditPaymentAccountScreenState extends State<EditPaymentAccountScreen> {
                             style: const TextStyle(fontSize: 18),
                           ),
                           const SizedBox(width: 8),
-                          Text(_country?.name ?? '', style: _fieldValue),
+                          Text(
+                            localizedCountryName(
+                              context,
+                              _country?.code,
+                              fallback: '',
+                            ),
+                            style: _fieldValue,
+                          ),
                         ],
                       ),
                     ),

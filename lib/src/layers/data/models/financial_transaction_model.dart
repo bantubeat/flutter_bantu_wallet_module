@@ -16,6 +16,7 @@ class FinancialTransactionModel extends FinancialTransactionEntity {
     required super.createdAt,
     required super.updatedAt,
     required super.paymentRef,
+    required super.transactionNumber,
     super.description,
   });
 
@@ -33,6 +34,7 @@ class FinancialTransactionModel extends FinancialTransactionEntity {
           0,
       inputCurrency: json['input_currency'] ?? '',
       paymentRef: json['payment_ref'] ?? '',
+      transactionNumber: json['transaction_number'] ?? '',
       paymentMethod: json['payment_method'] ?? '',
       status: EFinancialTxStatus.fromString(json['status'] ?? 'SUCCESS'),
       description: json['description'],
@@ -53,6 +55,7 @@ class FinancialTransactionModel extends FinancialTransactionEntity {
       'input_currency': inputCurrency,
       'payment_ref': paymentRef,
       'payment_method': paymentMethod,
+      'transaction_number': transactionNumber,
       'status': status.value,
       'description': description,
       'created_at': createdAt.toIso8601String(),

@@ -11,8 +11,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'edit_payment_account_screen.dart';
 
 class AccountVerificationScreen extends StatefulWidget {
-  const AccountVerificationScreen(this.paymentPreferenceEntity, {super.key});
-  final PaymentPreferenceEntity paymentPreferenceEntity;
+  /// Identifiant (uuid) de la préférence de paiement à vérifier.
+  final String id;
+
+  const AccountVerificationScreen(this.id, {super.key});
+
   @override
   State<AccountVerificationScreen> createState() =>
       _AccountVerificationScreenState();
@@ -44,15 +47,23 @@ class _AccountVerificationScreenState extends State<AccountVerificationScreen> {
     _loadPaymentMethodStatus();
   }
 
+  /// Charge les préférences de paiement puis retrouve celle correspondant à
+  /// [AccountVerificationScreen.id].
   Future<void> _loadPaymentMethodStatus() async {
-    final type = widget.paymentPreferenceEntity.accountType;
     try {
       final preferences =
           await Modular.get<GetPaymentPreferencesUseCase>().call(NoParms());
       if (!mounted) return;
+      PaymentPreferenceEntity? preference;
+      for (final p in preferences) {
+        if (p.uuid == widget.id) {
+          preference = p;
+          break;
+        }
+      }
       setState(() {
         preferencesList = preferences;
-        _hasPaymentMethod = preferences.any((p) => p.accountType == type);
+        _hasPaymentMethod = preference != null;
       });
     } catch (err) {
       debugPrint('[AccountVerificationScreen] payment preferences error: $err');

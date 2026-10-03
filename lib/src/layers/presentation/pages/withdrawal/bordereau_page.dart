@@ -101,7 +101,7 @@ class _BordereauPageState extends State<BordereauPage> {
                         onPressed: () {
                           Modular.get<WalletRoutes>()
                               .verifiePaiementAccount
-                              .push(widget.paymentPreference);
+                              .push(widget.paymentPreference.uuid);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFE7E9E8),

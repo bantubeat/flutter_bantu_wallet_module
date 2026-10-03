@@ -1,9 +1,9 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/data/models/eligible_country.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/repositories/public_repository.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/country_localization.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 
 import 'widgets/app_colors.dart';
@@ -61,10 +61,18 @@ class _PaysEligiblesPageState extends State<PaysEligiblesPage> {
     setState(() {
       _filtered = query.isEmpty
           ? _countries
-          : _countries
-              .where((c) => c.countryCode.toLowerCase().contains(query))
-              .toList();
+          : _countries.where((c) => _matches(c, query)).toList();
     });
+  }
+
+  /// Recherche sur le code ISO, le nom affiché (traduit) et le nom anglais.
+  bool _matches(EligibleCountry country, String query) {
+    final terms = <String>[
+      country.countryCode,
+      defaultCountryName(country.countryCode),
+      localizedCountryName(context, country.countryCode, fallback: ''),
+    ];
+    return terms.any((term) => term.toLowerCase().contains(query));
   }
 
   @override
@@ -189,7 +197,7 @@ class _PaysEligiblesPageState extends State<PaysEligiblesPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                CountryCode.fromCountryCode(country.countryCode).name ?? '--',
+                localizedCountryName(context, country.countryCode),
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
@@ -197,9 +205,8 @@ class _PaysEligiblesPageState extends State<PaysEligiblesPage> {
                 ),
               ),
               StatusBadge(
-                text:
-                    LocaleKeys.wallet_module_monetization_program_available
-                        .tr(),
+                text: LocaleKeys.wallet_module_monetization_program_available
+                    .tr(),
               ),
             ],
           ),

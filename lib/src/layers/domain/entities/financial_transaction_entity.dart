@@ -8,6 +8,7 @@ abstract class FinancialTransactionEntity {
   final double inputAmount;
   final String inputCurrency;
   final String paymentRef;
+  final String transactionNumber;
   final String paymentMethod;
   final EFinancialTxStatus status;
   final String? description;
@@ -16,6 +17,7 @@ abstract class FinancialTransactionEntity {
   final String uuid;
 
   const FinancialTransactionEntity({
+    required this.transactionNumber,
     required this.id,
     required this.userId,
     required this.type,

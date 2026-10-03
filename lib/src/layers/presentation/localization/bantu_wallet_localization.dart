@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'country_localization.dart';
 import 'my_localization.dart';
 import 'my_localization_delegate.dart';
 
@@ -22,7 +23,9 @@ class BantuWalletLocalization {
   // Initializes the Overlay with context
   static Widget init(BuildContext context, Widget? child) {
     _localization = MyLocalization.of(context);
-    return child!;
+    // Injected here (MaterialApp.builder) so every page of the app gets the
+    // translated country names provided by the `country_code_picker` package.
+    return LocalizedCountryScope(child: child ?? const SizedBox.shrink());
   }
 
   /// The language code of the current locale (e.g. 'fr', 'en').

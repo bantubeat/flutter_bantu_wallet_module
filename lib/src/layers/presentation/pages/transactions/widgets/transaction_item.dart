@@ -86,7 +86,10 @@ class TransactionItem extends StatelessWidget {
         LocaleKeys.wallet_module_transaction_history_page_table_transaction_id
             .tr(): '# ${transaction.id}',
         LocaleKeys.wallet_module_transaction_history_page_table_transaction_ref
-            .tr(): transaction.paymentRef,
+                .tr():
+            transaction.transactionNumber.isNotEmpty
+                ? transaction.transactionNumber
+                : transaction.paymentRef,
         LocaleKeys.wallet_module_transaction_history_page_table_amount.tr():
             eurFormatter.format(transaction.amount),
         if (transaction.inputCurrency == 'BZC')

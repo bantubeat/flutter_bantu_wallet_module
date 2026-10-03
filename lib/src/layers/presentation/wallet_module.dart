@@ -47,7 +47,6 @@ import '../../layers/domain/repositories/balance_repository.dart';
 import '../../layers/domain/repositories/payment_repository.dart';
 import '../../layers/domain/repositories/public_repository.dart';
 import '../../layers/domain/repositories/user_repository.dart';
-import '../domain/entities/payment_preference_entity.dart';
 import '../domain/use_cases/account/get_monetization_eligibility_use_case.dart';
 import '../domain/use_cases/withdrawal/check_withdrawal_eligibility_use_case.dart';
 import '../domain/use_cases/currency/convert_fiat_currency_use_case.dart';
@@ -351,8 +350,7 @@ class WalletModule extends Module {
     r.child(_routes.transactions.wp, child: (_) => const TransactionsPage());
     r.child(
       _routes.verifiePaiementAccount.wp,
-      child: (_) =>
-          AccountVerificationScreen(r.args.data as PaymentPreferenceEntity),
+      child: (_) => AccountVerificationScreen((r.args.data as String?) ?? ''),
     );
     r.child(
       _routes.addOrEditPaymentAccount.wp,

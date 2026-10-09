@@ -353,6 +353,10 @@ class WalletModule extends Module {
       child: (_) => AccountVerificationScreen((r.args.data as String?) ?? ''),
     );
     r.child(
+      _routes.verifiePaiementAccount1.wp,
+      child: (_) => AccountVerificationScreen((r.args.data as String?) ?? ''),
+    );
+    r.child(
       _routes.addOrEditPaymentAccount.wp,
       child: (_) => const PaymentAccountFormScreen(),
     );

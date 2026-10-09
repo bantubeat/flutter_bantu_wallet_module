@@ -132,9 +132,9 @@ const Map<String, dynamic> langMap = {
       "title":
           "Buy Beatzcoins to enjoy premium features of the platform and other Bantubeat applications",
       "description":
-          "The Beatzcoin is a token that we are launching to allow our users to fully enjoy the Bantubeat applications. The Beatzcoin is available and usable only on Bantubeat and its applications. Each user who holds a stock of Beatzcoins can exchange them for a Bantubeat payment. The corresponding amount, less taxes and service fees, will be credited to your financial account.",
-      "description2": "\nSee the",
-      "description3": "terms and conditions of purchase and use of Beatzcoins",
+          "BeatzCoin is a token usable only on FeatLink and its applications. They are used to unlock features, access premium services, and make certain purchases within the FeatLink ecosystem. Learn more about the",
+      "description2": " ",
+      "description3": "Terms of Purchase and Use of Beatzcoins.",
       "bzc_account_balance": "Your Beatzcoin account balance",
       "see_details": "See details",
       "buy_bzc": "Buy BZC"

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 
 import '../../../../../layers/presentation/pages/deposit/controller/deposit_controller.dart';
+import '../../../helpers/ui_alert_helpers.dart';
 import '../../../widgets/payments_icon_svg_image.dart';
 
 class EUPaymentOptions extends StatelessWidget {
@@ -55,62 +56,56 @@ class EUPaymentOptions extends StatelessWidget {
             builder: (context) {
               final country = ctrl.currentUser?.pays.toUpperCase();
               final currency = ctrl.selectedCurrencyCode?.toUpperCase();
-              // final amount = num.tryParse(ctrl.amountCtrl.text)?.toDouble();
-              if (country == null || currency == null) {
+              final amount = num.tryParse(ctrl.amountCtrl.text)?.toDouble();
+              if (country == null || currency == null || amount == null) {
                 return const SizedBox.shrink();
               }
 
+              // GooglePayButton (et non RawGooglePayButton) : il s'abonne à
+              // l'EventChannel `pay/payment_result` avant d'appeler
+              // `showPaymentSelector`, sinon le plugin Android lève
+              // `illegalEventChannelState`.
               return SizedBox(
                 height: 50,
-                child: RawGooglePayButton(
-                  onPressed: onGooglePay,
+                child: GooglePayButton(
                   paymentConfiguration: ctrl.getGooglePaymentConfiguration(
                     countryIso2: country,
                     currency: currency,
                   ),
+                  paymentItems: [
+                    PaymentItem(
+                      label: 'Total',
+                      amount: amount.toStringAsFixed(2),
+                      type: PaymentItemType.total,
+                      status: PaymentItemStatus.final_price,
+                    ),
+                  ],
+                  onPaymentResult: (result) {
+                    ctrl.onGooglePayResult(
+                      result,
+                      amount: amount,
+                      currency: currency,
+                    );
+                  },
+                  buttonProvider: PayProvider.google_pay,
                   cornerRadius: 8,
+                  width: double.infinity,
+                  height: 50,
                   type: GooglePayButtonType.pay,
+                  onError: (error) {
+                    debugPrint('Google Pay Error: $error');
+                    UiAlertHelpers.showErrorToast('$error');
+                  },
+                  childOnError: null,
+                  loadingIndicator: const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  ),
                   theme: Theme.of(context).colorScheme.brightness ==
                           Brightness.dark
                       ? GooglePayButtonTheme.light
                       : GooglePayButtonTheme.dark,
                 ),
               );
-              /*
-            return GooglePayButton(
-              cornerRadius: 8,
-              height: 50,
-              paymentConfiguration: ctrl.getGooglePaymentConfiguration(
-                countryIso2: country,
-                currency: currency,
-              ),
-              paymentItems: [
-                PaymentItem(
-                  label: 'Total',
-                  amount: amount.toStringAsFixed(2),
-                  type: PaymentItemType.total,
-                  status: PaymentItemStatus.final_price,
-                ),
-              ],
-              onPaymentResult: (result) {
-                ctrl.onGooglePayResult(
-                  result,
-                  amount: amount,
-                  currency: currency,
-                );
-              },
-              buttonProvider: PayProvider.google_pay,
-              type: GooglePayButtonType.pay,
-              margin: const EdgeInsets.only(top: 15.0),
-              onError: (error) => debugPrint('Google Pay Error: $error'),
-              childOnError: const Center(child: Icon(Icons.warning)),
-              loadingIndicator: const Center(
-                child: CircularProgressIndicator.adaptive(),
-              ),
-              theme: Theme.of(context).colorScheme.brightness == Brightness.dark
-                  ? GooglePayButtonTheme.light
-                  : GooglePayButtonTheme.dark,
-            ); */
             },
           ),
         /*

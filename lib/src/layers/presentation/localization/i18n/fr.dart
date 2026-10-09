@@ -134,9 +134,9 @@ const Map<String, dynamic> langMap = {
       "title":
           "Acheter des beatzcoins pour profiter des fonctionnalités premium de la plateforme et des autres applications Bantubeat",
       "description":
-          "Le Beatzcoin est un jeton que nous mettons sur pied pour permettre à nos utilisateurs de profiter plainement des applications bantubeat. Le beatzcoin est disponible et utilisable uniquement sur bantubeat et ses applications. Chaque utilisateur qui détient un stock de beatzcoin peut les échanger contre un paiement de bantubeat. la somme correspondante, déduction des taxes et frais de service sera créditée sur votre compte financier.",
-      "description2": "\nVoir les ",
-      "description3": "les conditions d'achat et d'utilisation des Beatzcoins",
+          "Le BeatzCoin est un jeton utilisable uniquement sur FeatLink et ses applications. Ils servent à débloquer des fonctionnalités, accéder à des services premium et effectuer certains achats dans l’écosystème FeatLink. En savoir plus sur les",
+      "description2": " ",
+      "description3": "Conditions d’achat et utilisation des Beatzcoins",
       "bzc_account_balance": "Solde de votre compte beatzcoin",
       "see_details": "Voir les détails",
       "buy_bzc": "Acheter des BZC"

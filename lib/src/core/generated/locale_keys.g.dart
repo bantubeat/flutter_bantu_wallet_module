@@ -414,6 +414,7 @@ abstract class  LocaleKeys {
   static const wallet_module_monetization_page_tax_id_label = 'wallet_module.monetization_page.tax_id_label';
   static const wallet_module_monetization_page_tax_id_hint = 'wallet_module.monetization_page.tax_id_hint';
   static const wallet_module_monetization_page_tax_id_saved = 'wallet_module.monetization_page.tax_id_saved';
+  static const wallet_module_monetization_page_tax_id_saved_description = 'wallet_module.monetization_page.tax_id_saved_description';
   static const wallet_module_monetization_page_diamonds = 'wallet_module.monetization_page.diamonds';
   static const wallet_module_monetization_page_stars = 'wallet_module.monetization_page.stars';
   static const wallet_module_monetization_page_diamond_rate = 'wallet_module.monetization_page.diamond_rate';

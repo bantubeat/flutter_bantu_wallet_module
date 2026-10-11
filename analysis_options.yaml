@@ -12,6 +12,7 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
     - lib/src/core/generated/*.dart
+    - build/**
     #- test/*
   errors:
     missing_required_param: error

@@ -76,6 +76,17 @@ class _MonetizationWithdrawalPageState
   // bool get _hasTaxId =>
   //     _monetizationAccounts?.any((a) => a.isApproved) ?? false;
 
+  /// Premier compte de monétisation disposant d'un identifiant fiscal
+  /// renseigné, utilisé pour afficher la donnée sauvegardée.
+  MonetizationAccountModel? get _taxIdAccount {
+    final accounts = _monetizationAccounts;
+    if (accounts == null) return null;
+    for (final account in accounts) {
+      if (account.fiscalIdNumber.isNotEmpty) return account;
+    }
+    return null;
+  }
+
   List<FinancialTransactionEntity>? _transactions;
   bool _isLoadingTransactions = true;
 
@@ -241,11 +252,17 @@ class _MonetizationWithdrawalPageState
   }
 
   void _onAddTaxId() async {
-    final type = await AccountTypeModal.show(context);
-    if (type == null || !mounted) return;
+    // En modification, on ouvre directement le formulaire pré-rempli avec les
+    // données fiscales existantes, sans redemander le type de compte.
+    MonetizationAccountModel? account = _taxIdAccount;
+    if (account == null) {
+      final type = await AccountTypeModal.show(context);
+      if (type == null || !mounted) return;
+      account = _currentMonetizationAccount;
+    }
     final saved = await Modular.get<WalletRoutes>()
         .taxIdentifier
-        .push<bool>(_currentMonetizationAccount);
+        .push<bool>(account);
     if (saved != true || !mounted) return;
     UiAlertHelpers.showSuccessToast(
       LocaleKeys.wallet_module_monetization_page_tax_id_saved.tr(),
@@ -412,6 +429,11 @@ class _MonetizationWithdrawalPageState
     final raw = pref.detailPhone ?? pref.detailIban ?? '';
     if (raw.length <= 2) return '.xxxxxxx$raw';
     return '.xxxxxxx${raw.substring(raw.length - 2)}';
+  }
+
+  String _maskFiscalId(String raw) {
+    if (raw.length <= 4) return raw;
+    return '.xxxxxxx${raw.substring(raw.length - 4)}';
   }
 
   @override
@@ -838,6 +860,21 @@ class _MonetizationWithdrawalPageState
           onTap: _onAddTaxId,
         ),
       );
+    } else {
+      final taxIdAccount = _taxIdAccount!;
+      rows.add(
+        _buildInfoRow(
+          title: LocaleKeys.wallet_module_monetization_page_tax_id_title.tr(),
+          description: LocaleKeys
+              .wallet_module_monetization_page_tax_id_saved_description
+              .tr(
+            namedArgs: {
+              'account': _maskFiscalId(taxIdAccount.fiscalIdNumber),
+            },
+          ),
+          onTap: _onAddTaxId,
+        ),
+      );
     }
 
     final pref = _primaryPaymentPreference;
@@ -955,6 +992,7 @@ class _MonetizationWithdrawalPageState
             },
           ),
           onConvert: restricted ? null : _onConvertDiamonds,
+          showConvert: !restricted && (diamonds ?? 0) > 0,
         ),
         const SizedBox(height: 12),
         _buildAssetCard(
@@ -967,6 +1005,7 @@ class _MonetizationWithdrawalPageState
             namedArgs: {'count': '$_starsPerDiamond'},
           ),
           onConvert: restricted ? null : _onConvertStars,
+          showConvert: !restricted && (stars ?? 0) > 0,
         ),
         const SizedBox(height: 12),
         Container(
@@ -1024,6 +1063,7 @@ class _MonetizationWithdrawalPageState
     required String value,
     required String rateLabel,
     required VoidCallback? onConvert,
+    bool showConvert = true,
   }) {
     return Container(
       width: double.infinity,
@@ -1074,31 +1114,34 @@ class _MonetizationWithdrawalPageState
                 rateLabel,
                 style: const TextStyle(fontSize: 10.5, color: Colors.black38),
               ),
-              const SizedBox(height: 6),
-              OutlinedButton(
-                onPressed: onConvert,
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.black87,
-                  disabledForegroundColor: Colors.black26,
-                  side: BorderSide(
-                    color: onConvert != null ? Colors.black26 : Colors.black12,
+              if (showConvert) ...[
+                const SizedBox(height: 6),
+                OutlinedButton(
+                  onPressed: onConvert,
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.black87,
+                    disabledForegroundColor: Colors.black26,
+                    side: BorderSide(
+                      color:
+                          onConvert != null ? Colors.black26 : Colors.black12,
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                  child: Text(
+                    LocaleKeys.wallet_module_monetization_page_convert.tr(),
+                    style: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                  minimumSize: Size.zero,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                child: Text(
-                  LocaleKeys.wallet_module_monetization_page_convert.tr(),
-                  style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
+              ],
             ],
           ),
         ],

@@ -67,23 +67,23 @@ const Map<String, dynamic> langMap = {
       "title": "Wallet",
       "description":
           "In your wallet, you have a financial account that displays your account balance in monetary value and a Beatzcoin account that displays your Beatzcoin balance. All payments made on the platform are made with your Beatzcoin tokens. To make a purchase on the platform, you must first fund your financial account.\nIf the balance of your Beatzcoin account does not cover the full amount of the renewals, your platform access will be canceled. Learn more about the ",
-      "description2": "Bantubeat payment policy and conditions",
+      "description2": "Featlink payment policy and conditions",
       "financier_account": {
         "title": "Financial Account",
         "description":
-            "Your financial account allows you to purchase tokens and also records the amount of resale of your tokens earned on all Bantubeat platforms.",
+            "Your financial account allows you to purchase tokens and also records the amount of resale of your tokens earned on all Featlink platforms.",
         "request_payment": "Request a payment",
         "add_funds": "Add funds"
       },
       "beatzcoin_account": {
         "title": "Beatzcoin Account",
         "description1":
-            "Your Beatzcoin account allows you to make purchases on all Bantubeat platforms.",
+            "Your Beatzcoin account allows you to make purchases on all Featlink platforms.",
         "description2":
             "You can exchange your tokens, the equivalent amount will be deposited into your financial account.",
         "description3":
             "Please note that when you exchange your Beatzcoin tokens, fees and taxes are deducted. See the ",
-        "description4": "Bantubeat payment policy and conditions.",
+        "description4": "Featlink payment policy and conditions.",
         "minimum_bzc": "minimum {{min_quantity}} BZC",
         "exchange": "Exchange",
         "exchange_successful": "Beatzcoins exchanged successfully!"
@@ -108,7 +108,7 @@ const Map<String, dynamic> langMap = {
       "warning3_and": " and ",
       "warning4_link": "privacy policy",
       "warning5_google_play":
-          " of Bantubeat apply. Google Play may also ask you to accept additional terms."
+          " of Featlink apply. Google Play may also ask you to accept additional terms."
     },
     "withdrawal_page": {
       "title": "Withdrawal",
@@ -118,7 +118,7 @@ const Map<String, dynamic> langMap = {
           "Note: Payment requests can be made at any time. Please allow an average of 15 days for the funds to be received in your account.",
       "description2":
           "In accordance with European Union laws, we must verify your identity before any payment. See ",
-      "description3": "Bantubeat payment policy and conditions",
+      "description3": "Featlink payment policy and conditions",
       "financial_account_balance": "Your Financial account balance",
       "see_details": "See details",
       "Your_registered_payment_account": "Your registered payment account:",
@@ -130,7 +130,7 @@ const Map<String, dynamic> langMap = {
     "beatzcoins_page": {
       "intro1": "Beatzcoin is the token of ",
       "title":
-          "Buy Beatzcoins to enjoy premium features of the platform and other Bantubeat applications",
+          "Buy Beatzcoins to enjoy premium features of the platform and other Featlink applications",
       "description":
           "BeatzCoin is a token usable only on FeatLink and its applications. They are used to unlock features, access premium services, and make certain purchases within the FeatLink ecosystem. Learn more about the",
       "description2": " ",
@@ -151,7 +151,7 @@ const Map<String, dynamic> langMap = {
         "amount_of_your_load": "Amount of your load",
         "ttc_price": "TTC price {{price}}",
         "buy_with": "Pay with",
-        "bantubeat_balance": "Bantubeat balance",
+        "bantubeat_balance": "Featlink balance",
         "add_funds": "Add funds",
         "insufficient_funds":
             "Your account balance is insufficient to make this purchase",
@@ -328,7 +328,7 @@ const Map<String, dynamic> langMap = {
       "fees_warning1":
           "Please note that the transfer fees from your payment account are your responsibility and you agree to pay income taxes in your country of residence. See ",
       "fees_warning2":
-          "Bantubeat terms of use, policy, and Bantubeat payment conditions.",
+          "Featlink terms of use, policy, and Featlink payment conditions.",
       "amount_to_withdraw_in_eur": "Amount to withdraw in €",
       "insufficient_funds": "Insufficient balance for this withdrawal",
       "resume_description1": "I, the undersigned ",
@@ -527,6 +527,7 @@ const Map<String, dynamic> langMap = {
       "tax_id_label": "Tax ID Number",
       "tax_id_hint": "E.g.: 1234567890A",
       "tax_id_saved": "Tax ID saved",
+      "tax_id_saved_description": "Your saved tax ID: {{account}}",
       "diamonds": "DIAMONDS",
       "stars": "STARS",
       "diamond_rate": "1 diamond = {{rate}} {{currency}}",

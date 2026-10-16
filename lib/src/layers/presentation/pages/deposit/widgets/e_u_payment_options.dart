@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 
+import '../../../../../core/generated/locale_keys.g.dart';
+import '../../../../../layers/presentation/localization/string_translate_extension.dart';
 import '../../../../../layers/presentation/pages/deposit/controller/deposit_controller.dart';
 import '../../../helpers/ui_alert_helpers.dart';
 import '../../../widgets/payments_icon_svg_image.dart';
@@ -56,18 +58,21 @@ class EUPaymentOptions extends StatelessWidget {
             builder: (context) {
               final country = ctrl.currentUser?.pays.toUpperCase();
               final currency = ctrl.selectedCurrencyCode?.toUpperCase();
-              final amount = num.tryParse(ctrl.amountCtrl.text)?.toDouble();
-              if (country == null || currency == null || amount == null) {
+              final amount =
+                  num.tryParse(ctrl.amountCtrl.text)?.toDouble() ?? 0.0;
+              if (country == null || currency == null) {
                 return const SizedBox.shrink();
               }
 
-              // GooglePayButton (et non RawGooglePayButton) : il s'abonne à
-              // l'EventChannel `pay/payment_result` avant d'appeler
-              // `showPaymentSelector`, sinon le plugin Android lève
-              // `illegalEventChannelState`.
-              return SizedBox(
+              // GooglePayButton s'abonne à l'EventChannel
+              // `pay/payment_result` lors de son `initState`, en capturant la
+              // première configuration. On force donc la recréation de son
+              // état (`key`) quand le montant change, sinon le plugin utilise
+              // le montant figé au moment où le bouton est apparu.
+              final googlePayButton = SizedBox(
                 height: 50,
                 child: GooglePayButton(
+                  key: ValueKey(amount),
                   paymentConfiguration: ctrl.getGooglePaymentConfiguration(
                     countryIso2: country,
                     currency: currency,
@@ -106,6 +111,29 @@ class EUPaymentOptions extends StatelessWidget {
                       : GooglePayButtonTheme.dark,
                 ),
               );
+
+              // Montant non saisi : bouton affiché mais désactivé.
+              if (amount <= 0) {
+                return GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    UiAlertHelpers.showErrorSnackBar(
+                      context,
+                      LocaleKeys
+                          .wallet_module_deposit_page_amount_and_currency_required
+                          .tr(),
+                    );
+                  },
+                  child: IgnorePointer(
+                    child: Opacity(
+                      opacity: 0.5,
+                      child: googlePayButton,
+                    ),
+                  ),
+                );
+              }
+
+              return googlePayButton;
             },
           ),
         /*

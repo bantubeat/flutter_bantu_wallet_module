@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:pay/pay.dart';
 
 import '../../../../../core/generated/locale_keys.g.dart';
 import '../../../../../layers/presentation/localization/string_translate_extension.dart';
 import '../../../../../layers/presentation/pages/deposit/controller/deposit_controller.dart';
 import '../../../helpers/ui_alert_helpers.dart';
 import '../../../widgets/payments_icon_svg_image.dart';
+import 'google_pay_live_button.dart';
 
 class EUPaymentOptions extends StatelessWidget {
   final VoidCallback onGooglePay;
@@ -64,76 +64,24 @@ class EUPaymentOptions extends StatelessWidget {
                 return const SizedBox.shrink();
               }
 
-              // GooglePayButton s'abonne à l'EventChannel
-              // `pay/payment_result` lors de son `initState`, en capturant la
-              // première configuration. On force donc la recréation de son
-              // état (`key`) quand le montant change, sinon le plugin utilise
-              // le montant figé au moment où le bouton est apparu.
-              final googlePayButton = SizedBox(
-                height: 50,
-                child: GooglePayButton(
-                  key: ValueKey(amount),
-                  paymentConfiguration: ctrl.getGooglePaymentConfiguration(
-                    countryIso2: country,
-                    currency: currency,
-                  ),
-                  paymentItems: [
-                    PaymentItem(
-                      label: 'Total',
-                      amount: amount.toStringAsFixed(2),
-                      type: PaymentItemType.total,
-                      status: PaymentItemStatus.final_price,
-                    ),
-                  ],
-                  onPaymentResult: (result) {
-                    ctrl.onGooglePayResult(
-                      result,
-                      amount: amount,
-                      currency: currency,
-                    );
-                  },
-                  buttonProvider: PayProvider.google_pay,
-                  cornerRadius: 8,
-                  width: double.infinity,
-                  height: 50,
-                  type: GooglePayButtonType.pay,
-                  onError: (error) {
-                    debugPrint('Google Pay Error: $error');
-                    UiAlertHelpers.showErrorToast('$error');
-                  },
-                  childOnError: null,
-                  loadingIndicator: const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
-                  theme: Theme.of(context).colorScheme.brightness ==
-                          Brightness.dark
-                      ? GooglePayButtonTheme.light
-                      : GooglePayButtonTheme.dark,
-                ),
+              // GooglePayLiveButton (et non GooglePayButton) : il s'abonne à
+              // l'EventChannel `pay/payment_result` une seule fois et relit le
+              // montant dans le controller au moment du paiement. Cela évite
+              // que le plugin utilise le montant figé au moment où le bouton
+              // est apparu (ex. "100" → "1") sans recréer le bouton (et donc
+              // sans provoquer `illegalEventChannelState`).
+              return GooglePayLiveButton(
+                ctrl: ctrl,
+                enabled: amount > 0,
+                onDisabledTap: () {
+                  UiAlertHelpers.showErrorSnackBar(
+                    context,
+                    LocaleKeys
+                        .wallet_module_deposit_page_amount_and_currency_required
+                        .tr(),
+                  );
+                },
               );
-
-              // Montant non saisi : bouton affiché mais désactivé.
-              if (amount <= 0) {
-                return GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    UiAlertHelpers.showErrorSnackBar(
-                      context,
-                      LocaleKeys
-                          .wallet_module_deposit_page_amount_and_currency_required
-                          .tr(),
-                    );
-                  },
-                  child: IgnorePointer(
-                    child: Opacity(
-                      opacity: 0.5,
-                      child: googlePayButton,
-                    ),
-                  ),
-                );
-              }
-
-              return googlePayButton;
             },
           ),
         /*

@@ -69,6 +69,19 @@ class _BordereauPageState extends State<BordereauPage> {
         .replaceAll(',', '\u00a0');
   }
 
+  /// Devise monétaire de l'utilisateur, utilisée partout sur la page.
+  String get _currencyCode {
+    final balance = Modular.get<UserBalanceCubit>().state.data;
+    final revenueCode = balance?.revenueAccount?.userCurrencyCode;
+    final code = (revenueCode != null && revenueCode.isNotEmpty)
+        ? revenueCode
+        : balance?.userCurrencyCode;
+    if (code != null && code.isNotEmpty) return code;
+    final userCode = Modular.get<CurrentUserCubit>().state.data?.currencyCode;
+    if (userCode != null && userCode.isNotEmpty) return userCode;
+    return 'XAF';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -207,8 +220,7 @@ class _BordereauPageState extends State<BordereauPage> {
   Widget _buildTitle() {
     return Text(
       isMobileMoney
-          ? LocaleKeys
-              .wallet_module_withdrawal_process_bordereau_title_mobile
+          ? LocaleKeys.wallet_module_withdrawal_process_bordereau_title_mobile
               .tr()
           : LocaleKeys.wallet_module_withdrawal_process_bordereau_title_bank
               .tr(),
@@ -333,7 +345,7 @@ class _BordereauPageState extends State<BordereauPage> {
                         ),
                       ),
                       TextSpan(
-                        text: ' XAF',
+                        text: ' $_currencyCode',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -351,41 +363,41 @@ class _BordereauPageState extends State<BordereauPage> {
                     LocaleKeys
                         .wallet_module_withdrawal_process_bordereau_gross_amount
                         .tr(),
-                    '${formatMontant(calc.grossAmount.toDouble())} XAF',
+                    '${formatMontant(calc.grossAmount.toDouble())} $_currencyCode',
                   ),
                   const SizedBox(height: 14),
                   _infoRow(
                     LocaleKeys
                         .wallet_module_withdrawal_process_bordereau_platform_fee
                         .tr(namedArgs: {'pct': _pct(calc.feePlatformPct)}),
-                    '- ${formatMontant(calc.feePlatform.toDouble())} XAF',
+                    '- ${formatMontant(calc.feePlatform.toDouble())} $_currencyCode',
                   ),
                   const SizedBox(height: 14),
                   _infoRow(
                     LocaleKeys
                         .wallet_module_withdrawal_process_bordereau_operator_fee
                         .tr(namedArgs: {'pct': _pct(calc.feeOperatorPct)}),
-                    '- ${formatMontant(calc.feeOperator.toDouble())} XAF',
+                    '- ${formatMontant(calc.feeOperator.toDouble())} $_currencyCode',
                   ),
                   const SizedBox(height: 14),
                   _infoRow(
                     LocaleKeys.wallet_module_withdrawal_process_bordereau_taxes
                         .tr(namedArgs: {'pct': _pct(calc.taxPct)}),
-                    '- ${formatMontant(calc.tax.toDouble())} XAF',
+                    '- ${formatMontant(calc.tax.toDouble())} $_currencyCode',
                   ),
                   const SizedBox(height: 14),
                   _infoRow(
                     LocaleKeys
                         .wallet_module_withdrawal_process_bordereau_total_fees
                         .tr(),
-                    '- ${formatMontant(calc.totalFees.toDouble())} XAF',
+                    '- ${formatMontant(calc.totalFees.toDouble())} $_currencyCode',
                   ),
                   const SizedBox(height: 14),
                   _infoRow(
                     LocaleKeys
                         .wallet_module_withdrawal_process_bordereau_net_to_receive
                         .tr(),
-                    '${formatMontant(calc.netAmount.toDouble())} XAF',
+                    '${formatMontant(calc.netAmount.toDouble())} $_currencyCode',
                   ),
                   const SizedBox(height: 18),
                   Divider(color: Colors.grey.shade300, height: 1),
@@ -476,16 +488,14 @@ class _BordereauPageState extends State<BordereauPage> {
         ? LocaleKeys
             .wallet_module_withdrawal_process_bordereau_engagement_mobile
             .tr(namedArgs: {'account': _account()})
-        : LocaleKeys
-            .wallet_module_withdrawal_process_bordereau_engagement_bank
+        : LocaleKeys.wallet_module_withdrawal_process_bordereau_engagement_bank
             .tr(namedArgs: {'account': _account()});
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          LocaleKeys
-              .wallet_module_withdrawal_process_bordereau_legal_engagement
+          LocaleKeys.wallet_module_withdrawal_process_bordereau_legal_engagement
               .tr(),
           style: TextStyle(
             fontSize: 11,
@@ -604,7 +614,11 @@ class _BordereauPageState extends State<BordereauPage> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  const Icon(Icons.arrow_forward, color: Colors.white, size: 18),
+                  const Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                    size: 18,
+                  ),
                 ],
               ),
       ),
@@ -641,56 +655,55 @@ class _BordereauPageState extends State<BordereauPage> {
     try {
       final calc = simulation.calculation;
       await printDetailsPdf(
-        title: LocaleKeys
-            .wallet_module_withdrawal_process_bordereau_pdf_title
+        title: LocaleKeys.wallet_module_withdrawal_process_bordereau_pdf_title
             .tr(namedArgs: {'reference': _reference()}),
         details: {
-          LocaleKeys.wallet_module_withdrawal_process_bordereau_reference
-              .tr(): _reference(),
-          LocaleKeys.wallet_module_withdrawal_process_bordereau_pdf_status
-              .tr(): simulation.status,
+          LocaleKeys.wallet_module_withdrawal_process_bordereau_reference.tr():
+              _reference(),
+          LocaleKeys.wallet_module_withdrawal_process_bordereau_pdf_status.tr():
+              simulation.status,
           if (isMobileMoney)
-            LocaleKeys.wallet_module_withdrawal_process_bordereau_operator
-                .tr(): _operator(),
+            LocaleKeys.wallet_module_withdrawal_process_bordereau_operator.tr():
+                _operator(),
           if (isMobileMoney)
-            LocaleKeys
-                .wallet_module_withdrawal_process_bordereau_account_number
+            LocaleKeys.wallet_module_withdrawal_process_bordereau_account_number
                 .tr(): _account(),
           if (!isMobileMoney)
-            LocaleKeys.wallet_module_withdrawal_process_bordereau_bank
-                .tr(): _bank(),
+            LocaleKeys.wallet_module_withdrawal_process_bordereau_bank.tr():
+                _bank(),
           if (!isMobileMoney)
             LocaleKeys.wallet_module_common_iban.tr(): _account(),
           LocaleKeys.wallet_module_withdrawal_process_bordereau_transfer_type
-              .tr(): isMobileMoney
-              ? LocaleKeys
-                  .wallet_module_withdrawal_process_bordereau_mobile_money
-                  .tr()
-              : LocaleKeys
-                  .wallet_module_withdrawal_process_bordereau_bank_transfer
-                  .tr(),
+                  .tr():
+              isMobileMoney
+                  ? LocaleKeys
+                      .wallet_module_withdrawal_process_bordereau_mobile_money
+                      .tr()
+                  : LocaleKeys
+                      .wallet_module_withdrawal_process_bordereau_bank_transfer
+                      .tr(),
           LocaleKeys.wallet_module_withdrawal_process_bordereau_gross_amount
-              .tr(): '${formatMontant(montant)} XAF',
+              .tr(): '${formatMontant(montant)} $_currencyCode',
           if (calc != null)
             LocaleKeys.wallet_module_withdrawal_process_bordereau_platform_fee
-                .tr(namedArgs: {'pct': _pct(calc.feePlatformPct)}):
-                '- ${formatMontant(calc.feePlatform.toDouble())} XAF',
+                    .tr(namedArgs: {'pct': _pct(calc.feePlatformPct)}):
+                '- ${formatMontant(calc.feePlatform.toDouble())} $_currencyCode',
           if (calc != null)
             LocaleKeys.wallet_module_withdrawal_process_bordereau_operator_fee
-                .tr(namedArgs: {'pct': _pct(calc.feeOperatorPct)}):
-                '- ${formatMontant(calc.feeOperator.toDouble())} XAF',
+                    .tr(namedArgs: {'pct': _pct(calc.feeOperatorPct)}):
+                '- ${formatMontant(calc.feeOperator.toDouble())} $_currencyCode',
           if (calc != null)
             LocaleKeys.wallet_module_withdrawal_process_bordereau_taxes
-                .tr(namedArgs: {'pct': _pct(calc.taxPct)}):
-                '- ${formatMontant(calc.tax.toDouble())} XAF',
+                    .tr(namedArgs: {'pct': _pct(calc.taxPct)}):
+                '- ${formatMontant(calc.tax.toDouble())} $_currencyCode',
           if (calc != null)
             LocaleKeys.wallet_module_withdrawal_process_bordereau_total_fees
-                .tr():
-                '- ${formatMontant(calc.totalFees.toDouble())} XAF',
+                    .tr():
+                '- ${formatMontant(calc.totalFees.toDouble())} $_currencyCode',
           if (calc != null)
             LocaleKeys.wallet_module_withdrawal_process_bordereau_net_to_receive
-                .tr():
-                '${formatMontant(calc.netAmount.toDouble())} XAF',
+                    .tr():
+                '${formatMontant(calc.netAmount.toDouble())} $_currencyCode',
         },
       );
     } finally {
@@ -759,19 +772,19 @@ class _BordereauPageState extends State<BordereauPage> {
             .tr();
         break;
       case EWithdrawalResponseStatus.insufficientBalance:
-        message =
-            LocaleKeys.wallet_module_withdrawal_process_status_insufficientBalance
-                .tr();
+        message = LocaleKeys
+            .wallet_module_withdrawal_process_status_insufficientBalance
+            .tr();
         break;
       case EWithdrawalResponseStatus.badOrExpiredOTPCode:
-        message =
-            LocaleKeys.wallet_module_withdrawal_process_status_badOrExpiredOTPCode
-                .tr();
+        message = LocaleKeys
+            .wallet_module_withdrawal_process_status_badOrExpiredOTPCode
+            .tr();
         break;
       case EWithdrawalResponseStatus.kycNotValidated:
-        message =
-            LocaleKeys.wallet_module_withdrawal_process_status_kycNotValidated
-                .tr();
+        message = LocaleKeys
+            .wallet_module_withdrawal_process_status_kycNotValidated
+            .tr();
         break;
       case EWithdrawalResponseStatus.paymentPreferenceNotFound:
         message = LocaleKeys
@@ -779,14 +792,14 @@ class _BordereauPageState extends State<BordereauPage> {
             .tr();
         break;
       case EWithdrawalResponseStatus.requestConflict:
-        message =
-            LocaleKeys.wallet_module_withdrawal_process_status_requestConflict
-                .tr();
+        message = LocaleKeys
+            .wallet_module_withdrawal_process_status_requestConflict
+            .tr();
         break;
       case EWithdrawalResponseStatus.invalidRequestPeriod:
-        message =
-            LocaleKeys.wallet_module_withdrawal_process_status_invalidRequestPeriod
-                .tr();
+        message = LocaleKeys
+            .wallet_module_withdrawal_process_status_invalidRequestPeriod
+            .tr();
         break;
       case EWithdrawalResponseStatus.badOrExpiredPaymentSlip:
         message = LocaleKeys
@@ -794,13 +807,13 @@ class _BordereauPageState extends State<BordereauPage> {
             .tr();
         break;
       case EWithdrawalResponseStatus.unknownError:
-        message = LocaleKeys.wallet_module_withdrawal_process_status_unknownError
+        message = LocaleKeys
+            .wallet_module_withdrawal_process_status_unknownError
             .tr();
         break;
       case null:
-        message =
-            LocaleKeys.wallet_module_common_an_error_occur
-                .tr(namedArgs: {'message': message});
+        message = LocaleKeys.wallet_module_common_an_error_occur
+            .tr(namedArgs: {'message': message});
         break;
     }
 
@@ -821,7 +834,12 @@ class _BordereauPageState extends State<BordereauPage> {
                 .tr(),
             message: LocaleKeys
                 .wallet_module_withdrawal_process_bordereau_withdrawal_success_message
-                .tr(namedArgs: {'amount': formatMontant(montant)}),
+                .tr(
+              namedArgs: {
+                'amount': formatMontant(montant),
+                'currency': _currencyCode,
+              },
+            ),
             infoText: LocaleKeys
                 .wallet_module_withdrawal_process_bordereau_processing_time
                 .tr(),

@@ -20,31 +20,36 @@ import '../../../helpers/ui_alert_helpers.dart';
 ///
 /// Exemple d'utilisation :
 /// ```dart
-/// EUPaymentOptions(
-///   ctrl: ctrl,
-///   onGooglePay: ctrl.onGooglePay,
-///   onApplePay: ctrl.onApplePay,
-///   onPayPal: ctrl.onPayPal,
-///   onCreditOrVisaCard: ctrl.onCreditOrVisaCard,
-/// )
-///
-/// // Dans le `build` de `EUPaymentOptions`, à la place de `GooglePayButton` :
-/// if (Platform.isAndroid)
-///   GooglePayLiveButton(ctrl: ctrl),
-/// ```
-///
-/// Pour désactiver le bouton tant qu'aucun montant n'est saisi :
-/// ```dart
+/// // Dans le `build` de `EUPaymentOptions`, à la place de `GooglePayButton`.
+/// // Le widget reste monté en permanence : l'EventChannel est donc abonné une
+/// // seule fois et le montant est relu depuis `ctrl` à chaque paiement.
+/// final amount = num.tryParse(ctrl.amountCtrl.text)?.toDouble() ?? 0.0;
 /// GooglePayLiveButton(
 ///   ctrl: ctrl,
-///   // Inutile de passer le montant : il est relu dans `ctrl`
-///   // à chaque tap et à la réception du résultat.
+///   enabled: amount > 0,
+///   onDisabledTap: () => UiAlertHelpers.showErrorSnackBar(
+///     context,
+///     LocaleKeys.wallet_module_deposit_page_amount_and_currency_required.tr(),
+///   ),
 /// )
 /// ```
 class GooglePayLiveButton extends StatefulWidget {
-  const GooglePayLiveButton({required this.ctrl, super.key});
+  const GooglePayLiveButton({
+    required this.ctrl,
+    this.enabled = true,
+    this.onDisabledTap,
+    super.key,
+  });
 
   final DepositController ctrl;
+
+  /// Quand `false`, le bouton est affiché mais estompé et non cliquable.
+  /// Le widget reste néanmoins monté pour conserver l'abonnement à
+  /// l'EventChannel.
+  final bool enabled;
+
+  /// Appelé lorsqu'on tape sur le bouton alors que [enabled] est `false`.
+  final VoidCallback? onDisabledTap;
 
   @override
   State<GooglePayLiveButton> createState() => _GooglePayLiveButtonState();
@@ -95,7 +100,7 @@ class _GooglePayLiveButtonState extends State<GooglePayLiveButton> {
       return const SizedBox.shrink();
     }
 
-    return SizedBox(
+    final button = SizedBox(
       height: 50,
       child: RawGooglePayButton(
         paymentConfiguration: ctrl.getGooglePaymentConfiguration(
@@ -110,5 +115,20 @@ class _GooglePayLiveButtonState extends State<GooglePayLiveButton> {
             : GooglePayButtonTheme.dark,
       ),
     );
+
+    if (!widget.enabled) {
+      return GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: widget.onDisabledTap,
+        child: IgnorePointer(
+          child: Opacity(
+            opacity: 0.5,
+            child: button,
+          ),
+        ),
+      );
+    }
+
+    return button;
   }
 }

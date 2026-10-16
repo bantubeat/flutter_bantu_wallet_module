@@ -224,7 +224,11 @@ class _MonetizationWithdrawalPageState
     return _MonetizationState.taxIdRequired;
   }
 
-  void _goToKycForm() => WalletModule.startKycVerification(context);
+  Future<void> _goToKycForm() async {
+    await WalletModule.startKycVerification(context);
+    if (!mounted) return;
+    await _loadAll();
+  }
 
   void _onAddPaymentPreference(PaymentPreferenceEntity? pref) {
     if (pref != null) {
@@ -260,9 +264,8 @@ class _MonetizationWithdrawalPageState
       if (type == null || !mounted) return;
       account = _currentMonetizationAccount;
     }
-    final saved = await Modular.get<WalletRoutes>()
-        .taxIdentifier
-        .push<bool>(account);
+    final saved =
+        await Modular.get<WalletRoutes>().taxIdentifier.push<bool>(account);
     if (saved != true || !mounted) return;
     UiAlertHelpers.showSuccessToast(
       LocaleKeys.wallet_module_monetization_page_tax_id_saved.tr(),
@@ -399,7 +402,9 @@ class _MonetizationWithdrawalPageState
     Modular.get<WalletRoutes>().monetisationProgramHome.push();
   }
 
-  void _onOpenKycInfo() => _goToKycForm();
+  void _onOpenKycInfo() {
+    _goToKycForm();
+  }
 
   void _copyId(String id) {
     Clipboard.setData(ClipboardData(text: id));
@@ -416,7 +421,13 @@ class _MonetizationWithdrawalPageState
   String _formatDiamondRate() {
     final rate = _diamondConvertRate?.unitPrice;
     if (rate == null) return '--';
-    return rate.toStringAsFixed(1).replaceAll('.', ',');
+    final truncated = (rate * 100).truncate() / 100;
+    // Limiter à 2 décimales max, sans arrondi
+    return truncated
+        .toStringAsFixed(2)
+        .replaceAll(RegExp(r'0+$'), '')
+        .replaceAll(RegExp(r'\.$'), '')
+        .replaceAll('.', ',');
   }
 
   String _estimatedDigitalAssetsValue(num? diamonds) {

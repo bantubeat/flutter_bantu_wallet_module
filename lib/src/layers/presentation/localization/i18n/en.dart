@@ -356,9 +356,10 @@ const Map<String, dynamic> langMap = {
       },
       "load_error": "Loading error",
       "solde_disponible": "AVAILABLE BALANCE",
-      "minimum_maximum": "MINIMUM: {{min}} XAF  •  MAXIMUM: {{max}} XAF",
-      "minimum": "Minimum: {{amount}} XAF",
-      "maximum": "Maximum: {{amount}} XAF",
+      "minimum_maximum":
+          "MINIMUM: {{min}} {{currency}}  •  MAXIMUM: {{max}} {{currency}}",
+      "minimum": "Minimum: {{amount}} {{currency}}",
+      "maximum": "Maximum: {{amount}} {{currency}}",
       "amount_to_withdraw_label": "AMOUNT TO WITHDRAW",
       "operation_details": "OPERATION DETAILS",
       "bnc": "BNC ({{pct}}%)",
@@ -406,7 +407,7 @@ const Map<String, dynamic> langMap = {
         "processing_time_desc": "2 to 5 business days",
         "processing_time_suffix": " depending on your payment method.",
         "withdrawal_success_message":
-            "Your withdrawal request of {{amount}} XAF has been recorded. You will receive a confirmation email.",
+            "Your withdrawal request of {{amount}} {{currency}} has been recorded. You will receive a confirmation email.",
         "pdf_title": "Withdrawal slip — {{reference}}"
       },
       "eligibility": {

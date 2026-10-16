@@ -360,9 +360,10 @@ const Map<String, dynamic> langMap = {
       },
       "load_error": "Erreur de chargement",
       "solde_disponible": "SOLDE DISPONIBLE",
-      "minimum_maximum": "MINIMUM : {{min}} XAF  •  MAXIMUM : {{max}} XAF",
-      "minimum": "Minimum : {{amount}} XAF",
-      "maximum": "Maximum : {{amount}} XAF",
+      "minimum_maximum":
+          "MINIMUM : {{min}} {{currency}}  •  MAXIMUM : {{max}} {{currency}}",
+      "minimum": "Minimum : {{amount}} {{currency}}",
+      "maximum": "Maximum : {{amount}} {{currency}}",
       "amount_to_withdraw_label": "MONTANT À RETIRER",
       "operation_details": "DÉTAILS DE L'OPÉRATION",
       "bnc": "BNC ({{pct}}%)",
@@ -411,7 +412,7 @@ const Map<String, dynamic> langMap = {
         "processing_time_desc": "2 à 5 jours ouvrables",
         "processing_time_suffix": " selon votre moyen de paiement.",
         "withdrawal_success_message":
-            "Votre demande de retrait de {{amount}} XAF a bien été enregistrée. Vous recevrez un e-mail de confirmation.",
+            "Votre demande de retrait de {{amount}} {{currency}} a bien été enregistrée. Vous recevrez un e-mail de confirmation.",
         "pdf_title": "Bordereau de retrait — {{reference}}"
       },
       "eligibility": {

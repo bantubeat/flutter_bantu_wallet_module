@@ -116,6 +116,19 @@ class _RetraitPageState extends State<RetraitPage> {
     return NumberFormat('#,##0', 'fr_FR').format(value).replaceAll(',', ' ');
   }
 
+  /// Devise monétaire de l'utilisateur, utilisée partout sur la page.
+  String get _currencyCode {
+    final balance = Modular.get<UserBalanceCubit>().state.data;
+    final revenueCode = balance?.revenueAccount?.userCurrencyCode;
+    final code = (revenueCode != null && revenueCode.isNotEmpty)
+        ? revenueCode
+        : balance?.userCurrencyCode;
+    if (code != null && code.isNotEmpty) return code;
+    final userCode = Modular.get<CurrentUserCubit>().state.data?.currencyCode;
+    if (userCode != null && userCode.isNotEmpty) return userCode;
+    return 'XAF';
+  }
+
   @override
   void dispose() {
     _amountController.dispose();
@@ -124,6 +137,15 @@ class _RetraitPageState extends State<RetraitPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Le solde et la devise sont réactifs : toute mise à jour du solde
+    // reconstruit la page afin d'afficher la devise partout.
+    return BlocBuilder<UserBalanceCubit, AsyncSnapshot<UserBalanceEntity>>(
+      bloc: Modular.get<UserBalanceCubit>(),
+      builder: (context, _) => _buildBody(context),
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Visibility(
@@ -279,9 +301,7 @@ class _RetraitPageState extends State<RetraitPage> {
         final amount = balance?.revenueAccount?.userCurrencyBalance ??
             balance?.revenueUserCurrencyBalance ??
             balance?.userCurrencyBalance;
-        final currencyCode = balance?.revenueAccount?.userCurrencyCode ??
-            balance?.userCurrencyCode ??
-            'XAF';
+        final currencyCode = _currencyCode;
         final userName =
             Modular.get<CurrentUserCubit>().state.data?.username ?? '';
 
@@ -363,8 +383,9 @@ class _RetraitPageState extends State<RetraitPage> {
         ? formatMontant(_maxWithdrawal)
         : '--';
     return Text(
-      LocaleKeys.wallet_module_withdrawal_process_minimum_maximum
-          .tr(namedArgs: {'min': min, 'max': max}),
+      LocaleKeys.wallet_module_withdrawal_process_minimum_maximum.tr(
+        namedArgs: {'min': min, 'max': max, 'currency': _currencyCode},
+      ),
       style: const TextStyle(
         color: Colors.grey,
         fontSize: 11,
@@ -377,8 +398,12 @@ class _RetraitPageState extends State<RetraitPage> {
     if (montantBrut <= 0) return const SizedBox.shrink();
     if (montantBrut < _minWithdrawal) {
       return Text(
-        LocaleKeys.wallet_module_withdrawal_process_minimum
-            .tr(namedArgs: {'amount': formatMontant(_minWithdrawal)}),
+        LocaleKeys.wallet_module_withdrawal_process_minimum.tr(
+          namedArgs: {
+            'amount': formatMontant(_minWithdrawal),
+            'currency': _currencyCode,
+          },
+        ),
         style: const TextStyle(
           color: Colors.redAccent,
           fontSize: 11,
@@ -388,8 +413,12 @@ class _RetraitPageState extends State<RetraitPage> {
     }
     if (_isMobileMoney && _maxWithdrawal > 0 && montantBrut > _maxWithdrawal) {
       return Text(
-        LocaleKeys.wallet_module_withdrawal_process_maximum
-            .tr(namedArgs: {'amount': formatMontant(_maxWithdrawal)}),
+        LocaleKeys.wallet_module_withdrawal_process_maximum.tr(
+          namedArgs: {
+            'amount': formatMontant(_maxWithdrawal),
+            'currency': _currencyCode,
+          },
+        ),
         style: const TextStyle(
           color: Colors.redAccent,
           fontSize: 11,
@@ -402,8 +431,7 @@ class _RetraitPageState extends State<RetraitPage> {
 
   Widget _buildMontantLabel() {
     return Text(
-      LocaleKeys.wallet_module_withdrawal_process_amount_to_withdraw_label
-          .tr(),
+      LocaleKeys.wallet_module_withdrawal_process_amount_to_withdraw_label.tr(),
       style: const TextStyle(
         color: Colors.black87,
         fontSize: 12,
@@ -441,9 +469,9 @@ class _RetraitPageState extends State<RetraitPage> {
               ),
             ),
           ),
-          const Text(
-            'XAF',
-            style: TextStyle(
+          Text(
+            _currencyCode,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
               color: Colors.black87,
@@ -487,12 +515,13 @@ class _RetraitPageState extends State<RetraitPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  LocaleKeys.wallet_module_withdrawal_process_bordereau_gross_amount
+                  LocaleKeys
+                      .wallet_module_withdrawal_process_bordereau_gross_amount
                       .tr(),
                   style: const TextStyle(fontSize: 15, color: Colors.black87),
                 ),
                 Text(
-                  '${formatMontant(montantBrut)} XAF',
+                  '${formatMontant(montantBrut)} $_currencyCode',
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -528,16 +557,15 @@ class _RetraitPageState extends State<RetraitPage> {
                       ? LocaleKeys
                           .wallet_module_withdrawal_process_bordereau_operator_fee
                           .tr(
-                            namedArgs: {
-                              'pct': _feeOperatorPct.toStringAsFixed(1),
-                            },
-                          )
-                      : LocaleKeys.wallet_module_withdrawal_process_bank_fee
-                          .tr(
-                            namedArgs: {
-                              'pct': _feeOperatorPct.toStringAsFixed(1),
-                            },
-                          ),
+                          namedArgs: {
+                            'pct': _feeOperatorPct.toStringAsFixed(1),
+                          },
+                        )
+                      : LocaleKeys.wallet_module_withdrawal_process_bank_fee.tr(
+                          namedArgs: {
+                            'pct': _feeOperatorPct.toStringAsFixed(1),
+                          },
+                        ),
                   fraisOperateur,
                 ),
               ],
@@ -557,7 +585,7 @@ class _RetraitPageState extends State<RetraitPage> {
           style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
         ),
         Text(
-          '${formatMontant(value)} XAF',
+          '${formatMontant(value)} $_currencyCode',
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
       ],
@@ -586,7 +614,7 @@ class _RetraitPageState extends State<RetraitPage> {
             ),
           ),
           Text(
-            '${formatMontant(netARecevoir)} XAF',
+            '${formatMontant(netARecevoir)} $_currencyCode',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 18,

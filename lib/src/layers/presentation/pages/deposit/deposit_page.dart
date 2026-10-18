@@ -217,7 +217,7 @@ class DepositPage extends StatelessWidget {
                                   .wallet_module_deposit_page_warning1_your_recharge
                                   .tr(),
                             ),
-                            if (LegalLinks.isAvailable)
+                            if (LegalLinks.isAvailable) ...[
                               LegalLinks.span(
                                 context,
                                 WalletLegalDoc.payment,
@@ -228,12 +228,11 @@ class DepositPage extends StatelessWidget {
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
-                            TextSpan(
-                              text: LocaleKeys
-                                  .wallet_module_deposit_page_warning3_and
-                                  .tr(),
-                            ),
-                            if (LegalLinks.isAvailable)
+                              TextSpan(
+                                text: LocaleKeys
+                                    .wallet_module_deposit_page_warning3_and
+                                    .tr(),
+                              ),
                               LegalLinks.span(
                                 context,
                                 WalletLegalDoc.privacy,
@@ -244,9 +243,15 @@ class DepositPage extends StatelessWidget {
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
+                              TextSpan(
+                                text: LocaleKeys
+                                    .wallet_module_deposit_page_warning5_google_play
+                                    .tr(),
+                              ),
+                            ],
                             TextSpan(
                               text: LocaleKeys
-                                  .wallet_module_deposit_page_warning5_google_play
+                                  .wallet_module_deposit_page_warning6_google_play
                                   .tr(),
                             ),
                           ],

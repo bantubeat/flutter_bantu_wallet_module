@@ -40,7 +40,12 @@ class WithdrawalDescription extends StatelessWidget {
                     text: LocaleKeys.wallet_module_withdrawal_page_description2
                         .tr(),
                   ),
-                  if (LegalLinks.isAvailable)
+                  if (LegalLinks.isAvailable) ...[
+                    TextSpan(
+                      text: LocaleKeys
+                          .wallet_module_withdrawal_page_description2_link_intro
+                          .tr(),
+                    ),
                     LegalLinks.span(
                       context,
                       WalletLegalDoc.payment,
@@ -52,6 +57,7 @@ class WithdrawalDescription extends StatelessWidget {
                         color: colorScheme.primary,
                       ),
                     ),
+                  ],
                 ],
               ),
             ),

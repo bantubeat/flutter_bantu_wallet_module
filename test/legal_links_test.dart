@@ -54,12 +54,12 @@ void main() {
       ),
       findsOneWidget,
     );
-    expect(
-      find.textContaining(
-        LocaleKeys.wallet_module_withdrawal_page_description3,
-        findRichText: true,
-      ),
-      findsNothing,
-    );
+    // The whole sentence holding the link is hidden, not only the link.
+    for (final key in [
+      LocaleKeys.wallet_module_withdrawal_page_description2_link_intro,
+      LocaleKeys.wallet_module_withdrawal_page_description3,
+    ]) {
+      expect(find.textContaining(key, findRichText: true), findsNothing);
+    }
   });
 }

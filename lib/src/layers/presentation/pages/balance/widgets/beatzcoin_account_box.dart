@@ -208,7 +208,12 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                 color: colorScheme.onSurface,
               ),
               children: [
-                if (LegalLinks.isAvailable)
+                if (LegalLinks.isAvailable) ...[
+                  TextSpan(
+                    text: LocaleKeys
+                        .wallet_module_wallets_page_beatzcoin_account_description3_link_intro
+                        .tr(),
+                  ),
                   LegalLinks.span(
                     context,
                     WalletLegalDoc.beatzcoins,
@@ -221,6 +226,7 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                       color: colorScheme.primary,
                     ),
                   ),
+                ],
               ],
             ),
           ),

@@ -581,22 +581,22 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                   ],
                 ),
 
-              const SizedBox(height: 14),
+              if (LegalLinks.isAvailable) ...[
+                const SizedBox(height: 14),
 
-              // Mentions légales (logique inchangée)
-              Center(
-                child: Text.rich(
-                  textAlign: TextAlign.center,
-                  TextSpan(
-                    text: LocaleKeys
-                        .wallet_module_buy_beatzcoins_page_modal_warning2a
-                        .tr(),
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Color(0xFF181818),
-                    ),
-                    children: [
-                      if (LegalLinks.isAvailable)
+                // Mentions légales (logique inchangée)
+                Center(
+                  child: Text.rich(
+                    textAlign: TextAlign.center,
+                    TextSpan(
+                      text: LocaleKeys
+                          .wallet_module_buy_beatzcoins_page_modal_warning2a
+                          .tr(),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF181818),
+                      ),
+                      children: [
                         LegalLinks.span(
                           context,
                           WalletLegalDoc.beatzcoins,
@@ -609,10 +609,11 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
                             decoration: TextDecoration.underline,
                           ),
                         ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ],
           ),
         ),

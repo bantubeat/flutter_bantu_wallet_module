@@ -63,6 +63,7 @@ abstract class  LocaleKeys {
   static const wallet_module_home_page_transactions_history = 'wallet_module.home_page.transactions_history';
   static const wallet_module_wallets_page_title = 'wallet_module.wallets_page.title';
   static const wallet_module_wallets_page_description = 'wallet_module.wallets_page.description';
+  static const wallet_module_wallets_page_description_link_intro = 'wallet_module.wallets_page.description_link_intro';
   static const wallet_module_wallets_page_description2 = 'wallet_module.wallets_page.description2';
   static const wallet_module_wallets_page_financier_account_title = 'wallet_module.wallets_page.financier_account.title';
   static const wallet_module_wallets_page_financier_account_description = 'wallet_module.wallets_page.financier_account.description';
@@ -72,6 +73,7 @@ abstract class  LocaleKeys {
   static const wallet_module_wallets_page_beatzcoin_account_description1 = 'wallet_module.wallets_page.beatzcoin_account.description1';
   static const wallet_module_wallets_page_beatzcoin_account_description2 = 'wallet_module.wallets_page.beatzcoin_account.description2';
   static const wallet_module_wallets_page_beatzcoin_account_description3 = 'wallet_module.wallets_page.beatzcoin_account.description3';
+  static const wallet_module_wallets_page_beatzcoin_account_description3_link_intro = 'wallet_module.wallets_page.beatzcoin_account.description3_link_intro';
   static const wallet_module_wallets_page_beatzcoin_account_description4 = 'wallet_module.wallets_page.beatzcoin_account.description4';
   static const wallet_module_wallets_page_beatzcoin_account_minimum_bzc = 'wallet_module.wallets_page.beatzcoin_account.minimum_bzc';
   static const wallet_module_wallets_page_beatzcoin_account_exchange = 'wallet_module.wallets_page.beatzcoin_account.exchange';
@@ -93,10 +95,12 @@ abstract class  LocaleKeys {
   static const wallet_module_deposit_page_warning3_and = 'wallet_module.deposit_page.warning3_and';
   static const wallet_module_deposit_page_warning4_link = 'wallet_module.deposit_page.warning4_link';
   static const wallet_module_deposit_page_warning5_google_play = 'wallet_module.deposit_page.warning5_google_play';
+  static const wallet_module_deposit_page_warning6_google_play = 'wallet_module.deposit_page.warning6_google_play';
   static const wallet_module_withdrawal_page_title = 'wallet_module.withdrawal_page.title';
   static const wallet_module_withdrawal_page_description = 'wallet_module.withdrawal_page.description';
   static const wallet_module_withdrawal_page_description1 = 'wallet_module.withdrawal_page.description1';
   static const wallet_module_withdrawal_page_description2 = 'wallet_module.withdrawal_page.description2';
+  static const wallet_module_withdrawal_page_description2_link_intro = 'wallet_module.withdrawal_page.description2_link_intro';
   static const wallet_module_withdrawal_page_description3 = 'wallet_module.withdrawal_page.description3';
   static const wallet_module_withdrawal_page_financial_account_balance = 'wallet_module.withdrawal_page.financial_account_balance';
   static const wallet_module_withdrawal_page_see_details = 'wallet_module.withdrawal_page.see_details';
@@ -108,7 +112,7 @@ abstract class  LocaleKeys {
   static const wallet_module_beatzcoins_page_intro1 = 'wallet_module.beatzcoins_page.intro1';
   static const wallet_module_beatzcoins_page_title = 'wallet_module.beatzcoins_page.title';
   static const wallet_module_beatzcoins_page_description = 'wallet_module.beatzcoins_page.description';
-  static const wallet_module_beatzcoins_page_description2 = 'wallet_module.beatzcoins_page.description2';
+  static const wallet_module_beatzcoins_page_description_link_intro = 'wallet_module.beatzcoins_page.description_link_intro';
   static const wallet_module_beatzcoins_page_description3 = 'wallet_module.beatzcoins_page.description3';
   static const wallet_module_beatzcoins_page_bzc_account_balance = 'wallet_module.beatzcoins_page.bzc_account_balance';
   static const wallet_module_beatzcoins_page_see_details = 'wallet_module.beatzcoins_page.see_details';

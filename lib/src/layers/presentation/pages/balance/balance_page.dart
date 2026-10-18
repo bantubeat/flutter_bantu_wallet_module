@@ -60,7 +60,12 @@ class BalancePage extends StatelessWidget {
                         color: colorScheme.onSurface,
                       ),
                       children: [
-                        if (LegalLinks.isAvailable)
+                        if (LegalLinks.isAvailable) ...[
+                          TextSpan(
+                            text: LocaleKeys
+                                .wallet_module_wallets_page_description_link_intro
+                                .tr(),
+                          ),
                           LegalLinks.span(
                             context,
                             WalletLegalDoc.payment,
@@ -73,6 +78,7 @@ class BalancePage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                        ],
                       ],
                     ),
                   ),

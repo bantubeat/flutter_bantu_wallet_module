@@ -95,18 +95,12 @@ class BuyBeatzcoinsPage extends StatelessWidget {
                         color: Colors.black87,
                       ),
                       children: [
-                        TextSpan(
-                          text: LocaleKeys
-                              .wallet_module_beatzcoins_page_description2
-                              .tr(),
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            height: 1.5,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold,
+                        if (LegalLinks.isAvailable) ...[
+                          TextSpan(
+                            text: LocaleKeys
+                                .wallet_module_beatzcoins_page_description_link_intro
+                                .tr(),
                           ),
-                        ),
-                        if (LegalLinks.isAvailable)
                           LegalLinks.span(
                             context,
                             WalletLegalDoc.beatzcoins,
@@ -120,6 +114,7 @@ class BuyBeatzcoinsPage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                        ],
                       ],
                     ),
                   ),

@@ -83,7 +83,7 @@ const Map<String, dynamic> langMap = {
             "Vous pouvez échanger vos jetons, le montant équivalent sera déposé sur votre compte financier.",
         "description3":
             "Attention, lorsque vous échangez vos jetons beatzcoin, les frais et taxes sont déduits. Voir la ",
-        "description4": "Politique et conditions de paiement Featlink.",
+        "description4": "Politique des Beatzcoins et des articles virtuels",
         "minimum_bzc": "minimum {{min_quantity}} BZC",
         "exchange": "Echanger",
         "exchange_successful": "Beatzcoin échangés avec succès !"

@@ -327,8 +327,6 @@ const Map<String, dynamic> langMap = {
       "request_title": "Slip N° : {{id}}",
       "fees_warning1":
           "Please note that the transfer fees from your payment account are your responsibility and you agree to pay income taxes in your country of residence. See ",
-      "fees_warning2":
-          "Featlink terms of use, policy, and Featlink payment conditions.",
       "amount_to_withdraw_in_eur": "Amount to withdraw in €",
       "insufficient_funds": "Insufficient balance for this withdrawal",
       "resume_description1": "I, the undersigned ",

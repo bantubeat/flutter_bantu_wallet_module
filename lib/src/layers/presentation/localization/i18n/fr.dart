@@ -330,8 +330,6 @@ const Map<String, dynamic> langMap = {
       "request_title": "Bordereau N° : {{id}}",
       "fees_warning1":
           "Attention les frais de tranferts de votre compte de paiement sont à votre charge et vous vous engagez à payer les taxes sur les revenus dans votre pays de résidence. voir ",
-      "fees_warning2":
-          "conditions d'utilisation Featlink, politique et conditions de paiement Featlink.",
       "amount_to_withdraw_in_eur": "Montant à retirer en €",
       "insufficient_funds": "Solde insuffisant pour ce retrait",
       "resume_description1": "Je, soussigné ",

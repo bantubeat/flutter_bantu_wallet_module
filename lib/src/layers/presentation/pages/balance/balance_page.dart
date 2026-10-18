@@ -1,13 +1,12 @@
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/network/my_http/my_http.dart';
+import '../../../../core/config/wallet_legal_doc.dart';
 import '../../../../core/generated/locale_keys.g.dart';
 import '../../../../core/use_cases/use_case.dart';
 
@@ -18,6 +17,7 @@ import '../../../domain/use_cases/bzc_exchange/get_bzc_currency_converter_use_ca
 
 import '../../cubits/current_user_cubit.dart';
 import '../../cubits/user_balance_cubit.dart';
+import '../../helpers/legal_links.dart';
 import '../../helpers/ui_alert_helpers.dart';
 import '../../navigation/wallet_routes.dart';
 import '../../widgets/my_header_bar.dart';
@@ -60,22 +60,19 @@ class BalancePage extends StatelessWidget {
                         color: colorScheme.onSurface,
                       ),
                       children: [
-                        TextSpan(
-                          text: LocaleKeys
-                              .wallet_module_wallets_page_description2
-                              .tr(),
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            color: colorScheme.primary,
-                            fontWeight: FontWeight.bold,
+                        if (LegalLinks.isAvailable)
+                          LegalLinks.span(
+                            context,
+                            WalletLegalDoc.payment,
+                            text: LocaleKeys
+                                .wallet_module_wallets_page_description2
+                                .tr(),
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              launchUrlString(
-                                'https://legal.bantubeat.com/bantubeat/help-center?index=7',
-                              );
-                            },
-                        ),
                       ],
                     ),
                   ),

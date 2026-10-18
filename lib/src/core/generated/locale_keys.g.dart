@@ -265,6 +265,7 @@ abstract class  LocaleKeys {
   static const wallet_module_withdrawal_process_use_my_bank_account = 'wallet_module.withdrawal_process.use_my_bank_account';
   static const wallet_module_withdrawal_process_use_my_mobile_account = 'wallet_module.withdrawal_process.use_my_mobile_account';
   static const wallet_module_withdrawal_process_i_acceptes_fees = 'wallet_module.withdrawal_process.i_acceptes_fees';
+  static const wallet_module_withdrawal_process_i_acceptes_fees_link = 'wallet_module.withdrawal_process.i_acceptes_fees_link';
   static const wallet_module_withdrawal_process_place_and_date1 = 'wallet_module.withdrawal_process.place_and_date1';
   static const wallet_module_withdrawal_process_place_and_date2 = 'wallet_module.withdrawal_process.place_and_date2';
   static const wallet_module_withdrawal_process_place_and_date3 = 'wallet_module.withdrawal_process.place_and_date3';

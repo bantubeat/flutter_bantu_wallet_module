@@ -343,7 +343,9 @@ const Map<String, dynamic> langMap = {
       "use_my_bank_account": "Utiliser mon compte bancaire",
       "use_my_mobile_account": "Utiliser mon compte Mobile Money",
       "i_acceptes_fees":
-          "J'accepte et reconnais que les frais de transaction seront à ma charge en déduction du montant demandé.",
+          "J'accepte et reconnais que les frais de transaction seront à ma charge en déduction du montant demandé. ",
+      "i_acceptes_fees_link":
+          "Voir la politique et les conditions de paiement Featlink.",
       "place_and_date1": "Fait à \"",
       "place_and_date2": "\" Le \"",
       "place_and_date3": "\"",

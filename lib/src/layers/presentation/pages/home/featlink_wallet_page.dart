@@ -5,9 +5,9 @@ import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/user_
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
+import '../../helpers/legal_links.dart';
 import 'widgets/menu_tile.dart';
 
 class FeatlinkWalletPage extends StatelessWidget {
@@ -262,32 +262,34 @@ class FeatlinkWalletPage extends StatelessWidget {
                     .wallet_module_featlink_home_page_menu_history_description
                     .tr(),
               ),
-              const SizedBox(height: 28),
-              Center(
-                child: OutlinedButton.icon(
-                  onPressed: () =>
-                      launchUrlString('https://legal.bantubeat.com/'),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 14,
+              if (LegalLinks.isAvailable) ...[
+                const SizedBox(height: 28),
+                Center(
+                  child: OutlinedButton.icon(
+                    onPressed: () =>
+                        LegalLinks.open(context, WalletLegalDoc.helpCenter),
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 14,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      side: const BorderSide(color: Colors.black12),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    side: const BorderSide(color: Colors.black12),
-                  ),
-                  icon: const Icon(Icons.help_outline, color: Colors.black),
-                  label: Text(
-                    LocaleKeys.wallet_module_featlink_home_page_help_center
-                        .tr(),
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                    icon: const Icon(Icons.help_outline, color: Colors.black),
+                    label: Text(
+                      LocaleKeys.wallet_module_featlink_home_page_help_center
+                          .tr(),
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
               const SizedBox(height: 24),
             ],
           ),

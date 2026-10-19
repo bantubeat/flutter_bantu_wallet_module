@@ -66,12 +66,12 @@ const Map<String, dynamic> langMap = {
     "wallets_page": {
       "title": "Wallet",
       "description":
-          "In your wallet, you have a financial account that displays your account balance in monetary value and a Beatzcoin account that displays your Beatzcoin balance. All payments made on the platform are made with your Beatzcoin tokens. To make a purchase on the platform, you must first fund your financial account.\nIf the balance of your Beatzcoin account does not cover the full amount of the renewals, your platform access will be canceled. Learn more about the ",
+          "In your wallet, you have a payment account that displays your account balance in monetary value and a Beatzcoin account that displays your Beatzcoin balance. All payments made on the platform are made with your Beatzcoin tokens. To make a purchase on the platform, you must first fund your payment account.\nIf the balance of your Beatzcoin account does not cover the full amount of the renewals, your platform access will be canceled. Learn more about the ",
       "description2": "Featlink payment policy and conditions",
       "financier_account": {
-        "title": "Financial Account",
+        "title": "Payment Account",
         "description":
-            "Your financial account allows you to purchase tokens and also records the amount of resale of your tokens earned on all Featlink platforms.",
+            "Your payment account allows you to purchase tokens and also records the amount of resale of your tokens earned on all Featlink platforms.",
         "request_payment": "Request a payment",
         "add_funds": "Add funds"
       },
@@ -80,7 +80,7 @@ const Map<String, dynamic> langMap = {
         "description1":
             "Your Beatzcoin account allows you to make purchases on all Featlink platforms.",
         "description2":
-            "You can exchange your tokens, the equivalent amount will be deposited into your financial account.",
+            "You can exchange your tokens, the equivalent amount will be deposited into your payment account.",
         "description3":
             "Please note that when you exchange your Beatzcoin tokens, fees and taxes are deducted. See the ",
         "description4": "Featlink payment policy and conditions.",
@@ -119,7 +119,7 @@ const Map<String, dynamic> langMap = {
       "description2":
           "In accordance with European Union laws, we must verify your identity before any payment. See ",
       "description3": "Featlink payment policy and conditions",
-      "financial_account_balance": "Your Financial account balance",
+      "financial_account_balance": "Your Payment account balance",
       "see_details": "See details",
       "Your_registered_payment_account": "Your registered payment account:",
       "request_payment": "Request a payment",

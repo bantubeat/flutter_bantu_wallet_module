@@ -38,7 +38,7 @@ class BalanceCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Compte Financier',
+                    'Compte paiement',
                     style: TextStyle(color: Colors.white70),
                   ),
                   Text(

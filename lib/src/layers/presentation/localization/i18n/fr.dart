@@ -66,12 +66,12 @@ const Map<String, dynamic> langMap = {
     "wallets_page": {
       "title": "Porte-Feuille",
       "description":
-          "Dans votre portefeuille, vous disposez d’un compte financier qui affiche le solde de votre compte en valeur monétaire et d’un compte Beatzcoin qui affiche le solde de vos Beatzcoins. Tous les paiements effectués sur la plateforme se font avec vos jetons Beatzcoin. Pour effectuer un achat sur la plateforme, vous devez d’abord approvisionner votre compte financier.\nSi le solde de votre compte Beatzcoin ne couvre pas la totalité du montant des renouvellements, votre accès à la plateforme sera annulé. En savoir plus sur la ",
+          "Dans votre portefeuille, vous disposez d’un compte paiement qui affiche le solde de votre compte en valeur monétaire et d’un compte Beatzcoin qui affiche le solde de vos Beatzcoins. Tous les paiements effectués sur la plateforme se font avec vos jetons Beatzcoin. Pour effectuer un achat sur la plateforme, vous devez d’abord approvisionner votre compte paiement.\nSi le solde de votre compte Beatzcoin ne couvre pas la totalité du montant des renouvellements, votre accès à la plateforme sera annulé. En savoir plus sur la ",
       "description2": " politique et condition de paiement Featlink",
       "financier_account": {
-        "title": "Compte Financier",
+        "title": "Compte paiement",
         "description":
-            "Votre compte financier vous permet d'acheter les jetons et enregistre également le montant de revente de vos jetons gagnés sur l'ensemble des plateformes Featlink.",
+            "Votre compte paiement vous permet d'acheter les jetons et enregistre également le montant de revente de vos jetons gagnés sur l'ensemble des plateformes Featlink.",
         "request_payment": "Demander un paiement",
         "add_funds": "Ajouter des Fonds"
       },
@@ -80,7 +80,7 @@ const Map<String, dynamic> langMap = {
         "description1":
             "Votre compte Beatzcoin vous permet d'effectuer des achats sur l'ensemble des plateformes Featlink.",
         "description2":
-            "Vous pouvez échanger vos jetons, le montant équivalent sera déposé sur votre compte financier.",
+            "Vous pouvez échanger vos jetons, le montant équivalent sera déposé sur votre compte paiement.",
         "description3":
             "Attention, lorsque vous échangez vos jetons beatzcoin, les frais et taxes sont déduits. Voir la ",
         "description4": "Politique et conditions de paiement Featlink.",
@@ -120,7 +120,7 @@ const Map<String, dynamic> langMap = {
       "description2":
           "Conformément aux lois de l’union européenne, nous devons vérifier votre identité avant tout paiement. voir ",
       "description3": " politique et condition de paiement Featlink",
-      "financial_account_balance": "Solde de votre compte Financier",
+      "financial_account_balance": "Solde de votre compte paiement",
       "see_details": "Voir les détails",
       "Your_registered_payment_account": "Votre compte de paiement enregistré:",
       "request_payment": "Demander un paiement",

@@ -24,13 +24,6 @@ class _WithdrawalRequestFormController extends ScreenController {
     });
   }
 
-  void onPrivatePolicy() {
-    launchUrlString(
-      ApiConstants.privacyPolicyUrl,
-      mode: LaunchMode.externalApplication,
-    );
-  }
-
   @protected
   void _backToWithdrawalPage() {
     Modular.to.pushReplacementNamed(

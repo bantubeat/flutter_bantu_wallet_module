@@ -44,24 +44,26 @@ const Map<String, dynamic> langMap = {
     },
     "wallets_page": {
       "title": "Porte-Feuille",
-			"description": "Dans votre portefeuille, vous disposez d’un compte financier qui affiche le solde de votre compte en valeur monétaire et d’un compte Beatzcoin qui affiche le solde de vos Beatzcoins. Tous les paiements effectués sur la plateforme se font avec vos jetons Beatzcoin. Pour effectuer un achat sur la plateforme, vous devez d’abord approvisionner votre compte financier.\nSi le solde de votre compte Beatzcoin ne couvre pas la totalité du montant des renouvellements, votre accès à la plateforme sera annulé. En savoir plus sur la ",
-      "description2": " politique et condition de paiement Bantubeat",
+			"description": "Dans votre portefeuille, vous disposez d’un compte financier qui affiche le solde de votre compte en valeur monétaire et d’un compte Beatzcoin qui affiche le solde de vos Beatzcoins. Tous les paiements effectués sur la plateforme se font avec vos jetons Beatzcoin. Pour effectuer un achat sur la plateforme, vous devez d’abord approvisionner votre compte financier.\nSi le solde de votre compte Beatzcoin ne couvre pas la totalité du montant des renouvellements, votre accès à la plateforme sera annulé.",
+			"description_link_intro": " En savoir plus sur la",
+      "description2": " politique et condition de paiement Featlink",
       "financier_account": {
         "title": "Compte Financier",
         "description":
-            "Votre compte financier vous permet d'acheter les jetons et enregistre également le montant de revente de vos jetons gagnés sur l'ensemble des plateformes bantubeat.",
+            "Votre compte financier vous permet d'acheter les jetons et enregistre également le montant de revente de vos jetons gagnés sur l'ensemble des plateformes Featlink.",
         "request_payment": "Demander un paiement",
         "add_funds": "Ajouter des Fonds"
       },
       "beatzcoin_account": {
         "title": "Compte Beatzocoin",
         "description1":
-            "Votre compte Beatzcoin vous permet d'effectuer des achats sur l'ensemble des plateformes bantubeat.",
+            "Votre compte Beatzcoin vous permet d'effectuer des achats sur l'ensemble des plateformes Featlink.",
         "description2":
             "Vous pouvez échanger vos jetons, le montant équivalent sera déposé sur votre compte financier.",
         "description3":
-            "Attention, lorsque vous échangez vos jetons beatzcoin, les frais et taxes sont déduits. Voir la ",
-        "description4": "Politique et conditions de paiement Bantubeat.",
+            "Attention, lorsque vous échangez vos jetons beatzcoin, les frais et taxes sont déduits.",
+        "description3_link_intro": " Voir la ",
+        "description4": "Politique des Beatzcoins et des articles virtuels",
         "minimum_bzc": "minimum {{min_quantity}} BZC",
         "exchange": "Echanger",
         "exchange_successful": "Beatzcoin échangés avec succès !"
@@ -87,14 +89,16 @@ const Map<String, dynamic> langMap = {
       "warning3_and": " et ",
       "warning4_link": "la politique de confidentialité",
       "warning5_google_play":
-          " de Bantubeat s'appliquent. Google play peut également vous demander d'accepter des conditions supplémentaires."
+          " de Featlink s'appliquent.",
+      "warning6_google_play": " Google play peut également vous demander d'accepter des conditions supplémentaires."
     },
     "withdrawal_page": {
       "title": "Retrait",
       "description": "Attention les frais de tranferts de votre compte de paiement sont à votre charge et vous vous engagez à payer les taxes sur les revenus dans votre pays de résidence.",
 			"description1": "N.B. Les demandes de paiement Peuvent s’éffectuer à tout moment. comptez en moyenne 15 jours pour la réception des fonds sur votre compte. ",
-      "description2": "Conformément aux lois de l’union européenne, nous devons vérifier votre identité avant tout paiement. voir ",
-			"description3": " politique et condition de paiement Bantubeat",
+      "description2": "Conformément aux lois de l’union européenne, nous devons vérifier votre identité avant tout paiement.",
+      "description2_link_intro": " Voir la",
+			"description3": " politique et condition de paiement Featlink",
 			"financial_account_balance": "Solde de votre compte Financier",
       "see_details": "Voir les détails",
       "Your_registered_payment_account": "Votre compte de paiement enregistré:",
@@ -105,10 +109,10 @@ const Map<String, dynamic> langMap = {
     },
     "beatzcoins_page": {
       "title":
-          "Acheter des beatzcoins pour profiter des fonctionnalités premium de la plateforme et des autres applications Bantubeat",
+          "Acheter des beatzcoins pour profiter des fonctionnalités premium de la plateforme et des autres applications Featlink",
       "description":
-          "Le Beatzcoin est un jeton que nous mettons sur pied pour permettre à nos utilisateurs de profiter plainement des applications bantubeat. Le beatzcoin est disponible et utilisable uniquement sur bantubeat et ses applications. Chaque utilisateur qui détient un stock de beatzcoin peut les échanger contre un paiement de bantubeat. la somme correspondante, déduction des taxes et frais de service sera créditée sur votre compte financier.",
-      "description2": "\nVoir les ",
+          "Le BeatzCoin est un jeton utilisable uniquement sur FeatLink et ses applications. Ils servent à débloquer des fonctionnalités, accéder à des services premium et effectuer certains achats dans l’écosystème FeatLink.",
+      "description_link_intro": " En savoir plus sur les ",
       "description3": "les conditions d'achat et d'utilisation des Beatzcoins",
       "bzc_account_balance": "Solde de votre compte beatzcoin",
       "see_details": "Voir les détails",
@@ -126,7 +130,7 @@ const Map<String, dynamic> langMap = {
         "amount_of_your_load": "Montant de ta recharge",
         "ttc_price": "Prix TTC {{price}}",
         "buy_with": "Payer avec",
-        "bantubeat_balance": "Solde bantubeat",
+        "bantubeat_balance": "Solde Featlink",
         "add_funds": "Ajouter des Fonds",
         "insufficient_funds":
             "Le solde de votre compte est insuffisant pour effectuer cet achat",
@@ -197,7 +201,6 @@ const Map<String, dynamic> langMap = {
 		"withdrawal_process": {
 			"request_title": "Bordereau N° : {{id}}",
 			"fees_warning1": "Attention les frais de tranferts de votre compte de paiement sont à votre charge et vous vous engagez à payer les taxes sur les revenus dans votre pays de résidence. voir ",
-			"fees_warning2": "conditions d'utilisation Bantubeat, politique et conditions de paiement bantubeat.",
 			"amount_to_withdraw_in_eur": "Montant à retirer en €",
 			"insufficient_funds": "Solde insuffisant pour ce retrait",
 			"resume_description1": "Je, soussigné ",
@@ -206,7 +209,8 @@ const Map<String, dynamic> langMap = {
 			"resume_description4": " sur mon compte préférence de paiement enregistré:",
 			"use_my_bank_account": "Utiliser mon compte bancaire",
 			"use_my_mobile_account": "Utiliser mon compte Mobile Money",
-			"i_acceptes_fees": "J'accepte et reconnais que les frais de transaction seront à ma charge en déduction du montant demandé.",
+			"i_acceptes_fees": "J'accepte et reconnais que les frais de transaction seront à ma charge en déduction du montant demandé. ",
+			"i_acceptes_fees_link": "Voir la politique et les conditions de paiement Featlink.",
 			"place_and_date1": "Fait à \"",
 			"place_and_date2": "\" Le \"",
 			"place_and_date3": "\"",

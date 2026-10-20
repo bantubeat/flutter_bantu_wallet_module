@@ -10,6 +10,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/presentation/pages/withdr
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/config/wallet_api_keys.dart';
+import '../../core/config/wallet_legal_doc.dart';
 import '../../core/network/api_constants.dart';
 import '../../core/network/my_http/my_http.dart';
 
@@ -59,6 +60,7 @@ class WalletModule extends Module {
   static const _onGoToKycFormKey = 'WalletModule@onGoToKycForm';
   static const _isProductionKey = 'WalletModule@isProduction';
   static const _onCloseModule = 'WalletModule@onCloseModule';
+  static const _legalUrlBuilderKey = 'WalletModule@legalUrlBuilder';
 
   final Widget Function() floatingMenuBuilder;
   final VoidCallback onCloseModule;
@@ -68,6 +70,10 @@ class WalletModule extends Module {
   final bool isProduction;
   final WalletApiKeys walletApiKeys;
 
+  /// Provides the URLs of the legal documents. When null, no legal link is
+  /// displayed by the module.
+  final WalletLegalUrlBuilder? legalUrlBuilder;
+
   WalletModule({
     required this.onCloseModule,
     required this.floatingMenuBuilder,
@@ -76,6 +82,7 @@ class WalletModule extends Module {
     required this.onGoToKycForm,
     required WalletRoutes routes,
     this.isProduction = kReleaseMode,
+    this.legalUrlBuilder,
   }) : _routes = routes;
 
   MyHttpClient Function() _initMyHttpClient({required bool withCache}) {
@@ -100,6 +107,10 @@ class WalletModule extends Module {
   static void handleCloseModule() {
     final cb = Modular.tryGet<void Function()>(key: _onCloseModule);
     if (cb != null) cb();
+  }
+
+  static WalletLegalUrlBuilder? getLegalUrlBuilder() {
+    return Modular.tryGet<WalletLegalUrlBuilder>(key: _legalUrlBuilderKey);
   }
 
   static bool getIsProduction() {
@@ -162,6 +173,9 @@ class WalletModule extends Module {
     i.addSingleton(floatingMenuBuilder, key: _floatingMenuBuilderKey);
     i.addSingleton(() => onGoToKycForm, key: _onGoToKycFormKey);
     i.addSingleton(() => onCloseModule, key: _onCloseModule);
+    if (legalUrlBuilder case final builder?) {
+      i.addInstance<WalletLegalUrlBuilder>(builder, key: _legalUrlBuilderKey);
+    }
 
     i.addInstance<WalletRoutes>(_routes);
   }

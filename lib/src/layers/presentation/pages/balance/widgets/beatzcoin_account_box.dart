@@ -208,22 +208,25 @@ class _BeatzacoinAccountBoxState extends State<_BeatzacoinAccountBox> {
                 color: colorScheme.onSurface,
               ),
               children: [
-                TextSpan(
-                  text: LocaleKeys
-                      .wallet_module_wallets_page_beatzcoin_account_description4
-                      .tr(),
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: colorScheme.primary,
+                if (LegalLinks.isAvailable) ...[
+                  TextSpan(
+                    text: LocaleKeys
+                        .wallet_module_wallets_page_beatzcoin_account_description3_link_intro
+                        .tr(),
                   ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      launchUrlString(
-                        'https://legal.bantubeat.com/bantubeat/help-center?index=7',
-                      );
-                    },
-                ),
+                  LegalLinks.span(
+                    context,
+                    WalletLegalDoc.beatzcoins,
+                    text: LocaleKeys
+                        .wallet_module_wallets_page_beatzcoin_account_description4
+                        .tr(),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                ],
               ],
             ),
           ),

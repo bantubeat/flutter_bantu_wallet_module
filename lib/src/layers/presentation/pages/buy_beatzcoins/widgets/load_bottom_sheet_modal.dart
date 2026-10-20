@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +7,13 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/bzc_exch
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/network/my_http/my_http.dart';
 import '../../../../../core/use_cases/use_case.dart';
 import '../../../../domain/entities/exchange_bzc_pack_entity.dart';
 import '../../../../../core/generated/locale_keys.g.dart';
 import '../../../cubits/user_balance_cubit.dart';
+import '../../../helpers/legal_links.dart';
 import '../../../helpers/ui_alert_helpers.dart';
 import '../../../widgets/action_button.dart';
 import '../../../widgets/squared_bzc_svg_image.dart';
@@ -457,39 +456,36 @@ class _LoadBottomSheetModalState extends State<LoadBottomSheetModal> {
               LocaleKeys.wallet_module_buy_beatzcoins_page_modal_warning1.tr(),
               style: TextStyle(fontSize: 12, color: Color(0xFF181818)),
             ),  */
-            const SizedBox(height: 10),
-            Center(
-              child: Text.rich(
-                textAlign: TextAlign.center,
-                TextSpan(
-                  text: LocaleKeys
-                      .wallet_module_buy_beatzcoins_page_modal_warning2a
-                      .tr(),
-                  style:
-                      const TextStyle(fontSize: 12, color: Color(0xFF181818)),
-                  children: [
-                    TextSpan(
-                      text: LocaleKeys
-                          .wallet_module_buy_beatzcoins_page_modal_warning2b
-                          .tr(),
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: colorScheme.primary,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          launchUrl(
-                            Uri.parse(
-                              'https://legal.bantubeat.com/bantubeat/help-center?index=12',
-                            ),
-                            mode: LaunchMode.externalApplication,
-                          );
-                        },
+            if (LegalLinks.isAvailable) ...[
+              const SizedBox(height: 10),
+              Center(
+                child: Text.rich(
+                  textAlign: TextAlign.center,
+                  TextSpan(
+                    text: LocaleKeys
+                        .wallet_module_buy_beatzcoins_page_modal_warning2a
+                        .tr(),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFF181818),
                     ),
-                  ],
+                    children: [
+                      LegalLinks.span(
+                        context,
+                        WalletLegalDoc.beatzcoins,
+                        text: LocaleKeys
+                            .wallet_module_buy_beatzcoins_page_modal_warning2b
+                            .tr(),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: colorScheme.primary,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ],
         ),
       ),

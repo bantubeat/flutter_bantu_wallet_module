@@ -267,7 +267,7 @@ class DepositController extends ScreenController
           );
         }
 
-        payWithBantubeat(context, EPaymentMethod.flutterwave, amount, currency);
+        payWithBantubeat(context, EPaymentMethod.flutterwave, _total, currency);
       }
     } catch (e) {
       if (e is MyHttpException) {

@@ -14,11 +14,9 @@ import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/with
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screen_controller/flutter_screen_controller.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
-import '../../../../core/network/api_constants.dart';
 
 import '../../../domain/entities/user_entity.dart';
 import '../../../domain/entities/user_balance_entity.dart';

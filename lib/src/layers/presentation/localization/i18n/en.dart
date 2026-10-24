@@ -66,7 +66,8 @@ const Map<String, dynamic> langMap = {
     "wallets_page": {
       "title": "Wallet",
       "description":
-          "In your wallet, you have a payment account that displays your account balance in monetary value and a Beatzcoin account that displays your Beatzcoin balance. All payments made on the platform are made with your Beatzcoin tokens. To make a purchase on the platform, you must first fund your payment account.\nIf the balance of your Beatzcoin account does not cover the full amount of the renewals, your platform access will be canceled. Learn more about the ",
+          "In your wallet, you have a payment account that displays your account balance in monetary value and a Beatzcoin account that displays your Beatzcoin balance. All payments made on the platform are made with your Beatzcoin tokens. To make a purchase on the platform, you must first fund your payment account.\nIf the balance of your Beatzcoin account does not cover the full amount of the renewals, your platform access will be canceled.",
+      "description_link_intro": " Learn more about the ",
       "description2": "Featlink payment policy and conditions",
       "financier_account": {
         "title": "Payment Account",
@@ -82,8 +83,9 @@ const Map<String, dynamic> langMap = {
         "description2":
             "You can exchange your tokens, the equivalent amount will be deposited into your payment account.",
         "description3":
-            "Please note that when you exchange your Beatzcoin tokens, fees and taxes are deducted. See the ",
-        "description4": "Featlink payment policy and conditions.",
+            "Please note that when you exchange your Beatzcoin tokens, fees and taxes are deducted.",
+        "description3_link_intro": " See the ",
+        "description4": "Beatzcoins and Virtual Items Policy",
         "minimum_bzc": "minimum {{min_quantity}} BZC",
         "exchange": "Exchange",
         "exchange_successful": "Beatzcoins exchanged successfully!"
@@ -107,8 +109,9 @@ const Map<String, dynamic> langMap = {
       "warning2_link": "Terms and Conditions",
       "warning3_and": " and ",
       "warning4_link": "privacy policy",
-      "warning5_google_play":
-          " of Featlink apply. Google Play may also ask you to accept additional terms."
+      "warning5_google_play": " of Featlink apply.",
+      "warning6_google_play":
+          " Google Play may also ask you to accept additional terms."
     },
     "withdrawal_page": {
       "title": "Withdrawal",
@@ -117,7 +120,8 @@ const Map<String, dynamic> langMap = {
       "description1":
           "Note: Payment requests can be made at any time. Please allow an average of 15 days for the funds to be received in your account.",
       "description2":
-          "In accordance with European Union laws, we must verify your identity before any payment. See ",
+          "In accordance with European Union laws, we must verify your identity before any payment.",
+      "description2_link_intro": " See the ",
       "description3": "Featlink payment policy and conditions",
       "financial_account_balance": "Your Payment account balance",
       "see_details": "See details",
@@ -132,8 +136,8 @@ const Map<String, dynamic> langMap = {
       "title":
           "Buy Beatzcoins to enjoy premium features of the platform and other Featlink applications",
       "description":
-          "BeatzCoin is a token usable only on FeatLink and its applications. They are used to unlock features, access premium services, and make certain purchases within the FeatLink ecosystem. Learn more about the",
-      "description2": " ",
+          "BeatzCoin is a token usable only on FeatLink and its applications. They are used to unlock features, access premium services, and make certain purchases within the FeatLink ecosystem.",
+      "description_link_intro": " Learn more about the ",
       "description3": "Terms of Purchase and Use of Beatzcoins.",
       "bzc_account_balance": "Your Beatzcoin account balance",
       "see_details": "See details",
@@ -327,8 +331,6 @@ const Map<String, dynamic> langMap = {
       "request_title": "Slip N° : {{id}}",
       "fees_warning1":
           "Please note that the transfer fees from your payment account are your responsibility and you agree to pay income taxes in your country of residence. See ",
-      "fees_warning2":
-          "Featlink terms of use, policy, and Featlink payment conditions.",
       "amount_to_withdraw_in_eur": "Amount to withdraw in €",
       "insufficient_funds": "Insufficient balance for this withdrawal",
       "resume_description1": "I, the undersigned ",
@@ -339,7 +341,8 @@ const Map<String, dynamic> langMap = {
       "use_my_bank_account": "Use my bank account",
       "use_my_mobile_account": "Use my Mobile Money account",
       "i_acceptes_fees":
-          "I accept and acknowledge that transaction fees will be my responsibility, deducted from the requested amount.",
+          "I accept and acknowledge that transaction fees will be my responsibility, deducted from the requested amount. ",
+      "i_acceptes_fees_link": "See Featlink payment policy and conditions.",
       "place_and_date1": "Done at \"",
       "place_and_date2": "\" On \"",
       "place_and_date3": "\"",

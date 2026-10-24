@@ -66,7 +66,8 @@ const Map<String, dynamic> langMap = {
     "wallets_page": {
       "title": "Porte-Feuille",
       "description":
-          "Dans votre portefeuille, vous disposez d’un compte paiement qui affiche le solde de votre compte en valeur monétaire et d’un compte Beatzcoin qui affiche le solde de vos Beatzcoins. Tous les paiements effectués sur la plateforme se font avec vos jetons Beatzcoin. Pour effectuer un achat sur la plateforme, vous devez d’abord approvisionner votre compte paiement.\nSi le solde de votre compte Beatzcoin ne couvre pas la totalité du montant des renouvellements, votre accès à la plateforme sera annulé. En savoir plus sur la ",
+          "Dans votre portefeuille, vous disposez d’un compte paiement qui affiche le solde de votre compte en valeur monétaire et d’un compte Beatzcoin qui affiche le solde de vos Beatzcoins. Tous les paiements effectués sur la plateforme se font avec vos jetons Beatzcoin. Pour effectuer un achat sur la plateforme, vous devez d’abord approvisionner votre compte paiement.\nSi le solde de votre compte Beatzcoin ne couvre pas la totalité du montant des renouvellements, votre accès à la plateforme sera annulé.",
+      "description_link_intro": " En savoir plus sur la",
       "description2": " politique et condition de paiement Featlink",
       "financier_account": {
         "title": "Compte paiement",
@@ -82,8 +83,9 @@ const Map<String, dynamic> langMap = {
         "description2":
             "Vous pouvez échanger vos jetons, le montant équivalent sera déposé sur votre compte paiement.",
         "description3":
-            "Attention, lorsque vous échangez vos jetons beatzcoin, les frais et taxes sont déduits. Voir la ",
-        "description4": "Politique et conditions de paiement Featlink.",
+            "Attention, lorsque vous échangez vos jetons beatzcoin, les frais et taxes sont déduits.",
+        "description3_link_intro": " Voir la ",
+        "description4": "Politique des Beatzcoins et des articles virtuels",
         "minimum_bzc": "minimum {{min_quantity}} BZC",
         "exchange": "Echanger",
         "exchange_successful": "Beatzcoin échangés avec succès !"
@@ -108,8 +110,9 @@ const Map<String, dynamic> langMap = {
       "warning2_link": "Les conditions générales",
       "warning3_and": " et ",
       "warning4_link": "la politique de confidentialité",
-      "warning5_google_play":
-          " de Featlink s'appliquent. Google play peut également vous demander d'accepter des conditions supplémentaires."
+      "warning5_google_play": " de Featlink s'appliquent.",
+      "warning6_google_play":
+          " Google play peut également vous demander d'accepter des conditions supplémentaires."
     },
     "withdrawal_page": {
       "title": "Retrait",
@@ -118,7 +121,8 @@ const Map<String, dynamic> langMap = {
       "description1":
           "N.B. Les demandes de paiement Peuvent s’éffectuer à tout moment. comptez en moyenne 15 jours pour la réception des fonds sur votre compte. ",
       "description2":
-          "Conformément aux lois de l’union européenne, nous devons vérifier votre identité avant tout paiement. voir ",
+          "Conformément aux lois de l’union européenne, nous devons vérifier votre identité avant tout paiement.",
+      "description2_link_intro": " Voir la",
       "description3": " politique et condition de paiement Featlink",
       "financial_account_balance": "Solde de votre compte paiement",
       "see_details": "Voir les détails",
@@ -134,8 +138,8 @@ const Map<String, dynamic> langMap = {
       "title":
           "Acheter des beatzcoins pour profiter des fonctionnalités premium de la plateforme et des autres applications Featlink",
       "description":
-          "Le BeatzCoin est un jeton utilisable uniquement sur FeatLink et ses applications. Ils servent à débloquer des fonctionnalités, accéder à des services premium et effectuer certains achats dans l’écosystème FeatLink. En savoir plus sur les",
-      "description2": " ",
+          "Le BeatzCoin est un jeton utilisable uniquement sur FeatLink et ses applications. Ils servent à débloquer des fonctionnalités, accéder à des services premium et effectuer certains achats dans l’écosystème FeatLink.",
+      "description_link_intro": " En savoir plus sur les ",
       "description3": "Conditions d’achat et utilisation des Beatzcoins",
       "bzc_account_balance": "Solde de votre compte beatzcoin",
       "see_details": "Voir les détails",
@@ -330,8 +334,6 @@ const Map<String, dynamic> langMap = {
       "request_title": "Bordereau N° : {{id}}",
       "fees_warning1":
           "Attention les frais de tranferts de votre compte de paiement sont à votre charge et vous vous engagez à payer les taxes sur les revenus dans votre pays de résidence. voir ",
-      "fees_warning2":
-          "conditions d'utilisation Featlink, politique et conditions de paiement Featlink.",
       "amount_to_withdraw_in_eur": "Montant à retirer en €",
       "insufficient_funds": "Solde insuffisant pour ce retrait",
       "resume_description1": "Je, soussigné ",
@@ -343,7 +345,9 @@ const Map<String, dynamic> langMap = {
       "use_my_bank_account": "Utiliser mon compte bancaire",
       "use_my_mobile_account": "Utiliser mon compte Mobile Money",
       "i_acceptes_fees":
-          "J'accepte et reconnais que les frais de transaction seront à ma charge en déduction du montant demandé.",
+          "J'accepte et reconnais que les frais de transaction seront à ma charge en déduction du montant demandé. ",
+      "i_acceptes_fees_link":
+          "Voir la politique et les conditions de paiement Featlink.",
       "place_and_date1": "Fait à \"",
       "place_and_date2": "\" Le \"",
       "place_and_date3": "\"",

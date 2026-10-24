@@ -14,6 +14,7 @@ import 'package:flutter_bantu_wallet_module/src/layers/domain/use_cases/withdraw
 import 'package:flutter_bantu_wallet_module/src/layers/domain/value_objects/requests/create_withdrawal_request.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/current_user_cubit.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/user_balance_cubit.dart';
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/legal_links.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/helpers/ui_alert_helpers.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/widgets/action_button.dart';
@@ -35,7 +36,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
     return const Align(
       alignment: Alignment.centerLeft,
       child: Text(
-        'BANTUBEAT\nRue des Hiercheuses 140, 6001 Charleroi/Belgique N° entreprise : 802237609 - Tva: 0802237609 Contact@bantubeat.com\nTel: +32471307504',
+        'FEATLINK\nsupport@feat-link.com',
         textAlign: TextAlign.left,
         style: TextStyle(color: Colors.grey, fontSize: 12),
       ),
@@ -176,13 +177,31 @@ class WithdrawalRequestResumePage extends StatelessWidget {
   }
 
   List<Widget> _buildOtherTextWidgets(
+    BuildContext context,
     ColorScheme colorScheme, {
     required String fullName,
     required String country,
   }) {
     return [
-      Text(
-        LocaleKeys.wallet_module_withdrawal_process_i_acceptes_fees.tr(),
+      Text.rich(
+        TextSpan(
+          text:
+              LocaleKeys.wallet_module_withdrawal_process_i_acceptes_fees.tr(),
+          children: [
+            if (LegalLinks.isAvailable)
+              LegalLinks.span(
+                context,
+                WalletLegalDoc.payment,
+                text: LocaleKeys
+                    .wallet_module_withdrawal_process_i_acceptes_fees_link
+                    .tr(),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.primary,
+                ),
+              ),
+          ],
+        ),
         style: TextStyle(color: colorScheme.onSurface, fontSize: 14),
       ),
       const SizedBox(height: 30),
@@ -263,6 +282,7 @@ class WithdrawalRequestResumePage extends StatelessWidget {
                 _buildBankAccountInfo(colorScheme),
                 const SizedBox(height: 20),
                 ..._buildOtherTextWidgets(
+                  context,
                   colorScheme,
                   fullName: ctrl.fullName,
                   country: ctrl.countryName,

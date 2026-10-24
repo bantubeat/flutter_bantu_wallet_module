@@ -1,7 +1,6 @@
 import 'package:flutter_bantu_wallet_module/flutter_bantu_wallet_module.dart';
 import 'package:flutter_bantu_wallet_module/src/core/use_cases/use_case.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/domain/entities/user_entity.dart';
@@ -10,12 +9,12 @@ import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/curre
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/generated/locale_keys.g.dart';
 import '../../../domain/entities/token_price_entity.dart';
 import '../../../domain/entities/user_balance_entity.dart';
 import '../../cubits/user_balance_cubit.dart';
+import '../../helpers/legal_links.dart';
 import '../../widgets/action_button.dart';
 import 'widgets/beatzcoin_package_card.dart';
 import 'widgets/load_bottom_sheet_modal.dart';
@@ -96,34 +95,26 @@ class BuyBeatzcoinsPage extends StatelessWidget {
                         color: Colors.black87,
                       ),
                       children: [
-                        TextSpan(
-                          text: LocaleKeys
-                              .wallet_module_beatzcoins_page_description2
-                              .tr(),
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            height: 1.5,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold,
+                        if (LegalLinks.isAvailable) ...[
+                          TextSpan(
+                            text: LocaleKeys
+                                .wallet_module_beatzcoins_page_description_link_intro
+                                .tr(),
                           ),
-                        ),
-                        TextSpan(
-                          text: LocaleKeys
-                              .wallet_module_beatzcoins_page_description3
-                              .tr(),
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            height: 1.5,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                          LegalLinks.span(
+                            context,
+                            WalletLegalDoc.beatzcoins,
+                            text: LocaleKeys
+                                .wallet_module_beatzcoins_page_description3
+                                .tr(),
+                            style: const TextStyle(
+                              fontSize: 14.0,
+                              height: 1.5,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              launchUrlString(
-                                'https://legal.bantubeat.com/bantubeat/help-center?index=12',
-                              );
-                            },
-                        ),
+                        ],
                       ],
                     ),
                   ),

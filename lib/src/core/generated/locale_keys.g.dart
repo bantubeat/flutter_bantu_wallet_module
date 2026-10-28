@@ -64,6 +64,8 @@ abstract class  LocaleKeys {
   static const wallet_module_deposit_page_continue_payment = 'wallet_module.deposit_page.continue_payment';
   static const wallet_module_deposit_page_amount_and_currency_required = 'wallet_module.deposit_page.amount_and_currency_required';
   static const wallet_module_deposit_page_payment_done_check_account = 'wallet_module.deposit_page.payment_done_check_account';
+  static const wallet_module_deposit_page_google_pay_launch_failed = 'wallet_module.deposit_page.google_pay_launch_failed';
+  static const wallet_module_deposit_page_google_pay_payment_refused = 'wallet_module.deposit_page.google_pay_payment_refused';
   static const wallet_module_deposit_page_warning1_your_recharge = 'wallet_module.deposit_page.warning1_your_recharge';
   static const wallet_module_deposit_page_warning2_link = 'wallet_module.deposit_page.warning2_link';
   static const wallet_module_deposit_page_warning3_and = 'wallet_module.deposit_page.warning3_and';

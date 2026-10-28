@@ -81,6 +81,10 @@ const Map<String, dynamic> langMap = {
       "continue_payment": "Continue payment",
       "amount_and_currency_required": "Amount and/or currency is required",
       "payment_done_check_account": "Payment completed, check your balance",
+      "google_pay_launch_failed":
+          "The Google Pay payment could not be started. Please try again.",
+      "google_pay_payment_refused":
+          "Payment declined. Check your card in Google Pay or try another payment method.",
       "warning1_your_recharge":
           "Your recharge may be subject to additional fees due to Google's commission.",
       "warning2_link": "Terms and Conditions",

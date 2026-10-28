@@ -1,3 +1,4 @@
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/user_balance_cubit.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -48,7 +49,12 @@ class HomePage extends StatelessWidget {
               MenuItem(
                 icon: Icons.account_balance_wallet,
                 title: LocaleKeys.wallet_module_home_page_deposit.tr(),
-                onTap: Modular.get<WalletRoutes>().deposit.push,
+                onTap: () =>
+                    Modular.get<WalletRoutes>().deposit.push().then((_) {
+                  try {
+                    Modular.get<UserBalanceCubit>().fetchUserBalance();
+                  } catch (_) {}
+                }),
               ),
               const SizedBox(height: 10),
               MenuItem(

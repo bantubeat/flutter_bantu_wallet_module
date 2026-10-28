@@ -1,3 +1,4 @@
+import 'package:flutter_bantu_wallet_module/src/layers/presentation/cubits/user_balance_cubit.dart';
 import 'package:flutter_bantu_wallet_module/src/layers/presentation/localization/string_translate_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bantu_wallet_module/src/core/generated/locale_keys.g.dart';
@@ -245,6 +246,7 @@ class DepositController extends ScreenController
 
       payWithBantubeat(context, EPaymentMethod.flutterwave, amount, currency);
       // return payWithFlutterwave(context, user, currency, amount);
+      Modular.get<UserBalanceCubit>().fetchUserBalance();
     }
   }
 }

@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:pay/pay.dart';
 
 import '../../../../../layers/presentation/pages/deposit/controller/deposit_controller.dart';
+import 'google_pay_live_button.dart';
 import '../../../widgets/payments_icon_svg_image.dart';
 
 class EUPaymentOptions extends StatelessWidget {
@@ -48,68 +50,73 @@ class EUPaymentOptions extends StatelessWidget {
 
         const SizedBox(height: 16),
         // Apple Pay and Google Pay options
-        Builder(
-          builder: (context) {
-            final country = ctrl.currentUser?.pays.toUpperCase();
-            final currency = ctrl.selectedCurrencyCode?.toUpperCase();
-            // final amount = num.tryParse(ctrl.amountCtrl.text)?.toDouble();
-            if (country == null || currency == null) {
-              return const SizedBox.shrink();
-            }
+        if (Platform.isAndroid) GooglePayLiveButton(ctrl: ctrl),
+        /*
+        if (Platform.isAndroid)
+          Builder(
+            builder: (context) {
+              final country = ctrl.currentUser?.pays.toUpperCase();
+              final currency = ctrl.selectedCurrencyCode?.toUpperCase();
+              // final amount = num.tryParse(ctrl.amountCtrl.text)?.toDouble();
+              if (country == null || currency == null) {
+                return const SizedBox.shrink();
+              }
 
-            return SizedBox(
-              height: 50,
-              child: RawGooglePayButton(
-                onPressed: onGooglePay,
-                paymentConfiguration: ctrl.getGooglePaymentConfiguration(
-                  countryIso2: country,
-                  currency: currency,
+              return SizedBox(
+                height: 50,
+                child: RawGooglePayButton(
+                  onPressed: onGooglePay,
+                  paymentConfiguration: ctrl.getGooglePaymentConfiguration(
+                    countryIso2: country,
+                    currency: currency,
+                  ),
+                  cornerRadius: 8,
+                  type: GooglePayButtonType.pay,
+                  theme:
+                      Theme.of(context).colorScheme.brightness == Brightness.dark
+                          ? GooglePayButtonTheme.light
+                          : GooglePayButtonTheme.dark,
                 ),
-                cornerRadius: 8,
-                type: GooglePayButtonType.pay,
-                theme:
-                    Theme.of(context).colorScheme.brightness == Brightness.dark
-                        ? GooglePayButtonTheme.light
-                        : GooglePayButtonTheme.dark,
-              ),
-            );
-            /*
-            return GooglePayButton(
-              cornerRadius: 8,
-              height: 50,
-              paymentConfiguration: ctrl.getGooglePaymentConfiguration(
-                countryIso2: country,
-                currency: currency,
-              ),
-              paymentItems: [
-                PaymentItem(
-                  label: 'Total',
-                  amount: amount.toStringAsFixed(2),
-                  type: PaymentItemType.total,
-                  status: PaymentItemStatus.final_price,
-                ),
-              ],
-              onPaymentResult: (result) {
-                ctrl.onGooglePayResult(
-                  result,
-                  amount: amount,
-                  currency: currency,
-                );
-              },
-              buttonProvider: PayProvider.google_pay,
-              type: GooglePayButtonType.pay,
-              margin: const EdgeInsets.only(top: 15.0),
-              onError: (error) => debugPrint('Google Pay Error: $error'),
-              childOnError: const Center(child: Icon(Icons.warning)),
-              loadingIndicator: const Center(
-                child: CircularProgressIndicator.adaptive(),
-              ),
-              theme: Theme.of(context).colorScheme.brightness == Brightness.dark
-                  ? GooglePayButtonTheme.light
-                  : GooglePayButtonTheme.dark,
-            ); */
-          },
-        ),
+              );
+            },
+          ),
+        */
+        //   return GooglePayButton(
+        //     cornerRadius: 8,
+        //     height: 50,
+        //     paymentConfiguration: ctrl.getGooglePaymentConfiguration(
+        //       countryIso2: country,
+        //       currency: currency,
+        //     ),
+        //     paymentItems: [
+        //       PaymentItem(
+        //         label: 'Total',
+        //         amount: amount.toStringAsFixed(2),
+        //         type: PaymentItemType.total,
+        //         status: PaymentItemStatus.final_price,
+        //       ),
+        //     ],
+        //     onPaymentResult: (result) {
+        //       ctrl.onGooglePayResult(
+        //         result,
+        //         amount: amount,
+        //         currency: currency,
+        //       );
+        //     },
+        //     buttonProvider: PayProvider.google_pay,
+        //     type: GooglePayButtonType.pay,
+        //     margin: const EdgeInsets.only(top: 15.0),
+        //     onError: (error) => debugPrint('Google Pay Error: $error'),
+        //     childOnError: const Center(child: Icon(Icons.warning)),
+        //     loadingIndicator: const Center(
+        //       child: CircularProgressIndicator.adaptive(),
+        //     ),
+        //     theme: Theme.of(context).colorScheme.brightness == Brightness.dark
+        //         ? GooglePayButtonTheme.light
+        //         : GooglePayButtonTheme.dark,
+        //   ); */
+        //   },
+        // ),
         /*
         Row(
           children: [

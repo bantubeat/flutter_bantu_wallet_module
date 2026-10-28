@@ -11,6 +11,7 @@ import '../../../../../domain/entities/enums/e_payment_method.dart';
 import '../../../../../domain/entities/financial_transaction_entity.dart';
 import '../../../../../presentation/helpers/ui_alert_helpers.dart';
 import '../../../../../presentation/navigation/wallet_routes.dart';
+import '../../../../../presentation/cubits/user_balance_cubit.dart';
 
 mixin PayWithGoogle {
   PaymentConfiguration getGooglePaymentConfiguration({
@@ -99,6 +100,9 @@ mixin PayWithGoogle {
     );
 
     if (tx.status == EFinancialTxStatus.success) {
+      try {
+        await Modular.get<UserBalanceCubit>().fetchUserBalance();
+      } catch (_) {}
       Modular.get<WalletRoutes>().transactions.navigate();
     }
   }

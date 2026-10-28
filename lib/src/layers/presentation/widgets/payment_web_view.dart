@@ -8,6 +8,21 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../navigation/wallet_routes.dart';
 
+/// Returns null if [url] is not a deposit payment completion URL
+/// (`{API}/api/deposit-payment/completed/{uuid}`), otherwise a record
+/// holding the payment uuid (null when "unknown" or empty).
+({String? uuid})? parsePaymentCompletedUrl(String url) {
+  final uri = Uri.tryParse(url);
+  if (uri == null || !uri.path.contains('/deposit-payment/completed/')) {
+    return null;
+  }
+
+  final segments = uri.pathSegments.where((s) => s.isNotEmpty).toList();
+  final last = segments.isEmpty ? null : segments.last;
+  final isMissing = last == null || last == 'completed' || last == 'unknown';
+  return (uuid: isMissing ? null : last);
+}
+
 class PaymentWebView extends StatefulWidget {
   final String paymentUrl;
 
@@ -64,6 +79,16 @@ class _PaymentWebViewState extends State<PaymentWebView> {
             }
           },
           onNavigationRequest: (NavigationRequest request) {
+            // Check if the URL is the deposit payment completion page
+            final completed = parsePaymentCompletedUrl(request.url);
+            if (completed != null) {
+              // Navigate back to app and show transaction screen
+              Navigator.of(context).pop();
+              Modular.get<WalletRoutes>().transactions.push(completed.uuid);
+
+              return NavigationDecision.prevent;
+            }
+
             // Check if the URL is the completion URL
             if (request.url.contains('bantubeat.com/auth/login')) {
               // && request.url.contains('after-payment')) {

@@ -161,6 +161,7 @@ class WalletModule extends Module {
     i.addSingleton(UserBalanceCubit.new);
     i.addSingleton(floatingMenuBuilder, key: _floatingMenuBuilderKey);
     i.addSingleton(() => onGoToKycForm, key: _onGoToKycFormKey);
+    i.addSingleton(() => onCloseModule, key: _onCloseModule);
     i.addInstance<WalletRoutes>(_routes);
   }
 

@@ -35,12 +35,12 @@ import '../models/user_model.dart';
 /// then the second is the uri in cameCase, so GET /public/all-currencies will
 /// be  get$publicAllCurrencies.
 final class BantubeatApiDataSource {
-  final MyHttpClient _client;
-  final MyHttpClient _cachedClient;
+  final WalletHttpClient _client;
+  final WalletHttpClient _cachedClient;
 
   const BantubeatApiDataSource({
-    required MyHttpClient client,
-    required MyHttpClient cachedClient,
+    required WalletHttpClient client,
+    required WalletHttpClient cachedClient,
   })  : _client = client,
         _cachedClient = cachedClient;
 

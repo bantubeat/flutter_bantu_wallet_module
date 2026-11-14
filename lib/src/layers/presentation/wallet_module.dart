@@ -122,9 +122,9 @@ class WalletModule extends Module {
     this.legalUrlBuilder,
   }) : _routes = routes;
 
-  MyHttpClient Function() _initMyHttpClient({required bool withCache}) {
+  WalletHttpClient Function() _initWalletHttpClient({required bool withCache}) {
     return () {
-      return MyHttpClientDioImplemenation(
+      return WalletHttpClientDioImplemenation(
         baseUrl: ApiConstants.baseUrl,
         cacheEnabled: withCache,
         getAccessToken: getAccessToken,
@@ -268,9 +268,9 @@ class WalletModule extends Module {
     const withCacheKey = 'WalletModule@with_cache_key';
     i.add<bool>(() => isProduction, key: _isProductionKey);
     // Core
-    i.addSingleton<MyHttpClient>(_initMyHttpClient(withCache: false));
-    i.addSingleton<MyHttpClient>(
-      _initMyHttpClient(withCache: true),
+    i.addSingleton<WalletHttpClient>(_initWalletHttpClient(withCache: false));
+    i.addSingleton<WalletHttpClient>(
+      _initWalletHttpClient(withCache: true),
       key: withCacheKey,
     );
     i.addInstance<WalletApiKeys>(walletApiKeys);
@@ -278,8 +278,8 @@ class WalletModule extends Module {
     // Data layer dependencies
     i.addSingleton(
       () => BantubeatApiDataSource(
-        client: Modular.get<MyHttpClient>(),
-        cachedClient: Modular.get<MyHttpClient>(key: withCacheKey),
+        client: Modular.get<WalletHttpClient>(),
+        cachedClient: Modular.get<WalletHttpClient>(key: withCacheKey),
       ),
     );
 

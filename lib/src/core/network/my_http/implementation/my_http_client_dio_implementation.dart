@@ -10,10 +10,10 @@ import '../my_http_client.dart';
 import '../my_http_exceptions.dart';
 import '../my_http_response.dart';
 
-class MyHttpClientDioImplemenation extends MyHttpClient {
+class WalletHttpClientDioImplemenation extends WalletHttpClient {
   final Dio _dio;
 
-  MyHttpClientDioImplemenation({
+  WalletHttpClientDioImplemenation({
     required super.baseUrl,
     super.cacheEnabled = false,
     super.getAccessToken,
@@ -164,7 +164,7 @@ class MyHttpClientDioImplemenation extends MyHttpClient {
         )
         .catchError(
       (err) {
-        debugPrint('[MyHttpClient - error] $err');
+        debugPrint('[WalletHttpClient - error] $err');
         final dioException = err is DioException ? err : null;
         return throwMyHttpException<MyHttpResponse<T>>(
           statusCode: dioException?.response?.statusCode,
